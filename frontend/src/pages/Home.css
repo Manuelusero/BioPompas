@@ -1,0 +1,227 @@
+.frame-427321847,
+.frame-427321847 * {
+    box-sizing: border-box;
+}
+
+.frame-427321847 {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.deals-of-the-week {
+    color: var(--primary-text, #2c3e29);
+    text-align: left;
+    font-family: var(--subtitles-font-family, "ExploreMagic-Regular", sans-serif);
+    font-size: var(--subtitles-font-size, 25px);
+    line-height: var(--subtitles-line-height, 20px);
+    letter-spacing: var(--subtitles-letter-spacing, 0.01em);
+    font-weight: var(--subtitles-font-weight, 400);
+    position: relative;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.card-large {
+    border-radius: 10px;
+    align-self: stretch;
+    flex-shrink: 0;
+    height: 191px;
+    position: relative;
+    box-shadow: var(--primary-shadow-box-shadow, 0px 4px 4px 0px rgba(0, 0, 0, 0.25));
+}
+
+.group-51 {
+    position: absolute;
+    inset: 0;
+}
+
+.rectangle-5 {
+    border-radius: 10px;
+    width: 328px;
+    height: 191px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    object-fit: cover;
+}
+
+.organic-bombs {
+    color: var(--primary-text, #2c3e29);
+    text-align: center;
+    font-family: "ExploreMagic-Regular", sans-serif;
+    font-size: 35px;
+    line-height: 25px;
+    font-weight: 400;
+    position: absolute;
+    left: 195px;
+    top: 63px;
+    width: 108px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+._30-off-on-all-of-bath-bombs {
+    color: var(--primary-text, #2c3e29);
+    text-align: center;
+    font-family: "Collingar-Regular", sans-serif;
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 400;
+    position: absolute;
+    left: 189px;
+    top: 123px;
+    width: 119px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.group-50 {
+    position: absolute;
+    inset: 0;
+}
+
+.rectangle-52 {
+    border-radius: 10px;
+    width: 328px;
+    height: 191px;
+    position: absolute;
+    left: 343px;
+    top: 0px;
+    object-fit: cover;
+}
+
+.eco-cleaning {
+    color: var(--primary-text, #2c3e29);
+    text-align: center;
+    font-family: "ExploreMagic-Regular", sans-serif;
+    font-size: 35px;
+    line-height: 25px;
+    font-weight: 400;
+    position: absolute;
+    left: 530px;
+    top: 54px;
+    width: 117px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+._10-off-cleaning-products {
+    color: var(--primary-text, #2c3e29);
+    text-align: center;
+    font-family: "Collingar-Regular", sans-serif;
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 400;
+    position: absolute;
+    left: 521px;
+    top: 119px;
+    width: 135px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.group-49 {
+    position: absolute;
+    inset: 0;
+}
+
+.rectangle-53 {
+    border-radius: 10px;
+    width: 328px;
+    height: 191px;
+    position: absolute;
+    left: 686px;
+    top: 0px;
+    object-fit: cover;
+}
+
+.organic-soaps {
+    color: var(--primary-text, #2c3e29);
+    text-align: center;
+    font-family: "ExploreMagic-Regular", sans-serif;
+    font-size: 35px;
+    line-height: 25px;
+    font-weight: 400;
+    position: absolute;
+    left: 805px;
+    top: 59px;
+    width: 189px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.take-3-pay-2-in-all-soaps {
+    color: var(--primary-text, #2c3e29);
+    text-align: center;
+    font-family: "Collingar-Regular", sans-serif;
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 400;
+    position: absolute;
+    left: 851px;
+    top: 97px;
+    width: 98px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.group-48 {
+    position: absolute;
+    inset: 0;
+}
+
+.rectangle-54 {
+    border-radius: 10px;
+    width: 328px;
+    height: 191px;
+    position: absolute;
+    left: 1029px;
+    top: 0px;
+    object-fit: cover;
+}
+
+.skincare-rutine {
+    color: var(--primary-text, #2c3e29);
+    text-align: center;
+    font-family: "ExploreMagic-Regular", sans-serif;
+    font-size: 35px;
+    line-height: 25px;
+    font-weight: 400;
+    position: absolute;
+    left: 1226px;
+    top: 47px;
+    width: 111px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.all-brushs-half-price {
+    color: var(--primary-text, #2c3e29);
+    text-align: center;
+    font-family: "Collingar-Regular", sans-serif;
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 400;
+    position: absolute;
+    left: 1233px;
+    top: 103px;
+    width: 98px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

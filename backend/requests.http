@@ -1,0 +1,8 @@
+### Eliminar todos los productos
+DELETE http://localhost:5000/api/products/delete-all
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTA5MGY4YzBjM2U1MDAwZjJmNWUzZCIsImlhdCI6MTc0Mjc3MDQ5NCwiZXhwIjoxNzQyODU2ODk0fQ.k-I-bsL_BQpOxi-geO0HiSrUlFiftMYFOSe3Yb7_380
+### Cargar productos desde JSON
+POST http://localhost:5000/api/products/bulk-create
+
+### Verificar que los productos fueron actualizados
+GET http://localhost:5000/api/products
