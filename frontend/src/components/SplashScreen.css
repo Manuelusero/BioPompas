@@ -1,0 +1,116 @@
+/* Mobile first: 360x800 base */
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #f6f6f6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    min-width: 360px;
+    min-height: 800px;
+    width: 100vw;
+    height: 100vh;
+}
+
+.splash-logo {
+    margin-bottom: 24px;
+}
+
+.logo-placeholder {
+    width: 360px;
+    height: 117.69px;
+    background: none;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #3a5a40;
+    font-weight: bold;
+    box-shadow: none;
+    overflow: visible;
+}
+
+.splash-logo img {
+    width: 80px;
+    height: auto;
+    display: block;
+}
+
+.splash-typewriter {
+    font-size: 1.3rem;
+    color: #3a5a40;
+    font-family: 'ExploreMagic', 'Courier New', Courier, monospace;
+    min-height: 2rem;
+    letter-spacing: 1.5px;
+    text-align: center;
+}
+
+.splash-typewriter-final {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    margin-top: 0.5em;
+}
+
+.word-final {
+    font-size: 20px;
+    color: #3a5a40;
+    font-family: 'ExploreMagic', 'Courier New', Courier, monospace;
+    line-height: 1.2;
+    font-weight: 500;
+
+}
+
+.splash-cursor {
+    display: inline-block;
+    width: 1ch;
+    animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Responsive: pantallas grandes */
+@media (min-width: 600px) {
+    .splash-screen {
+        min-width: 400px;
+        min-height: 900px;
+    }
+
+    .logo-placeholder {
+        width: 120px;
+        height: 120px;
+        font-size: 2rem;
+    }
+
+    .splash-logo img {
+        width: 120px;
+    }
+
+    .splash-typewriter {
+        font-size: 2rem;
+        min-height: 2.5rem;
+    }
+
+    .word-final {
+        font-size: 2rem;
+    }
+}

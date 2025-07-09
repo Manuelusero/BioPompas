@@ -1,0 +1,9 @@
+::root {
+    --primary-text: #2c3e29;
+    --subtitles-font-family: "ExploreMagic", sans-serif;
+    --subtitles-font-size: 25px;
+    --subtitles-line-height: 20px;
+    --subtitles-letter-spacing: 0.01em;
+    --subtitles-font-weight: 400;
+    --primary-shadow-box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
