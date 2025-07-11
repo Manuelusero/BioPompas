@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Bamboo Toothbrush",
+        "image": "/uploads/toothBamboo.svg",
+        "price": 5.00
+    },
+    {
+        "name": "Cleaning Brush",
+        "image": "/uploads/cleaningBrush.svg",
+        "price": 6.00
+    },
+    {
+        "name": "Vanilla Soy Candle",
+        "image": "/uploads/VanillaSoyCandle.png",
+        "price": 15.00
+    },
+    {
+        "name": "Bath Bombs 1 unit",
+        "image": "/uploads/BathBombs.png",
+        "price": 8.00
+    }
+]

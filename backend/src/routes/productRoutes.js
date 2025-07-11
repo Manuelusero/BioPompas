@@ -5,7 +5,6 @@ import {
   getProductById,
   updateProduct,
   deleteProduct,
-  bulkCreateProducts,
   deleteAllProducts,
 } from '../controllers/productController.js';
 import { validateProduct } from '../middleware/validateProduct.js';
@@ -13,11 +12,8 @@ import { authenticateToken, authorizeAdmin } from '../middleware/authMiddleware.
 
 const router = express.Router();
 
-// Cargar productos en masa
-router.post('/bulk',bulkCreateProducts);
-
 // Crear un producto
-router.post('/',authenticateToken, authorizeAdmin, validateProduct, createProduct);
+router.post('/', authenticateToken, authorizeAdmin, validateProduct, createProduct);
 
 // Obtener todos los productos
 router.get('/', getProducts);
@@ -26,13 +22,13 @@ router.get('/', getProducts);
 router.get('/:id', getProductById);
 
 // Actualizar un producto
-router.put('/:id',authenticateToken, authorizeAdmin, validateProduct, updateProduct);
+router.put('/:id', authenticateToken, authorizeAdmin, validateProduct, updateProduct);
 
 // Eliminar un producto
-router.delete('/:id',authenticateToken, authorizeAdmin, deleteProduct);
+router.delete('/:id', authenticateToken, authorizeAdmin, deleteProduct);
 
 // Eliminar todos los productos
-router.delete('/all',authenticateToken, authorizeAdmin, deleteAllProducts);
+router.delete('/all', authenticateToken, authorizeAdmin, deleteAllProducts);
 
 
 

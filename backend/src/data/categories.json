@@ -1,0 +1,37 @@
+[
+    {
+        "name": "COSMETICS",
+        "image": "/uploads/Cleaning.svg",
+        "url": "/category/bath"
+    },
+    {
+        "name": "CLEANING",
+        "image": "/uploads/Cleaning.svg",
+        "url": "/category/soaps"
+    },
+    {
+        "name": "BATH",
+        "image": "/uploads/Cleaning.svg",
+        "url": "/category/candles"
+    },
+    {
+        "name": "CANDLES",
+        "image": "/uploads/Cleaning.svg",
+        "url": "/category/brushes"
+    },
+    {
+        "name": "KITCHEN",
+        "image": "/uploads/Cleaning.svg",
+        "url": "/category/hair"
+    },
+    {
+        "name": "REFILLABLES",
+        "image": "/uploads/Cleaning.svg",
+        "url": "/category/cleaning"
+    },
+    {
+        "name": "GIFT BUNDLES",
+        "image": "/uploads/Cleaning.svg",
+        "url": "/category/accessories"
+    }
+]

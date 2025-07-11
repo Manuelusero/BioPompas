@@ -7,6 +7,7 @@ import ForgotPassword from "./pages/ForgotPassword"
 import VerifyEmail from "./components/VerifyEmail"
 import Products from "./pages/Products"
 import SplashScreen from "./components/SplashScreen"
+import GiftBundles from "./pages/GiftBundles"
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -22,6 +23,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/gift-bundles" element={<GiftBundles />} />
       </Routes>
     </Router>
   )
