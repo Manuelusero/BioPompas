@@ -11,6 +11,8 @@ const Home = () => {
     const [topPicks, setTopPicks] = useState([]);
     const [categories, setCategories] = useState([]);
     const [giftBundles, setGiftBundles] = useState([]);
+    const [blogs, setBlogs] = useState([]);
+    const [ecoBottles, setEcoBottles] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
@@ -52,10 +54,28 @@ const Home = () => {
                 console.error("Error al obtener gift bundles:", error);
             }
         };
+        const fetchBlogs = async () => {
+            try {
+                const response = await axios.get("http://localhost:5001/api/blogs");
+                setBlogs(response.data);
+            } catch (error) {
+                console.error("Error al obtener blogs:", error);
+            }
+        };
+        const fetchEcoBottles = async () => {
+            try {
+                const response = await axios.get("http://localhost:5001/api/eco-bottles");
+                setEcoBottles(response.data);
+            } catch (error) {
+                console.error("Error al obtener eco bottles:", error);
+            }
+        };
         fetchProducts();
         fetchTopPicks();
         fetchCategories();
         fetchGiftBundles();
+        fetchBlogs();
+        fetchEcoBottles();
     }, []);
 
     return (
@@ -151,6 +171,46 @@ const Home = () => {
                 </div>
             </section>
             {/* Fin sección Gift Bundles */}
+
+            {/* Sección Eco Blog */}
+            <section className="eco-blog-section">
+                <div className="eco-blog-header">
+                    <h2 className="eco-blog-title">Eco Blog <span className="eco-blog-sub">(Tips for a sustainable life)</span></h2>
+                </div>
+                <div className="eco-blog-scroll">
+                    {blogs.map((blog) => (
+                        <Link to={`/eco-blog/${blog.slug}`} className="eco-blog-card" key={blog._id}>
+                            <img src={`http://localhost:5001${blog.image}`} alt={blog.title} />
+                            <div className="eco-blog-info">
+                                <div className="eco-blog-title-card">{blog.title}</div>
+                                <div className="eco-blog-summary">{blog.summary}</div>
+                            </div>
+                        </Link>
+                    ))}
+                </div>
+            </section>
+            {/* Fin sección Eco Blog */}
+
+            {/* Sección Eco Bottles */}
+            <section className="eco-bottles-section">
+                <div className="eco-bottles-header">
+                    <h2 className="eco-bottles-title">Eco Bottles</h2>
+                </div>
+                <div className="eco-bottles-scroll">
+                    {ecoBottles.map((bottle) => (
+                        <div className="eco-bottle-card" key={bottle._id}>
+                            <img src={`http://localhost:5001${bottle.image}`} alt={bottle.name} />
+                            <div className="eco-bottle-info">
+                                <div className="eco-bottle-name">{bottle.name}</div>
+                                <div className="eco-bottle-price">
+                                    {bottle.price.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+            {/* Fin sección Eco Bottles */}
         </div>
     );
 };

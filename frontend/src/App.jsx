@@ -8,6 +8,8 @@ import VerifyEmail from "./components/VerifyEmail"
 import Products from "./pages/Products"
 import SplashScreen from "./components/SplashScreen"
 import GiftBundles from "./pages/GiftBundles"
+import EcoBlog from "./pages/EcoBlog"
+import EcoBlogDetail from "./pages/EcoBlogDetail"
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -24,6 +26,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/gift-bundles" element={<GiftBundles />} />
+        <Route path="/eco-blog" element={<EcoBlog />} />
+        <Route path="/eco-blog/:slug" element={<EcoBlogDetail />} />
       </Routes>
     </Router>
   )

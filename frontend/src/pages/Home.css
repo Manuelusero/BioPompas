@@ -441,3 +441,180 @@ h2 {
 .top-picks-header .see-all-link a:hover {
     color: #588157;
 }
+
+.eco-blog-section {
+    margin: 32px 0 16px 0;
+}
+
+.eco-blog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 12px 10px 12px;
+}
+
+.eco-blog-title {
+    font-family: 'Explore Magic', cursive;
+    font-size: 1.5rem;
+    color: #3a5a40;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.eco-blog-sub {
+    font-family: 'Raleway', Arial, sans-serif;
+    font-size: 1rem;
+    color: #588157;
+    font-weight: 400;
+    margin-left: 8px;
+}
+
+.eco-blog-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 8px 0 8px 12px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.eco-blog-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.eco-blog-card {
+    min-width: 220px;
+    max-width: 260px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px 0 rgba(60, 60, 60, 0.10), 4px 4px 16px 0 rgba(60, 60, 60, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    transition: box-shadow 0.2s, transform 0.2s;
+    cursor: pointer;
+    overflow: hidden;
+    aspect-ratio: 1/1.1;
+}
+
+.eco-blog-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 14px 14px 0 0;
+    display: block;
+}
+
+.eco-blog-info {
+    padding: 12px 10px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.eco-blog-title-card {
+    font-family: 'Raleway', Arial, sans-serif;
+    font-weight: 700;
+    color: #222;
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+}
+
+.eco-blog-summary {
+    font-family: 'Raleway', Arial, sans-serif;
+    font-weight: 400;
+    color: #666;
+    font-size: 0.97rem;
+    text-align: left;
+}
+
+.eco-bottles-section {
+    margin: 32px 0 16px 0;
+}
+
+.eco-bottles-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 12px 10px 12px;
+}
+
+.eco-bottles-title {
+    font-family: 'Explore Magic', cursive;
+    font-size: 1.5rem;
+    color: #3a5a40;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.eco-bottles-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+    padding: 8px 0 8px 12px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.eco-bottles-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.eco-bottle-card {
+    min-width: 110px;
+    max-width: 120px;
+    background: none;
+    border-radius: 10px;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    transition: box-shadow 0.2s;
+    cursor: pointer;
+    overflow: visible;
+    aspect-ratio: 1/1.2;
+}
+
+.eco-bottle-card img {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px 0 rgba(60, 60, 60, 0.10), 4px 4px 12px 0 rgba(60, 60, 60, 0.08);
+    background: #fff;
+    display: block;
+}
+
+.eco-bottle-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 6px;
+    margin-bottom: 8px;
+}
+
+.eco-bottle-name {
+    font-family: 'Raleway', Arial, sans-serif;
+    font-weight: 600;
+    color: #222;
+    font-size: 0.95rem;
+    text-align: center;
+    margin: 0;
+}
+
+.eco-bottle-price {
+    font-family: 'Raleway', Arial, sans-serif;
+    font-weight: 400;
+    color: #3a5a40;
+    font-size: 0.95rem;
+    text-align: center;
+    margin: 0;
+}
+
+.eco-bottle-card:hover {
+    box-shadow: 0 8px 20px 0 rgba(60, 60, 60, 0.16), 8px 8px 20px 0 rgba(60, 60, 60, 0.12);
+}
