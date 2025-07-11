@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import "./SplashScreen.css";
 
-const words = ["Reduce.", "Refill.", "Recycle."];
+const words = ["Reduce.","Refill.","Recycle."];
 
 export default function SplashScreen({ onFinish }) {
   const [typedWords, setTypedWords] = useState([""]);

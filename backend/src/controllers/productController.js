@@ -1,10 +1,5 @@
-import fs from 'fs';
-import path from 'path';
 import Product from '../models/Product.js';
 import mongoose from 'mongoose';
-
-// Ruta del archivo JSON de productos
-const dataPath = path.join(process.cwd(), 'src', 'data', 'products.json');
 
 // Crear un nuevo producto
 export const createProduct = async (req, res) => {
@@ -105,56 +100,12 @@ export const deleteProduct = async (req, res) => {
   }
 };
 
-// Carga masiva de productos desde un archivo JSON
-export const bulkCreateProducts = async (req, res) => {
-  try {
-    console.log("Cargando productos desde JSON...");
-
-    if (!fs.existsSync(dataPath)) {
-      return res.status(400).json({ error: 'El archivo JSON no existe' });
-    }
-
-    // Leer archivo JSON
-    const rawData = fs.readFileSync(dataPath, 'utf-8');
-    const products = JSON.parse(rawData);
-
-    if (!Array.isArray(products) || products.length === 0) {
-      return res.status(400).json({ error: 'El archivo JSON debe contener un array de productos' });
-    }
-
-    // Eliminar productos existentes antes de insertar nuevos
-    await Product.deleteMany({});
-    console.log("Productos eliminados de la base de datos");
-
-    // Formatear productos para MongoDB
-    const formattedProducts = products.map(product => ({
-      name: product.name,
-      description: product.description,
-      price: product.price,
-      category: product.category,
-      stock: product.stock,
-      url: product.url || product.image || null,
-      isFeatured: product.isFeatured || false
-    }));
-
-    // Insertar productos en MongoDB
-    await Product.insertMany(formattedProducts);
-    console.log("Productos cargados exitosamente");
-
-    res.status(201).json({ message: 'Productos agregados correctamente' });
-  } catch (error) {
-    console.error('Error al cargar productos:', error);
-    res.status(500).json({ error: 'Error al cargar productos' });
-  }
-};
-
 // Eliminar todos los productos
-export const deleteAllProducts = async (req, res) => {
+export const deleteAllProducts = async () => {
   try {
-    await Product.deleteMany({});
-    res.status(200).json({ message: 'Todos los productos han sido eliminados' });
+    await Product.deleteMany();
+    console.log('🗑️ Todos los productos han sido eliminados');
   } catch (error) {
     console.error('Error al eliminar todos los productos:', error);
-    res.status(500).json({ error: 'Error al eliminar los productos' });
   }
 };

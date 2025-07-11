@@ -2,7 +2,10 @@ import mongoose from 'mongoose';
 
 const productSchema = new mongoose.Schema(
   {
-  
+    id: {
+      type: Number,
+      auto: false,
+    },
     name: {
       type: String,
       required: true,
@@ -27,11 +30,14 @@ const productSchema = new mongoose.Schema(
       min: 0,
     },
     url: {
-      type: String, 
+      type: String,
+    },
+    image: {
+      type: String,
     },
     isFeatured: {
       type: Boolean,
-      required: true,
+      default: false,
     },
   },
   { timestamps: true }
