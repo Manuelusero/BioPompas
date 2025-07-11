@@ -1,0 +1,27 @@
+[
+    {
+        "name": "Classic Eco Bottle",
+        "image": "/uploads/ecoBottle1.png",
+        "price": 12.99
+    },
+    {
+        "name": "Thermo Bamboo Bottle",
+        "image": "/uploads/ecoBottle2.png",
+        "price": 18.99
+    },
+    {
+        "name": "Kids Fun Bottle",
+        "image": "/uploads/ecoBottle3.png",
+        "price": 10.99
+    },
+    {
+        "name": "Sporty Glass Bottle",
+        "image": "/uploads/ecoBottle4.png",
+        "price": 15.99
+    },
+    {
+        "name": "Urban Steel Bottle",
+        "image": "/uploads/ecoBottle5.png",
+        "price": 16.99
+    }
+]

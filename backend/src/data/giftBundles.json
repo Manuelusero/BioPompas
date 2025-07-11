@@ -1,32 +1,32 @@
 [
     {
         "name": "Relax & Pamper Set",
-        "image": "/uploads/gift1.png",
+        "image": "/uploads/cleaningBrush.svg",
         "price": 29.99
     },
     {
         "name": "Eco Starter Pack",
-        "image": "/uploads/gift2.png",
+        "image": "/uploads/cleaningBrush.svg",
         "price": 24.99
     },
     {
         "name": "Family Care Bundle",
-        "image": "/uploads/gift3.png",
+        "image": "/uploads/cleaningBrush.svg",
         "price": 34.99
     },
     {
         "name": "Mini Spa Kit",
-        "image": "/uploads/gift4.png",
+        "image": "/uploads/cleaningBrush.svg",
         "price": 19.99
     },
     {
         "name": "Zero Waste Essentials",
-        "image": "/uploads/gift5.png",
+        "image": "/uploads/cleaningBrush.svg",
         "price": 27.99
     },
     {
         "name": "Kids Fun Pack",
-        "image": "/uploads/gift6.png",
+        "image": "/uploads/cleaningBrush.svg",
         "price": 22.99
     }
 ]

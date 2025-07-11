@@ -1,0 +1,20 @@
+[
+    {
+        "title": "10 Easy Swaps for a Greener Home",
+        "image": "/uploads/ecoBlog1.jpg",
+        "summary": "Simple changes you can make today to reduce your environmental impact at home.",
+        "slug": "10-easy-swaps-for-a-greener-home"
+    },
+    {
+        "title": "How to Start Composting in Small Spaces",
+        "image": "/uploads/ecoBlog2.jpg",
+        "summary": "No garden? No problem! Tips for composting in apartments and small homes.",
+        "slug": "how-to-start-composting-in-small-spaces"
+    },
+    {
+        "title": "Sustainable Shopping: What to Look For",
+        "image": "/uploads/ecoBlog3.jpg",
+        "summary": "A quick guide to making better choices when buying everyday products.",
+        "slug": "sustainable-shopping-what-to-look-for"
+    }
+]
