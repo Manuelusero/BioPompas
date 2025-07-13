@@ -1,32 +1,32 @@
 [
     {
-        "name": "Relax & Pamper Set",
-        "image": "/uploads/cleaningBrush.svg",
-        "price": 29.99
+        "name": "Bath Bombs Set",
+        "image": "/uploads/BathBombSet.png",
+        "price": 15.00
     },
     {
-        "name": "Eco Starter Pack",
-        "image": "/uploads/cleaningBrush.svg",
-        "price": 24.99
+        "name": "Marine Set",
+        "image": "/uploads/MarineSet.png",
+        "price": 21.00
     },
     {
-        "name": "Family Care Bundle",
-        "image": "/uploads/cleaningBrush.svg",
-        "price": 34.99
+        "name": "Bodycare Set-Small",
+        "image": "/uploads/BodycareSetSmall.png",
+        "price": 10.00
     },
     {
-        "name": "Mini Spa Kit",
-        "image": "/uploads/cleaningBrush.svg",
-        "price": 19.99
+        "name": "Bodycare Basket",
+        "image": "/uploads/BodycareBasket.png",
+        "price": 35.00
     },
     {
-        "name": "Zero Waste Essentials",
-        "image": "/uploads/cleaningBrush.svg",
-        "price": 27.99
+        "name": "Bath Spa Set",
+        "image": "/uploads/BathSpaSet.png",
+        "price": 30.00
     },
     {
-        "name": "Kids Fun Pack",
-        "image": "/uploads/cleaningBrush.svg",
-        "price": 22.99
+        "name": "Organic Soap Trio",
+        "image": "/uploads/OrganicSoapTrio.png",
+        "price": 10.00
     }
 ]

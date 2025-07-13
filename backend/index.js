@@ -10,6 +10,8 @@ import categoryRoutes from "./src/routes/categoryRoutes.js";
 import giftBundleRoutes from "./src/routes/giftBundleRoutes.js";
 import blogRoutes from "./src/routes/blogRoutes.js";
 import ecoBottleRoutes from "./src/routes/ecoBottleRoutes.js";
+import ecoSouvenirRoutes from "./src/routes/ecoSouvenirRoutes.js";
+import ourStoreRoutes from "./src/routes/ourStoreRoutes.js";
 import cors from "cors";
 import { errorHandler } from "./src/middleware/errorMiddleware.js";
 import path from 'path';
@@ -35,6 +37,8 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/gift-bundles', giftBundleRoutes);
 app.use('/api/blogs', blogRoutes);
 app.use('/api/eco-bottles', ecoBottleRoutes);
+app.use('/api/eco-souvenirs', ecoSouvenirRoutes);
+app.use('/api/our-store', ourStoreRoutes);
 app.use('/uploads', express.static(path.join(process.cwd(), 'src/uploads')));
 
 

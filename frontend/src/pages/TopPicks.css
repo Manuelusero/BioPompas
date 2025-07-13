@@ -1,0 +1,128 @@
+.toppicks-page {
+    max-width: 420px;
+    margin: 0 auto;
+    background: #fff;
+    /* fondo clarito, igual que el resto de la app */
+    border-radius: 18px;
+    box-shadow: none;
+    padding: 0 0 32px 0;
+    min-height: 100vh;
+    position: relative;
+}
+
+.toppicks-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin: 0 0 20px 0;
+    background: none;
+    border-radius: 18px 18px 0 0;
+    box-shadow: none;
+    padding: 24px 18px 12px 18px;
+    position: relative;
+}
+
+.toppicks-title {
+    font-family: 'Explore Magic', cursive;
+    font-size: 2rem;
+    color: #3a5a40;
+    margin: 0 auto;
+    letter-spacing: 1px;
+    flex: none;
+    text-align: center;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.toppicks-seeall {
+    margin-left: auto;
+    align-self: flex-end;
+    font-family: 'Explore Magic', cursive;
+    font-size: 1.1rem;
+    color: #3a5a40;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.toppicks-seeall:hover {
+    color: #588157;
+}
+
+.toppicks-back {
+    width: 38px;
+    height: 38px;
+    background: #3a5a40;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px #0002;
+    text-decoration: none;
+}
+
+.toppicks-back .arrow-icon {
+    color: #fff;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.toppicks-cart {
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+}
+
+.toppicks-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 12px;
+    justify-content: center;
+    padding: 24px 12px 0 12px;
+}
+
+.toppick-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px 0 rgba(60, 60, 60, 0.10);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    max-width: 180px;
+    margin-bottom: 8px;
+    padding: 10px 8px 14px 8px;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+
+.toppick-card img {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px 0 rgba(60, 60, 60, 0.10);
+    background: #fff;
+    display: block;
+}
+
+.toppick-name {
+    font-family: 'Raleway', Arial, sans-serif;
+    font-weight: 600;
+    color: #222;
+    font-size: 1rem;
+    text-align: center;
+    margin: 10px 0 2px 0;
+}
+
+.toppick-price {
+    font-family: 'Raleway', Arial, sans-serif;
+    font-weight: 400;
+    color: #3a5a40;
+    font-size: 1rem;
+    text-align: center;
+    margin: 0;
+}
