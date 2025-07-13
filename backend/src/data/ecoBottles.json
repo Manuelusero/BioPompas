@@ -1,27 +1,22 @@
 [
     {
-        "name": "Classic Eco Bottle",
-        "image": "/uploads/ecoBottle1.png",
-        "price": 12.99
+        "name": "Stainless Bottle 1 lt.",
+        "image": "/uploads/Stainless1.png",
+        "price": 12.00
     },
     {
-        "name": "Thermo Bamboo Bottle",
-        "image": "/uploads/ecoBottle2.png",
-        "price": 18.99
+        "name": "Water Bottle 0,5 lt.",
+        "image": "/uploads/ColorBottle.png",
+        "price": 9.00
     },
     {
-        "name": "Kids Fun Bottle",
-        "image": "/uploads/ecoBottle3.png",
+        "name": "Deco Bottle 0,75 ml.",
+        "image": "/uploads/DecoBottle.png",
         "price": 10.99
     },
     {
-        "name": "Sporty Glass Bottle",
-        "image": "/uploads/ecoBottle4.png",
+        "name": "Stainless Therm 1 lt.",
+        "image": "/uploads/StainlessTherm.png",
         "price": 15.99
-    },
-    {
-        "name": "Urban Steel Bottle",
-        "image": "/uploads/ecoBottle5.png",
-        "price": 16.99
     }
 ]

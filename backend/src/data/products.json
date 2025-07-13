@@ -8,18 +8,18 @@
     "stock": 50,
     "url": "https://s3-alpha-sig.figma.com/img/7e49/6bd5/62a6f4e71e3a7ca2e541db14846ccad2?Expires=1743379200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=B9wwAgiS9hIlZwkwIGYS59~2CdaQwu~2~mInWjpZ-HH7bBd4Ajdq8Bmb2ffKTeTmTzfqXv-I5J1z7SaSl17th6z2H9y2~gRwC-jcDrRpUYXyicIvcx579xPsnpMUYGjJUcMY4pSIBxqB47kJgTIIgww5WVRc6m2r3RL~iLH5FTkCEKblANQsMlViKKkqF9mZL~JQ3424oqNvW7COESHbQ5RkmnAps9xz48ytihi8Ya5ZfeulhdeBkJrC0ar5yXFWtM7ngRGzQEqODTTYrgfYE07FiLNP2QNEfyHsfe~xi-W0W5W7730W~OJuM37BmS--aOzIAXXi1WyG~wuUbAQR5Q__",
     "isFeatured": true,
-    "image": "/uploads/Group51.svg"
+    "image": "/uploads/OrganicBombs.svg"
   },
   {
     "id": 2,
-    "name": "Jabon de Coco/Rosas - 2u",
+    "name": "ECO CLEANING",
     "description": "ECO CLEANING",
     "price": 7.00,
     "category": "Jabones",
     "stock": 50,
     "url": "/uploads/Rectangle12.png",
     "isFeatured": true,
-    "image": "/uploads/Rectangle5.svg"
+    "image": "/uploads/EcoCleaning.png"
   },
   {
     "id": 3,
@@ -29,79 +29,16 @@
     "category": "Jabones",
     "stock": 50,
     "isFeatured": true,
-    "image": "/uploads/Rectangle5.svg"
+    "image": "/uploads/OrganicSoaps.png"
   },
   {
-    "name": "sgsgsgs",
+    "name": "SKINCARE SOAPS",
     "id": 4,
     "description": "Jabón Orgánico de Menta",
     "price": 5.00,
     "category": "Jabones",
     "stock": 50,
     "isFeatured": true,
-    "image": "/uploads/Rectangle5.svg"
-  },
-  {
-    "id": 5,
-    "name": "Jabón Orgánico Trio",
-    "description": "Jabón Orgánico Trio",
-    "price": 15.00,
-    "category": "Jabones",
-    "stock": 50,
-    "image": "/uploads/Rectangle5.svg"
-  },
-  {
-    "id": 6,
-    "name": "Barra de Champú Aromático",
-    "description": "Champú sólido con fragancia natural y aceites esenciales.",
-    "price": 9.00,
-    "category": "Cabello",
-    "stock": 30,
-    "image": "/uploads/Rectangle5.svg"
-  },
-  {
-    "id": 7,
-    "name": "Cepillo de Bambú",
-    "description": "Cepillo ecológico de bambú, biodegradable y sostenible.",
-    "price": 5.00,
-    "category": "Accesorios",
-    "stock": 90,
-    "image": "/uploads/Rectangle5.svg"
-  },
-  {
-    "id": 8,
-    "name": "Vela de Soya y Vainilla",
-    "description": "Vela aromática hecha con cera de soya y esencia de vainilla.",
-    "price": 15.00,
-    "category": "Hogar",
-    "stock": 25,
-    "image": "/uploads/Rectangle5.svg"
-  },
-  {
-    "id": 9,
-    "name": "Bombas de Baño - Por unidad",
-    "description": "Bomba de baño efervescente con aceites esenciales.",
-    "price": 8.00,
-    "category": "Baño",
-    "stock": 70,
-    "image": "/uploads/Rectangle5.svg"
-  },
-  {
-    "id": 10,
-    "name": "Detergente para Lavado de Platos",
-    "description": "Detergente biodegradable para una limpieza profunda.",
-    "price": 9.00,
-    "category": "Limpieza",
-    "stock": 20,
-    "image": "/uploads/Rectangle5.svg"
-  },
-  {
-    "id": 11,
-    "name": "Set de Productos de Limpieza Ecológicos",
-    "description": "Pack con productos ecológicos para el hogar.",
-    "price": 32.00,
-    "category": "Limpieza",
-    "stock": 20,
-    "image": "/uploads/Rectangle5.svg"
+    "image": "/uploads/SkinCareRoutine.png"
   }
 ]

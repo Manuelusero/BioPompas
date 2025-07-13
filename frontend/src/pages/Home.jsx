@@ -13,6 +13,8 @@ const Home = () => {
     const [giftBundles, setGiftBundles] = useState([]);
     const [blogs, setBlogs] = useState([]);
     const [ecoBottles, setEcoBottles] = useState([]);
+    const [ecoSouvenirs, setEcoSouvenirs] = useState([]);
+    const [ourStore, setOurStore] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
@@ -70,16 +72,34 @@ const Home = () => {
                 console.error("Error al obtener eco bottles:", error);
             }
         };
+        const fetchEcoSouvenirs = async () => {
+            try {
+                const response = await axios.get("http://localhost:5001/api/eco-souvenirs");
+                setEcoSouvenirs(response.data);
+            } catch (error) {
+                console.error("Error al obtener eco souvenirs:", error);
+            }
+        };
+        const fetchOurStore = async () => {
+            try {
+                const response = await axios.get("http://localhost:5001/api/our-store");
+                setOurStore(response.data);
+            } catch (error) {
+                console.error("Error al obtener our store:", error);
+            }
+        };
         fetchProducts();
         fetchTopPicks();
         fetchCategories();
         fetchGiftBundles();
         fetchBlogs();
         fetchEcoBottles();
+        fetchEcoSouvenirs();
+        fetchOurStore();
     }, []);
 
     return (
-        <div>
+        <div className="homePage">
             <div className="logo-container">
                 <img src="/LogoSmall.svg" alt="Logo" />
                 <img src="/src/assets/Icons/Cart.svg" alt="Carrito" className="cart-icon" />
@@ -113,12 +133,12 @@ const Home = () => {
                 <div className="top-picks-header">
                     <h3 className="top-picks-title">TOP PICKS</h3>
                     <span className="see-all-link">
-                        <a href="/top-picks">SEE ALL</a>
+                        <Link to="/top-picks">SEE ALL</Link>
                     </span>
                 </div>
                 <div className="top-picks-scroll">
-                    {topPicks.map((product) => (
-                        <div className="top-pick-card" key={product._id}>
+                    {topPicks.slice(0, 4).map((product) => (
+                        <div className="top-pick-card" key={product.id}>
                             <img src={`http://localhost:5001${product.image}`} alt={product.name} />
                             <div className="top-pick-info">
                                 <div className="top-pick-name">{product.name}</div>
@@ -137,7 +157,7 @@ const Home = () => {
                 <div className="categories-header">
                     <h3 className="categories-title">CATEGORIES</h3>
                     <span className="see-all-link">
-                        <a href="/categories">SEE ALL</a>
+                        <Link to="/categories">SEE ALL</Link>
                     </span>
                 </div>
                 <div className="categories-scroll">
@@ -182,8 +202,7 @@ const Home = () => {
                         <Link to={`/eco-blog/${blog.slug}`} className="eco-blog-card" key={blog._id}>
                             <img src={`http://localhost:5001${blog.image}`} alt={blog.title} />
                             <div className="eco-blog-info">
-                                <div className="eco-blog-title-card">{blog.title}</div>
-                                <div className="eco-blog-summary">{blog.summary}</div>
+                    
                             </div>
                         </Link>
                     ))}
@@ -211,6 +230,45 @@ const Home = () => {
                 </div>
             </section>
             {/* Fin sección Eco Bottles */}
+
+            {/* Sección Eco Souvenirs */}
+            <section className="eco-souvenirs-section">
+                <div className="eco-souvenirs-header">
+                    <h2 className="eco-souvenirs-title">Eco Souvenirs</h2>
+                </div>
+                {ecoSouvenirs[0] && (
+                  <a href={ecoSouvenirs[0].buttonUrl} className="eco-souvenir-image-container">
+                      <img src={`http://localhost:5001${ecoSouvenirs[0].image}`} alt={ecoSouvenirs[0].title} />
+                  </a>
+                )}
+            </section>
+            {/* Fin sección Eco Souvenirs */}
+
+            {/* Sección Our Store */}
+            <section className="our-store-section">
+                <div className="our-store-header">
+                    <h2 className="our-store-title">Our Store</h2>
+                </div>
+                {ourStore[0] && (
+                  <a href={ourStore[0].buttonUrl} className="our-store-image-container">
+                      <img src={`http://localhost:5001${ourStore[0].image}`} alt={ourStore[0].title} />
+                  </a>
+                )}
+            </section>
+            {/* Fin sección Our Store */}
+
+            {/* NavBar inferior */}
+            <nav className="bottom-navbar">
+                <a href="#top" className="nav-icon" aria-label="Home">
+                    <img src="/src/assets/Icons/HomeIcon.png" alt="Home" />
+                </a>
+                <Link to="/search" className="nav-icon" aria-label="Search">
+                    <img src="/src/assets/Icons/SearchIcon.png" alt="Search" />
+                </Link>
+                <a href="/login" className="nav-icon" aria-label="Avatar">
+                    <img src="/src/assets/Icons/AvatarIcon.png" alt="Avatar" />
+                </a>
+            </nav>
         </div>
     );
 };

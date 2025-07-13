@@ -1,11 +1,16 @@
 .logo-container {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 200;
+    background: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
-    width: 100%;
-    min-height: 50px;
+    margin-top: 0;
+    min-height: 70px;
+    box-shadow: 0 2px 12px 0 rgba(60, 60, 60, 0.08);
 }
 
 .logo-container img:first-child {
@@ -65,10 +70,7 @@ h2 {
     /* box-shadow: 0 30px 500px 0 rgba(60, 60, 60, 0.12), 8px 8px 24px 0 rgba(60, 60, 60, 0.10); */
 }
 
-/* 
-.card:hover {
-    box-shadow: 0 16px 32px 0 rgba(60, 60, 60, 0.18), 12px 12px 32px 0 rgba(60, 60, 60, 0.15);
-} */
+
 
 .card img {
     max-width: 100%;
@@ -95,18 +97,40 @@ h2 {
     align-items: center;
     justify-content: space-between;
     margin: 0 12px 10px 12px;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    min-height: unset;
+    position: relative;
 }
 
 .top-picks-title {
-    font-family: 'Explore Magic', cursive;
-    font-size: 1.5rem;
+    font-family: 'Explore Magic';
+    font-size: 25px;
+    font-weight: 400;
+    letter-spacing: 1%;
     color: #3a5a40;
+    text-align: left;
+    flex: none;
     margin: 0;
-    letter-spacing: 1px;
+    padding-top: 0;
+    height: auto;
+    line-height: 1.2;
+    display: flex;
+    align-items: flex-end;
+}
+
+.see-all-link {
+    margin-left: 12px;
+    margin-right: 24px;
+    align-self: flex-end;
+    position: static;
+    transform: none;
 }
 
 .see-all-link a {
-    font-family: 'Explore Magic', cursive;
+    font-family: 'Explore Magic';
     font-size: 1.1rem;
     color: #3a5a40;
     text-decoration: underline;
@@ -617,4 +641,174 @@ h2 {
 
 .eco-bottle-card:hover {
     box-shadow: 0 8px 20px 0 rgba(60, 60, 60, 0.16), 8px 8px 20px 0 rgba(60, 60, 60, 0.12);
+}
+
+.eco-souvenirs-section {
+    margin: 32px 0 16px 0;
+}
+
+.eco-souvenirs-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 12px 10px 12px;
+}
+
+.eco-souvenirs-title {
+    font-family: 'Explore Magic', cursive;
+    font-size: 1.5rem;
+    color: #3a5a40;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.eco-souvenir-image-container,
+.our-store-image-container {
+    position: relative;
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px 0 rgba(60, 60, 60, 0.10), 4px 4px 16px 0 rgba(60, 60, 60, 0.08);
+    background: #fff;
+}
+
+.eco-souvenir-image-container img,
+.our-store-image-container img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    border-radius: 16px;
+}
+
+.eco-souvenir-btn {
+    position: absolute;
+    bottom: 18px;
+    right: 18px;
+    background: #3a5a40;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 22px;
+    font-family: 'Raleway', Arial, sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px #0002;
+    transition: background 0.2s;
+}
+
+.eco-souvenir-btn:hover {
+    background: #588157;
+}
+
+.our-store-section {
+    margin: 32px 0 16px 0;
+}
+
+.our-store-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 12px 10px 12px;
+}
+
+.our-store-title {
+    font-family: 'Explore Magic', cursive;
+    font-size: 1.5rem;
+    color: #3a5a40;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.our-store-image-container {
+    position: relative;
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px 0 rgba(60, 60, 60, 0.10), 4px 4px 16px 0 rgba(60, 60, 60, 0.08);
+    background: #fff;
+}
+
+.our-store-image-container img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    border-radius: 16px;
+}
+
+.our-store-btn {
+    position: absolute;
+    bottom: 18px;
+    right: 18px;
+    background: #3a5a40;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 22px;
+    font-family: 'Raleway', Arial, sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px #0002;
+    transition: background 0.2s;
+}
+
+.our-store-btn:hover {
+    background: #588157;
+}
+
+.bottom-navbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    background: #fff;
+    box-shadow: 0 -2px 16px 0 rgba(60, 60, 60, 0.10);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 62px;
+    border-radius: 18px 18px 0 0;
+    padding: 0 12px;
+    /* Asegura que esté siempre visible encima del contenido */
+}
+
+.bottom-navbar .nav-icon img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    display: block;
+}
+
+body,
+#root {
+    background: #fff;
+    /* Fondo blanco para toda la pantalla */
+    padding-top: 0;
+    padding-bottom: 80px;
+    /* Deja espacio para la navbar fija */
+}
+
+.homePage {
+    padding-top: 64px;
+    /* Ajusta este valor según la altura de tu sticky header/navbar */
+}
+
+.titulo-marca {
+    margin-top: 0;
+}
+
+@media (min-width: 700px) {
+    .bottom-navbar {
+        max-width: 420px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }

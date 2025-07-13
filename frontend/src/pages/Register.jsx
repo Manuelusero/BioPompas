@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -87,6 +86,17 @@ const Register = () => {
                 {successMessage && <div style={{ color: 'green' }}>{successMessage}</div>} {/* Muestra el mensaje de éxito */}
                 <button type="submit">Registrarse</button>
             </form>
+            <nav className="bottom-navbar">
+                <a href="/home" className="nav-icon" aria-label="Home">
+                    <img src="/src/assets/Icons/HomeIcon.png" alt="Home" />
+                </a>
+                <a href="/search" className="nav-icon" aria-label="Search">
+                    <img src="/src/assets/Icons/SearchIcon.png" alt="Search" />
+                </a>
+                <a href="/login" className="nav-icon" aria-label="Avatar">
+                    <img src="/src/assets/Icons/AvatarIcon.png" alt="Avatar" />
+                </a>
+            </nav>
         </div>
     );
 };

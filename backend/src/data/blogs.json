@@ -1,20 +1,20 @@
 [
     {
-        "title": "10 Easy Swaps for a Greener Home",
-        "image": "/uploads/ecoBlog1.jpg",
-        "summary": "Simple changes you can make today to reduce your environmental impact at home.",
-        "slug": "10-easy-swaps-for-a-greener-home"
+        "title": "REDUCE, REUSE, RECYCLE",
+        "image": "/uploads/Blogcard1.png",
+        "slug": "10-easy-swaps-for-a-greener-home",
+        "content": "Descubre 10 cambios sencillos para un hogar más ecológico. Reduce, reutiliza y recicla para un planeta más limpio.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, nisi eu consectetur..."
     },
     {
         "title": "How to Start Composting in Small Spaces",
-        "image": "/uploads/ecoBlog2.jpg",
-        "summary": "No garden? No problem! Tips for composting in apartments and small homes.",
-        "slug": "how-to-start-composting-in-small-spaces"
+        "image": "/uploads/ZeroWaste.png",
+        "slug": "how-to-start-composting-in-small-spaces",
+        "content": "Aprende a compostar aunque vivas en un departamento pequeño. Consejos prácticos para reducir residuos y crear abono natural.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, nisi eu consectetur..."
     },
     {
-        "title": "Sustainable Shopping: What to Look For",
-        "image": "/uploads/ecoBlog3.jpg",
-        "summary": "A quick guide to making better choices when buying everyday products.",
-        "slug": "sustainable-shopping-what-to-look-for"
+        "title": "Global Warming: What You Can Do",
+        "image": "/uploads/GlobalWarming.png",
+        "slug": "global-warming-what-you-can-do",
+        "content": "El cambio climático es real. Descubre acciones cotidianas que puedes tomar para combatir el calentamiento global.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, nisi eu consectetur..."
     }
 ]

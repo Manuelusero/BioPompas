@@ -1,22 +1,62 @@
 [
     {
+        "id": "1",
         "name": "Bamboo Toothbrush",
-        "image": "/uploads/toothBamboo.svg",
+        "image": "/uploads/ToothBamboo.png",
         "price": 5.00
     },
     {
+        "id": "2",
         "name": "Cleaning Brush",
-        "image": "/uploads/cleaningBrush.svg",
+        "image": "/uploads/CleaningBrush.png",
         "price": 6.00
     },
     {
+        "id": "3",
         "name": "Vanilla Soy Candle",
-        "image": "/uploads/VanillaSoyCandle.png",
+        "image": "/uploads/VanillaSoyCanela.png",
         "price": 15.00
     },
     {
+        "id": "4",
         "name": "Bath Bombs 1 unit",
         "image": "/uploads/BathBombs.png",
+        "price": 8.00
+    },
+    {
+        "id": "5",
+        "name": "Luffa Vegetable Sponge",
+        "image": "/uploads/LuffaSponge.png",
+        "price": 8.00
+    },
+    {
+        "id": "6",
+        "name": "Stainless Water Bottle",
+        "image": "/uploads/StainlessWater.png",
+        "price": 8.00
+    },
+    {
+        "id": "7",
+        "name": "Dishes Detergent- 1 kg.",
+        "image": "/uploads/DishesDetergent.png",
+        "price": 8.00
+    },
+    {
+        "id": "8",
+        "name": "Cinnamon Soap",
+        "image": "/uploads/CinnamonSoap.png",
+        "price": 8.00
+    },
+    {
+        "id": "9",
+        "name": "Laundry Detergent+Softner",
+        "image": "/uploads/LaundryDetergent.png",
+        "price": 8.00
+    },
+    {
+        "id": "10",
+        "name": "Lime Shampoo Soap Bar",
+        "image": "/uploads/LimeSoap.png",
         "price": 8.00
     }
 ]
