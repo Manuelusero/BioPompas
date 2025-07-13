@@ -1,0 +1,141 @@
+.ourStorePage {
+    max-width: 420px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0 0 32px 0;
+    min-height: 100vh;
+    position: relative;
+}
+
+.ourStoreHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 20px 0;
+    background: none;
+    border-radius: 18px 18px 0 0;
+    box-shadow: none;
+    padding: 24px 18px 12px 18px;
+    position: relative;
+}
+
+.ourStoreBack {
+    width: 38px;
+    height: 38px;
+    background: #3a5a40;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px #0002;
+    text-decoration: none;
+    margin-right: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.ourStoreArrowIcon {
+    color: #fff;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.ourStoreTitle {
+    font-family: 'Explore Magic', cursive;
+    font-size: 2rem;
+    color: #3a5a40;
+    margin: 0 auto;
+    letter-spacing: 1px;
+    flex: none;
+    text-align: center;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.ourStoreCartIcon {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: none;
+    border: none;
+    z-index: 2;
+}
+
+.ourStoreCartIcon img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    display: block;
+}
+
+.ourStoreImageContainer {
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto 24px auto;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px 0 rgba(60, 60, 60, 0.10), 4px 4px 16px 0 rgba(60, 60, 60, 0.08);
+    background: #fff;
+}
+
+.ourStoreImage {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    border-radius: 16px;
+}
+
+.ourStoreText {
+    margin: 24px auto;
+    max-width: 340px;
+    font-family: 'Raleway', Arial, sans-serif;
+    font-size: 1.1rem;
+    color: #444;
+    text-align: left;
+}
+
+.ourStoreIcons {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin: 48px 0 64px 0;
+}
+
+.ourStoreSubtitle {
+    font-family: 'Explore Magic', cursive;
+    font-size: 1.4rem;
+    color: #3a5a40;
+    margin-bottom: 16px;
+    text-align: left;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.ourStoreParagraph {
+    font-family: 'Raleway', Arial, sans-serif;
+    font-size: 1.08rem;
+    color: #444;
+    text-align: left;
+    margin-bottom: 16px;
+    line-height: 1.7;
+}
+
+.ourStoreFullIcons {
+    width: 240px;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 32px auto 0 auto;
+}

@@ -1,10 +1,11 @@
 import { Router } from 'express';
 import { register, login, verifyEmail, forgotPassword, resetPassword } from '../controllers/authController.js';
-import { 
-  validateRegistration, 
-  validateLogin, 
-  validateForgotPassword, 
-  validateResetPassword 
+import { googleLogin } from '../controllers/googleAuthController.js';
+import {
+  validateRegistration,
+  validateLogin,
+  validateForgotPassword,
+  validateResetPassword
 } from '../middleware/validateInput.js';
 import { authenticateToken } from '../middleware/authMiddleware.js';
 import { verifyEmailStatus } from '../middleware/verifyEmailMiddleware.js';
@@ -26,9 +27,20 @@ router.post('/forgot-password', validateForgotPassword, forgotPassword);
 // Ruta para restablecer la contraseña (con validación de entrada)
 router.post('/reset-password/:token', validateResetPassword, resetPassword);
 
+// Ruta para login con Google
+router.post('/google', googleLogin);
+
 // Rutas protegidas por token de autenticación (Ejemplo)
 router.get('/protected', authenticateToken, verifyEmailStatus, (req, res) => {
   res.status(200).json({ message: 'Ruta protegida, acceso autorizado.' });
+});
+
+// Ruta protegida de ejemplo para probar autenticación
+router.get('/profile', authenticateToken, (req, res) => {
+  res.status(200).json({
+    message: 'Acceso autorizado',
+    user: req.user,
+  });
 });
 
 export default router;
