@@ -13,6 +13,8 @@ import Contact from "./pages/Contact"
 import Search from "./pages/Search"
 import TopPicks from "./pages/TopPicks"
 import Categories from "./pages/Categories"
+import OurStore from "./pages/OurStore";
+import Profile from "./pages/Profile";
 import { useNavigate } from "react-router-dom";
 
 function App() {
@@ -33,6 +35,8 @@ function App() {
         <Route path="/search" element={<Search />} />
         <Route path="/top-picks" element={<TopPicks />} />
         <Route path="/categories" element={<Categories />} />
+        <Route path="/our-store" element={<OurStore />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Router>
   )

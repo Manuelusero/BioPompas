@@ -250,9 +250,9 @@ const Home = () => {
                     <h2 className="our-store-title">Our Store</h2>
                 </div>
                 {ourStore[0] && (
-                  <a href={ourStore[0].buttonUrl} className="our-store-image-container">
+                  <Link to="/our-store" className="our-store-image-container">
                       <img src={`http://localhost:5001${ourStore[0].image}`} alt={ourStore[0].title} />
-                  </a>
+                  </Link>
                 )}
             </section>
             {/* Fin sección Our Store */}

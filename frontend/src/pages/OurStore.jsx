@@ -1,0 +1,72 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./OurStore.css";
+
+const OurStore = () => {
+  const [ourStore, setOurStore] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch("http://localhost:5001/api/our-store")
+      .then((res) => res.json())
+      .then((data) => setOurStore(data))
+      .catch(() => setOurStore([]));
+  }, []);
+
+  return (
+    <div className="ourStorePage">
+      <div className="ourStoreHeader">
+        <button className="ourStoreBack" onClick={() => navigate("/home")}>
+          <span className="ourStoreArrowIcon">&larr;</span>
+        </button>
+        <h2 className="ourStoreTitle">OUR STORE</h2>
+        <a href="/cart" className="ourStoreCartIcon" aria-label="Cart">
+          <img src="/src/assets/Icons/Cart.svg" alt="Cart" />
+        </a>
+      </div>
+      <div className="ourStoreImageContainer">
+        {ourStore[0] && (
+          <img
+            src={`http://localhost:5001${ourStore[0].image}`}
+            alt={ourStore[0].title}
+            className="ourStoreImage"
+          />
+        )}
+      </div>
+      <div className="ourStoreText">
+        <h3 className="ourStoreSubtitle">About us</h3>
+        <p className="ourStoreParagraph">
+          We are a small team based in Spain. We founded the Store in 2021 with
+          the purpose of bringing affordable eco-options to the market.
+        </p>
+        <p className="ourStoreParagraph">
+          When making the switch to eco products, we were shocked at the prices
+          for sustainable products. We wanted to therefore create a shop that
+          sourced the best eco products we could find that were affordable and
+          minimalistic.
+        </p>
+        <p className="ourStoreParagraph">
+          Our mission is to create a minimalistic collection of eco-products that don&apos;t push consumerism through green washing but instead host a
+          collection of bare essential eco products that are fairly priced for
+          consumers.
+        </p>
+      </div>
+      <div className="ourStoreIcons">
+        <img src="/src/assets/Icons/Fullicons.png" alt="Eco Icons" className="ourStoreFullIcons" />
+      </div>
+      <nav className="bottom-navbar">
+        <a href="/home" className="nav-icon" aria-label="Home">
+          <img src="/src/assets/Icons/HomeIcon.png" alt="Home" />
+        </a>
+        <a href="/search" className="nav-icon" aria-label="Search">
+          <img src="/src/assets/Icons/SearchIcon.png" alt="Search" />
+        </a>
+        <a href="/login" className="nav-icon" aria-label="Avatar">
+          <img src="/src/assets/Icons/AvatarIcon.png" alt="Avatar" />
+        </a>
+      </nav>
+    </div>
+  );
+};
+
+export default OurStore;

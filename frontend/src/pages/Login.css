@@ -1,0 +1,243 @@
+.login-container {
+    max-width: 420px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0 0 32px 0;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-title {
+    font-family: 'Explore Magic', cursive;
+    font-size: 2rem;
+    color: #3a5a40;
+    margin: 32px 0 24px 0;
+    letter-spacing: 1px;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-plant-icon {
+    position: absolute;
+    right: -90px;
+    top: 40px;
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    z-index: 2;
+}
+
+.login-form {
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-input {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #b7b7b7;
+    font-size: 1rem;
+    font-family: 'Raleway', Arial, sans-serif;
+    color: #222;
+    background: #f6fff6;
+    outline: none;
+    transition: border 0.2s;
+}
+
+.form-input:focus {
+    border: 1.5px solid #3a5a40;
+}
+
+.login-button {
+    background: #3a5a40;
+    color: #fff;
+    font-family: 'Raleway', Arial, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 0;
+    margin-top: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.login-button:hover {
+    background: #588157;
+}
+
+.error-message {
+    color: #b00020;
+    font-size: 1rem;
+    margin: 0 0 8px 0;
+    text-align: center;
+}
+
+.login-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.link-button {
+    background: none;
+    border: none;
+    color: #3a5a40;
+    font-family: 'Raleway', Arial, sans-serif;
+    font-size: 1rem;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0;
+}
+
+.link-button:hover {
+    color: #588157;
+}
+
+.bottom-navbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    background: #fff;
+    box-shadow: 0 -2px 16px 0 rgba(60, 60, 60, 0.10);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 62px;
+    border-radius: 18px 18px 0 0;
+    padding: 0 12px;
+}
+
+.bottom-navbar .nav-icon img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    display: block;
+}
+
+.login-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 32px 0 24px 0;
+}
+
+.divider-line {
+    flex: 1;
+    height: 1.5px;
+    background: #b7b7b7;
+    border-radius: 2px;
+    opacity: 0.6;
+}
+
+.divider-text {
+    font-family: 'Raleway', Arial, sans-serif;
+    font-size: 1rem;
+    color: #3a5a40;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.login-social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 32px;
+}
+
+.social-btn {
+    background: #f3f6e6;
+    border: none;
+    border-radius: 16px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: box-shadow 0.2s, background 0.2s;
+    box-shadow: 0 2px 8px #0001;
+}
+
+.social-btn img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    display: block;
+}
+
+.social-btn:hover {
+    background: #e6f6e6;
+    box-shadow: 0 4px 16px #0002;
+}
+
+.login-options-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+    margin-bottom: 2px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    font-family: 'Raleway', Arial, sans-serif;
+    font-size: 12px;
+    color: #555;
+    gap: 6px;
+    cursor: pointer;
+    user-select: none;
+    flex-direction: row;
+}
+
+.remember-checkbox {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1.5px solid #b7b7b7;
+    accent-color: #3a5a40;
+    margin-left: 4px;
+    margin-right: 0;
+    cursor: pointer;
+}
+
+.forgot-password-link {
+    background: none;
+    border: none;
+    color: #3a5a40;
+    font-family: 'Raleway', Arial, sans-serif;
+    font-size: 12px;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0;
+}
+
+.forgot-password-link:hover {
+    color: #588157;
+}

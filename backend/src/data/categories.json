@@ -32,6 +32,16 @@
     {
         "name": "GIFT BUNDLES",
         "image": "/uploads/GiftBundles.png",
+        "url": "/category/gift-bundles"
+    },
+    {
+        "name": "ACCESORIES",
+        "image": "/uploads/GiftBundles.png",
         "url": "/category/accessories"
+    },
+    {
+        "name": "SOAPS",
+        "image": "/uploads/GiftBundles.png",
+        "url": "/category/soaps"
     }
 ]
