@@ -1,4 +1,5 @@
 import express from 'express';
+import Product from '../models/Product.js'; // <-- IMPORTACIÓN CORRECTA DEL MODELO
 import {
   createProduct,
   getProducts,
@@ -30,13 +31,24 @@ router.delete('/:id', authenticateToken, authorizeAdmin, deleteProduct);
 // Eliminar todos los productos
 router.delete('/all', authenticateToken, authorizeAdmin, deleteAllProducts);
 
-// Obtener productos por categoría (soporta múltiples categorías y espacios)
+// Obtener productos por categoría (coincidencia robusta, ignora espacios y mayúsculas)
 router.get('/category/:category', async (req, res) => {
   try {
-    const category = req.params.category;
-    // Busca productos donde la categoría contenga la palabra buscada (insensible a mayúsculas/minúsculas)
+    const categoryParam = req.params.category.trim().toLowerCase();
+    // Filtra productos que tengan la categoría exacta (ignorando espacios y mayúsculas)
     const products = await Product.find({
-      category: { $regex: new RegExp(`(^|,\s*)${category}(,|$)`, 'i') }
+      $expr: {
+        $in: [
+          categoryParam,
+          {
+            $map: {
+              input: { $split: ["$category", ","] },
+              as: "cat",
+              in: { $trim: { input: { $toLower: "$$cat" } } }
+            }
+          }
+        ]
+      }
     });
     res.status(200).json(products);
   } catch (error) {

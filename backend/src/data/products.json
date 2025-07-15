@@ -202,9 +202,9 @@
     "price": 19.99,
     "category": "BATH, GiFT BUNDLES",
     "stock": 30,
-    "url": "/uploads/BathBombsSet.png",
+    "url": "/uploads/BathBombSet.png",
     "isFeatured": true,
-    "image": "/uploads/BathBombsSet.png"
+    "image": "/uploads/BathBombSet.png"
   },
   {
     "id": 20,
@@ -274,24 +274,134 @@
   },
   {
     "id": 26,
-    "name": "",
-    "description": "",
-    "price": "",
-    "category": "",
-    "stock": "",
-    "url": "",
-    "isFeatured": "",
-    "image": ""
+    "name": "Natural Face Cream",
+    "description": "Crema facial hidratante con ingredientes orgánicos y sin fragancias artificiales.",
+    "price": 19.99,
+    "category": "COSMETICS",
+    "stock": 30,
+    "url": "/uploads/NaturalFaceCream.png",
+    "isFeatured": false,
+    "image": "/uploads/NaturalFaceCream.png"
   },
   {
     "id": 27,
-    "name": "",
-    "description": "",
-    "price": "",
-    "category": "",
-    "stock": "",
-    "url": "",
-    "isFeatured": "",
+    "name": "Organic Lip Balm",
+    "description": "Bálsamo labial nutritivo con aceites esenciales y cera de abejas ecológica.",
+    "price": 4.99,
+    "category": "COSMETICS",
+    "stock": 100,
+    "url": "/uploads/OrganicLipBalm.png",
+    "isFeatured": false,
+    "image": "/uploads/OrganicLipBalm.png"
+  },
+  {
+    "id": 28,
+    "name": "Eco Mascara",
+    "description": "Máscara de pestañas ecológica, sin parabenos ni siliconas.",
+    "price": 12.99,
+    "category": "COSMETICS",
+    "stock": 50,
+    "url": "/uploads/EcoMascara.png",
+    "isFeatured": false,
+    "image": "/uploads/EcoMascara.png"
+  },
+  {
+    "id": 29,
+    "name": "Vegan Blush",
+    "description": "Rubor vegano en polvo, tonos naturales y sin crueldad animal.",
+    "price": 9.99,
+    "category": "COSMETICS",
+    "stock": 40,
+    "url": "/uploads/VeganBlush.png",
+    "isFeatured": false,
+    "image": "/uploads/VeganBlush.png"
+  },
+  {
+    "id": 30,
+    "name": "Bamboo brushes",
+    "description": "Set de brochas de bambú ecológicas y veganas.",
+    "price": 24.99,
+    "category": "COSMETICS, ACCESSORIES",
+    "stock": 25,
+    "url": "/uploads/BambooBrushes.png",
+    "isFeatured": false,
     "image": ""
+  },
+  {
+    "id": 31,
+    "name": "Bamboo sponge",
+    "description": "Esponja de bambú ecológica y biodegradable.",
+    "price": 12.99,
+    "category": "COSMETICS,ACCESSORIES,BATH",
+    "stock": 30,
+    "url": "/uploads/BambooSponge.png",
+    "isFeatured": false,
+    "image": ""
+  },
+  {
+    "id": 32,
+    "name": "Blonde shampoo soap bar ",
+    "description": "Blonde shampoo soap bar",
+    "price": 9.99,
+    "category": "COSMETICS,SOAPS,BATH",
+    "stock": 20,
+    "url": "/uploads/BlondeShampooSoap.png",
+    "isFeatured": false,
+    "image": "/uploads/BlondeShampooSoap.png"
+  },
+  {
+    "id": 33,
+    "name": "Coconut soap",
+    "description": "Coconut soap",
+    "price": 8.99,
+    "category": "COSMETICS,SOAPS,BATH",
+    "stock": 15,
+    "url": "/uploads/CoconutSoap.png",
+    "isFeatured": false,
+    "image": "/uploads/CoconutSoap.png"
+  },
+  {
+    "id": 34,
+    "name": " Coco Shampoo Soap Bar",
+    "description": "Coco Shampoo Soap Bar",
+    "price": 9.99,
+    "category": "COSMETICS,SOAPS,BATH",
+    "stock": 20,
+    "url": "/uploads/CocoShampooSoap.png",
+    "isFeatured": false,
+    "image": "/uploads/CocoShampooSoap.png"
+  },
+  {
+    "id": 35,
+    "name": " Eco Spray for Glass 0,5lt",
+    "description": "Eco Spray for Glass 0,5lt",
+    "price": 12.99,
+    "category": "CLEANING, Refillables",
+    "stock": 25,
+    "url": "/uploads/EcoSpray.png",
+    "isFeatured": false,
+    "image": "/uploads/EcoSpray.png"
+  },
+  {
+    "id": 36,
+    "name": "Handwash Laundry Soap",
+    "description": "Handwash Laundry Soap",
+    "price": 12.99,
+    "category": "CLEANING,SOAPS",
+    "stock": 25,
+    "url": "/uploads/HandwashLaundry.png",
+    "isFeatured": false,
+    "image": "/uploads/HandwashLaundry.png"
+  },
+  {
+    "id": 37,
+    "name": "Laundry detergent 5lts",
+    "description": "Laundry detergent 5lts",
+    "price": 29.99,
+    "category": "CLEANING, Refillables",
+    "stock": 15,
+    "url": "/uploads/LaundryDetergent5lts.png",
+    "isFeatured": false,
+    "image": "/uploads/LaundryDetergent5lts.png"
   }
 ]

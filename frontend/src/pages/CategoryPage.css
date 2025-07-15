@@ -6,7 +6,40 @@
     min-height: 100vh;
 }
 
+.category-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.category-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e9f5e9;
+    color: #3a5a40;
+    font-size: 2rem;
+    text-decoration: none;
+    margin-right: 12px;
+    box-shadow: 0 2px 8px #0001;
+    transition: background 0.2s;
+}
+
+.category-back:hover {
+    background: #d1e7d1;
+}
+
+.arrowIcon {
+    font-size: 2rem;
+    color: #3a5a40;
+    font-family: inherit;
+}
+
 .category-title {
+    flex: 1;
     font-family: 'Explore Magic', cursive;
     font-size: 2.2rem;
     color: #3a5a40;
