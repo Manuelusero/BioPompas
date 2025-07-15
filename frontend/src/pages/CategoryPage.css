@@ -1,0 +1,69 @@
+.category-page-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 16px 80px 16px;
+    background: #f6fff6;
+    min-height: 100vh;
+}
+
+.category-title {
+    font-family: 'Explore Magic', cursive;
+    font-size: 2.2rem;
+    color: #3a5a40;
+    margin-bottom: 32px;
+    text-align: left;
+}
+
+.category-products-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 28px;
+}
+
+.category-product-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px #0001;
+    padding: 18px 12px 16px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: box-shadow 0.2s;
+}
+
+.category-product-card:hover {
+    box-shadow: 0 6px 24px #0002;
+}
+
+.category-product-image {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 12px;
+}
+
+.category-product-info {
+    text-align: center;
+}
+
+.category-product-info h3 {
+    font-size: 1.1rem;
+    color: #3a5a40;
+    margin: 0 0 6px 0;
+}
+
+.category-product-info p {
+    font-size: 1.1rem;
+    color: #588157;
+    font-weight: 600;
+    margin: 0;
+}
+
+.category-loading,
+.category-error,
+.category-no-products {
+    text-align: center;
+    color: #b00020;
+    margin-top: 40px;
+    font-size: 1.2rem;
+}

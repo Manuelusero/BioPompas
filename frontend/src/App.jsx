@@ -15,6 +15,7 @@ import TopPicks from "./pages/TopPicks"
 import Categories from "./pages/Categories"
 import OurStore from "./pages/OurStore";
 import Profile from "./pages/Profile";
+import CategoryPage from "./pages/CategoryPage";
 import { useNavigate } from "react-router-dom";
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         <Route path="/categories" element={<Categories />} />
         <Route path="/our-store" element={<OurStore />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/category/:category" element={<CategoryPage />} />
       </Routes>
     </Router>
   )

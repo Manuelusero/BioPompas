@@ -8,7 +8,6 @@ import {
   validateResetPassword
 } from '../middleware/validateInput.js';
 import { authenticateToken } from '../middleware/authMiddleware.js';
-import { verifyEmailStatus } from '../middleware/verifyEmailMiddleware.js';
 
 const router = Router();
 
@@ -31,7 +30,7 @@ router.post('/reset-password/:token', validateResetPassword, resetPassword);
 router.post('/google', googleLogin);
 
 // Rutas protegidas por token de autenticación (Ejemplo)
-router.get('/protected', authenticateToken, verifyEmailStatus, (req, res) => {
+router.get('/protected', authenticateToken, (req, res) => {
   res.status(200).json({ message: 'Ruta protegida, acceso autorizado.' });
 });
 
