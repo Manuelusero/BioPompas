@@ -21,9 +21,9 @@ const Categories = () => {
             </div>
             <div className="categoriesGrid">
                 {categories.map(cat => (
-                    <a href={cat.url} className="categoryCard" key={cat._id} style={{ position: 'relative' }}>
+                    <Link to={`/category/${encodeURIComponent(cat.name.split(',')[0].trim())}`} className="categoryCard" key={cat._id} style={{ position: 'relative' }}>
                         <img src={`http://localhost:5001${cat.image}`} alt={cat.name} />
-                    </a>
+                    </Link>
                 ))}
             </div>
             <nav className="bottom-navbar">
