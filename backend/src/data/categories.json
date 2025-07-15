@@ -2,32 +2,32 @@
     {
         "name": "COSMETICS",
         "image": "/uploads/Cosmetics.png",
-        "url": "/category/bath"
+        "url": "/category/cosmetics"
     },
     {
         "name": "CLEANING",
         "image": "/uploads/Cleaning.png",
-        "url": "/category/soaps"
+        "url": "/category/cleaning"
     },
     {
         "name": "BATH",
         "image": "/uploads/Bath.png",
-        "url": "/category/candles"
+        "url": "/category/bath"
     },
     {
         "name": "CANDLES",
         "image": "/uploads/Candles.png",
-        "url": "/category/brushes"
+        "url": "/category/candles"
     },
     {
         "name": "KITCHEN",
         "image": "/uploads/Kitchen.png",
-        "url": "/category/hair"
+        "url": "/category/kitchen"
     },
     {
         "name": "REFILLABLES",
         "image": "/uploads/Refillable.png",
-        "url": "/category/cleaning"
+        "url": "/category/refillables"
     },
     {
         "name": "GIFT BUNDLES",
@@ -35,7 +35,7 @@
         "url": "/category/gift-bundles"
     },
     {
-        "name": "ACCESORIES",
+        "name": "ACCESSORIES",
         "image": "/uploads/GiftBundles.png",
         "url": "/category/accessories"
     },
