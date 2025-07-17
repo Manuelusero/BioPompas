@@ -1,0 +1,187 @@
+/* Bag page styles */
+.bag-page {
+    max-width: 420px;
+    margin: 0 auto;
+    background: #f6f7ef;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px #0001;
+    padding: 24px 0 0 0;
+    min-height: 100vh;
+    font-family: 'Raleway', sans-serif;
+}
+
+.bag-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+    padding: 0 32px;
+}
+
+.bag-close-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #5c7347;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.bag-title {
+    font-family: 'Explore Magic', 'Raleway', sans-serif;
+    color: #5c7347;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.bag-list {
+    margin: 24px 0 0 0;
+    padding: 0 32px;
+}
+
+.bag-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #0001;
+    padding: 12px 0;
+    margin-bottom: 18px;
+    position: relative;
+}
+
+.bag-item-img {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: 10px;
+    background: #e9ecef;
+    flex-shrink: 0;
+}
+
+.bag-item-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.bag-item-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #3a5a40;
+}
+
+.bag-item-desc {
+    font-size: 0.95rem;
+    color: #888;
+    margin-bottom: 2px;
+}
+
+.bag-item-price {
+    font-size: 1rem;
+    color: #5c7347;
+    font-weight: 600;
+}
+
+.bag-item-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.bag-item-counter {
+    display: flex;
+    align-items: center;
+    background: #5c7347;
+    border-radius: 20px;
+    padding: 2px 10px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    gap: 8px;
+}
+
+.bag-item-counter button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0 6px;
+}
+
+.bag-item-remove {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.bag-item-remove img {
+    width: 22px;
+    height: 22px;
+}
+
+.bag-empty {
+    color: #888;
+    font-style: italic;
+    text-align: center;
+    margin: 32px 0;
+}
+
+.bag-total-section {
+    margin: 32px 0 0 0;
+    padding: 0 32px 32px 32px;
+}
+
+.bag-total-title {
+    font-family: 'Explore Magic', 'Raleway', sans-serif;
+    color: #5c7347;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.bag-total-box {
+    background: #e9eeda;
+    border-radius: 18px;
+    padding: 18px 20px;
+    margin-bottom: 18px;
+}
+
+.bag-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.05rem;
+    color: #3a5a40;
+    margin-bottom: 8px;
+}
+
+.bag-total-summary {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.bag-checkout-btn {
+    width: 100%;
+    background: #5c7347;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    padding: 16px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px #0001;
+    transition: background 0.2s;
+}
+
+.bag-checkout-btn:hover {
+    background: #3a5a40;
+}

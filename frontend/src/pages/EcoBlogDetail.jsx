@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import "./EcoBlogDetail.css";
+import ArrowLeftIcon from '/src/assets/Icons/ArrowLeftIcon.png';
 
 const EcoBlogDetail = () => {
   const { slug } = useParams();
@@ -35,7 +36,7 @@ const EcoBlogDetail = () => {
           onClick={() => navigate("/home")}
           title="Volver al Home"
         >
-          <span className="ecoBlogDetailArrowIcon">&larr;</span>
+          <span className="ecoBlogDetailArrowIcon"><img src={ArrowLeftIcon} alt="Back" className="arrowIcon" /></span>
         </button>
         <h2 className="ecoBlogDetailTitle">Eco Blog</h2>
         <img
@@ -45,7 +46,24 @@ const EcoBlogDetail = () => {
         />
       </div>
       <h1 className="eco-blog-title">{blog.title}</h1>
-      <div className="eco-blog-content">{blog.content}</div>
+      <div className="eco-blog-content">
+        {blog.content.split(/\n\n/).map((block, i) => {
+          // Si el bloque comienza con un subtítulo, lo renderiza como <h3>
+          const subtitleMatch = block.match(/^(What is the zero-waste movement\?|What is the purpose of zero-waste\?|How do people live a zero-waste lifestyle\?)/);
+          if (subtitleMatch) {
+            const [subtitle] = subtitleMatch;
+            const paragraph = block.replace(subtitle, '').trim();
+            return (
+              <div key={i}>
+                <h3>{subtitle}</h3>
+                <p>{paragraph}</p>
+              </div>
+            );
+          }
+          // Si no es subtítulo, solo renderiza como párrafo
+          return <p key={i}>{block}</p>;
+        })}
+      </div>
       {/* READ ALSO section */}
       {otherBlogs.length > 0 && (
         <div className="eco-blog-readalso-section">

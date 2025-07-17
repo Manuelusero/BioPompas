@@ -1,4 +1,6 @@
 import Product from '../models/Product.js';
+import fs from 'fs';
+import path from 'path';
 import mongoose from 'mongoose';
 
 // Crear un nuevo producto
@@ -27,8 +29,10 @@ export const createProduct = async (req, res) => {
 // Obtener todos los productos
 export const getProducts = async (req, res) => {
   try {
-    const products = await Product.find();
-    res.status(200).json(products);
+    const filePath = path.join(process.cwd(), 'src/data/products.json');
+    const data = fs.readFileSync(filePath, 'utf8');
+    const json = JSON.parse(data);
+    res.status(200).json(json.products || []);
   } catch (error) {
     console.error('Error al obtener productos:', error);
     res.status(500).json({ error: 'Error al obtener productos' });
