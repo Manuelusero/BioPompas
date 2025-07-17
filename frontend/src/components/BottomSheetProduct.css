@@ -1,0 +1,214 @@
+/* Overlay for bottom sheet */
+.bottom-sheet-overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(40, 60, 40, 0.18);
+    z-index: 1000;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    transition: background 0.3s;
+}
+
+/* Bottom sheet container */
+.bottom-sheet {
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    border-radius: 32px 32px 0 0;
+    box-shadow: 0 -4px 32px #0002;
+    padding: 48px 24px 24px 24px;
+    animation: slideUp 0.35s cubic-bezier(.42, 1.2, .58, 1) 1;
+    position: relative;
+    min-height: 80vh;
+    /* sube casi hasta el header */
+    top: 0;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+.bottom-sheet-img-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 18px;
+}
+
+.bottom-sheet-img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    border-radius: 18px;
+    background: #f6fff6;
+}
+
+.bottom-sheet-info {
+    margin-bottom: 18px;
+}
+
+.bottom-sheet-title-price {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 0;
+    position: relative;
+}
+
+.bottom-sheet-title {
+    font-family: 'Raleway', Arial, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 16px;
+    color: #3a5a40;
+    margin-right: 16px;
+}
+
+.bottom-sheet-price {
+    font-family: 'Raleway', Arial, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px;
+    color: #3a5a40;
+    margin-top: 4px;
+    margin-left: 0;
+}
+
+.bottom-sheet-counter {
+    display: flex;
+    align-items: center;
+    background: #5C7347;
+    border-radius: 18px;
+    padding: 0 2px;
+    height: 33px;
+    box-shadow: 0 2px 8px #0001;
+    margin-left: 85px;
+    justify-content: center;
+}
+
+.bottom-sheet-counter button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.bottom-sheet-counter button:hover {
+    background: #3a5a40;
+}
+
+.bottom-sheet-counter span {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    min-width: 24px;
+    text-align: center;
+}
+
+.bottom-sheet-about {
+    margin-top: 18px;
+}
+
+.bottom-sheet-about-title {
+    font-family: 'Raleway', Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #3a5a40;
+    margin-top: 40px;
+}
+
+.bottom-sheet-about-desc {
+    font-family: 'Raleway', Arial, sans-serif;
+    font-size: 0.98rem;
+    font-weight: 400;
+    color: #444;
+    line-height: 1.5;
+}
+
+.bottom-sheet-add {
+    width: 100%;
+    background: #5C7347;
+    color: #fff;
+    font-family: 'Raleway', Arial, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 24px;
+    padding: 14px 0;
+    margin-top: 18px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.2s;
+}
+
+.bottom-sheet-add-icon img {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    vertical-align: middle;
+    filter: brightness(0) invert(1);
+}
+
+.bottom-sheet-add-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+.bottom-sheet-add:hover {
+    background: #588157;
+}
+
+.bottom-sheet-close {
+    width: 100%;
+    background: transparent;
+    color: #3a5a40;
+    font-family: 'Raleway', Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 18px;
+    padding: 10px 0;
+    margin-bottom: 4px;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.bottom-sheet-close:hover {
+    color: #588157;
+}
+
+.bottom-sheet-handle {
+    width: 48px;
+    height: 6px;
+    background: #d1e7d1;
+    border-radius: 3px;
+    margin: 0 auto 18px auto;
+    position: relative;
+    top: -12px;
+    cursor: grab;
+    box-shadow: 0 2px 8px #0001;
+}

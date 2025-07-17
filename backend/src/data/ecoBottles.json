@@ -2,21 +2,25 @@
     {
         "name": "Stainless Bottle 1 lt.",
         "image": "/uploads/Stainless1.png",
-        "price": 12.00
+        "price": 12.00,
+        "description": "Durable stainless steel bottle, perfect for keeping your drinks hot or cold."
     },
     {
         "name": "Water Bottle 0,5 lt.",
         "image": "/uploads/ColorBottle.png",
-        "price": 9.00
+        "price": 9.00,
+        "description": "Lightweight and portable water bottle, ideal for on-the-go hydration."
     },
     {
         "name": "Deco Bottle 0,75 ml.",
         "image": "/uploads/DecoBottle.png",
-        "price": 10.99
+        "price": 10.99,
+        "description": "Stylish deco bottle, perfect for adding a touch of elegance to your drink."
     },
     {
         "name": "Stainless Therm 1 lt.",
         "image": "/uploads/StainlessTherm.png",
-        "price": 15.99
+        "price": 15.99,
+        "description": "Insulated stainless steel thermos, ideal for keeping beverages hot or cold for hours."
     }
 ]

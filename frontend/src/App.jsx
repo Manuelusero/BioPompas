@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import Home from "./pages/Home"
+import Bag from "./pages/Bag";
 import Login from "./pages/Login"
 import Register from "./pages/Register"
 import ForgotPassword from "./pages/ForgotPassword"
@@ -39,6 +40,7 @@ function App() {
         <Route path="/our-store" element={<OurStore />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/category/:category" element={<CategoryPage />} />
+        <Route path="/bag" element={<Bag />} />
       </Routes>
     </Router>
   )

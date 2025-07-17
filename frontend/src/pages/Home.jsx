@@ -5,9 +5,11 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import "./Home.css";
 import { Link } from "react-router-dom";
+import BottomSheetProductFull from "../components/BottomSheetProductFull";
 
 const Home = () => {
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState([]); // Solo productos reales
+    const [promotions, setPromotions] = useState([]); // Promociones para el Swiper
     const [topPicks, setTopPicks] = useState([]);
     const [categories, setCategories] = useState([]);
     const [giftBundles, setGiftBundles] = useState([]);
@@ -17,21 +19,32 @@ const Home = () => {
     const [ourStore, setOurStore] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [selectedProductId, setSelectedProductId] = useState(null);
+    const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
+    const [bottomSheetCount, setBottomSheetCount] = useState(1);
+    const [cart, setCart] = useState(() => {
+      const storedCart = localStorage.getItem('cart');
+      return storedCart ? JSON.parse(storedCart) : [];
+    });
 
     useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const response = await axios.get(
-                    `${import.meta.env.VITE_APP_API_URL}/products?isFeatured=true`
-                );
-                setProducts(response.data.slice(0, 4)); // Solo 4 productos
-            } catch (error) {
+        // Obtener productos reales
+        fetch(`${import.meta.env.VITE_APP_API_URL}/products`)
+            .then(res => res.json())
+            .then(data => setProducts(data))
+            .catch(error => {
                 console.error("Error al obtener productos:", error);
                 setError("Hubo un error al cargar los productos.");
-            } finally {
-                setLoading(false);
-            }
-        };
+            });
+        // Obtener promociones
+        fetch(`${import.meta.env.VITE_APP_API_URL}/promotions`)
+            .then(res => res.json())
+            .then(data => setPromotions(data))
+            .catch(error => {
+                console.error("Error al obtener promociones:", error);
+            })
+            .finally(() => setLoading(false));
+        // ...otros fetch (puedes dejar axios o migrar a fetch si lo prefieres)
         const fetchTopPicks = async () => {
             try {
                 const response = await axios.get("http://localhost:5001/api/top-picks");
@@ -88,7 +101,6 @@ const Home = () => {
                 console.error("Error al obtener our store:", error);
             }
         };
-        fetchProducts();
         fetchTopPicks();
         fetchCategories();
         fetchGiftBundles();
@@ -98,11 +110,50 @@ const Home = () => {
         fetchOurStore();
     }, []);
 
+    const handleCardClick = (product) => {
+        setSelectedProductId(product.id || product._id);
+        setBottomSheetOpen(true);
+        setBottomSheetCount(1);
+    };
+
+    const handleCloseBottomSheet = () => {
+        setBottomSheetOpen(false);
+        setSelectedProductId(null);
+    };
+
+    const handleAddToCart = (product, count) => {
+        setCart(prevCart => {
+          const existing = prevCart.find(item => item.id === product.id || item._id === product._id);
+          let newCart;
+          if (existing) {
+            newCart = prevCart.map(item =>
+              item.id === product.id || item._id === product._id
+                ? { ...item, count: item.count + count }
+                : item
+            );
+          } else {
+            newCart = [...prevCart, { ...product, count }];
+          }
+          return newCart;
+        });
+        setBottomSheetOpen(false);
+        setSelectedProductId(null);
+    };
+    // Sincroniza el carrito con localStorage al cambiar
+    useEffect(() => {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }, [cart]);
+
     return (
         <div className="homePage">
             <div className="logo-container">
                 <img src="/LogoSmall.svg" alt="Logo" />
-                <img src="/src/assets/Icons/Cart.svg" alt="Carrito" className="cart-icon" />
+                <Link to="/bag" className="cart-icon-container">
+                  <img src="/src/assets/Icons/Cart.svg" alt="Carrito" className="cart-icon" />
+                  {cart.length > 0 && (
+                    <span className="cart-badge">{cart.reduce((sum, item) => sum + item.count, 0)}</span>
+                  )}
+                </Link>
             </div>
             <h2 className="titulo-marca">DEALS OF THE WEEK</h2>
 
@@ -118,10 +169,10 @@ const Home = () => {
                     slidesPerView={1}
                     loop // Hace que los productos vuelvan a empezar en bucle
                 >
-                    {products.map((product) => (
-                        <SwiperSlide key={product._id || product.id}>
+                    {promotions.map((promo) => (
+                        <SwiperSlide key={promo._id || promo.id}>
                             <div className="card">
-                                <img src={`http://localhost:5001${product.image}`} alt={product.name} />
+                                <img src={promo.image && (promo.image.startsWith('http') ? promo.image : `http://localhost:5001${promo.image}`)} alt={promo.name} />
                             </div>
                         </SwiperSlide>
                     ))}
@@ -138,7 +189,7 @@ const Home = () => {
                 </div>
                 <div className="top-picks-scroll">
                     {topPicks.slice(0, 4).map((product) => (
-                        <div className="top-pick-card" key={product.id}>
+                        <div className="top-pick-card" key={product.id} onClick={() => handleCardClick(product)}>
                             <img src={`http://localhost:5001${product.image}`} alt={product.name} />
                             <div className="top-pick-info">
                                 <div className="top-pick-name">{product.name}</div>
@@ -178,7 +229,7 @@ const Home = () => {
                 </div>
                 <div className="gift-bundles-scroll">
                     {giftBundles.map((bundle) => (
-                        <div className="gift-bundle-card" key={bundle._id}>
+                        <div className="gift-bundle-card" key={bundle._id} onClick={() => handleCardClick(bundle)}>
                             <img src={`http://localhost:5001${bundle.image}`} alt={bundle.name} />
                             <div className="gift-bundle-info">
                                 <div className="gift-bundle-name">{bundle.name}</div>
@@ -201,9 +252,7 @@ const Home = () => {
                     {blogs.map((blog) => (
                         <Link to={`/eco-blog/${blog.slug}`} className="eco-blog-card" key={blog._id}>
                             <img src={`http://localhost:5001${blog.image}`} alt={blog.title} />
-                            <div className="eco-blog-info">
-                    
-                            </div>
+                            
                         </Link>
                     ))}
                 </div>
@@ -217,7 +266,7 @@ const Home = () => {
                 </div>
                 <div className="eco-bottles-scroll">
                     {ecoBottles.map((bottle) => (
-                        <div className="eco-bottle-card" key={bottle._id}>
+                        <div className="eco-bottle-card" key={bottle._id} onClick={() => handleCardClick(bottle)}>
                             <img src={`http://localhost:5001${bottle.image}`} alt={bottle.name} />
                             <div className="eco-bottle-info">
                                 <div className="eco-bottle-name">{bottle.name}</div>
@@ -269,8 +318,20 @@ const Home = () => {
                     <img src="/src/assets/Icons/AvatarIcon.png" alt="Avatar" />
                 </a>
             </nav>
+
+            <BottomSheetProductFull
+                productId={selectedProductId}
+                products={[...products, ...topPicks, ...giftBundles, ...ecoBottles]}
+                open={bottomSheetOpen}
+                onClose={handleCloseBottomSheet}
+                onAdd={handleAddToCart}
+                count={bottomSheetCount}
+                setCount={setBottomSheetCount}
+                cart={cart}
+            />
         </div>
     );
+    
 };
 
 export default Home;

@@ -1,3 +1,16 @@
+/* Bottom sheet cart icon styles */
+.bottom-sheet-add-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.bottom-sheet-cart-icon {
+    width: 24px;
+    height: 24px;
+}
+
 @font-face {
     font-family: 'Explore Magic';
     src: url('/fonts/ExploreMagic-Regular.woff2') format('woff2'),
@@ -60,7 +73,5 @@
 
 body {
     background: #F6F5F0;
-    font-family: 'Raleway', Arial, sans-serif !important;
-    border: 2px solid #f00;
-    /* DEBUG: Quitar cuando funcione */
+
 }

@@ -75,23 +75,29 @@
 }
 
 .categoriesBack {
-    width: 38px;
-    height: 38px;
-    background: #3a5a40;
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 8px #0002;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e9f5e9;
+    color: #3a5a40;
     text-decoration: none;
-    margin-right: 16px;
+    margin-right: 12px;
+    box-shadow: 0 2px 8px #0001;
+    transition: background 0.2s;
+}
+
+.categoriesBack:hover {
+    background: #d1e7d1;
 }
 
 .arrowIcon {
-    color: #fff;
-    font-size: 22px;
-    font-weight: bold;
-    line-height: 1;
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    display: block;
 }
 
 .categoriesCart {

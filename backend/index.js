@@ -1,4 +1,5 @@
 import express from "express";
+import promotionsRoutes from "./src/routes/promotionsRoutes.js";
 import dotenv from "dotenv";
 import connectDB from "./src/config/db.js";
 import authRoutes from "./src/routes/authRoutes.js";
@@ -39,6 +40,7 @@ app.use('/api/blogs', blogRoutes);
 app.use('/api/eco-bottles', ecoBottleRoutes);
 app.use('/api/eco-souvenirs', ecoSouvenirRoutes);
 app.use('/api/our-store', ourStoreRoutes);
+app.use('/api/promotions', promotionsRoutes);
 app.use('/uploads', express.static(path.join(process.cwd(), 'src/uploads')));
 
 

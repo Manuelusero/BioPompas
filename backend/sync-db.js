@@ -51,9 +51,11 @@ export const bulkCreateProducts = async () => {
       return;
     }
 
+
     // Leer archivo JSON
     const rawData = fs.readFileSync(dataPath, 'utf-8');
-    const products = JSON.parse(rawData);
+    const json = JSON.parse(rawData);
+    const products = json.products;
 
     if (!Array.isArray(products) || products.length === 0) {
       console.error('El archivo JSON debe contener un array de productos');

@@ -1,6 +1,51 @@
+
+import PropTypes from 'prop-types';
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./OurStore.css";
+import ArrowLeftIcon from '/src/assets/Icons/ArrowLeftIcon.png';
+
+function OurStoreHeaderWithCartBadge({ navigate }) {
+  const [cartCount, setCartCount] = useState(0);
+  useEffect(() => {
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+      const cartArr = JSON.parse(storedCart);
+      setCartCount(cartArr.reduce((sum, item) => sum + item.count, 0));
+    } else {
+      setCartCount(0);
+    }
+    const syncCart = () => {
+      const storedCart = localStorage.getItem('cart');
+      if (storedCart) {
+        const cartArr = JSON.parse(storedCart);
+        setCartCount(cartArr.reduce((sum, item) => sum + item.count, 0));
+      } else {
+        setCartCount(0);
+      }
+    };
+    window.addEventListener('storage', syncCart);
+    return () => window.removeEventListener('storage', syncCart);
+  }, []);
+  return (
+    <div className="ourStoreHeader">
+      <button className="ourStoreBack" onClick={() => navigate("/home")}> 
+        <span className="ourStoreArrowIcon"><img src={ArrowLeftIcon} alt="Back" className="arrowIcon" /></span>
+      </button>
+      <h2 className="ourStoreTitle">OUR STORE</h2>
+      <div className="ourStoreCartIcon">
+        <img src="/src/assets/Icons/Cart.svg" alt="Cart" />
+        {cartCount > 0 && (
+          <span className="ourStoreCartBadge">{cartCount}</span>
+        )}
+      </div>
+    </div>
+  );
+}
+
+OurStoreHeaderWithCartBadge.propTypes = {
+  navigate: PropTypes.func.isRequired,
+};
 
 const OurStore = () => {
   const [ourStore, setOurStore] = useState([]);
@@ -15,15 +60,7 @@ const OurStore = () => {
 
   return (
     <div className="ourStorePage">
-      <div className="ourStoreHeader">
-        <button className="ourStoreBack" onClick={() => navigate("/home")}>
-          <span className="ourStoreArrowIcon">&larr;</span>
-        </button>
-        <h2 className="ourStoreTitle">OUR STORE</h2>
-        <a href="/cart" className="ourStoreCartIcon" aria-label="Cart">
-          <img src="/src/assets/Icons/Cart.svg" alt="Cart" />
-        </a>
-      </div>
+      <OurStoreHeaderWithCartBadge navigate={navigate} />
       <div className="ourStoreImageContainer">
         {ourStore[0] && (
           <img
