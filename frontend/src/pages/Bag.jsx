@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import './Bag.css';
 
 const DELIVERY_COST = 8;
 
 const Bag = () => {
+  const navigate = useNavigate();
+  // ...existing code...
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
@@ -44,7 +47,7 @@ const Bag = () => {
   return (
     <div className="bag-page">
       <div className="bag-header-row">
-        <button className="bag-close-btn" onClick={() => window.history.back()}>&times;</button>
+        <button className="bag-close-btn" onClick={() => navigate('/home')}>&times;</button>
         <h1 className="bag-title">MY BAG</h1>
       </div>
       <div className="bag-list">
@@ -93,7 +96,8 @@ const Bag = () => {
             <span>€ {summaryTotal.toFixed(2)}</span>
           </div>
         </div>
-        <button className="bag-checkout-btn">Checkout</button>
+        <button className="bag-checkout-btn" onClick={() => navigate('/payment')}>Checkout</button>
+        {/* Eliminado redirectToLogin, ya no es necesario */}
       </div>
     </div>
   );
