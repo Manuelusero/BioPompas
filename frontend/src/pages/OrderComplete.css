@@ -1,0 +1,55 @@
+.order-complete-container {
+    background: #f6f7ef;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-family: 'Explore Magic', Raleway, sans-serif;
+}
+
+.order-complete-title {
+    color: #3a5a40;
+    font-size: 2.1rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 18px;
+    letter-spacing: 2px;
+}
+
+.order-complete-desc {
+    color: #3a5a40;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.order-complete-btn {
+    background: #5c7347;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 24px;
+    padding: 16px 0;
+    width: 80%;
+    max-width: 320px;
+    margin-bottom: 32px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(60, 90, 64, 0.07);
+}
+
+.order-complete-leaf {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    width: 64px;
+}
+
+.order-complete-sun {
+    position: absolute;
+    bottom: 32px;
+    left: 32px;
+    width: 56px;
+}

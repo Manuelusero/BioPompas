@@ -21,7 +21,7 @@ const Login = () => {
             });
 
             localStorage.setItem('token', response.data.token);
-            navigate('/home');
+            navigate('/bag');
         } catch {
             setError('Error al iniciar sesión');
         }
@@ -33,7 +33,7 @@ const Login = () => {
                 credential: credentialResponse.credential,
             });
             localStorage.setItem('token', response.data.token);
-            navigate('/home');
+            navigate('/bag');
         } catch (err) {
             setError('Google authentication failed' + (err?.response?.data?.error ? ': ' + err.response.data.error : ''));
         }

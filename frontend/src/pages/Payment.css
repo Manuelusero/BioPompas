@@ -1,0 +1,154 @@
+.payment-container {
+    background: #f6f7ef;
+    min-height: 100vh;
+    padding: 32px 16px 0 16px;
+    font-family: 'Explore Magic', Raleway, sans-serif;
+    position: relative;
+}
+
+.payment-back-btn {
+    position: absolute;
+    left: 16px;
+    top: 24px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #5c7347;
+    cursor: pointer;
+}
+
+.payment-title {
+    text-align: center;
+    color: #3a5a40;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 32px;
+    letter-spacing: 2px;
+}
+
+.payment-section {
+    margin-bottom: 32px;
+}
+
+.payment-subtitle {
+    color: #3a5a40;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+}
+
+.payment-address {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: #fff;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(60, 90, 64, 0.07);
+}
+
+.payment-map {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.payment-address-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.payment-address-name {
+    font-weight: 700;
+    color: #3a5a40;
+}
+
+.payment-edit {
+    background: none;
+    border: none;
+    color: #5c7347;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.payment-address-details {
+    color: #3a5a40;
+    font-size: 0.95rem;
+}
+
+.payment-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.payment-method {
+    display: flex;
+    align-items: center;
+    background: #f3f3e7;
+    border-radius: 12px;
+    padding: 12px 16px;
+    gap: 16px;
+    font-size: 1.1rem;
+    position: relative;
+}
+
+.payment-method.selected {
+    border: 2px solid #5c7347;
+}
+
+.payment-method-icon {
+    width: 36px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.payment-method-label {
+    flex: 1;
+    color: #3a5a40;
+}
+
+.payment-method-check {
+    color: #5c7347;
+    font-size: 1.5rem;
+    position: absolute;
+    right: 16px;
+}
+
+.payment-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 32px 0 16px 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #3a5a40;
+}
+
+.payment-total-label {
+    letter-spacing: 1px;
+}
+
+.payment-total-value {
+    font-size: 1.2rem;
+}
+
+.payment-btn {
+    width: 100%;
+    background: #5c7347;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 24px;
+    padding: 16px 0;
+    margin-bottom: 32px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(60, 90, 64, 0.07);
+}
