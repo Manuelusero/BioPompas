@@ -1,7 +1,7 @@
 .categoriesPage {
     max-width: 420px;
     margin: 0 auto;
-    background: #fff;
+    background: #F6F5F0;
     border-radius: 0 !important;
     box-shadow: none !important;
     padding: 0 0 32px 0;
@@ -23,7 +23,8 @@
 
 .categoriesTitle {
     font-family: 'Explore Magic', cursive;
-    font-size: 2rem;
+    font-size: 30px;
+    font-weight: 400;
     color: #3a5a40;
     margin: 0 auto;
     letter-spacing: 1px;
@@ -80,17 +81,10 @@
     justify-content: center;
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-    background: #e9f5e9;
     color: #3a5a40;
     text-decoration: none;
     margin-right: 12px;
-    box-shadow: 0 2px 8px #0001;
     transition: background 0.2s;
-}
-
-.categoriesBack:hover {
-    background: #d1e7d1;
 }
 
 .arrowIcon {

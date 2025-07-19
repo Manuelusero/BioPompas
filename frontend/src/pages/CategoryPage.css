@@ -1,7 +1,7 @@
 .category-page-container {
     max-width: 420px;
     margin: 0 auto;
-    background: #fff;
+    background: #f6f7ef;
     border-radius: 0 !important;
     box-shadow: none !important;
     padding: 0 0 32px 0;
@@ -22,11 +22,9 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: #e9f5e9;
     color: #3a5a40;
     text-decoration: none;
     margin-right: 12px;
-    box-shadow: 0 2px 8px #0001;
     transition: background 0.2s;
 }
 
@@ -58,35 +56,31 @@
     padding: 24px 12px 0 12px;
 }
 
+
 .category-product-card {
-    background: #fff;
-    border-radius: 14px;
-    box-shadow: 0 4px 16px 0 rgba(60, 60, 60, 0.10);
+    background: #F6F5F0;
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 100%;
     min-width: 0;
     max-width: 180px;
-    height: 180px;
     margin-bottom: 8px;
-    padding: 0;
+    padding: 1px 8px 13px 1px;
     cursor: pointer;
-    transition: box-shadow 0.2s, transform 0.2s;
+    transition: box-shadow 0.2s;
     overflow: hidden;
 }
 
-.category-product-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    border-radius: 14px;
-}
 
-.category-product-card:hover {
-    box-shadow: 0 8px 24px 0 rgba(60, 60, 60, 0.16), 8px 8px 24px 0 rgba(60, 60, 60, 0.12);
-    transform: translateY(-2px) scale(1.03);
+.category-product-card img {
+    width: 156px;
+    height: 165px;
+    border-radius: 10px;
+    background: #F6F5F0;
+    display: block;
+    margin-left: 5px;
+    object-fit: cover;
 }
 
 .category-product-info {
@@ -94,15 +88,22 @@
 }
 
 .category-product-info h3 {
-    font-size: 1.1rem;
-    color: #3a5a40;
+    font-family: 'Raleway';
+    font-weight: 600;
+    color: #222;
+    font-size: 12px;
+    text-align: start;
+    margin-left: 10px;
     margin: 0 0 6px 0;
 }
 
 .category-product-info p {
-    font-size: 1.1rem;
-    color: #588157;
-    font-weight: 600;
+    font-family: 'Raleway';
+    font-weight: 400;
+    color: #3a5a40;
+    font-size: 12px;
+    text-align: start;
+    margin-left: 10px;
     margin: 0;
 }
 

@@ -84,7 +84,7 @@ const CategoryPage = () => {
               />
               <div className="category-product-info">
                 <h3>{product.name}</h3>
-                <p>${product.price}</p>
+                <p><span>€</span>{Number(product.price).toFixed(2)}</p>
               </div>
             </div>
           ))

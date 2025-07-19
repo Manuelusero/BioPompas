@@ -1,9 +1,7 @@
 .toppicks-page {
     max-width: 420px;
     margin: 0 auto;
-    background: #fff;
-    /* fondo clarito, igual que el resto de la app */
-    border-radius: 18px;
+    background: #F6F5F0;
     box-shadow: none;
     padding: 0 0 32px 0;
     min-height: 100vh;
@@ -24,7 +22,8 @@
 
 .toppicks-title {
     font-family: 'Explore Magic', cursive;
-    font-size: 2rem;
+    font-size: 30px;
+    font-weight: 400;
     color: #3a5a40;
     margin: 0 auto;
     letter-spacing: 1px;
@@ -57,7 +56,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 8px #0002;
     text-decoration: none;
 }
 
@@ -82,7 +80,7 @@
 }
 
 .toppick-card {
-    background: #fff;
+    background: #F6F5F0;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
@@ -90,7 +88,7 @@
     min-width: 0;
     max-width: 180px;
     margin-bottom: 8px;
-    padding: 10px 8px 14px 8px;
+    padding: 1px 8px 13px 1px;
     cursor: pointer;
     transition: box-shadow 0.2s;
 }
@@ -99,7 +97,7 @@
     width: 156px;
     height: 165px;
     border-radius: 10px;
-    background: #fff;
+    background: #F6F5F0;
     display: block;
     margin-left: 5px;
 }
