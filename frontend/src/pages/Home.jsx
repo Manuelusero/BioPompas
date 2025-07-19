@@ -171,9 +171,22 @@ const Home = () => {
                 >
                     {promotions.map((promo) => (
                         <SwiperSlide key={promo._id || promo.id}>
-                            <div className="card">
-                                <img src={promo.image && (promo.image.startsWith('http') ? promo.image : `http://localhost:5001${promo.image}`)} alt={promo.name} />
-                            </div>
+                          {(() => {
+                            // Find the best matching category for this promo
+                            let matchedCategory = categories.find(cat => {
+                              // Match by name (case-insensitive, partial match)
+                              return promo.category && cat.name && promo.category.toLowerCase().includes(cat.name.toLowerCase());
+                            });
+                            // Fallback: first category if no match
+                            const categoryUrl = matchedCategory ? matchedCategory.url : (categories[0] ? categories[0].url : '/categories');
+                            return (
+                              <Link to={categoryUrl} style={{ textDecoration: 'none' }}>
+                                <div className="card">
+                                  <img src={promo.image && (promo.image.startsWith('http') ? promo.image : `http://localhost:5001${promo.image}`)} alt={promo.name} />
+                                </div>
+                              </Link>
+                            );
+                          })()}
                         </SwiperSlide>
                     ))}
                 </Swiper>
@@ -194,7 +207,8 @@ const Home = () => {
                             <div className="top-pick-info">
                                 <div className="top-pick-name">{product.name}</div>
                                 <div className="top-pick-price">
-                                    {product.price.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
+                                    <span>€</span>
+                                    <span>{Number(product.price).toFixed(2)}</span>
                                 </div>
                             </div>
                         </div>
@@ -234,7 +248,8 @@ const Home = () => {
                             <div className="gift-bundle-info">
                                 <div className="gift-bundle-name">{bundle.name}</div>
                                 <div className="gift-bundle-price">
-                                    {bundle.price.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
+                                    <span>€</span>
+                                    <span>{Number(bundle.price).toFixed(2)}</span>
                                 </div>
                             </div>
                         </div>
@@ -271,7 +286,8 @@ const Home = () => {
                             <div className="eco-bottle-info">
                                 <div className="eco-bottle-name">{bottle.name}</div>
                                 <div className="eco-bottle-price">
-                                    {bottle.price.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
+                                    <span>€</span>
+                                    <span>{Number(bottle.price).toFixed(2)}</span>
                                 </div>
                             </div>
                         </div>

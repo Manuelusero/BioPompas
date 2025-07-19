@@ -16,7 +16,8 @@ export const preloadCategories = async (req, res) => {
 
 export const getCategories = async (req, res) => {
     try {
-        const categories = await Category.find();
+        // Ordenar por _id para mantener el orden de inserción (que coincide con el JSON)
+        const categories = await Category.find().sort({ _id: 1 });
         res.json(categories);
     } catch (error) {
         res.status(500).json({ message: "Error al obtener Categories", error });

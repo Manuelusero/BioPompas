@@ -116,14 +116,13 @@
     color: #588157;
 }
 
-.bottom-navbar {
+.bottom-navbar-login {
     position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
     z-index: 100;
-    background: #fff;
-    box-shadow: 0 -2px 16px 0 rgba(60, 60, 60, 0.10);
+    background: #F6F5F0;
     display: flex;
     justify-content: space-around;
     align-items: center;

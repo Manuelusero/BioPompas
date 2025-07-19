@@ -53,7 +53,6 @@
 .toppicks-back {
     width: 38px;
     height: 38px;
-    background: #3a5a40;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -80,7 +79,6 @@
     grid-template-columns: 1fr 1fr;
     gap: 18px 12px;
     justify-content: center;
-    padding: 24px 12px 0 12px;
 }
 
 .toppick-card {
@@ -88,7 +86,6 @@
     border-radius: 12px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 100%;
     min-width: 0;
     max-width: 180px;
@@ -99,29 +96,29 @@
 }
 
 .toppick-card img {
-    width: 100%;
-    height: 110px;
-    object-fit: cover;
+    width: 156px;
+    height: 165px;
     border-radius: 10px;
-    box-shadow: 0 4px 12px 0 rgba(60, 60, 60, 0.10);
     background: #fff;
     display: block;
+    margin-left: 5px;
 }
 
 .toppick-name {
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway';
     font-weight: 600;
     color: #222;
-    font-size: 1rem;
-    text-align: center;
-    margin: 10px 0 2px 0;
+    font-size: 12px;
+    text-align: start;
+    margin-left: 10px;
+
 }
 
 .toppick-price {
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway';
     font-weight: 400;
     color: #3a5a40;
-    font-size: 1rem;
-    text-align: center;
-    margin: 0;
+    font-size: 12px;
+    text-align: start;
+    margin-left: 10px;
 }
