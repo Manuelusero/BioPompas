@@ -1,19 +1,3 @@
-/* Logo y carrito alineados en la cabecera */
-.logo-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 0 16px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 200;
-    background: #fff;
-    min-height: 70px;
-    box-shadow: 0 2px 12px 0 rgba(60, 60, 60, 0.08);
-}
-
 /* Cart badge styles */
 .cart-icon-container {
     position: relative;
@@ -44,13 +28,12 @@
     left: 0;
     width: 100vw;
     z-index: 200;
-    background: #fff;
+    background: #F6F5F0;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 0;
     min-height: 70px;
-    box-shadow: 0 2px 12px 0 rgba(60, 60, 60, 0.08);
 }
 
 .logo-container img:first-child {
@@ -163,7 +146,6 @@ h2 {
 
 .see-all-link {
     margin-left: 12px;
-    margin-right: 24px;
     align-self: flex-end;
     position: static;
     transform: none;
@@ -186,7 +168,6 @@ h2 {
     display: flex;
     overflow-x: auto;
     gap: 16px;
-    padding: 8px 0 8px 12px;
     scrollbar-width: none;
     /* Oculta la barra en Firefox */
     -ms-overflow-style: none;
@@ -199,8 +180,9 @@ h2 {
 }
 
 .top-pick-card {
-    min-width: 110px;
-    max-width: 120px;
+    min-width: 135px;
+    max-width: 135px;
+    width: 135px;
     background: none;
     border-radius: 10px;
     box-shadow: none;
@@ -212,50 +194,58 @@ h2 {
     cursor: pointer;
     overflow: visible;
     aspect-ratio: 1/1.2;
+    flex-shrink: 0;
 }
 
 .top-pick-card img {
-    width: 100%;
-    height: 110px;
+    width: 135px;
+    /* height: 130px; */
     object-fit: cover;
     border-radius: 10px;
-    background: #fff;
+    background: #F6F5F0;
     display: block;
+    margin-left: 0;
 }
 
 .top-pick-info {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     margin-top: 6px;
     margin-bottom: 8px;
 }
 
 .top-pick-name {
     font-family: 'Raleway', Arial, sans-serif;
-    font-weight: 600;
-    color: #222;
-    font-size: 0.95rem;
-    text-align: center;
-    margin: 0;
+    font-weight: 500;
+    color: #2C3E29;
+    font-size: 12px;
+    text-align: start;
+    margin-left: 7px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .top-pick-price {
     font-family: 'Raleway', Arial, sans-serif;
     font-weight: 400;
     color: #3a5a40;
-    font-size: 0.95rem;
-    text-align: center;
-    margin: 0;
+    font-size: 12px;
+    text-align: left;
+    margin: 0 0 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
 }
 
-.top-pick-card:hover {
+/* .top-pick-card:hover {
     box-shadow: 0 8px 20px 0 rgba(60, 60, 60, 0.16), 8px 8px 20px 0 rgba(60, 60, 60, 0.12);
-}
+} */
 
 .categories-section {
-    margin: 32px 0 16px 0;
+    margin: 50px 0 16px 0;
 }
 
 .categories-header {
@@ -267,17 +257,18 @@ h2 {
 
 .categories-title {
     font-family: 'Explore Magic', cursive;
-    font-size: 1.5rem;
+    font-size: 25px;
     color: #3a5a40;
     margin: 0;
     letter-spacing: 1px;
+    font-weight: 400;
 }
 
 .categories-scroll {
     display: flex;
     overflow-x: auto;
     gap: 18px;
-    padding: 8px 0 8px 12px;
+    padding: 8px 0 8px 5px;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
@@ -298,7 +289,6 @@ h2 {
     border-radius: 18px;
     overflow: hidden;
     background: #fff;
-    box-shadow: 0 4px 16px 0 rgba(60, 60, 60, 0.10), 4px 4px 16px 0 rgba(60, 60, 60, 0.08);
     transition: box-shadow 0.2s, transform 0.2s;
     cursor: pointer;
     border: none;
@@ -331,7 +321,7 @@ h2 {
 }
 
 .gift-bundles-section {
-    margin: 32px 0 16px 0;
+    margin: 50px 0 16px 0;
 }
 
 .gift-bundles-header {
@@ -343,16 +333,17 @@ h2 {
 
 .gift-bundles-title {
     font-family: 'Explore Magic', cursive;
-    font-size: 1.5rem;
+    font-size: 25px;
     color: #3a5a40;
     margin: 0;
     letter-spacing: 1px;
+    font-weight: 400;
 }
 
 .gift-bundles-scroll {
     display: flex;
     overflow-x: auto;
-    gap: 16px;
+    gap: 25px;
     padding: 8px 0 8px 12px;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -376,14 +367,15 @@ h2 {
     cursor: pointer;
     overflow: visible;
     aspect-ratio: 1/1.2;
+    flex-shrink: 0;
 }
 
 .gift-bundle-card img {
-    width: 100%;
-    height: 110px;
+    width: 135px;
+    height: 130px;
     object-fit: cover;
     border-radius: 10px;
-    background: #fff;
+    background: #F6F5F0;
     display: block;
 }
 
@@ -391,32 +383,38 @@ h2 {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     margin-top: 6px;
     margin-bottom: 8px;
 }
 
 .gift-bundle-name {
     font-family: 'Raleway', Arial, sans-serif;
-    font-weight: 600;
-    color: #222;
-    font-size: 0.95rem;
-    text-align: center;
-    margin: 0;
+    font-weight: 500;
+    color: #2C3E29;
+    font-size: 12px;
+    text-align: start;
+    margin-left: 7px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .gift-bundle-price {
     font-family: 'Raleway', Arial, sans-serif;
     font-weight: 400;
     color: #3a5a40;
-    font-size: 0.95rem;
-    text-align: center;
-    margin: 0;
+    font-size: 12px;
+    text-align: left;
+    margin: 0 0 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
 }
 
-.gift-bundle-card:hover {
+/* .gift-bundle-card:hover {
     box-shadow: 0 8px 20px 0 rgba(60, 60, 60, 0.16), 8px 8px 20px 0 rgba(60, 60, 60, 0.12);
-}
+} */
 
 .gift-bundles-page {
     padding: 0 16px 32px 16px;
@@ -533,14 +531,16 @@ h2 {
 
 .eco-blog-title {
     font-family: 'Explore Magic', cursive;
-    font-size: 1.5rem;
     color: #3a5a40;
-    margin: 0;
-    letter-spacing: 1px;
+    font-size: 25px;
+    font-weight: 400;
+    letter-spacing: 0.25px;
+    text-align: center;
+    margin-bottom: 3px;
 }
 
 .eco-blog-sub {
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Explore Magic', cursive;
     font-size: 1rem;
     color: #588157;
     font-weight: 400;
@@ -551,7 +551,7 @@ h2 {
     display: flex;
     overflow-x: auto;
     gap: 20px;
-    padding: 8px 0 8px 12px;
+    padding: 8px 0 8px 10px;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
@@ -566,7 +566,6 @@ h2 {
     width: 314.24px;
     background: #fff;
     border-radius: 14px;
-    box-shadow: 0 4px 16px 0 rgba(60, 60, 60, 0.10), 4px 4px 16px 0 rgba(60, 60, 60, 0.08);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -602,7 +601,7 @@ h2 {
 }
 
 .eco-bottles-section {
-    margin: 32px 0 16px 0;
+    margin: 50px 0 16px 0;
 }
 
 .eco-bottles-header {
@@ -623,8 +622,8 @@ h2 {
 .eco-bottles-scroll {
     display: flex;
     overflow-x: auto;
-    gap: 16px;
-    padding: 8px 0 8px 12px;
+    gap: 7px;
+    padding: 2px 0 2px 5px;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
@@ -634,8 +633,9 @@ h2 {
 }
 
 .eco-bottle-card {
-    min-width: 110px;
-    max-width: 120px;
+    min-width: 135px;
+    max-width: 135px;
+    width: 135px;
     background: none;
     border-radius: 10px;
     box-shadow: none;
@@ -647,14 +647,15 @@ h2 {
     cursor: pointer;
     overflow: visible;
     aspect-ratio: 1/1.2;
+    flex-shrink: 0;
 }
 
 .eco-bottle-card img {
-    width: 100%;
-    height: 110px;
+    width: 135px;
+    height: 130px;
     object-fit: cover;
     border-radius: 10px;
-    background: #fff;
+    background: #F6F5F0;
     display: block;
 }
 
@@ -662,31 +663,37 @@ h2 {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     margin-top: 6px;
     margin-bottom: 8px;
 }
 
 .eco-bottle-name {
     font-family: 'Raleway', Arial, sans-serif;
-    font-weight: 600;
-    color: #222;
-    font-size: 0.95rem;
-    text-align: center;
-    margin: 0;
+    font-weight: 500;
+    color: #2C3E29;
+    font-size: 12px;
+    text-align: start;
+    margin-left: 7px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .eco-bottle-price {
     font-family: 'Raleway', Arial, sans-serif;
     font-weight: 400;
     color: #3a5a40;
-    font-size: 0.95rem;
-    text-align: center;
-    margin: 0;
+    font-size: 12px;
+    text-align: left;
+    margin: 0 0 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
 }
 
 .eco-bottle-card:hover {
-    box-shadow: 0 8px 20px 0 rgba(60, 60, 60, 0.16), 8px 8px 20px 0 rgba(60, 60, 60, 0.12);
+    box-shadow: none;
 }
 
 .eco-souvenirs-section {
@@ -697,7 +704,7 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 12px 10px 12px;
+    margin: 0 1px 1px 12px;
 }
 
 .eco-souvenirs-title {
@@ -713,20 +720,19 @@ h2 {
     position: relative;
     width: 100%;
     max-width: 340px;
-    margin: 0 auto;
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 4px 16px 0 rgba(60, 60, 60, 0.10), 4px 4px 16px 0 rgba(60, 60, 60, 0.08);
     background: #fff;
 }
 
-.eco-souvenir-image-container img,
-.our-store-image-container img {
-    width: 100%;
-    height: 180px;
+.eco-souvenir-image-container img {
+    width: 327px;
+    height: 200px;
     object-fit: cover;
     display: block;
-    border-radius: 16px;
+    border-radius: 10px;
+    padding: 8px 0 8px 10px;
+
 }
 
 .eco-souvenir-btn {
@@ -758,14 +764,14 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 12px 10px 12px;
+    margin: 0 1px 1px 12px;
 }
 
 .our-store-title {
     font-family: 'Explore Magic', cursive;
     font-size: 1.5rem;
     color: #3a5a40;
-    margin: 0;
+    margin: 0 0 1px 0;
     letter-spacing: 1px;
 }
 
@@ -773,7 +779,7 @@ h2 {
     position: relative;
     width: 100%;
     max-width: 340px;
-    margin: 0 auto;
+    margin: 0 auto 0 auto;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 4px 16px 0 rgba(60, 60, 60, 0.10), 4px 4px 16px 0 rgba(60, 60, 60, 0.08);
@@ -781,11 +787,14 @@ h2 {
 }
 
 .our-store-image-container img {
-    width: 100%;
-    height: 180px;
+    width: 327px;
+    height: 200px;
     object-fit: cover;
     display: block;
-    border-radius: 16px;
+    border-radius: 10px;
+    padding: 0;
+    margin-left: 10px;
+    margin-bottom: 16px;
 }
 
 .our-store-btn {
@@ -815,13 +824,12 @@ h2 {
     right: 0;
     bottom: 0;
     z-index: 100;
-    background: #fff;
-    box-shadow: 0 -2px 16px 0 rgba(60, 60, 60, 0.10);
+    background: #F6F5F0;
     display: flex;
     justify-content: space-around;
     align-items: center;
     height: 62px;
-    border-radius: 18px 18px 0 0;
+    /* border-radius: 18px 18px 0 0; */
     padding: 0 12px;
     /* Asegura que esté siempre visible encima del contenido */
 }
@@ -835,10 +843,10 @@ h2 {
 
 body,
 #root {
-    background: #fff;
+    background: #F6F5F0;
     /* Fondo blanco para toda la pantalla */
     padding-top: 0;
-    padding-bottom: 80px;
+    padding-bottom: 50px;
     /* Deja espacio para la navbar fija */
 }
 
@@ -855,3 +863,5 @@ body,
         transform: translateX(-50%);
     }
 }
+
+;

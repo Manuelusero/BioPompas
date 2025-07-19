@@ -102,7 +102,8 @@ const Login = () => {
                         Create an account
                     </button>
                 </div>
-                <nav className="bottom-navbar">
+                <nav className="bottom-navbar-login
+                ">
                     <a href="/home" className="nav-icon" aria-label="Home">
                         <img src="/src/assets/Icons/Home.png" alt="Home" />
                     </a>
