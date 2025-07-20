@@ -65,10 +65,16 @@ const CategoryPage = () => {
   return (
     <div className="category-page-container">
       <div className="category-header">
-        <a href="/categories" className="category-back">
+        <a href="/categories" className="category-back category-header-left">
           <img src={ArrowLeftIcon} alt="Back" className="arrowIcon" />
         </a>
-        <h2 className="category-title">{category} Products</h2>
+        <h2 className="category-title category-header-center">{category}</h2>
+        <a href="/bag" className="cart-icon-container category-header-right">
+          <img src="/src/assets/Icons/Cart.svg" alt="Carrito" className="cart-icon-categories" />
+          {cart.length > 0 && (
+            <span className="cart-badge-categories">{cart.reduce((sum, item) => sum + item.count, 0)}</span>
+          )}
+        </a>
       </div>
       <div className="category-products-list">
         {products.length === 0 ? (

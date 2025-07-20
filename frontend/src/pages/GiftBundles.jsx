@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "./GiftBundlesPage.css";
+import "./GiftBundles.css";
 import axios from "axios";
 import ArrowLeftIcon from '/src/assets/Icons/ArrowLeftIcon.png';
 import BottomSheetProductFull from "../components/BottomSheetProductFull";
@@ -33,7 +33,7 @@ function GiftBundlesHeaderWithCartBadge() {
       </Link>
       <h2 className="giftBundlesTitle">GIFT BUNDLES</h2>
       <div className="giftBundlesCartIcon">
-        <img src="/src/assets/Icons/Cart.svg" alt="Cart" />
+        <img src="/src/assets/Icons/Cart.svg" alt="Cart" className="giftBundlesCartIconImg" />
         {cartCount > 0 && (
           <span className="giftBundlesCartBadge">{cartCount}</span>
         )}
@@ -95,21 +95,18 @@ const GiftBundles = () => {
   };
 
   return (
-    <div className="giftBundlesPage">
+    <div className="toppicks-page">
       <GiftBundlesHeaderWithCartBadge />
-      <div className="giftBundlesGrid">
+      <div className="toppicks-list">
         {bundles.map((bundle) => (
-          <div className="giftBundleCard" key={bundle._id} onClick={() => handleCardClick(bundle)}>
+          <div className="toppick-card" key={bundle._id} onClick={() => handleCardClick(bundle)}>
             <img
               src={`http://localhost:5001${bundle.image}`}
               alt={bundle.name}
             />
-            <div className="giftBundleName">{bundle.name}</div>
-            <div className="giftBundlePrice">
-              {bundle.price.toLocaleString("es-ES", {
-                style: "currency",
-                currency: "EUR",
-              })}
+            <div className="toppick-name">{bundle.name}</div>
+            <div className="toppick-price">
+              <span>€</span>{Number(bundle.price).toFixed(2)}
             </div>
           </div>
         ))}
