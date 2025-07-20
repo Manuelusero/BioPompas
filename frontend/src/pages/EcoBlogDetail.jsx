@@ -45,7 +45,7 @@ const EcoBlogDetail = () => {
           className="ecoBlogDetailCart"
         />
       </div>
-      <h1 className="eco-blog-title">{blog.title}</h1>
+      <span className="eco-blog-title">{blog.title}</span>
       <div className="eco-blog-content">
         {blog.content.split(/\n\n/).map((block, i) => {
           // Si el bloque comienza con un subtítulo, lo renderiza como <h3>

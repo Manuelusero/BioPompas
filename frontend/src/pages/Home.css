@@ -1,3 +1,8 @@
+/* Reduce bottom space only for EcoBlog page */
+.eco-blog-page {
+    padding-bottom: 100px;
+}
+
 /* Cart badge styles */
 .cart-icon-container {
     position: relative;
@@ -10,8 +15,8 @@
 
 .cart-badge {
     position: absolute;
-    top: -15px;
-    right: 24px;
+    top: -10px;
+    right: 27px;
     background: #5C7347;
     color: #fff;
     border-radius: 50%;
@@ -39,7 +44,7 @@
 .logo-container img:first-child {
     position: absolute;
     transform: translateX(-50%);
-    margin-left: 90px;
+    margin-left: 130px;
 }
 
 .cart-icon {
@@ -51,7 +56,8 @@
     align-items: end;
     cursor: pointer;
     transition: transform 0.2s;
-    margin-right: 15px;
+    margin-right: 14px;
+    margin-top: -8px;
 }
 
 .cart-icon:hover {

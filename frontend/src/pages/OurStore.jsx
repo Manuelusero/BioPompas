@@ -52,6 +52,7 @@ const OurStore = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetch("http://localhost:5001/api/our-store")
       .then((res) => res.json())
       .then((data) => setOurStore(data))
