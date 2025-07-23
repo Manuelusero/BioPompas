@@ -38,7 +38,7 @@ const TopPicks = () => {
   }, []);
 
   useEffect(() => {
-    axios.get("http://localhost:5001/api/top-picks")
+    axios.get(`${import.meta.env.VITE_APP_API_URL}/products/category/TOPPICKS`)
       .then(res => setTopPicks(res.data))
       .catch(() => setTopPicks([]));
   }, []);

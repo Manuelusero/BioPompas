@@ -30,7 +30,7 @@
         "url": "/category/refillables"
     },
     {
-        "name": "GIFT BUNDLES",
+        "name": "GIFTBUNDLES",
         "image": "/uploads/GiftBundles.png",
         "url": "/category/gift-bundles"
     },
@@ -43,5 +43,20 @@
         "name": "SOAPS",
         "image": "/uploads/GiftBundles.png",
         "url": "/category/soaps"
+    },
+    {
+        "name": "ECOBOTTLES",
+        "image": "/uploads/EcoBottles.png",
+        "url": "/category/ecobottles"
+    },
+    {
+        "name": "TOPPICKS",
+        "image": "/uploads/TopPicks.png",
+        "url": "/category/toppicks"
+    },
+    {
+        "name": "ECOSOUVENIRS",
+        "image": "/uploads/EcoSouvenirs.png",
+        "url": "/category/ecosouvenirs"
     }
 ]
