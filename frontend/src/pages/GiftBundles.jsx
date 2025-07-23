@@ -57,7 +57,7 @@ const GiftBundles = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5001/api/gift-bundles")
+      .get(`${import.meta.env.VITE_APP_API_URL}/products/category/GIFTBUNDLES`)
       .then((res) => {
         setBundles(res.data);
         setLoading(false);

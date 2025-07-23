@@ -47,7 +47,8 @@ const Home = () => {
         // ...otros fetch (puedes dejar axios o migrar a fetch si lo prefieres)
         const fetchTopPicks = async () => {
             try {
-                const response = await axios.get("http://localhost:5001/api/top-picks");
+                // Usar el endpoint unificado de productos filtrando por categoría TOPPICKS
+                const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/products/category/TOPPICKS`);
                 setTopPicks(response.data);
             } catch (error) {
                 console.error("Error al obtener top picks:", error);
@@ -63,7 +64,8 @@ const Home = () => {
         };
         const fetchGiftBundles = async () => {
             try {
-                const response = await axios.get("http://localhost:5001/api/gift-bundles");
+                // Usar el endpoint unificado de productos filtrando por categoría GIFTBUNDLES
+                const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/products/category/GIFTBUNDLES`);
                 setGiftBundles(response.data);
             } catch (error) {
                 console.error("Error al obtener gift bundles:", error);
@@ -71,7 +73,7 @@ const Home = () => {
         };
         const fetchBlogs = async () => {
             try {
-                const response = await axios.get("http://localhost:5001/api/blogs");
+                const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/blogs`);
                 setBlogs(response.data);
             } catch (error) {
                 console.error("Error al obtener blogs:", error);
@@ -79,7 +81,8 @@ const Home = () => {
         };
         const fetchEcoBottles = async () => {
             try {
-                const response = await axios.get("http://localhost:5001/api/eco-bottles");
+                // Usar el endpoint unificado de productos filtrando por categoría ECOBOTTLES
+                const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/products/category/ECOBOTTLES`);
                 setEcoBottles(response.data);
             } catch (error) {
                 console.error("Error al obtener eco bottles:", error);
@@ -87,7 +90,7 @@ const Home = () => {
         };
         const fetchEcoSouvenirs = async () => {
             try {
-                const response = await axios.get("http://localhost:5001/api/eco-souvenirs");
+                const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/products/category/ECOSOUVENIRS`);
                 setEcoSouvenirs(response.data);
             } catch (error) {
                 console.error("Error al obtener eco souvenirs:", error);
@@ -95,7 +98,7 @@ const Home = () => {
         };
         const fetchOurStore = async () => {
             try {
-                const response = await axios.get("http://localhost:5001/api/our-store");
+                const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/our-store`);
                 setOurStore(response.data);
             } catch (error) {
                 console.error("Error al obtener our store:", error);
@@ -226,7 +229,7 @@ const Home = () => {
                     </span>
                 </div>
                 <div className="categories-scroll">
-                    {categories.map((cat) => (
+                    {categories.slice(0, 4).map((cat) => (
                         <a href={cat.url} className="category-card" key={cat._id}>
                             <img src={`http://localhost:5001${cat.image}`} alt={cat.name} />
                         </a>
@@ -302,9 +305,9 @@ const Home = () => {
                     <h2 className="eco-souvenirs-title">Eco Souvenirs</h2>
                 </div>
                 {ecoSouvenirs[0] && (
-                  <a href={ecoSouvenirs[0].buttonUrl} className="eco-souvenir-image-container">
-                      <img src={`http://localhost:5001${ecoSouvenirs[0].image}`} alt={ecoSouvenirs[0].title} />
-                  </a>
+                  <Link to="/contact" className="eco-souvenir-image-container">
+                      <img src={`http://localhost:5001${ecoSouvenirs[0].image}`} alt={ecoSouvenirs[0].name} />
+                  </Link>
                 )}
             </section>
             {/* Fin sección Eco Souvenirs */}
