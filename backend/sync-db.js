@@ -4,8 +4,6 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import Product from "./src/models/Product.js";
 import Category from "./src/models/Category.js";
-import Blog from "./src/models/Blog.js";
-import OurStore from "./src/models/OurStore.js";
 
 const sync = async () => {
   try {
@@ -19,8 +17,6 @@ const sync = async () => {
   try {
     await bulkCreateProducts();
     await bulkCreateCategories();
-    await bulkCreateBlogs();
-    await bulkCreateOurStore();
   } catch (error) {
     console.error("❌ Error al cargar datos:", error);
   } finally {

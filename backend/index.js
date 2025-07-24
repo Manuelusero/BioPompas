@@ -31,6 +31,8 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/checkout', checkoutRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/promotions', promotionsRoutes);
+app.use('/api/blogs', blogRoutes);
+app.use('/api/our-store', ourStoreRoutes);
 app.use('/uploads', express.static(path.join(process.cwd(), 'src/uploads')));
 
 
