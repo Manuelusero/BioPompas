@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import BottomSheetProductFull from "../components/BottomSheetProductFull";
 
 const Home = () => {
+    const [cartCount, setCartCount] = useState(0);
     const [products, setProducts] = useState([]); // Solo productos reales
     const [promotions, setPromotions] = useState([]); // Promociones para el Swiper
     const [topPicks, setTopPicks] = useState([]);
@@ -22,12 +23,27 @@ const Home = () => {
     const [selectedProductId, setSelectedProductId] = useState(null);
     const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
     const [bottomSheetCount, setBottomSheetCount] = useState(1);
-    const [cart, setCart] = useState(() => {
-      const storedCart = localStorage.getItem('cart');
-      return storedCart ? JSON.parse(storedCart) : [];
-    });
+    // El estado del carrito ya no se gestiona aquí, sino en Bag.jsx
 
     useEffect(() => {
+        // Sincronizar el contador del carrito con el backend
+        const fetchCartCount = async () => {
+            const token = localStorage.getItem('token');
+            if (!token) return;
+            try {
+                const axios = (await import('axios')).default;
+                const res = await axios.get(`${import.meta.env.VITE_APP_API_URL}/cart`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                const items = res.data.items || [];
+                setCartCount(items.reduce((sum, item) => sum + (item.quantity || item.count || 1), 0));
+            } catch {
+                setCartCount(0);
+            }
+        };
+        fetchCartCount();
+        window.addEventListener('cartUpdated', fetchCartCount);
+
         // Obtener productos reales
         fetch(`${import.meta.env.VITE_APP_API_URL}/products`)
             .then(res => res.json())
@@ -44,6 +60,7 @@ const Home = () => {
                 console.error("Error al obtener promociones:", error);
             })
             .finally(() => setLoading(false));
+
         // ...otros fetch (puedes dejar axios o migrar a fetch si lo prefieres)
         const fetchTopPicks = async () => {
             try {
@@ -111,10 +128,13 @@ const Home = () => {
         fetchEcoBottles();
         fetchEcoSouvenirs();
         fetchOurStore();
+
+        // Cleanup: solo aquí el return
+        return () => window.removeEventListener('cartUpdated', fetchCartCount);
     }, []);
 
     const handleCardClick = (product) => {
-        setSelectedProductId(product.id || product._id);
+        setSelectedProductId(product._id);
         setBottomSheetOpen(true);
         setBottomSheetCount(1);
     };
@@ -125,27 +145,32 @@ const Home = () => {
     };
 
     const handleAddToCart = (product, count) => {
-        setCart(prevCart => {
-          const existing = prevCart.find(item => item.id === product.id || item._id === product._id);
-          let newCart;
-          if (existing) {
-            newCart = prevCart.map(item =>
-              item.id === product.id || item._id === product._id
-                ? { ...item, count: item.count + count }
-                : item
-            );
-          } else {
-            newCart = [...prevCart, { ...product, count }];
-          }
-          return newCart;
+        const token = localStorage.getItem('token');
+        const productId = product._id;
+        console.log('Intentando agregar al carrito:', { productId, product, count });
+        import('axios').then(({default: axios}) => {
+          axios.post(`${import.meta.env.VITE_APP_API_URL}/cart`, {
+            productId,
+            quantity: count
+          }, {
+            headers: { Authorization: `Bearer ${token}` }
+          })
+          .then(() => {
+            window.dispatchEvent(new Event('cartUpdated'));
+            setBottomSheetOpen(false);
+            setSelectedProductId(null);
+          })
+          .catch(error => {
+            let msg = 'Error al agregar al carrito';
+            if (error.response && error.response.data && error.response.data.message) {
+              msg = error.response.data.message;
+            } else if (error.response && error.response.data && error.response.data.error) {
+              msg = error.response.data.error;
+            }
+            alert(msg);
+          });
         });
-        setBottomSheetOpen(false);
-        setSelectedProductId(null);
     };
-    // Sincroniza el carrito con localStorage al cambiar
-    useEffect(() => {
-      localStorage.setItem('cart', JSON.stringify(cart));
-    }, [cart]);
 
     return (
         <div className="homePage">
@@ -153,8 +178,8 @@ const Home = () => {
                 <img src="/LogoSmall.svg" alt="Logo" />
                 <Link to="/bag" className="cart-icon-container">
                   <img src="/src/assets/Icons/Cart.svg" alt="Carrito" className="cart-icon" />
-                  {cart.length > 0 && (
-                    <span className="cart-badge">{cart.reduce((sum, item) => sum + item.count, 0)}</span>
+                  {cartCount > 0 && (
+                    <span className="cart-badge">{cartCount}</span>
                   )}
                 </Link>
             </div>
@@ -346,7 +371,6 @@ const Home = () => {
                 onAdd={handleAddToCart}
                 count={bottomSheetCount}
                 setCount={setBottomSheetCount}
-                cart={cart}
             />
         </div>
     );

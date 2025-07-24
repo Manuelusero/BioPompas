@@ -10,34 +10,44 @@ const Bag = () => {
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    const storedCart = localStorage.getItem('cart');
-    setCart(storedCart ? JSON.parse(storedCart) : []);
-    const updateCart = () => {
-      const storedCart = localStorage.getItem('cart');
-      setCart(storedCart ? JSON.parse(storedCart) : []);
+    const fetchCart = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+      try {
+        const axios = (await import('axios')).default;
+        const res = await axios.get(`${import.meta.env.VITE_APP_API_URL}/cart`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setCart(res.data.items || []);
+      } catch {
+        setCart([]);
+      }
     };
+    fetchCart();
+    const updateCart = () => fetchCart();
     window.addEventListener('cartUpdated', updateCart);
     return () => window.removeEventListener('cartUpdated', updateCart);
   }, []);
 
   const handleRemove = (productId) => {
-    const newCart = cart.filter(item => (item.id || item._id) !== productId);
-    setCart(newCart);
-    localStorage.setItem('cart', JSON.stringify(newCart));
-    window.dispatchEvent(new Event('cartUpdated'));
+    const token = localStorage.getItem('token');
+    import('axios').then(({default: axios}) => {
+      axios.delete(`${import.meta.env.VITE_APP_API_URL}/cart/${productId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      }).then(() => {
+        window.dispatchEvent(new Event('cartUpdated'));
+      });
+    });
   };
 
   const handleCountChange = (productId, delta) => {
-    setCart(prev => {
-      const updated = prev.map(item => {
-        if ((item.id || item._id) === productId) {
-          return { ...item, count: Math.max(1, (item.count || 1) + delta) };
-        }
-        return item;
+    const token = localStorage.getItem('token');
+    import('axios').then(({default: axios}) => {
+      axios.put(`${import.meta.env.VITE_APP_API_URL}/cart/${productId}`, { quantity: delta }, {
+        headers: { Authorization: `Bearer ${token}` }
+      }).then(() => {
+        window.dispatchEvent(new Event('cartUpdated'));
       });
-      localStorage.setItem('cart', JSON.stringify(updated));
-      window.dispatchEvent(new Event('cartUpdated'));
-      return updated;
     });
   };
 

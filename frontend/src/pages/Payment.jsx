@@ -38,10 +38,52 @@ const Payment = () => {
   const total = 48.00;
 
   const handlePayment = () => {
-    // Simular pago, limpiar carrito y redirigir
-    localStorage.removeItem('cart');
-    window.dispatchEvent(new Event('cartUpdated'));
-    navigate('/order-complete');
+    // Importar Axios al inicio del archivo
+    // import axios from 'axios';
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('Debes iniciar sesión para realizar el pago.');
+      return;
+    }
+    const selectedType = paymentMethods.find(pm => pm.selected)?.type || 'visa';
+    // Mapear el tipo seleccionado al valor que espera el backend
+    let paymentMethod = 'Stripe';
+    if (selectedType === 'paypal') paymentMethod = 'PayPal';
+    // Adaptar la dirección al formato que espera el backend
+    const shippingAddress = {
+      address: address.street || '',
+      city: 'Barcelona', // Valor por defecto, puedes cambiarlo
+      postalCode: address.zip || '',
+      country: 'España', // Valor por defecto, puedes cambiarlo
+    };
+    const payload = {
+      shippingAddress,
+      paymentMethod
+    };
+    // Usar Axios directamente
+    import('axios').then(({default: axios}) => {
+      axios.post(`${import.meta.env.VITE_APP_API_URL}/checkout`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(() => {
+        localStorage.removeItem('cart');
+        window.dispatchEvent(new Event('cartUpdated'));
+        navigate('/order-complete');
+      })
+      .catch(err => {
+        let msg = 'Error al procesar el pago. Intenta de nuevo.';
+        if (err.response && err.response.data && err.response.data.message) {
+          msg += '\n' + err.response.data.message;
+        } else if (err.message) {
+          msg += '\n' + err.message;
+        }
+        alert(msg);
+        console.error(err);
+      });
+    });
   };
 
   return (

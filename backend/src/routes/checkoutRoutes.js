@@ -5,7 +5,7 @@ const router = express.Router();
 
 // Proceso de checkout
 router.post('/', authenticateToken, checkout);
-router.post('/checkout', checkout);
+// Eliminar la ruta duplicada sin autenticación
 router.get('/capture-payment', capturePayment);
 
 export default router;
