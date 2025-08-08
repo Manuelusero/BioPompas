@@ -68,7 +68,7 @@ const Search = () => {
   }, [query]);
 
   const handleCardClick = (product) => {
-    setSelectedProductId(product.id || product._id);
+    setSelectedProductId(product._id);
     setBottomSheetOpen(true);
     setBottomSheetCount(1);
   };
@@ -78,10 +78,12 @@ const Search = () => {
   };
 
   const handleAddToCart = (product, count) => {
-    const productId = product.id || product._id;
+    const productId = product._id;
+    console.log('PRODUCTO A AGREGAR:', product);
+    console.log('productId enviado:', productId);
     const storedCart = localStorage.getItem('cart');
     let cart = storedCart ? JSON.parse(storedCart) : [];
-    const existingIndex = cart.findIndex(item => (item.id || item._id) === productId);
+    const existingIndex = cart.findIndex(item => item._id === productId);
     let newCart;
     if (existingIndex !== -1) {
       newCart = cart.map((item, idx) =>
@@ -118,9 +120,9 @@ const Search = () => {
         <div style={{ marginBottom: 24 }}>
           <div className="suggestionLabel">Suggestions:</div>
           <div className="suggestionPills">
-            {suggested.map((prod, idx) => (
+            {suggested.map((prod) => (
               <span
-                key={`${prod._id || prod.id}-${idx}`}
+                key={prod._id}
                 className="suggestionPill"
                 style={{ cursor: 'pointer' }}
                 onClick={() => setQuery(prod.name)}
@@ -136,8 +138,8 @@ const Search = () => {
       {error && <div className="search-error">{error}</div>}
       {results.length > 0 && (
         <div className="search-results-list">
-          {results.map((product, idx) => (
-            <div className="search-result-card" key={`${product.id || product._id}-${idx}`} onClick={() => handleCardClick(product)} style={{ cursor: 'pointer' }}>
+          {results.map((product) => (
+            <div className="search-result-card" key={product._id} onClick={() => handleCardClick(product)} style={{ cursor: 'pointer' }}>
               <img
                 src={product.image?.startsWith('http') ? product.image : `http://localhost:5001${product.image || product.url}`}
                 alt={product.name}

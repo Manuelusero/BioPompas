@@ -11,7 +11,8 @@ function CategoriesHeaderWithCartBadge() {
     const updateCartCount = () => {
       const storedCart = localStorage.getItem('cart');
       if (storedCart) {
-        const cartArr = JSON.parse(storedCart);
+        // Solo contar productos válidos
+        const cartArr = JSON.parse(storedCart).filter(item => item._id && item.count > 0);
         setCartCount(cartArr.reduce((sum, item) => sum + item.count, 0));
       } else {
         setCartCount(0);
@@ -31,24 +32,12 @@ function CategoriesHeaderWithCartBadge() {
         <img src={ArrowLeftIcon} alt="Back" className="arrowIcon" />
       </Link>
       <h2 className="categoriesTitle">CATEGORIES</h2>
-      <div style={{ position: 'relative', display: 'inline-block' }}>
-        <img src="/src/assets/Icons/Cart.svg" alt="Carrito" className="categoriesCart" />
+      <Link to="/bag" className="categoriesCartIcon">
+        <img src="/src/assets/Icons/Cart.svg" alt="Carrito" className="categoriesCartIconImg" />
         {cartCount > 0 && (
-          <span style={{
-            position: 'absolute',
-            top: '-10px',
-            right: '-8px',
-            background: '#5C7347',
-            color: '#fff',
-            borderRadius: '50%',
-            padding: '2px 6px',
-            fontSize: '10px',
-            fontWeight: 'bold',
-            zIndex: 10,
-            boxShadow: '0 2px 8px #0002'
-          }}>{cartCount}</span>
+          <span className="categoriesCartBadge">{cartCount}</span>
         )}
-      </div>
+      </Link>
     </div>
   );
 }

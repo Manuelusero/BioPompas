@@ -52,7 +52,7 @@ export const checkout = async (req, res) => {
 
       try {
         const payPalOrder = await client.execute(request);
-        
+
         // Guardar el PayPal payment ID en la base de datos
         order.paypalPaymentId = payPalOrder.result.id;
         await order.save();
@@ -93,21 +93,21 @@ export const capturePayment = async (req, res) => {
   try {
     const capture = await client.execute(request);
 
-     // Aquí, 'capture' contiene la respuesta del pago, que tiene detalles de la transacción
+    // Aquí, 'capture' contiene la respuesta del pago, que tiene detalles de la transacción
     const captureDetails = capture.result.purchase_units[0].payments.captures[0];
 
-    
+
     // Actualizar la orden como pagada
     order.isPaid = true;
     order.paidAt = new Date();
     order.status = 'Processing';// Cambiar estado de la orden a "Procesando"
     order.paymentDetails = {
-        transactionId: captureDetails.id,
-        amount: captureDetails.amount.value,
-        currency: captureDetails.amount.currency_code,
-        status: captureDetails.status,
-      };
-       
+      transactionId: captureDetails.id,
+      amount: captureDetails.amount.value,
+      currency: captureDetails.amount.currency_code,
+      status: captureDetails.status,
+    };
+
     await order.save();
 
     res.redirect(`${process.env.CLIENT_URL}/order/${orderId}`);

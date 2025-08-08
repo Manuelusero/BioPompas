@@ -12,7 +12,8 @@ function GiftBundlesHeaderWithCartBadge() {
     const updateCartCount = () => {
       const storedCart = localStorage.getItem('cart');
       if (storedCart) {
-        const cartArr = JSON.parse(storedCart);
+        // Solo contar productos válidos
+        const cartArr = JSON.parse(storedCart).filter(item => item._id && item.count > 0);
         setCartCount(cartArr.reduce((sum, item) => sum + item.count, 0));
       } else {
         setCartCount(0);
@@ -32,12 +33,12 @@ function GiftBundlesHeaderWithCartBadge() {
         <span className="giftBundlesArrowIcon"><img src={ArrowLeftIcon} alt="Back" className="arrowIcon" /></span>
       </Link>
       <h2 className="giftBundlesTitle">GIFT BUNDLES</h2>
-      <div className="giftBundlesCartIcon">
+      <Link to="/bag" className="giftBundlesCartIcon">
         <img src="/src/assets/Icons/Cart.svg" alt="Cart" className="giftBundlesCartIconImg" />
         {cartCount > 0 && (
           <span className="giftBundlesCartBadge">{cartCount}</span>
         )}
-      </div>
+      </Link>
     </div>
   );
 }
@@ -68,7 +69,7 @@ const GiftBundles = () => {
   if (loading) return <div style={{ padding: 24 }}>Loading...</div>;
 
   const handleCardClick = (product) => {
-    setSelectedProductId(product._id || product.id);
+    setSelectedProductId(product._id);
     setBottomSheetOpen(true);
     setBottomSheetCount(1);
   };
@@ -78,16 +79,23 @@ const GiftBundles = () => {
   };
 
   const handleAddToCart = (product, count) => {
-    const productId = product._id || product.id;
-    const existingIndex = cart.findIndex(item => (item._id || item.id) === productId);
+    const productId = product._id;
+    // Leer el carrito actualizado de localStorage (por si se modificó en otra pestaña)
+    const storedCart = localStorage.getItem('cart');
+    let cartArr = storedCart ? JSON.parse(storedCart) : cart;
+    // Limpiar productos sin _id o count <= 0
+    cartArr = cartArr.filter(item => item._id && item.count > 0);
+    const existingIndex = cartArr.findIndex(item => item._id === productId);
     let newCart;
     if (existingIndex !== -1) {
-      newCart = cart.map((item, idx) =>
+      newCart = cartArr.map((item, idx) =>
         idx === existingIndex ? { ...item, count: item.count + count } : item
       );
     } else {
-      newCart = [...cart, { ...product, count }];
+      newCart = [...cartArr, { ...product, count }];
     }
+    // Limpiar de nuevo por si algún producto quedó con count <= 0
+    newCart = newCart.filter(item => item._id && item.count > 0);
     setCart(newCart);
     localStorage.setItem('cart', JSON.stringify(newCart));
     window.dispatchEvent(new Event('cartUpdated'));

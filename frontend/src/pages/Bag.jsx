@@ -10,45 +10,54 @@ const Bag = () => {
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    const fetchCart = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) return;
-      try {
-        const axios = (await import('axios')).default;
-        const res = await axios.get(`${import.meta.env.VITE_APP_API_URL}/cart`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setCart(res.data.items || []);
-      } catch {
+    const fetchCart = () => {
+      const storedCart = localStorage.getItem('cart');
+      if (storedCart) {
+        // Limpiar productos sin _id o count <= 0
+        const cleanCart = JSON.parse(storedCart).filter(item => item._id && item.count > 0);
+        setCart(cleanCart);
+        // Si hubo limpieza, guardar el carrito limpio
+        if (cleanCart.length !== JSON.parse(storedCart).length) {
+          localStorage.setItem('cart', JSON.stringify(cleanCart));
+        }
+      } else {
         setCart([]);
       }
     };
     fetchCart();
     const updateCart = () => fetchCart();
     window.addEventListener('cartUpdated', updateCart);
-    return () => window.removeEventListener('cartUpdated', updateCart);
+    window.addEventListener('storage', updateCart);
+    return () => {
+      window.removeEventListener('cartUpdated', updateCart);
+      window.removeEventListener('storage', updateCart);
+    };
   }, []);
 
   const handleRemove = (productId) => {
-    const token = localStorage.getItem('token');
-    import('axios').then(({default: axios}) => {
-      axios.delete(`${import.meta.env.VITE_APP_API_URL}/cart/${productId}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      }).then(() => {
-        window.dispatchEvent(new Event('cartUpdated'));
-      });
-    });
+    // Siempre localStorage
+    const storedCart = localStorage.getItem('cart');
+    let cartArr = storedCart ? JSON.parse(storedCart) : [];
+    cartArr = cartArr.filter(item => item._id !== productId && item._id && item.count > 0);
+    localStorage.setItem('cart', JSON.stringify(cartArr));
+    window.dispatchEvent(new Event('cartUpdated'));
   };
 
   const handleCountChange = (productId, delta) => {
-    const token = localStorage.getItem('token');
-    import('axios').then(({default: axios}) => {
-      axios.put(`${import.meta.env.VITE_APP_API_URL}/cart/${productId}`, { quantity: delta }, {
-        headers: { Authorization: `Bearer ${token}` }
-      }).then(() => {
-        window.dispatchEvent(new Event('cartUpdated'));
-      });
-    });
+    // Siempre localStorage
+    const storedCart = localStorage.getItem('cart');
+    let cartArr = storedCart ? JSON.parse(storedCart) : [];
+    const idx = cartArr.findIndex(item => item._id === productId);
+    if (idx !== -1) {
+      cartArr[idx].count = Math.max(1, (cartArr[idx].count || 1) + delta);
+      if (cartArr[idx].count <= 0) {
+        cartArr.splice(idx, 1);
+      }
+      // Limpiar productos inválidos
+      cartArr = cartArr.filter(item => item._id && item.count > 0);
+      localStorage.setItem('cart', JSON.stringify(cartArr));
+      window.dispatchEvent(new Event('cartUpdated'));
+    }
   };
 
   const orderTotal = cart.reduce((sum, item) => sum + (item.price * (item.count || 1)), 0);
@@ -64,8 +73,8 @@ const Bag = () => {
         {cart.length === 0 ? (
           <div className="bag-empty">Your bag is empty.</div>
         ) : (
-          cart.map((item, idx) => (
-            <div className="bag-item" key={`${item.id || item._id}-${idx}`}>
+          cart.map((item) => (
+            <div className="bag-item" key={item._id}>
               <img
                 src={item.image?.startsWith('http') ? item.image : `http://localhost:5001${item.image || item.url}`}
                 alt={item.name}
@@ -78,11 +87,11 @@ const Bag = () => {
               </div>
               <div className="bag-item-actions">
                 <div className="bag-item-counter">
-                  <button onClick={() => handleCountChange(item.id || item._id, -1)}>-</button>
+                  <button onClick={() => handleCountChange(item._id, -1)}>-</button>
                   <span>{item.count || 1}</span>
-                  <button onClick={() => handleCountChange(item.id || item._id, 1)}>+</button>
+                  <button onClick={() => handleCountChange(item._id, 1)}>+</button>
                 </div>
-                <button className="bag-item-remove" onClick={() => handleRemove(item.id || item._id)}>
+                <button className="bag-item-remove" onClick={() => handleRemove(item._id)}>
                   <img src="/src/assets/Icons/DeleteIcon.png" alt="Delete" />
                 </button>
               </div>
