@@ -11,20 +11,27 @@
     justify-content: flex-end;
     margin-left: auto;
     z-index: 201;
+    width: 40px;
+    height: 40px;
+    background: none;
 }
+
 
 .cart-badge {
     position: absolute;
-    top: -10px;
-    right: 27px;
+    top: -8px;
+    right: -8px;
     background: #5C7347;
     color: #fff;
     border-radius: 50%;
-    padding: 1px 3px;
-    font-size: 8px;
+    padding: 2px 8px;
+    font-size: 13px;
     font-weight: bold;
     z-index: 10;
     box-shadow: 0 2px 8px #0002;
+    min-width: 20px;
+    text-align: center;
+    line-height: 1.2;
 }
 
 .logo-container {
@@ -51,13 +58,12 @@
     position: relative;
     right: 0;
     width: 24px;
-    height: 32px;
-    display: flex;
-    align-items: end;
+    height: 24px;
+    display: block;
     cursor: pointer;
     transition: transform 0.2s;
     margin-right: 14px;
-    margin-top: -8px;
+    margin-top: 0;
 }
 
 .cart-icon:hover {

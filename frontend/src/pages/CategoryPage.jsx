@@ -13,10 +13,8 @@ const CategoryPage = () => {
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const [bottomSheetCount, setBottomSheetCount] = useState(1);
-  const [cart, setCart] = useState(() => {
-    const storedCart = localStorage.getItem('cart');
-    return storedCart ? JSON.parse(storedCart) : [];
-  });
+  // Eliminado cart, solo usamos cartCount
+  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -32,11 +30,32 @@ const CategoryPage = () => {
     fetchProducts();
   }, [category]);
 
+  // Unificar contador global SOLO localStorage
+  useEffect(() => {
+    const fetchCart = () => {
+      const storedCart = localStorage.getItem('cart');
+      if (storedCart) {
+        // Solo contar productos válidos
+        const cartArr = JSON.parse(storedCart).filter(item => item._id && item.count > 0);
+        setCartCount(cartArr.reduce((sum, item) => sum + item.count, 0));
+      } else {
+        setCartCount(0);
+      }
+    };
+    fetchCart();
+    window.addEventListener('cartUpdated', fetchCart);
+    window.addEventListener('storage', fetchCart);
+    return () => {
+      window.removeEventListener('cartUpdated', fetchCart);
+      window.removeEventListener('storage', fetchCart);
+    };
+  }, []);
+
   if (loading) return <div className="category-loading">Loading...</div>;
   if (error) return <div className="category-error">{error}</div>;
 
   const handleCardClick = (product) => {
-    setSelectedProductId(product.id || product._id);
+    setSelectedProductId(product._id);
     setBottomSheetOpen(true);
     setBottomSheetCount(1);
   };
@@ -46,18 +65,21 @@ const CategoryPage = () => {
   };
 
   const handleAddToCart = (product, count) => {
-    const productId = product.id || product._id;
-    const existingIndex = cart.findIndex(item => (item.id || item._id) === productId);
-    let newCart;
+    const productId = product._id;
+    // Siempre localStorage
+    const storedCart = localStorage.getItem('cart');
+    let cartArr = storedCart ? JSON.parse(storedCart) : [];
+    // Limpiar productos sin _id o count <= 0
+    cartArr = cartArr.filter(item => item._id && item.count > 0);
+    const existingIndex = cartArr.findIndex(item => item._id === productId);
     if (existingIndex !== -1) {
-      newCart = cart.map((item, idx) =>
-        idx === existingIndex ? { ...item, count: item.count + count } : item
-      );
+      cartArr[existingIndex].count = (cartArr[existingIndex].count || 1) + count;
     } else {
-      newCart = [...cart, { ...product, count }];
+      cartArr.push({ ...product, count });
     }
-    setCart(newCart);
-    localStorage.setItem('cart', JSON.stringify(newCart));
+    // Limpiar de nuevo por si algún producto quedó con count <= 0
+    cartArr = cartArr.filter(item => item._id && item.count > 0);
+    localStorage.setItem('cart', JSON.stringify(cartArr));
     window.dispatchEvent(new Event('cartUpdated'));
     setBottomSheetOpen(false);
   };
@@ -69,10 +91,10 @@ const CategoryPage = () => {
           <img src={ArrowLeftIcon} alt="Back" className="arrowIcon" />
         </a>
         <h2 className="category-title category-header-center">{category}</h2>
-        <a href="/bag" className="cart-icon-container category-header-right">
-          <img src="/src/assets/Icons/Cart.svg" alt="Carrito" className="cart-icon-categories" />
-          {cart.length > 0 && (
-            <span className="cart-badge-categories">{cart.reduce((sum, item) => sum + item.count, 0)}</span>
+        <a href="/bag" className="categoryCartIcon category-header-right">
+          <img src="/src/assets/Icons/Cart.svg" alt="Carrito" className="categoryCartIconImg" />
+          {cartCount > 0 && (
+            <span className="categoryCartBadge">{cartCount}</span>
           )}
         </a>
       </div>
@@ -81,7 +103,7 @@ const CategoryPage = () => {
           <div className="category-no-products">No products found.</div>
         ) : (
           products.map(product => (
-            <div className="category-product-card" key={product.id} onClick={() => handleCardClick(product)}>
+            <div className="category-product-card" key={product._id} onClick={() => handleCardClick(product)}>
               <img
                 src={product.image?.startsWith('http') ? product.image : `http://localhost:5001${product.image || product.url}`}
                 alt={product.name}

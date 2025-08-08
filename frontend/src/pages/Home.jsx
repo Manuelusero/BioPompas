@@ -26,23 +26,20 @@ const Home = () => {
     // El estado del carrito ya no se gestiona aquí, sino en Bag.jsx
 
     useEffect(() => {
-        // Sincronizar el contador del carrito con el backend
-        const fetchCartCount = async () => {
-            const token = localStorage.getItem('token');
-            if (!token) return;
-            try {
-                const axios = (await import('axios')).default;
-                const res = await axios.get(`${import.meta.env.VITE_APP_API_URL}/cart`, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-                const items = res.data.items || [];
-                setCartCount(items.reduce((sum, item) => sum + (item.quantity || item.count || 1), 0));
-            } catch {
+        // Sincronizar el contador del carrito SOLO con localStorage
+        const fetchCartCount = () => {
+            const storedCart = localStorage.getItem('cart');
+            if (storedCart) {
+                // Solo contar productos válidos
+                const cartArr = JSON.parse(storedCart).filter(item => item._id && item.count > 0);
+                setCartCount(cartArr.reduce((sum, item) => sum + item.count, 0));
+            } else {
                 setCartCount(0);
             }
         };
         fetchCartCount();
         window.addEventListener('cartUpdated', fetchCartCount);
+        window.addEventListener('storage', fetchCartCount);
 
         // Obtener productos reales
         fetch(`${import.meta.env.VITE_APP_API_URL}/products`)
@@ -130,7 +127,10 @@ const Home = () => {
         fetchOurStore();
 
         // Cleanup: solo aquí el return
-        return () => window.removeEventListener('cartUpdated', fetchCartCount);
+        return () => {
+            window.removeEventListener('cartUpdated', fetchCartCount);
+            window.removeEventListener('storage', fetchCartCount);
+        };
     }, []);
 
     const handleCardClick = (product) => {
@@ -145,31 +145,24 @@ const Home = () => {
     };
 
     const handleAddToCart = (product, count) => {
-        const token = localStorage.getItem('token');
         const productId = product._id;
-        console.log('Intentando agregar al carrito:', { productId, product, count });
-        import('axios').then(({default: axios}) => {
-          axios.post(`${import.meta.env.VITE_APP_API_URL}/cart`, {
-            productId,
-            quantity: count
-          }, {
-            headers: { Authorization: `Bearer ${token}` }
-          })
-          .then(() => {
-            window.dispatchEvent(new Event('cartUpdated'));
-            setBottomSheetOpen(false);
-            setSelectedProductId(null);
-          })
-          .catch(error => {
-            let msg = 'Error al agregar al carrito';
-            if (error.response && error.response.data && error.response.data.message) {
-              msg = error.response.data.message;
-            } else if (error.response && error.response.data && error.response.data.error) {
-              msg = error.response.data.error;
-            }
-            alert(msg);
-          });
-        });
+        // Siempre localStorage
+        const storedCart = localStorage.getItem('cart');
+        let cartArr = storedCart ? JSON.parse(storedCart) : [];
+        // Limpiar productos sin _id o count <= 0
+        cartArr = cartArr.filter(item => item._id && item.count > 0);
+        const existingIndex = cartArr.findIndex(item => item._id === productId);
+        if (existingIndex !== -1) {
+            cartArr[existingIndex].count = (cartArr[existingIndex].count || 1) + count;
+        } else {
+            cartArr.push({ ...product, count });
+        }
+        // Limpiar de nuevo por si algún producto quedó con count <= 0
+        cartArr = cartArr.filter(item => item._id && item.count > 0);
+        localStorage.setItem('cart', JSON.stringify(cartArr));
+        window.dispatchEvent(new Event('cartUpdated'));
+        setBottomSheetOpen(false);
+        setSelectedProductId(null);
     };
 
     return (
@@ -198,7 +191,7 @@ const Home = () => {
                     loop // Hace que los productos vuelvan a empezar en bucle
                 >
                     {promotions.map((promo) => (
-                        <SwiperSlide key={promo._id || promo.id}>
+                        <SwiperSlide key={promo._id}>
                           {(() => {
                             // Find the best matching category for this promo
                             let matchedCategory = categories.find(cat => {
@@ -230,7 +223,7 @@ const Home = () => {
                 </div>
                 <div className="top-picks-scroll">
                     {topPicks.slice(0, 4).map((product) => (
-                        <div className="top-pick-card" key={product.id} onClick={() => handleCardClick(product)}>
+                        <div className="top-pick-card" key={product._id} onClick={() => handleCardClick(product)}>
                             <img src={`http://localhost:5001${product.image}`} alt={product.name} />
                             <div className="top-pick-info">
                                 <div className="top-pick-name">{product.name}</div>

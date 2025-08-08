@@ -11,30 +11,25 @@ const TopPicks = () => {
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const [bottomSheetCount, setBottomSheetCount] = useState(1);
-  const [cart, setCart] = useState(() => {
-    const storedCart = localStorage.getItem('cart');
-    return storedCart ? JSON.parse(storedCart) : [];
-  });
+  // Eliminar estado local de cart, solo usar localStorage
 
   useEffect(() => {
-    const storedCart = localStorage.getItem('cart');
-    if (storedCart) {
-      const cartArr = JSON.parse(storedCart);
-      setCartCount(cartArr.reduce((sum, item) => sum + item.count, 0));
-    } else {
-      setCartCount(0);
-    }
     const syncCart = () => {
       const storedCart = localStorage.getItem('cart');
       if (storedCart) {
-        const cartArr = JSON.parse(storedCart);
+        const cartArr = JSON.parse(storedCart).filter(item => item._id && item.count > 0);
         setCartCount(cartArr.reduce((sum, item) => sum + item.count, 0));
       } else {
         setCartCount(0);
       }
     };
+    syncCart();
+    window.addEventListener('cartUpdated', syncCart);
     window.addEventListener('storage', syncCart);
-    return () => window.removeEventListener('storage', syncCart);
+    return () => {
+      window.removeEventListener('cartUpdated', syncCart);
+      window.removeEventListener('storage', syncCart);
+    };
   }, []);
 
   useEffect(() => {
@@ -44,7 +39,7 @@ const TopPicks = () => {
   }, []);
 
   const handleCardClick = (product) => {
-    setSelectedProductId(product.id || product._id);
+    setSelectedProductId(product._id);
     setBottomSheetOpen(true);
     setBottomSheetCount(1);
   };
@@ -54,22 +49,21 @@ const TopPicks = () => {
   };
 
   const handleAddToCart = (product, count) => {
-    // Busca si el producto ya está en el carrito
-    const productId = product.id || product._id;
-    const existingIndex = cart.findIndex(item => (item.id || item._id) === productId);
-    let newCart;
+    const productId = product._id;
+    const storedCart = localStorage.getItem('cart');
+    let cartArr = storedCart ? JSON.parse(storedCart) : [];
+    // Limpiar productos sin _id o count <= 0
+    cartArr = cartArr.filter(item => item._id && item.count > 0);
+    const existingIndex = cartArr.findIndex(item => item._id === productId);
     if (existingIndex !== -1) {
-      // Si existe, suma la cantidad
-      newCart = cart.map((item, idx) =>
-        idx === existingIndex ? { ...item, count: item.count + count } : item
-      );
+      cartArr[existingIndex].count = (cartArr[existingIndex].count || 1) + count;
     } else {
-      // Si no existe, lo agrega
-      newCart = [...cart, { ...product, count }];
+      cartArr.push({ ...product, count });
     }
-    setCart(newCart);
-    localStorage.setItem('cart', JSON.stringify(newCart));
-    setCartCount(newCart.reduce((sum, item) => sum + item.count, 0));
+    // Limpiar de nuevo por si algún producto quedó con count <= 0
+    cartArr = cartArr.filter(item => item._id && item.count > 0);
+    localStorage.setItem('cart', JSON.stringify(cartArr));
+    window.dispatchEvent(new Event('cartUpdated'));
     setBottomSheetOpen(false);
   };
 
@@ -87,10 +81,10 @@ const TopPicks = () => {
       </div>
       <div className="toppicks-list">
         {topPicks.map((product) => (
-          <div className="toppick-card" key={product.id} onClick={() => handleCardClick(product)}>
+          <div className="toppick-card" key={product._id} onClick={() => handleCardClick(product)}>
             <img src={`http://localhost:5001${product.image}`} alt={product.name} />
             <div className="toppick-name">{product.name}</div>
-            <div className="toppick-price">{product.price.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}</div>
+            <div className="toppick-price">€{Number(product.price).toFixed(2)}</div>
           </div>
         ))}
       </div>

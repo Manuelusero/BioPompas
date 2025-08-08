@@ -1,3 +1,37 @@
+.categoryCartIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 18px;
+    top: 28px;
+    text-decoration: none;
+    z-index: 2;
+}
+
+.categoryCartIconImg {
+    width: 28px;
+    height: 28px;
+    display: block;
+}
+
+.categoryCartBadge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #5C7347;
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px 8px;
+    font-size: 14px;
+    font-weight: bold;
+    z-index: 3;
+    box-shadow: 0 2px 8px #0002;
+    min-width: 22px;
+    text-align: center;
+    line-height: 1.2;
+}
+
 .category-page-container {
     max-width: 420px;
     margin: 0 auto;
