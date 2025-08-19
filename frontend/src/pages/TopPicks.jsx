@@ -72,10 +72,10 @@ const TopPicks = () => {
       <div className="toppicks-header">
         <Link to="/home" className="toppicks-back"><img src={ArrowLeftIcon} alt="Back" className="arrow-icon" /></Link>
         <h2 className="toppicks-title">Top Picks</h2>
-        <div style={{ position: 'relative', display: 'inline-block' }}>
+        <div className="toppicks-cart-container">
           <img src="/src/assets/Icons/Cart.svg" alt="Carrito" className="toppicks-cart" />
           {cartCount > 0 && (
-            <span style={{ position: 'absolute', top: '-10px', right: '-8px', background: '#5C7347', color: '#fff', borderRadius: '50%', padding: '2px 6px', fontSize: '10px', fontWeight: 'bold', zIndex: 10, boxShadow: '0 2px 8px #0002' }}>{cartCount}</span>
+            <span className="cart-badge-topPick">{cartCount}</span>
           )}
         </div>
       </div>

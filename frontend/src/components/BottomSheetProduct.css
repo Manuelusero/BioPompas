@@ -1,3 +1,71 @@
+/* Quitar min-height en modo compacto para que la tarjeta se ajuste al contenido */
+.bottom-sheet-expanded-content.compact {
+    min-height: unset !important;
+}
+
+/* Centrar y expandir el botón solo en modo compacto */
+.bottom-sheet-add-row.compact>.bottom-sheet-add {
+    margin: 18px 0 0 0 !important;
+    width: 60% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    border: none !important;
+}
+
+
+
+/* Expanded content white card for bottom sheet */
+.bottom-sheet-expanded-content {
+    background: #fff;
+    box-shadow: 0 8px 32px #0002;
+    margin-top: -80px !important;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    position: relative;
+    z-index: 100;
+    width: 100vw;
+    max-width: 100vw;
+    left: 0;
+    right: 0;
+    /* background: transparent; */
+}
+
+.bottom-sheet-expanded-content .bottom-sheet-info {
+    padding: 0 24px;
+    margin-bottom: 18px;
+}
+
+.bottom-sheet-expanded-content .bottom-sheet-add-row.expanded {
+    background: transparent;
+    border-radius: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-radius: 0 !important;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.bottom-sheet-handle {
+    width: 72px;
+    height: 3px;
+    background: #2C3E29;
+    border-radius: 3px;
+    margin: 12px auto 30px auto;
+    position: relative;
+    top: -30px;
+    left: 0;
+    transform: none;
+    cursor: grab;
+    box-shadow: 0 2px 8px #0001;
+    z-index: 20;
+}
+
 /* Overlay for bottom sheet */
 .bottom-sheet-overlay {
     position: fixed;
@@ -7,25 +75,18 @@
     height: 100vh;
     background: rgba(40, 60, 40, 0.18);
     z-index: 1000;
+    overflow: hidden;
+    top: 0;
+    transition: max-height 0.3s cubic-bezier(.42, 1.2, .58, 1);
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    transition: background 0.3s;
 }
 
-/* Bottom sheet container */
-.bottom-sheet {
-    width: 100%;
-    max-width: 420px;
-    background: #fff;
-    border-radius: 32px 32px 0 0;
-    box-shadow: 0 -4px 32px #0002;
-    padding: 48px 24px 24px 24px;
-    animation: slideUp 0.35s cubic-bezier(.42, 1.2, .58, 1) 1;
-    position: relative;
+.bottom-sheet.expanded {
     min-height: 80vh;
-    /* sube casi hasta el header */
-    top: 0;
+    overflow-y: auto;
+
 }
 
 @keyframes slideUp {
@@ -41,8 +102,46 @@
 .bottom-sheet-img-container {
     width: 100%;
     display: flex;
-    justify-content: center;
-    margin-bottom: 18px;
+    justify-content: stretch;
+    margin-bottom: 0;
+    border-radius: 32px 32px 0 0;
+    overflow: hidden;
+    height: 220px;
+    min-height: 220px;
+    max-height: 220px;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.bottom-sheet-img-container.full {
+    justify-content: stretch;
+    margin-bottom: 0;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    height: 280px;
+    min-height: 280px;
+    max-height: 280px;
+    position: relative;
+    width: 100vw;
+    left: 0;
+    right: 0;
+}
+
+/* FIX: Imagen expandida debe ser position: relative y sin padding extra en el contenido */
+.bottom-sheet-img-container.full.expanded-img {
+    border-radius: 0 !important;
+    margin: 0;
+    padding: 0;
+    overflow: visible !important;
+    height: 430px;
+    min-height: 430px;
+    max-height: 430px;
+    width: 100vw;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 1 !important;
 }
 
 .bottom-sheet-img {
@@ -51,10 +150,50 @@
     object-fit: contain;
     border-radius: 18px;
     background: #f6fff6;
+    transition: all 0.3s;
+}
+
+.bottom-sheet-img.full {
+    width: 100vw;
+    height: 280px;
+    min-height: 280px;
+    max-height: 280px;
+    object-fit: cover;
+    border-radius: 60px 60px 0 0;
+    background: #f6fff6;
+    display: block;
+}
+
+/* Imagen expandida: sin border-radius inferior, pegada arriba, más alta */
+.bottom-sheet-img.full.expanded-img {
+    width: 100vw;
+    height: 430px;
+    min-height: 430px;
+    max-height: 430px;
+    object-fit: cover;
+    border-radius: 0 !important;
+    background: transparent !important;
+    display: block;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 20px;
+    z-index: 1 !important;
 }
 
 .bottom-sheet-info {
     margin-bottom: 18px;
+    padding: 0 24px;
+}
+
+.bottom-sheet-info.compact {
+    background: #fff;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding: 1px 0 0 0;
+    z-index: 2;
 }
 
 .bottom-sheet-title-price {
@@ -73,17 +212,18 @@
     line-height: 16px;
     color: #3a5a40;
     margin-right: 16px;
+    padding-left: 16px;
 }
 
 .bottom-sheet-price {
     font-family: 'Raleway', Arial, sans-serif;
-    font-size: 12px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 600;
     line-height: 16px;
     color: #3a5a40;
     margin-top: 4px;
-    margin-left: 0;
+    margin-left: 16px;
 }
 
 .bottom-sheet-counter {
@@ -96,6 +236,8 @@
     box-shadow: 0 2px 8px #0001;
     margin-left: 85px;
     justify-content: center;
+    width: 100px;
+    height: 35px;
 }
 
 .bottom-sheet-counter button {
@@ -123,28 +265,28 @@
     text-align: center;
 }
 
-.bottom-sheet-about {
-    margin-top: 18px;
-}
-
-.bottom-sheet-about-title {
-    font-family: 'Raleway', Arial, sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: #3a5a40;
-    margin-top: 40px;
-}
-
-.bottom-sheet-about-desc {
-    font-family: 'Raleway', Arial, sans-serif;
-    font-size: 0.98rem;
-    font-weight: 400;
-    color: #444;
-    line-height: 1.5;
-}
-
-.bottom-sheet-add {
+.bottom-sheet-add-row {
     width: 100%;
+    margin-top: 18px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bottom-sheet-add-row.compact {
+    background: #fff;
+    margin-top: 0;
+    margin-bottom: 25px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+/* El ancho solo se define en modo compacto */
+.bottom-sheet-add {
     background: #5C7347;
     color: #fff;
     font-family: 'Raleway', Arial, sans-serif;
@@ -161,6 +303,7 @@
     justify-content: center;
     gap: 8px;
     transition: background 0.2s;
+    /* margin-right: 45px; */
 }
 
 .bottom-sheet-add-icon img {
@@ -172,7 +315,7 @@
 }
 
 .bottom-sheet-add-text {
-    font-size: 1.1rem;
+    font-size: 12px;
     font-weight: 600;
     vertical-align: middle;
 }
@@ -201,14 +344,14 @@
     color: #588157;
 }
 
-.bottom-sheet-handle {
-    width: 48px;
-    height: 6px;
-    background: #d1e7d1;
-    border-radius: 3px;
-    margin: 0 auto 18px auto;
-    position: relative;
-    top: -12px;
-    cursor: grab;
-    box-shadow: 0 2px 8px #0001;
+.bottom-sheet-img {
+    width: 100vw;
+    height: 220px;
+    min-height: 220px;
+    max-height: 220px;
+    object-fit: cover;
+    border-radius: 32px 32px 0 0;
+    background: #f6fff6;
+    display: block;
+    transition: all 0.3s;
 }

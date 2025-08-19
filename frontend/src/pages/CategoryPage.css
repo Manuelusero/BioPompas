@@ -82,8 +82,7 @@
 
 .cart-badge-categories {
     position: absolute;
-    top: -8px;
-    right: -8px;
+    top: -7px;
     background: #588157;
     color: #fff;
     border-radius: 50%;
