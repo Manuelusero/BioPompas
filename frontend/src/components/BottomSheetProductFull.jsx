@@ -1,8 +1,14 @@
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import './BottomSheetProduct.css';
 import PropTypes from 'prop-types';
 
 const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, count, setCount }) => {
+  const [expanded, setExpanded] = useState(false);
+
+  // Cuando cambia el producto o se abre el modal, siempre empieza en compacto
+  useEffect(() => {
+    setExpanded(false);
+  }, [productId, open]);
 
   const sheetRef = useRef();
   const startY = useRef(null);
@@ -15,73 +21,135 @@ const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, cou
     return products.find(p => p.id === productId || p._id === productId) || null;
   }, [productId, products]);
 
-  // Drag/Touch logic
-  const handleTouchStart = (e) => {
+  // Drag/Touch logic SOLO en el handle
+  const handleDragStart = (e) => {
+    // Solo si el target es el handle
+    if (!e.target.classList.contains('bottom-sheet-handle')) return;
     dragging.current = true;
-    startY.current = e.touches ? e.touches[0].clientY : e.clientY;
+    if (e.touches) {
+      startY.current = e.touches[0].clientY;
+    } else {
+      startY.current = e.clientY;
+    }
+    document.addEventListener('touchmove', handleDragMove, { passive: false });
+    document.addEventListener('touchend', handleDragEnd);
+    document.addEventListener('mousemove', handleDragMove);
+    document.addEventListener('mouseup', handleDragEnd);
   };
-  const handleTouchMove = (e) => {
+
+  const handleDragMove = (e) => {
     if (!dragging.current) return;
-    currentY.current = e.touches ? e.touches[0].clientY : e.clientY;
+    if (e.touches) {
+      currentY.current = e.touches[0].clientY;
+    } else {
+      currentY.current = e.clientY;
+    }
     const diff = currentY.current - startY.current;
-    if (diff > 0 && sheetRef.current) {
-      sheetRef.current.style.transform = `translateY(${diff}px)`;
+    if (sheetRef.current) {
+      sheetRef.current.style.transform = `translateY(${Math.max(diff, 0)}px)`;
     }
   };
-  const handleTouchEnd = () => {
+
+  const handleDragEnd = (e) => {
     if (!dragging.current) return;
     dragging.current = false;
-    if (currentY.current - startY.current > 80) {
-      onClose();
-    } else if (sheetRef.current) {
+    if (e && e.touches && e.touches.length > 0) {
+      currentY.current = e.touches[0].clientY;
+    } else if (e && typeof e.clientY === 'number') {
+      currentY.current = e.clientY;
+    }
+    const diff = currentY.current - startY.current;
+    if (diff > 120) {
+      // Si baja mucho, cerrar el bottom sheet
+      if (typeof onClose === 'function') onClose();
+      setExpanded(false);
+    } else if (diff > 60) {
+      setExpanded(false); // Compacto
+    } else if (diff < -60) {
+      setExpanded(true); // Expandido
+    }
+    if (sheetRef.current) {
       sheetRef.current.style.transform = '';
     }
+    document.removeEventListener('touchmove', handleDragMove);
+    document.removeEventListener('touchend', handleDragEnd);
+    document.removeEventListener('mousemove', handleDragMove);
+    document.removeEventListener('mouseup', handleDragEnd);
   };
+
 
   if (!open || !product) return null;
 
   return (
-    <div className="bottom-sheet-overlay" onClick={onClose}>
+    <div className="bottom-sheet-overlay">
       <div
-        className="bottom-sheet"
+        className={`bottom-sheet${expanded ? ' expanded' : ''}`}
         ref={sheetRef}
-        onMouseDown={handleTouchStart}
-        onMouseMove={handleTouchMove}
-        onMouseUp={handleTouchEnd}
-        onMouseLeave={handleTouchEnd}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
+        onMouseDown={handleDragStart}
+        onTouchStart={handleDragStart}
         onClick={e => e.stopPropagation()}
       >
-        <div className="bottom-sheet-handle" />
-        <div className="bottom-sheet-img-container">
-          <img src={product.image && (product.image.startsWith('http') ? product.image : 'http://localhost:5001' + product.image)} alt={product.name} className="bottom-sheet-img" />
-        </div>
-        <div className="bottom-sheet-info">
-          <div className="bottom-sheet-title-price">
-            <div className="bottom-sheet-title">{product.name}</div>
-            <div className="bottom-sheet-counter">
-              <button onClick={() => setCount(Math.max(1, count - 1))}>-</button>
-              <span>{count}</span>
-              <button onClick={() => setCount(count + 1)}>+</button>
+        {expanded ? (
+          <>
+            <div className="bottom-sheet-img-container full expanded-img">
+              <img src={product.image && (product.image.startsWith('http') ? product.image : 'http://localhost:5001' + product.image)} alt={product.name} className="bottom-sheet-img full expanded-img" />
             </div>
-          </div>
-          <div className="bottom-sheet-price">€ {product.price}</div>
-          <div className="bottom-sheet-about">
-            <div className="bottom-sheet-about-title">About</div>
-            <div className="bottom-sheet-about-desc">{product.description}</div>
-          </div>
-        </div>
-        <div className="bottom-sheet-add-row">
-          <button className="bottom-sheet-add" onClick={() => onAdd(product, count)}>
-            <span className="bottom-sheet-add-icon">
-              <img src="/src/assets/Icons/Cart.svg" alt="Carrito" />
-            </span>
-            <span className="bottom-sheet-add-text">Add to bag</span>
-          </button>
-        </div>
-        <button className="bottom-sheet-close" onClick={onClose}>Continue shopping</button>
+            <div className="bottom-sheet-expanded-content">
+              <div className="bottom-sheet-info">
+                <div className="bottom-sheet-title-price">
+                  <div className="bottom-sheet-title">{product.name}</div>
+                  <div className="bottom-sheet-counter">
+                    <button onClick={() => setCount(Math.max(1, count - 1))}>-</button>
+                    <span>{count}</span>
+                    <button onClick={() => setCount(count + 1)}>+</button>
+                  </div>
+                </div>
+                <div className="bottom-sheet-price">€ {product.price}</div>
+                <div className="bottom-sheet-about">
+                  <div className="bottom-sheet-about-title">About</div>
+                  <div className="bottom-sheet-about-desc">{product.description}</div>
+                </div>
+              </div>
+              <div className="bottom-sheet-add-row expanded">
+                <button className="bottom-sheet-add" onClick={() => onAdd(product, count)}>
+                  <span className="bottom-sheet-add-icon">
+                    <img src="/src/assets/Icons/Cart.svg" alt="Carrito" />
+                  </span>
+                  <span className="bottom-sheet-add-text">Add to bag</span>
+                </button>
+              </div>
+              <button className="bottom-sheet-close" onClick={onClose}>Continue shopping</button>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="bottom-sheet-img-container full">
+              <img src={product.image && (product.image.startsWith('http') ? product.image : 'http://localhost:5001' + product.image)} alt={product.name} className="bottom-sheet-img full" />
+            </div>
+            <div className="bottom-sheet-expanded-content compact">
+              <div className="bottom-sheet-handle" />
+              <div className="bottom-sheet-info compact">
+                <div className="bottom-sheet-title-price">
+                  <div className="bottom-sheet-title">{product.name}</div>
+                  <div className="bottom-sheet-counter">
+                    <button onClick={() => setCount(Math.max(1, count - 1))}>-</button>
+                    <span>{count}</span>
+                    <button onClick={() => setCount(count + 1)}>+</button>
+                  </div>
+                </div>
+                <div className="bottom-sheet-price">€ {product.price}</div>
+              </div>
+              <div className="bottom-sheet-add-row compact">
+                <button className="bottom-sheet-add" onClick={() => onAdd(product, count)}>
+                  <span className="bottom-sheet-add-icon">
+                    <img src="/src/assets/Icons/Cart.svg" alt="Carrito" />
+                  </span>
+                  <span className="bottom-sheet-add-text">Add to bag</span>
+                </button>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
