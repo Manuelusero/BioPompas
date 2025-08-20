@@ -4,7 +4,7 @@ import Product from '../models/Product.js';
 // Obtener el carrito del usuario
 export const getCart = async (req, res) => {
   try {
-    const cart = await Cart.findOne({ user: req.user.id }).populate('items.product');
+    const cart = await Cart.findOne({ userId: req.user.id }).populate('items.product');
     if (!cart) return res.status(404).json({ message: 'Carrito vacío' });
 
     res.status(200).json(cart);
@@ -21,10 +21,10 @@ export const addToCart = async (req, res) => {
     const product = await Product.findById(productId);
     if (!product) return res.status(404).json({ message: 'Producto no encontrado' });
 
-    let cart = await Cart.findOne({ user: req.user.id });
+    let cart = await Cart.findOne({ userId: req.user.id });
 
     if (!cart) {
-      cart = new Cart({ user: req.user.id, items: [] });
+      cart = new Cart({ userId: req.user.id, items: [] });
     }
 
     const itemIndex = cart.items.findIndex((item) => item.product.toString() === productId);
@@ -54,7 +54,7 @@ export const updateCartItem = async (req, res) => {
   const { quantity } = req.body;
 
   try {
-    const cart = await Cart.findOne({ user: req.user.id });
+    const cart = await Cart.findOne({ userId: req.user.id });
     if (!cart) return res.status(404).json({ message: 'Carrito no encontrado' });
 
     const item = cart.items.id(itemId);
@@ -75,7 +75,7 @@ export const removeFromCart = async (req, res) => {
   const { itemId } = req.params;
 
   try {
-    const cart = await Cart.findOne({ user: req.user.id });
+    const cart = await Cart.findOne({ userId: req.user.id });
     if (!cart) return res.status(404).json({ message: 'Carrito no encontrado' });
 
     cart.items = cart.items.filter((item) => item._id.toString() !== itemId);
@@ -91,7 +91,7 @@ export const removeFromCart = async (req, res) => {
 // Vaciar el carrito
 export const clearCart = async (req, res) => {
   try {
-    const cart = await Cart.findOne({ user: req.user.id });
+    const cart = await Cart.findOne({ userId: req.user.id });
     if (!cart) return res.status(404).json({ message: 'Carrito no encontrado' });
 
     cart.items = [];
