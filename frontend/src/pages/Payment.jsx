@@ -1,6 +1,7 @@
 import './Payment.css';
 import { useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
 
 const Payment = () => {
   const navigate = useNavigate();
@@ -35,7 +36,35 @@ const Payment = () => {
     { type: 'mastercard', label: '**** **** **** 9856', icon: '/src/assets/Icons/Mastercard.png', selected: false },
     { type: 'paypal', label: 'carmensuarez@gmail.com', icon: '/src/assets/Icons/Paypal.png', selected: false },
   ];
-  const total = 48.00;
+  const DELIVERY_COST = 8;
+  const [cartTotal, setCartTotal] = useState(0);
+  useEffect(() => {
+    const fetchTotal = async () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/cart`, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          const items = response.data.items || [];
+          const subtotal = items.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+          setCartTotal(subtotal + DELIVERY_COST);
+        } catch {
+          setCartTotal(DELIVERY_COST);
+        }
+      } else {
+        const storedCart = localStorage.getItem('cart');
+        if (storedCart) {
+          const cartArr = JSON.parse(storedCart).filter(item => item._id && item.count > 0);
+          const subtotal = cartArr.reduce((sum, item) => sum + (item.price * (item.count || 1)), 0);
+          setCartTotal(subtotal + DELIVERY_COST);
+        } else {
+          setCartTotal(DELIVERY_COST);
+        }
+      }
+    };
+    fetchTotal();
+  }, []);
 
   const handlePayment = () => {
     // Importar Axios al inicio del archivo
@@ -153,7 +182,7 @@ const Payment = () => {
       </section>
       <div className="payment-total-row">
         <span className="payment-total-label">TOTAL</span>
-        <span className="payment-total-value">€ {total.toFixed(2)}</span>
+        <span className="payment-total-value">€ {cartTotal.toFixed(2)}</span>
       </div>
       <button className="payment-btn" onClick={handlePayment}>Payment</button>
     </div>

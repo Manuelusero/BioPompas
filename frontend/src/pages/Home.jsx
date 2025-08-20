@@ -26,15 +26,32 @@ const Home = () => {
     // El estado del carrito ya no se gestiona aquí, sino en Bag.jsx
 
     useEffect(() => {
-        // Sincronizar el contador del carrito SOLO con localStorage
-        const fetchCartCount = () => {
-            const storedCart = localStorage.getItem('cart');
-            if (storedCart) {
-                // Solo contar productos válidos
-                const cartArr = JSON.parse(storedCart).filter(item => item._id && item.count > 0);
-                setCartCount(cartArr.reduce((sum, item) => sum + item.count, 0));
+        // Sincronizar el contador del carrito con backend si hay token, si no con localStorage
+        const fetchCartCount = async () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                try {
+                    const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/cart`, {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                    console.log('[DEBUG] Respuesta GET /cart:', response.data);
+                    const cartArr = response.data.items || [];
+                    if (cartArr.length === 0) {
+                        console.warn('[DEBUG] El carrito del backend está vacío para este usuario.');
+                    }
+                    setCartCount(cartArr.reduce((sum, item) => sum + (item.quantity || item.count || 0), 0));
+                } catch (err) {
+                    console.error('[DEBUG] Error al obtener el carrito del backend:', err);
+                    setCartCount(0);
+                }
             } else {
-                setCartCount(0);
+                const storedCart = localStorage.getItem('cart');
+                if (storedCart) {
+                    const cartArr = JSON.parse(storedCart).filter(item => item._id && item.count > 0);
+                    setCartCount(cartArr.reduce((sum, item) => sum + item.count, 0));
+                } else {
+                    setCartCount(0);
+                }
             }
         };
         fetchCartCount();
@@ -150,13 +167,15 @@ const Home = () => {
         if (token) {
             // Usuario logueado: sincroniza con backend
             try {
-                await axios.post(
+                const resp = await axios.post(
                     `${import.meta.env.VITE_APP_API_URL}/cart`,
                     { productId, quantity: count },
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
+                console.log('[DEBUG] Respuesta POST /cart:', resp.data);
                 window.dispatchEvent(new Event('cartUpdated'));
             } catch (err) {
+                console.error('[DEBUG] Error al agregar al carrito (POST /cart):', err);
                 alert('Error al agregar al carrito');
             }
         } else {

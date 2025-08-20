@@ -7,7 +7,26 @@ export const getCart = async (req, res) => {
     const cart = await Cart.findOne({ userId: req.user.id }).populate('items.product');
     if (!cart) return res.status(404).json({ message: 'Carrito vacío' });
 
-    res.status(200).json(cart);
+    // Mapear los items para devolver los datos del producto "plano"
+    const items = cart.items.map(item => {
+      const product = item.product;
+      return {
+        _id: item._id, // ID del item del carrito (para PUT/DELETE)
+        productId: product._id, // ID del producto (para mostrar info)
+        name: product.name,
+        image: product.image,
+        price: item.price, // o product.price
+        quantity: item.quantity,
+      };
+    });
+
+    res.status(200).json({
+      _id: cart._id,
+      userId: cart.userId,
+      items,
+      totalPrice: cart.totalPrice,
+      updatedAt: cart.updatedAt,
+    });
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener el carrito' });
   }
