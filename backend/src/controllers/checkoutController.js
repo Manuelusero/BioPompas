@@ -11,7 +11,7 @@ export const checkout = async (req, res) => {
 
   try {
     // Obtener el carrito del usuario
-    const cart = await Cart.findOne({ user: req.user.id }).populate('items.product');
+    const cart = await Cart.findOne({ userId: req.user.id }).populate('items.product');
     if (!cart || cart.items.length === 0) {
       return res.status(400).json({ message: 'El carrito está vacío' });
     }

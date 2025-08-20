@@ -105,10 +105,12 @@ const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, cou
                   </div>
                 </div>
                 <div className="bottom-sheet-price">€ {product.price}</div>
-                <div className="bottom-sheet-about">
-                  <div className="bottom-sheet-about-title">About</div>
-                  <div className="bottom-sheet-about-desc">{product.description}</div>
-                </div>
+                {product.description && (
+                  <div className="bottom-sheet-about">
+                    <div className="bottom-sheet-about-title">About</div>
+                    <div className="bottom-sheet-about-desc">{product.description}</div>
+                  </div>
+                )}
               </div>
               <div className="bottom-sheet-add-row expanded">
                 <button className="bottom-sheet-add" onClick={() => onAdd(product, count)}>
