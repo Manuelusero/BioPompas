@@ -47,7 +47,7 @@
     {
       "id": 5,
       "name": "Stainless Bottle 1 lt.",
-      "description": "Stainless Bottle 1 lt.",
+      "description": "Stainless Bottle 1 lt. Stainless steel bottle, perfect for keeping your drinks cold or hot for hours. Made with eco-friendly and durable materials.",
       "price": 12.99,
       "category": "ACCESSORIES",
       "stock": 100,
@@ -58,7 +58,7 @@
     {
       "id": 5,
       "name": "Stainless Bottle 1 lt.",
-      "description": "Stainless Bottle 1 lt.",
+      "description": "Stainless Bottle 1 lt. Perfect for everyday use, resistant and easy to clean. Maintains your drinks' temperature for longer.",
       "price": 12.99,
       "category": "ACCESSORIES",
       "stock": 100,
@@ -69,7 +69,8 @@
     {
       "id": 6,
       "name": "Water Bottle 0,5 lt.",
-      "description": "Water Bottle 0,5 lt.",
+      "description": "Water Bottle 0.5 lt. Lightweight and portable bottle, perfect for staying hydrated anywhere. BPA-free and easy to clean.",
+      "about": "Botella ligera y portátil, perfecta para hidratarte en cualquier lugar. Libre de BPA y fácil de limpiar.",
       "price": 9.99,
       "category": "ACCESSORIES",
       "stock": 100,
@@ -80,7 +81,7 @@
     {
       "id": 7,
       "name": "Deco Bottle 0,75 ml.",
-      "description": "Deco Bottle 0,75 ml.",
+      "description": "Deco Bottle 0.75 ml. Decorative and functional bottle, adds a touch of elegance to your table or desk.",
       "price": 10.99,
       "category": "ACCESSORIES",
       "stock": 100,
@@ -91,7 +92,7 @@
     {
       "id": 8,
       "name": "Stainless Therm 1 lt.",
-      "description": "Stainless Therm 1 lt.",
+      "description": "Stainless Therm 1 lt. Stainless steel thermos, keeps your drinks hot or cold for hours. Ideal for travel and office.",
       "price": 15.99,
       "category": "ACCESSORIES",
       "stock": 100,
@@ -102,7 +103,7 @@
     {
       "id": 9,
       "name": "Bamboo Toothbrush",
-      "description": "Friendly materials made with 100% natural bamboo. This tooth brush delivers sustainable performance and durability. It features charcoal infused bristles an angled neck to help reach hard to reach places in the mouth.",
+      "description": "Bamboo Toothbrush. Made from 100% natural bamboo, this toothbrush delivers sustainable performance and durability. Features charcoal-infused bristles and an angled neck to reach every corner. Take care of your smile and the planet at the same time.",
       "price": 3.99,
       "category": "BATH, TOPPICKS",
       "stock": 100,
@@ -113,7 +114,7 @@
     {
       "id": 10,
       "name": "Cleaning Brush",
-      "description": "Cleaning Brush",
+      "description": "Cleaning Brush. Eco-friendly cleaning brush made from biodegradable materials. Ideal for home and bath. Efficient and sustainable cleaning.",
       "price": 4.99,
       "category": "CLEANING,BATH, TOPPICKS",
       "stock": 100,
@@ -124,7 +125,7 @@
     {
       "id": 11,
       "name": "Vanilla Soy Candle",
-      "description": "Vanilla Soy Candle",
+      "description": "Vanilla Soy Candle. Soy candle with vanilla scent, creates a warm and relaxing atmosphere at home. Made with natural ingredients.",
       "price": 12.99,
       "category": "CANDLES, TOPPICKS",
       "stock": 100,
@@ -135,7 +136,7 @@
     {
       "id": 12,
       "name": "Bath Bombs 1 unit",
-      "description": "Bath Bombs 1 unit",
+      "description": "Bath Bombs 1 unit. Effervescent bath bomb, transforms your bath into a spa experience with natural fragrances and essential oils.",
       "price": 5.99,
       "category": "BATH, SOAPS, TOPPICKS",
       "stock": 50,
@@ -146,7 +147,7 @@
     {
       "id": 13,
       "name": "Luffa Vegetable Sponge",
-      "description": "Luffa Vegetable Sponge",
+      "description": "Luffa Vegetable Sponge. 100% natural vegetable sponge, ideal for gently exfoliating your skin and cleaning surfaces without scratching.",
       "price": 3.99,
       "category": "BATH, CLEANING, TOPPICKS",
       "stock": 100,
@@ -157,7 +158,7 @@
     {
       "id": 14,
       "name": "Stainless Water Bottle 1 lt.",
-      "description": "Stainless Water Bottle 1 lt.",
+      "description": "Stainless Water Bottle 1 lt. Durable and reusable stainless steel bottle. Keep your drinks fresh anytime, anywhere.",
       "price": 12.99,
       "category": "ACCESSORIES",
       "stock": 100,
@@ -168,7 +169,7 @@
     {
       "id": 15,
       "name": "Dishes Detergent- 1 kg",
-      "description": "Dishes Detergent- 1 kg",
+      "description": "Dishes Detergent- 1 kg. Eco-friendly dish detergent, removes grease and is gentle on your hands. Mild scent and biodegradable formula.",
       "price": 5.99,
       "category": "CLEANING, TOPPICKS",
       "stock": 100,
@@ -179,7 +180,7 @@
     {
       "id": 16,
       "name": "Cinnamon Soap",
-      "description": "Cinnamon Soap",
+      "description": "Cinnamon Soap. Handmade soap with cinnamon scent, cleanses and perfumes your skin naturally. Ideal for daily use.",
       "price": 5.99,
       "category": "BATH, SOAPS, TOPPICKS",
       "stock": 50,
@@ -190,7 +191,7 @@
     {
       "id": 17,
       "name": "Laundry Detergent+Softner",
-      "description": "Laundry Detergent+Softner",
+      "description": "Laundry Detergent+Softener. Eco-friendly detergent and softener, leaves your clothes clean, soft, and with a fresh scent. Suitable for sensitive skin.",
       "price": 5.99,
       "category": "CLEANING, TOPPICKS",
       "stock": 100,
@@ -201,7 +202,7 @@
     {
       "id": 18,
       "name": "Lime Shampoo Soap Bar",
-      "description": "Lime Shampoo Soap Bar",
+      "description": "Lime Shampoo Soap Bar. Shampoo bar with lime extract, cleanses and revitalizes your hair. Sulfate and paraben free.",
       "price": 5.99,
       "category": "BATH, SOAPS, TOPPICKS",
       "stock": 50,
@@ -212,7 +213,7 @@
     {
       "id": 19,
       "name": "Bath Bombs Set",
-      "description": "Bath Bombs Set",
+      "description": "Bath Bombs Set. Set of bath bombs with different fragrances, perfect for gifting or enjoying at home. Relaxation and care in every bath.",
       "price": 19.99,
       "category": "BATH, GIFTBUNDLES",
       "stock": 30,
@@ -223,7 +224,7 @@
     {
       "id": 20,
       "name": "Marine Set",
-      "description": "Marine Set",
+      "description": "Marine Set. Set of products inspired by the sea, freshness and wellness for your daily routine. Perfect for gifting.",
       "price": 29.99,
       "category": "BATH, GIFTBUNDLES",
       "stock": 20,
@@ -234,7 +235,7 @@
     {
       "id": 21,
       "name": "Bodycare Set-Small",
-      "description": "Bodycare Set-Small",
+      "description": "Bodycare Set-Small. Body care kit with natural products, ideal for sensitive skin. Bring the spa experience home.",
       "price": 19.99,
       "category": "BATH, GIFTBUNDLES",
       "stock": 15,
@@ -245,7 +246,7 @@
     {
       "id": 22,
       "name": "Bodycare Basket",
-      "description": "Bodycare Basket",
+      "description": "Bodycare Basket. Personal care basket, selected to pamper and care for your skin naturally.",
       "price": 39.99,
       "category": "BATH, GIFTBUNDLES",
       "stock": 10,
@@ -256,7 +257,7 @@
     {
       "id": 23,
       "name": "Bath Spa Set",
-      "description": "Bath Spa Set",
+      "description": "Bath Spa Set. Bath spa set, includes everything you need for a relaxing and renewing experience at home.",
       "price": 49.99,
       "category": "BATH, GIFTBUNDLES",
       "stock": 5,
@@ -267,7 +268,7 @@
     {
       "id": 24,
       "name": "Organic Soap Trio",
-      "description": "Organic Soap Trio",
+      "description": "Organic Soap Trio. Pack of three organic soaps, natural scents and gentle formula for all skin types.",
       "price": 29.99,
       "category": "BATH, GIFTBUNDLES, SOAPS",
       "stock": 15,
@@ -278,7 +279,7 @@
     {
       "id": 25,
       "name": "Eco Souvenirs",
-      "description": "Eco Souvenirs",
+      "description": "Eco Souvenirs. Eco-friendly and sustainable souvenirs, ideal for events and responsible gifts.",
       "price": 9.99,
       "category": "ECOSOUVENIRS",
       "stock": 50,
@@ -289,7 +290,7 @@
     {
       "id": 26,
       "name": "Natural Face Cream",
-      "description": "Crema facial hidratante con ingredientes orgánicos y sin fragancias artificiales.",
+      "description": "Natural Face Cream. Moisturizing face cream with organic ingredients and no artificial fragrances. Nourishes and protects your skin every day.",
       "price": 19.99,
       "category": "COSMETICS",
       "stock": 30,
@@ -300,7 +301,7 @@
     {
       "id": 27,
       "name": "Organic Lip Balm",
-      "description": "Bálsamo labial nutritivo con aceites esenciales y cera de abejas ecológica.",
+      "description": "Organic Lip Balm. Nourishing lip balm with essential oils and organic beeswax. Hydrates and repairs your lips naturally.",
       "price": 4.99,
       "category": "COSMETICS",
       "stock": 100,
@@ -311,7 +312,7 @@
     {
       "id": 28,
       "name": "Eco Mascara",
-      "description": "Máscara de pestañas ecológica, sin parabenos ni siliconas.",
+      "description": "Eco Mascara. Eco-friendly mascara, free of parabens and silicones. Enhances your look with natural ingredients and no irritation.",
       "price": 12.99,
       "category": "COSMETICS",
       "stock": 50,
@@ -322,7 +323,7 @@
     {
       "id": 29,
       "name": "Vegan Blush",
-      "description": "Rubor vegano en polvo, tonos naturales y sin crueldad animal.",
+      "description": "Vegan Blush. Vegan powder blush, natural shades and cruelty-free. Add color to your cheeks with an ethical and healthy formula.",
       "price": 9.99,
       "category": "COSMETICS",
       "stock": 40,
@@ -333,7 +334,7 @@
     {
       "id": 30,
       "name": "Bamboo brushes",
-      "description": "Set de brochas de bambú ecológicas y veganas.",
+      "description": "Bamboo brushes. Set of eco-friendly and vegan bamboo brushes. Professional and sustainable makeup in every application.",
       "price": 24.99,
       "category": "COSMETICS, ACCESSORIES",
       "stock": 25,
@@ -344,7 +345,7 @@
     {
       "id": 31,
       "name": "Bamboo sponge",
-      "description": "Esponja de bambú ecológica y biodegradable.",
+      "description": "Bamboo sponge. Eco-friendly and biodegradable bamboo sponge. Gently cleanses and exfoliates your skin while caring for the planet.",
       "price": 12.99,
       "category": "COSMETICS,ACCESSORIES,BATH",
       "stock": 30,
@@ -355,7 +356,7 @@
     {
       "id": 32,
       "name": "Blonde shampoo soap bar ",
-      "description": "Blonde shampoo soap bar",
+      "description": "Blonde shampoo soap bar. Shampoo bar for blonde hair, enhances shine and protects color naturally.",
       "price": 9.99,
       "category": "COSMETICS,SOAPS,BATH",
       "stock": 20,
@@ -366,7 +367,7 @@
     {
       "id": 33,
       "name": "Coconut soap",
-      "description": "Coconut soap",
+      "description": "Coconut soap. Natural coconut soap, hydrates and softens the skin. Tropical scent and vegan formula.",
       "price": 8.99,
       "category": "COSMETICS,SOAPS,BATH",
       "stock": 15,
@@ -377,7 +378,7 @@
     {
       "id": 34,
       "name": " Coco Shampoo Soap Bar",
-      "description": "Coco Shampoo Soap Bar",
+      "description": "Coco Shampoo Soap Bar. Shampoo bar with coconut oil, nourishes and strengthens hair from the root.",
       "price": 9.99,
       "category": "COSMETICS,SOAPS,BATH",
       "stock": 20,
@@ -388,7 +389,7 @@
     {
       "id": 35,
       "name": " Eco Spray for Glass 0,5lt",
-      "description": "Eco Spray for Glass 0,5lt",
+      "description": "Eco Spray for Glass 0.5lt. Eco-friendly glass cleaner, removes stains and leaves a flawless shine without harsh chemicals.",
       "price": 12.99,
       "category": "CLEANING, Refillables",
       "stock": 25,
@@ -399,7 +400,7 @@
     {
       "id": 36,
       "name": "Handwash Laundry Soap",
-      "description": "Handwash Laundry Soap",
+      "description": "Handwash Laundry Soap. Soap for hand washing, cares for your delicate clothes and the environment.",
       "price": 12.99,
       "category": "CLEANING,SOAPS",
       "stock": 25,
@@ -410,7 +411,7 @@
     {
       "id": 37,
       "name": "Laundry detergent 5lts",
-      "description": "Laundry detergent 5lts",
+      "description": "Laundry detergent 5lts. Bulk eco-friendly detergent, deeply cleans and reduces packaging waste.",
       "price": 29.99,
       "category": "CLEANING, Refillables",
       "stock": 15,
@@ -421,7 +422,7 @@
     {
       "id": 38,
       "name": "Stainless Bottle 1 lt.",
-      "description": "Durable stainless steel bottle, perfect for keeping your drinks hot or cold.",
+      "description": "Stainless Bottle 1 lt. Durable stainless steel bottle, perfect for keeping your drinks hot or cold. Ideal for those seeking practicality and sustainability.",
       "price": 12.00,
       "category": "ECOBOTTLES, ACCESSORIES",
       "stock": 100,
@@ -432,7 +433,7 @@
     {
       "id": 39,
       "name": "Water Bottle 0,5 lt.",
-      "description": "Lightweight and portable water bottle, ideal for on-the-go hydration.",
+      "description": "Water Bottle 0.5 lt. Lightweight and portable water bottle, ideal for on-the-go hydration. Always with you to keep you hydrated.",
       "price": 9.00,
       "category": "ECOBOTTLES, ACCESSORIES",
       "stock": 100,
@@ -443,7 +444,7 @@
     {
       "id": 40,
       "name": "Deco Bottle 0,75 ml.",
-      "description": "Stylish deco bottle, perfect for adding a touch of elegance to your drink.",
+      "description": "Deco Bottle 0.75 ml. Stylish deco bottle, perfect for adding a touch of elegance to your drink. Unique design and functionality in one product.",
       "price": 10.99,
       "category": "ECOBOTTLES, ACCESSORIES",
       "stock": 100,
@@ -454,7 +455,7 @@
     {
       "id": 41,
       "name": "Stainless Therm 1 lt.",
-      "description": "Insulated stainless steel thermos, ideal for keeping beverages hot or cold for hours.",
+      "description": "Stainless Therm 1 lt. Insulated stainless steel thermos, ideal for keeping beverages hot or cold for hours. Perfect companion for travel and office.",
       "price": 15.99,
       "category": "ECOBOTTLES, ACCESSORIES",
       "stock": 100,

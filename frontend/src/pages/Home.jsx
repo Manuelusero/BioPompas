@@ -144,23 +144,36 @@ const Home = () => {
         setSelectedProductId(null);
     };
 
-    const handleAddToCart = (product, count) => {
+    const handleAddToCart = async (product, count) => {
         const productId = product._id;
-        // Siempre localStorage
-        const storedCart = localStorage.getItem('cart');
-        let cartArr = storedCart ? JSON.parse(storedCart) : [];
-        // Limpiar productos sin _id o count <= 0
-        cartArr = cartArr.filter(item => item._id && item.count > 0);
-        const existingIndex = cartArr.findIndex(item => item._id === productId);
-        if (existingIndex !== -1) {
-            cartArr[existingIndex].count = (cartArr[existingIndex].count || 1) + count;
+        const token = localStorage.getItem('token');
+        if (token) {
+            // Usuario logueado: sincroniza con backend
+            try {
+                await axios.post(
+                    `${import.meta.env.VITE_APP_API_URL}/cart`,
+                    { productId, quantity: count },
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+                window.dispatchEvent(new Event('cartUpdated'));
+            } catch (err) {
+                alert('Error al agregar al carrito');
+            }
         } else {
-            cartArr.push({ ...product, count });
+            // No logueado: localStorage
+            const storedCart = localStorage.getItem('cart');
+            let cartArr = storedCart ? JSON.parse(storedCart) : [];
+            cartArr = cartArr.filter(item => item._id && item.count > 0);
+            const existingIndex = cartArr.findIndex(item => item._id === productId);
+            if (existingIndex !== -1) {
+                cartArr[existingIndex].count = (cartArr[existingIndex].count || 1) + count;
+            } else {
+                cartArr.push({ ...product, count });
+            }
+            cartArr = cartArr.filter(item => item._id && item.count > 0);
+            localStorage.setItem('cart', JSON.stringify(cartArr));
+            window.dispatchEvent(new Event('cartUpdated'));
         }
-        // Limpiar de nuevo por si algún producto quedó con count <= 0
-        cartArr = cartArr.filter(item => item._id && item.count > 0);
-        localStorage.setItem('cart', JSON.stringify(cartArr));
-        window.dispatchEvent(new Event('cartUpdated'));
         setBottomSheetOpen(false);
         setSelectedProductId(null);
     };
