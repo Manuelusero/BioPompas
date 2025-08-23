@@ -1,9 +1,11 @@
 import { useMemo, useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import './BottomSheetProduct.css';
 import PropTypes from 'prop-types';
 
-const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, count, setCount }) => {
+const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, count, setCount, cartCount = 0 }) => {
   const [expanded, setExpanded] = useState(false);
+  const navigate = useNavigate();
 
   // Cuando cambia el producto o se abre el modal, siempre empieza en compacto
   useEffect(() => {
@@ -23,8 +25,9 @@ const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, cou
 
   // Drag/Touch logic SOLO en el handle
   const handleDragStart = (e) => {
-    // Solo si el target es el handle
-    if (!e.target.classList.contains('bottom-sheet-handle')) return;
+    // Solo si el target es el handle (compacto o expandido)
+    if (!e.target.classList.contains('bottom-sheet-handle') && 
+        !e.target.classList.contains('bottom-sheet-handle-expanded')) return;
     dragging.current = true;
     if (e.touches) {
       startY.current = e.touches[0].clientY;
@@ -93,8 +96,20 @@ const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, cou
           <>
             <div className="bottom-sheet-img-container full expanded-img">
               <img src={product.image && (product.image.startsWith('http') ? product.image : 'http://localhost:5001' + product.image)} alt={product.name} className="bottom-sheet-img full expanded-img" />
+              <div className="bottom-sheet-expanded-header">
+                <button className="bottom-sheet-back-btn" onClick={onClose}>
+                  <img src="/src/assets/Icons/ArrowLeftIcon.png" alt="Back" />
+                </button>
+                <div className="bottom-sheet-cart-icon" onClick={() => navigate('/bag')}>
+                  <img src="/src/assets/Icons/Cart.svg" alt="Carrito" />
+                  {cartCount > 0 && (
+                    <span className="bottom-sheet-cart-badge">{cartCount}</span>
+                  )}
+                </div>
+              </div>
             </div>
             <div className="bottom-sheet-expanded-content">
+              <div className="bottom-sheet-handle-expanded" />
               <div className="bottom-sheet-info">
                 <div className="bottom-sheet-title-price">
                   <div className="bottom-sheet-title">{product.name}</div>
@@ -165,6 +180,7 @@ BottomSheetProductFull.propTypes = {
   onAdd: PropTypes.func.isRequired,
   count: PropTypes.number.isRequired,
   setCount: PropTypes.func.isRequired,
+  cartCount: PropTypes.number,
 };
 
 export default BottomSheetProductFull;

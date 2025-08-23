@@ -1,4 +1,4 @@
-/* Icono y badge de carrito para Categories */
+/* Icono y badge de carrito para Categories - estilo consistente con bottom sheet */
 .categoriesCartIcon {
     position: absolute;
     top: 24px;
@@ -6,31 +6,43 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    backdrop-filter: blur(4px);
+    transition: background 0.2s;
+    cursor: pointer;
     text-decoration: none;
     z-index: 2;
 }
 
+.categoriesCartIcon:hover {
+    background: rgba(255, 255, 255, 1);
+}
+
 .categoriesCartIconImg {
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     display: block;
+    filter: brightness(0) saturate(100%) invert(19%) sepia(17%) saturate(1077%) hue-rotate(81deg) brightness(95%) contrast(92%);
 }
 
 .categoriesCartBadge {
     position: absolute;
-    top: -7px;
-    right: -7px;
+    top: 2px;
+    right: 2px;
     background: #5C7347;
-    color: #fff;
+    color: white;
     border-radius: 50%;
-    padding: 2px 7px;
-    font-size: 12px;
-    font-weight: bold;
-    z-index: 3;
-    box-shadow: 0 2px 8px #0002;
-    min-width: 20px;
-    text-align: center;
-    line-height: 1.2;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+    font-family: 'Raleway', Arial, sans-serif;
+    min-width: 18px;
 }
 
 .categoriesPage {

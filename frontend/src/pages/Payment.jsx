@@ -1,7 +1,6 @@
 import './Payment.css';
 import { useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
-import axios from 'axios';
 
 const Payment = () => {
   const navigate = useNavigate();
@@ -40,6 +39,18 @@ const Payment = () => {
   const [cartTotal, setCartTotal] = useState(0);
   useEffect(() => {
     const fetchTotal = async () => {
+      // Temporalmente solo usar localStorage para evitar errores 500
+      const storedCart = localStorage.getItem('cart');
+      if (storedCart) {
+        const cartArr = JSON.parse(storedCart).filter(item => item._id && (item.count > 0 || item.quantity > 0));
+        const subtotal = cartArr.reduce((sum, item) => sum + (item.price * (item.count || item.quantity || 1)), 0);
+        setCartTotal(subtotal + DELIVERY_COST);
+      } else {
+        setCartTotal(DELIVERY_COST);
+      }
+      
+      // TODO: Reactivar cuando el backend funcione
+      /*
       const token = localStorage.getItem('token');
       if (token) {
         try {
@@ -62,57 +73,77 @@ const Payment = () => {
           setCartTotal(DELIVERY_COST);
         }
       }
+      */
     };
     fetchTotal();
   }, []);
 
   const handlePayment = () => {
-    // Importar Axios al inicio del archivo
-    // import axios from 'axios';
+    // Validar que hay productos en el carrito
+    const storedCart = localStorage.getItem('cart');
+    if (!storedCart || JSON.parse(storedCart).length === 0) {
+      alert('Tu carrito está vacío. Agrega productos antes de proceder al pago.');
+      return;
+    }
+
+    // Validar dirección
+    if (!address.street || !address.zip) {
+      alert('Por favor, completa todos los campos de la dirección.');
+      return;
+    }
+
+    // Simular procesamiento de pago
+    setTimeout(() => {
+      // Vaciar carrito después del "pago"
+      localStorage.removeItem('cart');
+      window.dispatchEvent(new Event('cartUpdated'));
+      navigate('/order-complete');
+    }, 1000);
+
+    // Mostrar mensaje de procesamiento
+    alert('Procesando pago... Serás redirigido en un momento.');
+
+    // TODO: Reactivar cuando el backend funcione correctamente
+    /*
     const token = localStorage.getItem('token');
     if (!token) {
       alert('Debes iniciar sesión para realizar el pago.');
       return;
     }
+    
     const selectedType = paymentMethods.find(pm => pm.selected)?.type || 'visa';
-    // Mapear el tipo seleccionado al valor que espera el backend
     let paymentMethod = 'Stripe';
     if (selectedType === 'paypal') paymentMethod = 'PayPal';
-    // Adaptar la dirección al formato que espera el backend
+    
     const shippingAddress = {
       address: address.street || '',
-      city: 'Barcelona', // Valor por defecto, puedes cambiarlo
+      city: 'Barcelona',
       postalCode: address.zip || '',
-      country: 'España', // Valor por defecto, puedes cambiarlo
+      country: 'España',
     };
+
     const payload = {
       shippingAddress,
       paymentMethod
     };
-    // Usar Axios directamente
-    import('axios').then(({default: axios}) => {
-      axios.post(`${import.meta.env.VITE_APP_API_URL}/checkout`, payload, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(() => {
-        localStorage.removeItem('cart');
-        window.dispatchEvent(new Event('cartUpdated'));
-        navigate('/order-complete');
-      })
-      .catch(err => {
-        let msg = 'Error al procesar el pago. Intenta de nuevo.';
-        if (err.response && err.response.data && err.response.data.message) {
-          msg += '\n' + err.response.data.message;
-        } else if (err.message) {
-          msg += '\n' + err.message;
-        }
-        alert(msg);
-        console.error(err);
-      });
+
+    axios.post(`${import.meta.env.VITE_APP_API_URL}/checkout`, payload, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(() => {
+      localStorage.removeItem('cart');
+      window.dispatchEvent(new Event('cartUpdated'));
+      navigate('/order-complete');
+    })
+    .catch(err => {
+      let msg = 'Error al procesar el pago. Intenta de nuevo.';
+      alert(msg);
+      console.error(err);
     });
+    */
   };
 
   return (
