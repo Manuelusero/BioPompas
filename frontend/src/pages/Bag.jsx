@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import './Bag.css';
 
 const DELIVERY_COST = 8;
@@ -12,28 +11,17 @@ const Bag = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchCart = async () => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        try {
-          const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/cart`, {
-            headers: { Authorization: `Bearer ${token}` }
-          });
-          setCart(response.data.items || []);
-        } catch {
-          setCart([]);
+    const fetchCart = () => {
+      // SOLO localStorage (igual que Home.jsx)
+      const storedCart = localStorage.getItem('cart');
+      if (storedCart) {
+        const cleanCart = JSON.parse(storedCart).filter(item => item._id && item.count > 0);
+        setCart(cleanCart);
+        if (cleanCart.length !== JSON.parse(storedCart).length) {
+          localStorage.setItem('cart', JSON.stringify(cleanCart));
         }
       } else {
-        const storedCart = localStorage.getItem('cart');
-        if (storedCart) {
-          const cleanCart = JSON.parse(storedCart).filter(item => item._id && item.count > 0);
-          setCart(cleanCart);
-          if (cleanCart.length !== JSON.parse(storedCart).length) {
-            localStorage.setItem('cart', JSON.stringify(cleanCart));
-          }
-        } else {
-          setCart([]);
-        }
+        setCart([]);
       }
       setLoading(false);
     };
@@ -47,59 +35,28 @@ const Bag = () => {
     };
   }, []);
 
-  const handleRemove = async (itemId) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      try {
-        await axios.delete(`${import.meta.env.VITE_APP_API_URL}/cart/${itemId}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        window.dispatchEvent(new Event('cartUpdated'));
-      } catch {
-        alert('Error removing product from cart');
-      }
-    } else {
-      const storedCart = localStorage.getItem('cart');
-      let cartArr = storedCart ? JSON.parse(storedCart) : [];
-      cartArr = cartArr.filter(item => item._id !== itemId && item._id && item.count > 0);
-      localStorage.setItem('cart', JSON.stringify(cartArr));
-      window.dispatchEvent(new Event('cartUpdated'));
-    }
+  const handleRemove = (itemId) => {
+    // Siempre localStorage
+    const storedCart = localStorage.getItem('cart');
+    let cartArr = storedCart ? JSON.parse(storedCart) : [];
+    cartArr = cartArr.filter(item => item._id !== itemId && item._id && item.count > 0);
+    localStorage.setItem('cart', JSON.stringify(cartArr));
+    window.dispatchEvent(new Event('cartUpdated'));
   };
 
-  const handleCountChange = async (itemId, delta) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const item = cart.find(i => i._id === itemId);
-      if (!item) return;
-      const newQuantity = Math.max(1, (item.quantity || item.count || 1) + delta);
-      if (newQuantity <= 0) {
-        await handleRemove(itemId);
-        return;
+  const handleCountChange = (itemId, delta) => {
+    // Siempre localStorage
+    const storedCart = localStorage.getItem('cart');
+    let cartArr = storedCart ? JSON.parse(storedCart) : [];
+    const idx = cartArr.findIndex(item => item._id === itemId);
+    if (idx !== -1) {
+      cartArr[idx].count = Math.max(1, (cartArr[idx].count || 1) + delta);
+      if (cartArr[idx].count <= 0) {
+        cartArr.splice(idx, 1);
       }
-      try {
-        await axios.put(
-          `${import.meta.env.VITE_APP_API_URL}/cart/${itemId}`,
-          { quantity: newQuantity },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-        window.dispatchEvent(new Event('cartUpdated'));
-      } catch {
-        alert('Error updating cart');
-      }
-    } else {
-      const storedCart = localStorage.getItem('cart');
-      let cartArr = storedCart ? JSON.parse(storedCart) : [];
-      const idx = cartArr.findIndex(item => item._id === itemId);
-      if (idx !== -1) {
-        cartArr[idx].count = Math.max(1, (cartArr[idx].count || 1) + delta);
-        if (cartArr[idx].count <= 0) {
-          cartArr.splice(idx, 1);
-        }
-        cartArr = cartArr.filter(item => item._id && item.count > 0);
-        localStorage.setItem('cart', JSON.stringify(cartArr));
-        window.dispatchEvent(new Event('cartUpdated'));
-      }
+      cartArr = cartArr.filter(item => item._id && item.count > 0);
+      localStorage.setItem('cart', JSON.stringify(cartArr));
+      window.dispatchEvent(new Event('cartUpdated'));
     }
   };
 

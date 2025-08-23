@@ -1,7 +1,7 @@
 .login-container {
     max-width: 420px;
     margin: 0 auto;
-    background: #fff;
+    background: #F6F5F0;
     border-radius: 0;
     box-shadow: none;
     padding: 0 0 32px 0;
@@ -131,7 +131,7 @@
     padding: 0 12px;
 }
 
-.bottom-navbar .nav-icon img {
+.bottom-navbar-login .nav-icon img {
     width: 28px;
     height: 28px;
     object-fit: contain;

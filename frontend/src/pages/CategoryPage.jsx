@@ -126,6 +126,7 @@ const CategoryPage = () => {
         onAdd={handleAddToCart}
         count={bottomSheetCount}
         setCount={setBottomSheetCount}
+        cartCount={cartCount}
       />
       <nav className="bottom-navbar">
         <a href="/home" className="nav-icon" aria-label="Home">
