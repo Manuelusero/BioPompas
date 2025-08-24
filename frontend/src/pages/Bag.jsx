@@ -76,7 +76,7 @@ const Bag = () => {
           <div className="bag-empty">Your bag is empty.</div>
         ) : (
           cart.map((item) => (
-            <div className="bag-item" key={item._id}>
+                        <div className="bag-item" key={item._id}>
               <img
                 src={item.image?.startsWith('http') ? item.image : `http://localhost:5001${item.image || item.url}`}
                 alt={item.name}
@@ -84,18 +84,20 @@ const Bag = () => {
                 onError={e => { e.target.onerror = null; e.target.src = '/src/assets/Icons/ImagePlaceholder.png'; }}
               />
               <div className="bag-item-info">
-                <div className="bag-item-title">{item.name}</div>
-                <div className="bag-item-price">€ {item.price.toFixed(2)}</div>
-              </div>
-              <div className="bag-item-actions">
-                <div className="bag-item-counter">
-                  <button onClick={() => handleCountChange(item._id, -1)}>-</button>
-                  <span>{item.quantity || item.count || 1}</span>
-                  <button onClick={() => handleCountChange(item._id, 1)}>+</button>
+                <div className="bag-item-header">
+                  <div className="bag-item-title">{item.name}</div>
+                  <button className="bag-item-remove" onClick={() => handleRemove(item._id)}>
+                    <img src="/src/assets/Icons/Basura.png" alt="Delete" />
+                  </button>
                 </div>
-                <button className="bag-item-remove" onClick={() => handleRemove(item._id)}>
-                  <img src="/src/assets/Icons/DeleteIcon.png" alt="Delete" />
-                </button>
+                <div className="bag-item-footer">
+                  <div className="bag-item-price">€ {item.price.toFixed(2)}</div>
+                  <div className="bag-item-counter">
+                    <button onClick={() => handleCountChange(item._id, -1)}>-</button>
+                    <span>{item.quantity || item.count || 1}</span>
+                    <button onClick={() => handleCountChange(item._id, 1)}>+</button>
+                  </div>
+                </div>
               </div>
             </div>
           ))
