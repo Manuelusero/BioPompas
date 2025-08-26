@@ -24,6 +24,17 @@ const Payment = () => {
   ]);
   const inputRef = useRef(null);
 
+  // Cargar Google Maps API dinámicamente
+  useEffect(() => {
+    if (!window.google && GOOGLE_MAPS_API_KEY) {
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`;
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+    }
+  }, [GOOGLE_MAPS_API_KEY]);
+
   useEffect(() => {
     if (editingAddress && inputRef.current) {
       if (window.google && window.google.maps && window.google.maps.places) {
