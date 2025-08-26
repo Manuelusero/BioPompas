@@ -1,13 +1,12 @@
 /* Icono y badge de carrito para Categories - estilo consistente con bottom sheet */
 .categoriesCartIcon {
     position: absolute;
-    top: 24px;
+    top: 20px;
     right: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 8px;
-    background: rgba(255, 255, 255, 0.9);
     border-radius: 50%;
     backdrop-filter: blur(4px);
     transition: background 0.2s;
@@ -16,15 +15,11 @@
     z-index: 2;
 }
 
-.categoriesCartIcon:hover {
-    background: rgba(255, 255, 255, 1);
-}
 
 .categoriesCartIconImg {
     width: 24px;
     height: 24px;
     display: block;
-    filter: brightness(0) saturate(100%) invert(19%) sepia(17%) saturate(1077%) hue-rotate(81deg) brightness(95%) contrast(92%);
 }
 
 .categoriesCartBadge {

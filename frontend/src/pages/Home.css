@@ -60,7 +60,7 @@
     cursor: pointer;
     transition: transform 0.2s;
     margin-right: 14px;
-    margin-top: 0;
+    margin-top: 5px;
 }
 
 .cart-icon:hover {

@@ -1,55 +1,69 @@
+/* Solo aplicar a OrderComplete */
 .order-complete-container {
     background: #f6f7ef;
     min-height: 100vh;
+    max-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
     font-family: 'Explore Magic', Raleway, sans-serif;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
 }
 
 .order-complete-title {
     color: #3a5a40;
-    font-size: 2.1rem;
+    font-size: 60px;
     font-weight: 700;
     text-align: center;
     margin-bottom: 18px;
+    margin-top: 80px;
     letter-spacing: 2px;
+    font-weight: 400;
 }
 
 .order-complete-desc {
     color: #3a5a40;
-    font-size: 1.1rem;
+    font-size: 14px;
     text-align: center;
     margin-bottom: 32px;
+    font-weight: 400;
 }
 
 .order-complete-btn {
     background: #5c7347;
     color: #fff;
-    font-size: 1.2rem;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: 500;
     border: none;
     border-radius: 24px;
     padding: 16px 0;
-    width: 80%;
+    width: 200px;
     max-width: 320px;
     margin-bottom: 32px;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(60, 90, 64, 0.07);
+    margin-top: 72px;
+
 }
 
-.order-complete-leaf {
+.order-complete-leaves {
     position: absolute;
-    top: 32px;
-    right: 32px;
-    width: 64px;
+    top: 80px;
+    right: 0px;
+    width: 102.841px;
 }
 
 .order-complete-sun {
     position: absolute;
     bottom: 32px;
-    left: 32px;
-    width: 56px;
+    width: 80px;
+    height: 83px;
+    margin-right: 376px;
 }

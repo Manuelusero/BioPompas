@@ -37,8 +37,8 @@
 .bag-header-row {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    gap: 16px;
+    justify-content: center;
+    position: relative;
     padding: 0 32px;
 }
 
@@ -48,15 +48,17 @@
     font-size: 2rem;
     color: #5c7347;
     cursor: pointer;
-    margin-right: 8px;
+    position: absolute;
+    left: 32px;
 }
 
 .bag-title {
     font-family: 'Explore Magic', 'Raleway', sans-serif;
     color: #5c7347;
-    font-size: 2rem;
-    font-weight: 700;
+    font-size: 30px;
+    font-weight: 400;
     margin: 0;
+    line-height: 20px;
 }
 
 .bag-list {
@@ -144,22 +146,22 @@
     align-items: center;
     background: #5c7347;
     border-radius: 20px;
-    padding: 2px 10px;
+    padding: 2px 7px;
     color: #fff;
     font-weight: 600;
-    font-size: 1rem;
-    gap: 8px;
+    font-size: 14px;
+    gap: 3px;
     width: fit-content;
+    margin-right: -11px;
 }
 
 .bag-item-counter button {
     background: none;
     border: none;
     color: #fff;
-    font-size: 1.2rem;
-    font-weight: bold;
+    font-size: 14px;
     cursor: pointer;
-    padding: 0 6px;
+    padding: 0 5px;
 }
 
 .bag-empty {
@@ -177,9 +179,9 @@
 .bag-total-title {
     font-family: 'Explore Magic', 'Raleway', sans-serif;
     color: #5c7347;
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-bottom: 12px;
+    font-size: 25px;
+    font-weight: 400;
+    margin-bottom: 21px;
 }
 
 .bag-total-box {
@@ -193,9 +195,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 1.05rem;
+    font-size: 14px;
     color: #3a5a40;
-    margin-bottom: 8px;
+    margin-bottom: 39px;
 }
 
 .bag-total-summary {
@@ -210,7 +212,7 @@
     border: none;
     border-radius: 30px;
     padding: 16px 0;
-    font-size: 1.1rem;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     box-shadow: 0 2px 8px #0001;

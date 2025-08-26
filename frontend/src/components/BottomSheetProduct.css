@@ -144,9 +144,9 @@
 }
 
 .bottom-sheet.expanded {
-    min-height: 80vh;
+    min-height: 70vh;
+    max-height: 85vh;
     overflow-y: auto;
-
 }
 
 @keyframes slideUp {

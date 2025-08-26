@@ -4,42 +4,82 @@ import { useState, useRef, useEffect } from 'react';
 
 const Payment = () => {
   const navigate = useNavigate();
+  const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+  
   // Obtener dirección del usuario de localStorage o usar mock
   const userAddress = JSON.parse(localStorage.getItem('address') || 'null');
   const [address, setAddress] = useState(userAddress || {
     name: 'Home',
-    street: 'Carrer du Brutau, Barcelona',
+    street: 'FLORIDA 1263 PERGAMINO BUENOS AIRES',
     zip: '20100',
-    mapImg: '/src/assets/Icons/MapMock.png',
+    mapImg: `https://maps.googleapis.com/maps/api/staticmap?center=Barcelona,Spain&zoom=14&size=123x114&maptype=roadmap&markers=color:red%7Clabel:A%7CBarcelona,Spain&key=${GOOGLE_MAPS_API_KEY}`,
   });
   const [editingAddress, setEditingAddress] = useState(false);
   const [newStreet, setNewStreet] = useState(address.street);
+  const [editingPayment, setEditingPayment] = useState(false);
+  const [paymentMethods, setPaymentMethods] = useState([
+    { type: 'visa', label: '**** **** **** 1234', icon: '/LogoVisa.png', selected: true },
+    { type: 'mastercard', label: '**** **** **** 9856', icon: '/LogoMastercard.png', selected: false },
+    { type: 'paypal', label: 'carmensuarez@gmail.com', icon: '/LogoPaypal.png', selected: false },
+  ]);
   const inputRef = useRef(null);
 
   useEffect(() => {
-    if (editingAddress && window.google && window.google.maps) {
-      const autocomplete = new window.google.maps.places.Autocomplete(inputRef.current, {
-        types: ['address'],
-        componentRestrictions: { country: 'es' }
-      });
-      autocomplete.addListener('place_changed', () => {
-        const place = autocomplete.getPlace();
-        if (place.formatted_address) {
-          setNewStreet(place.formatted_address);
-        }
-      });
+    if (editingAddress && inputRef.current) {
+      if (window.google && window.google.maps && window.google.maps.places) {
+        const autocomplete = new window.google.maps.places.Autocomplete(inputRef.current, {
+          types: ['address'],
+          componentRestrictions: { country: 'es' }
+        });
+        
+        autocomplete.addListener('place_changed', () => {
+          const place = autocomplete.getPlace();
+          if (place.formatted_address) {
+            setNewStreet(place.formatted_address);
+            
+            let zipCode = '20100';
+            if (place.address_components) {
+              place.address_components.forEach(component => {
+                if (component.types.includes('postal_code')) {
+                  zipCode = component.long_name;
+                }
+              });
+            }
+            
+            let mapImg = address.mapImg;
+            if (place.geometry && place.geometry.location) {
+              const lat = place.geometry.location.lat();
+              const lng = place.geometry.location.lng();
+              mapImg = `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=15&size=123x114&maptype=roadmap&markers=color:red%7Clabel:A%7C${lat},${lng}&key=${GOOGLE_MAPS_API_KEY}`;
+            }
+            
+            const updated = {
+              ...address,
+              street: place.formatted_address,
+              zip: zipCode,
+              mapImg: mapImg
+            };
+            setAddress(updated);
+            localStorage.setItem('address', JSON.stringify(updated));
+          }
+        });
+
+        return () => {
+          if (window.google && window.google.maps && window.google.maps.event) {
+            window.google.maps.event.clearInstanceListeners(autocomplete);
+          }
+        };
+      } else {
+        console.warn('Google Maps API no está disponible.');
+      }
     }
-  }, [editingAddress]);
-  const paymentMethods = [
-    { type: 'visa', label: '**** **** **** 1234', icon: '/src/assets/Icons/Visa.png', selected: true },
-    { type: 'mastercard', label: '**** **** **** 9856', icon: '/src/assets/Icons/Mastercard.png', selected: false },
-    { type: 'paypal', label: 'carmensuarez@gmail.com', icon: '/src/assets/Icons/Paypal.png', selected: false },
-  ];
+  }, [editingAddress, address, GOOGLE_MAPS_API_KEY]);
+
   const DELIVERY_COST = 8;
   const [cartTotal, setCartTotal] = useState(0);
+  
   useEffect(() => {
     const fetchTotal = async () => {
-      // Temporalmente solo usar localStorage para evitar errores 500
       const storedCart = localStorage.getItem('cart');
       if (storedCart) {
         const cartArr = JSON.parse(storedCart).filter(item => item._id && (item.count > 0 || item.quantity > 0));
@@ -48,112 +88,95 @@ const Payment = () => {
       } else {
         setCartTotal(DELIVERY_COST);
       }
-      
-      // TODO: Reactivar cuando el backend funcione
-      /*
-      const token = localStorage.getItem('token');
-      if (token) {
-        try {
-          const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/cart`, {
-            headers: { Authorization: `Bearer ${token}` }
-          });
-          const items = response.data.items || [];
-          const subtotal = items.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
-          setCartTotal(subtotal + DELIVERY_COST);
-        } catch {
-          setCartTotal(DELIVERY_COST);
-        }
-      } else {
-        const storedCart = localStorage.getItem('cart');
-        if (storedCart) {
-          const cartArr = JSON.parse(storedCart).filter(item => item._id && item.count > 0);
-          const subtotal = cartArr.reduce((sum, item) => sum + (item.price * (item.count || 1)), 0);
-          setCartTotal(subtotal + DELIVERY_COST);
-        } else {
-          setCartTotal(DELIVERY_COST);
-        }
-      }
-      */
     };
     fetchTotal();
   }, []);
 
   const handlePayment = () => {
-    // Validar que hay productos en el carrito
     const storedCart = localStorage.getItem('cart');
-    if (!storedCart || JSON.parse(storedCart).length === 0) {
+    const cartItems = storedCart ? JSON.parse(storedCart) : [];
+    
+    // Verificar que hay productos en el carrito
+    if (!cartItems || cartItems.length === 0) {
       alert('Tu carrito está vacío. Agrega productos antes de proceder al pago.');
       return;
     }
 
-    // Validar dirección
+    // Verificar que los productos tienen cantidad
+    const validItems = cartItems.filter(item => item._id && (item.count > 0 || item.quantity > 0));
+    if (validItems.length === 0) {
+      alert('Tu carrito está vacío. Agrega productos antes de proceder al pago.');
+      return;
+    }
+
     if (!address.street || !address.zip) {
       alert('Por favor, completa todos los campos de la dirección.');
       return;
     }
 
-    // Simular procesamiento de pago
+    // Mostrar mensaje de procesamiento
+    alert('Procesando pago... Serás redirigido en un momento.');
+
     setTimeout(() => {
-      // Vaciar carrito después del "pago"
       localStorage.removeItem('cart');
       window.dispatchEvent(new Event('cartUpdated'));
       navigate('/order-complete');
     }, 1000);
+  };
 
-    // Mostrar mensaje de procesamiento
-    alert('Procesando pago... Serás redirigido en un momento.');
+  const handlePaymentMethodSelect = (selectedType) => {
+    setPaymentMethods(prev => 
+      prev.map(pm => ({
+        ...pm,
+        selected: pm.type === selectedType
+      }))
+    );
+  };
 
-    // TODO: Reactivar cuando el backend funcione correctamente
-    /*
-    const token = localStorage.getItem('token');
-    if (!token) {
-      alert('Debes iniciar sesión para realizar el pago.');
-      return;
+  const handleEditPayment = () => {
+    setEditingPayment(!editingPayment);
+  };
+
+  const handleEditCard = (index) => {
+    const currentCard = paymentMethods[index];
+    const newCardNumber = prompt('Ingresa los nuevos últimos 4 dígitos:', currentCard.label.slice(-4));
+    if (newCardNumber && newCardNumber.length === 4) {
+      setPaymentMethods(prev => 
+        prev.map((pm, i) => 
+          i === index 
+            ? { ...pm, label: `**** **** **** ${newCardNumber}` }
+            : pm
+        )
+      );
+      setEditingPayment(false);
+    } else if (newCardNumber) {
+      alert('Por favor ingresa exactamente 4 dígitos');
     }
-    
-    const selectedType = paymentMethods.find(pm => pm.selected)?.type || 'visa';
-    let paymentMethod = 'Stripe';
-    if (selectedType === 'paypal') paymentMethod = 'PayPal';
-    
-    const shippingAddress = {
-      address: address.street || '',
-      city: 'Barcelona',
-      postalCode: address.zip || '',
-      country: 'España',
-    };
-
-    const payload = {
-      shippingAddress,
-      paymentMethod
-    };
-
-    axios.post(`${import.meta.env.VITE_APP_API_URL}/checkout`, payload, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(() => {
-      localStorage.removeItem('cart');
-      window.dispatchEvent(new Event('cartUpdated'));
-      navigate('/order-complete');
-    })
-    .catch(err => {
-      let msg = 'Error al procesar el pago. Intenta de nuevo.';
-      alert(msg);
-      console.error(err);
-    });
-    */
   };
 
   return (
     <div className="payment-container">
-      <button className="payment-back-btn" onClick={() => navigate('/bag')}>&lt;</button>
+      <button className="payment-back-btn" onClick={() => navigate('/bag')}>
+        <img src='/src/assets/Icons/ArrowLeftIcon.png' alt="Back" />
+      </button>
       <h1 className="payment-title">PAYMENT</h1>
-      <section className="payment-section">
+      <div className="payment-address-header">
         <h2 className="payment-subtitle">DELIVERY ADDRESS</h2>
-        <div className="payment-address">
-          <img src={address.mapImg} alt="Map" className="payment-map" />
+      </div>
+      <section className="payment-section">
+        <div className="payment-address-container">
+          <div className="payment-maps-embed">
+            <iframe
+              title="Google Maps"
+              className="payment-maps-iframe"
+              loading="lazy"
+              allowFullScreen
+              referrerPolicy="no-referrer-when-downgrade"
+              src={address.lat && address.lng 
+                ? `https://www.google.com/maps?q=${address.lat},${address.lng}&output=embed&z=16`
+                : `https://www.google.com/maps?q=${encodeURIComponent(address.street || 'Carrer du Brutau, Barcelona')}&output=embed`}
+            ></iframe>
+          </div>
           <div>
             <div className="payment-address-row">
               <span className="payment-address-name">{address.name}</span>
@@ -166,7 +189,7 @@ const Payment = () => {
                 setAddress(updated);
                 localStorage.setItem('address', JSON.stringify(updated));
                 setEditingAddress(false);
-              }} style={{marginTop:8}}>
+              }} className="payment-edit-form">
                 <input
                   ref={inputRef}
                   type="text"
@@ -174,10 +197,9 @@ const Payment = () => {
                   onChange={e => setNewStreet(e.target.value)}
                   placeholder="Enter address"
                   className="payment-address-input"
-                  style={{padding:'8px', borderRadius:'8px', border:'1px solid #ccc', width:'100%', fontSize:'1rem'}}
                 />
-                <button type="submit" style={{marginTop:8, background:'#5c7347', color:'#fff', border:'none', borderRadius:'8px', padding:'8px 16px', cursor:'pointer'}}>Save</button>
-                <button type="button" style={{marginLeft:8, background:'none', color:'#5c7347', border:'none', cursor:'pointer'}} onClick={() => setEditingAddress(false)}>Cancel</button>
+                <button type="submit" className="payment-form-save-btn">Save</button>
+                <button type="button" className="payment-form-cancel-btn" onClick={() => setEditingAddress(false)}>Cancel</button>
               </form>
             ) : (
               <>
@@ -187,26 +209,23 @@ const Payment = () => {
             )}
           </div>
         </div>
-        <div className="payment-maps-embed" style={{marginTop:16, borderRadius:12, overflow:'hidden'}}>
-          <iframe
-            title="Google Maps"
-            className="payment-maps-iframe"
-            loading="lazy"
-            allowFullScreen
-            referrerPolicy="no-referrer-when-downgrade"
-            src={`https://www.google.com/maps?q=${encodeURIComponent(address.street || 'Carrer du Brutau, Barcelona')}&output=embed`}
-          ></iframe>
-        </div>
       </section>
+      <div className="payment-method-header">
+        <h2 className="payment-subtitle-dos">PAYMENT METHOD</h2>
+        <button className="payment-edit" onClick={handleEditPayment}>Edit</button>
+      </div>
       <section className="payment-section">
-        <h2 className="payment-subtitle">PAYMENT METHOD</h2>
-        <button className="payment-edit">Edit</button>
         <div className="payment-methods">
-          {paymentMethods.map((pm) => (
-            <div key={pm.type} className={`payment-method${pm.selected ? ' selected' : ''}`}>
+          {paymentMethods.map((pm, index) => (
+            <div 
+              key={`${pm.type}-${index}`} 
+              className={`payment-method${pm.selected ? ' selected' : ''}`}
+              onClick={() => editingPayment ? handleEditCard(index) : handlePaymentMethodSelect(pm.type)}
+            >
               <img src={pm.icon} alt={pm.type} className="payment-method-icon" />
               <span className="payment-method-label">{pm.label}</span>
-              {pm.selected && <span className="payment-method-check">&#10003;</span>}
+              {pm.selected && !editingPayment && <span className="payment-method-check">&#10003;</span>}
+              {editingPayment && <span className="payment-edit-indicator">Click to edit</span>}
             </div>
           ))}
         </div>
