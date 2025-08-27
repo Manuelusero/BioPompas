@@ -17,6 +17,7 @@
     object-fit: contain;
     display: block;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 .giftBundlesCartBadge {
@@ -78,7 +79,7 @@
     font-size: 30px;
     font-weight: 400;
     color: #3a5a40;
-    margin-left: 18px;
+    margin-left: 28px;
     margin-right: auto;
     letter-spacing: 1px;
     flex: none;

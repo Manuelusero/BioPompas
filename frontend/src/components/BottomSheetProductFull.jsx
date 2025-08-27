@@ -92,11 +92,11 @@ const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, cou
       >
         {expanded ? (
           <>
-            <div className="bottom-sheet-img-container full expanded-img">
-              <img src={product.image && (product.image.startsWith('http') ? product.image : 'http://localhost:5001' + product.image)} alt={product.name} className="bottom-sheet-img full expanded-img" />
-            </div>
             <div className="bottom-sheet-expanded-content">
               <div className="bottom-sheet-handle-expanded" />
+              <div className="bottom-sheet-img-container full expanded-img">
+                <img src={product.image && (product.image.startsWith('http') ? product.image : 'http://localhost:5001' + product.image)} alt={product.name} className="bottom-sheet-img full expanded-img" />
+              </div>
               <div className="bottom-sheet-info">
                 <div className="bottom-sheet-title-price">
                   <div className="bottom-sheet-title">{product.name}</div>

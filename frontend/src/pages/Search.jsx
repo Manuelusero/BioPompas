@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import BottomSheetProductFull from '../components/BottomSheetProductFull';
 import "./Search.css";
 
 const Search = () => {
+  const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [suggested, setSuggested] = useState([]);
   const [results, setResults] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [cartCount, setCartCount] = useState(() => {
@@ -27,13 +30,24 @@ const Search = () => {
       const storedCart = localStorage.getItem('cart');
       if (!storedCart) return setCartCount(0);
       try {
-        setCartCount(JSON.parse(storedCart).reduce((sum, item) => sum + (item.count || 1), 0));
+        const newCount = JSON.parse(storedCart).reduce((sum, item) => sum + (item.count || 1), 0);
+        setCartCount(newCount);
       } catch {
         setCartCount(0);
       }
     };
+    
+    // Update on mount
+    updateCartCount();
+    
+    // Listen for cart updates
     window.addEventListener('cartUpdated', updateCartCount);
-    return () => window.removeEventListener('cartUpdated', updateCartCount);
+    window.addEventListener('storage', updateCartCount);
+    
+    return () => {
+      window.removeEventListener('cartUpdated', updateCartCount);
+      window.removeEventListener('storage', updateCartCount);
+    };
   }, []);
 
   // Get product suggestions on mount
@@ -54,9 +68,10 @@ const Search = () => {
     setError("");
     axios.get(`${import.meta.env.VITE_APP_API_URL}/products`)
       .then(res => {
-        const allProducts = res.data;
+        const products = res.data;
+        setAllProducts(products);
         const q = query.trim().toLowerCase();
-        const filtered = allProducts.filter(prod =>
+        const filtered = products.filter(prod =>
           prod.name?.toLowerCase().includes(q) ||
           prod.description?.toLowerCase().includes(q) ||
           prod.category?.toLowerCase().includes(q)
@@ -68,7 +83,10 @@ const Search = () => {
   }, [query]);
 
   const handleCardClick = (product) => {
-    setSelectedProductId(product._id);
+    console.log('Product clicked:', product);
+    // Use id or _id depending on what the product has
+    const productId = product._id || product.id;
+    setSelectedProductId(productId);
     setBottomSheetOpen(true);
     setBottomSheetCount(1);
   };
@@ -78,56 +96,102 @@ const Search = () => {
   };
 
   const handleAddToCart = (product, count) => {
-    const productId = product._id;
+    // Use id or _id depending on what the product has
+    const productId = product._id || product.id;
     console.log('PRODUCTO A AGREGAR:', product);
     console.log('productId enviado:', productId);
+    
     const storedCart = localStorage.getItem('cart');
     let cart = storedCart ? JSON.parse(storedCart) : [];
-    const existingIndex = cart.findIndex(item => item._id === productId);
+    
+    // Normalize the product to have _id for consistency
+    const normalizedProduct = {
+      ...product,
+      _id: productId,
+      id: productId // Keep both for compatibility
+    };
+    
+    const existingIndex = cart.findIndex(item => {
+      const itemId = item._id || item.id;
+      return itemId === productId;
+    });
+    
     let newCart;
     if (existingIndex !== -1) {
       newCart = cart.map((item, idx) =>
         idx === existingIndex ? { ...item, count: item.count + count } : item
       );
     } else {
-      newCart = [...cart, { ...product, count }];
+      newCart = [...cart, { ...normalizedProduct, count }];
     }
+    
     localStorage.setItem('cart', JSON.stringify(newCart));
+    console.log('Cart updated:', newCart);
+    
+    // Dispatch multiple events and wait a bit
     window.dispatchEvent(new Event('cartUpdated'));
+    window.dispatchEvent(new Event('storage'));
+    
+    // Force update local state
+    const newCount = newCart.reduce((sum, item) => sum + (item.count || 1), 0);
+    setCartCount(newCount);
+    
     setBottomSheetOpen(false);
+  };
+
+  const clearSearch = () => {
+    setQuery("");
+  };
+
+  const handleCartClick = () => {
+    navigate('/bag');
   };
 
   return (
     <div className="searchPage">
       <div className="searchHeaderRow">
-        <h1 className="searchTitle">Search products</h1>
+        <div className="searchInputContainer">
+          <img src="/SearchIcon.png" alt="Search" className="searchIcon" />
+          <input
+            type="text"
+            placeholder="Search"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            className="searchInput"
+          />
+          {query.trim() && (
+            <img 
+              src="/ClearIcon.png" 
+              alt="Clear search" 
+              className="clearSearchIcon"
+              onClick={clearSearch}
+            />
+          )}
+        </div>
         <div className="search-cart-icon-container">
-          <img src="/src/assets/Icons/Cart.svg" alt="Cart" className="searchCartIcon" />
+          <img 
+            src="/src/assets/Icons/Cart.svg" 
+            alt="Cart" 
+            className="searchCartIcon"
+            onClick={handleCartClick}
+          />
           {cartCount > 0 && (
             <span className="cart-badge-search">{cartCount}</span>
           )}
         </div>
       </div>
-      <input
-        type="text"
-        placeholder="Search"
-        value={query}
-        onChange={e => setQuery(e.target.value)}
-        className="searchInput"
-      />
+      
       {/* Product suggestions */}
       {suggested.length > 0 && !query.trim() && (
-        <div style={{ marginBottom: 24 }}>
-          <div className="suggestionLabel">Suggestions:</div>
+        <div className="suggestionContainer">
           <div className="suggestionPills">
-            {suggested.map((prod) => (
+            {["Soap", "Laundry", "Brush", "Bath bombs", "Top picks", "Essential oils", "Toothbrush", "Bottle", "Sponge", "Refillable", "Detergent"].map((suggestion, index) => (
               <span
-                key={prod._id}
+                key={index}
                 className="suggestionPill"
-                style={{ cursor: 'pointer' }}
-                onClick={() => setQuery(prod.name)}
+                onClick={() => setQuery(suggestion)}
               >
-                {prod.name}
+                {suggestion}
               </span>
             ))}
           </div>
@@ -139,7 +203,7 @@ const Search = () => {
       {results.length > 0 && (
         <div className="search-results-list">
           {results.map((product) => (
-            <div className="search-result-card" key={product._id} onClick={() => handleCardClick(product)} style={{ cursor: 'pointer' }}>
+            <div className="search-result-card" key={product._id || product.id} onClick={() => handleCardClick(product)} style={{ cursor: 'pointer' }}>
               <img
                 src={product.image?.startsWith('http') ? product.image : `http://localhost:5001${product.image || product.url}`}
                 alt={product.name}
@@ -159,7 +223,7 @@ const Search = () => {
       )}
       <BottomSheetProductFull
         productId={selectedProductId}
-        products={results}
+        products={allProducts.length > 0 ? allProducts : results}
         open={bottomSheetOpen}
         onClose={handleCloseBottomSheet}
         onAdd={handleAddToCart}

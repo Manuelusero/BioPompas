@@ -9,7 +9,6 @@
 /* Badge del carrito para TopPicks */
 .cart-badge-topPick {
     position: absolute;
-    top: -5px;
     right: 10px;
     background: #5C7347;
     color: #fff;
@@ -95,6 +94,7 @@
     width: 28px;
     height: 28px;
     cursor: pointer;
+    margin-top: 5px;
 }
 
 .toppicks-list {
