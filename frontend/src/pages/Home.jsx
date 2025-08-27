@@ -6,9 +6,10 @@ import "swiper/css";
 import "./Home.css";
 import { Link } from "react-router-dom";
 import BottomSheetProductFull from "../components/BottomSheetProductFull";
+import { useCart } from "../api/CartContext";
 
 const Home = () => {
-    const [cartCount, setCartCount] = useState(0);
+    const { cartCount, addToCart } = useCart(); // Usar CartContext
     const [products, setProducts] = useState([]); // Solo productos reales
     const [promotions, setPromotions] = useState([]); // Promociones para el Swiper
     const [topPicks, setTopPicks] = useState([]);
@@ -23,22 +24,9 @@ const Home = () => {
     const [selectedProductId, setSelectedProductId] = useState(null);
     const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
     const [bottomSheetCount, setBottomSheetCount] = useState(1);
-    // El estado del carrito ya no se gestiona aquí, sino en Bag.jsx
 
     useEffect(() => {
-        // SOLO localStorage para el contador del carrito
-        const fetchCartCount = () => {
-            const storedCart = localStorage.getItem('cart');
-            if (storedCart) {
-                const cartArr = JSON.parse(storedCart).filter(item => item._id && item.count > 0);
-                setCartCount(cartArr.reduce((sum, item) => sum + item.count, 0));
-            } else {
-                setCartCount(0);
-            }
-        };
-        fetchCartCount();
-        window.addEventListener('cartUpdated', fetchCartCount);
-        window.addEventListener('storage', fetchCartCount);
+        // Ya no necesitamos manejar el contador aquí, el CartContext lo hace automáticamente
 
         // Obtener productos reales
         fetch(`${import.meta.env.VITE_APP_API_URL}/products`)
@@ -124,12 +112,6 @@ const Home = () => {
         fetchEcoBottles();
         fetchEcoSouvenirs();
         fetchOurStore();
-
-        // Cleanup: solo aquí el return
-        return () => {
-            window.removeEventListener('cartUpdated', fetchCartCount);
-            window.removeEventListener('storage', fetchCartCount);
-        };
     }, []);
 
     const handleCardClick = (product) => {
@@ -143,25 +125,30 @@ const Home = () => {
         setSelectedProductId(null);
     };
 
-    const handleAddToCart = (product, count) => {
-        const productId = product._id;
-        // Siempre localStorage (igual que CategoryPage.jsx)
-        const storedCart = localStorage.getItem('cart');
-        let cartArr = storedCart ? JSON.parse(storedCart) : [];
-        // Limpiar productos sin _id o count <= 0
-        cartArr = cartArr.filter(item => item._id && item.count > 0);
-        const existingIndex = cartArr.findIndex(item => item._id === productId);
-        if (existingIndex !== -1) {
-            cartArr[existingIndex].count = (cartArr[existingIndex].count || 1) + count;
-        } else {
-            cartArr.push({ ...product, count });
+    const handleAddToCart = async (product, count) => {
+        try {
+            await addToCart(product, count);
+            setBottomSheetOpen(false);
+            setSelectedProductId(null);
+        } catch (error) {
+            console.error('Error adding to cart:', error);
+            // Fallback: agregar a localStorage si falla el CartContext
+            const productId = product._id;
+            const storedCart = localStorage.getItem('cart');
+            let cartArr = storedCart ? JSON.parse(storedCart) : [];
+            cartArr = cartArr.filter(item => item._id && item.count > 0);
+            const existingIndex = cartArr.findIndex(item => item._id === productId);
+            if (existingIndex !== -1) {
+                cartArr[existingIndex].count = (cartArr[existingIndex].count || 1) + count;
+            } else {
+                cartArr.push({ ...product, count });
+            }
+            cartArr = cartArr.filter(item => item._id && item.count > 0);
+            localStorage.setItem('cart', JSON.stringify(cartArr));
+            window.dispatchEvent(new Event('cartUpdated'));
+            setBottomSheetOpen(false);
+            setSelectedProductId(null);
         }
-        // Limpiar de nuevo por si algún producto quedó con count <= 0
-        cartArr = cartArr.filter(item => item._id && item.count > 0);
-        localStorage.setItem('cart', JSON.stringify(cartArr));
-        window.dispatchEvent(new Event('cartUpdated'));
-        setBottomSheetOpen(false);
-        setSelectedProductId(null);
     };
 
     return (

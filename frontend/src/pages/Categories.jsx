@@ -2,30 +2,13 @@ import './Categories.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useCart } from '../api/CartContext';
 import ArrowLeftIcon from '/src/assets/Icons/ArrowLeftIcon.png';
 
 // Cart badge header component
 function CategoriesHeaderWithCartBadge() {
-  const [cartCount, setCartCount] = useState(0);
-  useEffect(() => {
-    const updateCartCount = () => {
-      const storedCart = localStorage.getItem('cart');
-      if (storedCart) {
-        // Solo contar productos válidos
-        const cartArr = JSON.parse(storedCart).filter(item => item._id && item.count > 0);
-        setCartCount(cartArr.reduce((sum, item) => sum + item.count, 0));
-      } else {
-        setCartCount(0);
-      }
-    };
-    updateCartCount();
-    window.addEventListener('storage', updateCartCount);
-    window.addEventListener('cartUpdated', updateCartCount);
-    return () => {
-      window.removeEventListener('storage', updateCartCount);
-      window.removeEventListener('cartUpdated', updateCartCount);
-    };
-  }, []);
+  const { cartCount } = useCart();
+  
   return (
     <div className="categoriesHeader">
       <Link to="/home" className="categoriesBack">

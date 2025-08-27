@@ -1,9 +1,11 @@
 import './Payment.css';
 import { useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
+import { useCart } from '../api/CartContext';
 
 const Payment = () => {
   const navigate = useNavigate();
+  const { cartItems, clearCart } = useCart();
   const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
   
   // Obtener dirección del usuario de localStorage o usar mock
@@ -93,18 +95,11 @@ const Payment = () => {
   const [cartTotal, setCartTotal] = useState(0);
   
   useEffect(() => {
-    const fetchTotal = async () => {
-      const storedCart = localStorage.getItem('cart');
-      if (storedCart) {
-        const cartArr = JSON.parse(storedCart).filter(item => item._id && (item.count > 0 || item.quantity > 0));
-        const subtotal = cartArr.reduce((sum, item) => sum + (item.price * (item.count || item.quantity || 1)), 0);
-        setCartTotal(subtotal + DELIVERY_COST);
-      } else {
-        setCartTotal(DELIVERY_COST);
-      }
-    };
-    fetchTotal();
-  }, []);
+    // Usar cartItems del CartContext en lugar de localStorage
+    const validItems = cartItems.filter(item => item._id && (item.count > 0 || item.quantity > 0));
+    const subtotal = validItems.reduce((sum, item) => sum + (item.price * (item.count || item.quantity || 1)), 0);
+    setCartTotal(subtotal + DELIVERY_COST);
+  }, [cartItems]);
 
   const handleEditCard = (index) => {
     const currentCard = paymentMethods[index];
@@ -167,11 +162,8 @@ const Payment = () => {
     setEditingCardIndex(null);
   };
 
-  const handlePayment = () => {
-    const storedCart = localStorage.getItem('cart');
-    const cartItems = storedCart ? JSON.parse(storedCart) : [];
-    
-    // Verificar que hay productos en el carrito
+  const handlePayment = async () => {
+    // Verificar que hay productos en el carrito usando CartContext
     if (!cartItems || cartItems.length === 0) {
       alert('Tu carrito está vacío. Agrega productos antes de proceder al pago.');
       return;
@@ -192,11 +184,23 @@ const Payment = () => {
     // Mostrar mensaje de procesamiento
     alert('Procesando pago... Serás redirigido en un momento.');
 
-    setTimeout(() => {
+    try {
+      // Limpiar carrito usando CartContext
+      await clearCart();
+      
+      setTimeout(() => {
+        navigate('/order-complete');
+      }, 1000);
+    } catch (error) {
+      console.error('Error clearing cart:', error);
+      // Fallback: limpiar localStorage también
       localStorage.removeItem('cart');
       window.dispatchEvent(new Event('cartUpdated'));
-      navigate('/order-complete');
-    }, 1000);
+      
+      setTimeout(() => {
+        navigate('/order-complete');
+      }, 1000);
+    }
   };
 
   const handlePaymentMethodSelect = (selectedType) => {

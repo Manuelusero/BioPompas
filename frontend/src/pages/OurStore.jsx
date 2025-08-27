@@ -3,30 +3,12 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./OurStore.css";
+import { useCart } from "../api/CartContext";
 import ArrowLeftIcon from '/src/assets/Icons/ArrowLeftIcon.png';
 
 function OurStoreHeaderWithCartBadge({ navigate }) {
-  const [cartCount, setCartCount] = useState(0);
-  useEffect(() => {
-    const storedCart = localStorage.getItem('cart');
-    if (storedCart) {
-      const cartArr = JSON.parse(storedCart);
-      setCartCount(cartArr.reduce((sum, item) => sum + item.count, 0));
-    } else {
-      setCartCount(0);
-    }
-    const syncCart = () => {
-      const storedCart = localStorage.getItem('cart');
-      if (storedCart) {
-        const cartArr = JSON.parse(storedCart);
-        setCartCount(cartArr.reduce((sum, item) => sum + item.count, 0));
-      } else {
-        setCartCount(0);
-      }
-    };
-    window.addEventListener('storage', syncCart);
-    return () => window.removeEventListener('storage', syncCart);
-  }, []);
+  const { cartCount } = useCart();
+  
   return (
     <div className="ourStoreHeader">
       <button className="ourStoreBack" onClick={() => navigate("/home")}> 

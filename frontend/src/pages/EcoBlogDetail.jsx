@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import "./EcoBlogDetail.css";
+import { useCart } from "../api/CartContext";
 import ArrowLeftIcon from '/src/assets/Icons/ArrowLeftIcon.png';
 
 const EcoBlogDetail = () => {
@@ -9,6 +10,7 @@ const EcoBlogDetail = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { cartCount } = useCart();
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_APP_API_URL}/blogs`)
@@ -39,11 +41,16 @@ const EcoBlogDetail = () => {
           <span className="ecoBlogDetailArrowIcon"><img src={ArrowLeftIcon} alt="Back" className="arrowIcon" /></span>
         </button>
         <h2 className="ecoBlogDetailTitle">Eco Blog</h2>
-        <img
-          src="/src/assets/Icons/Cart.svg"
-          alt="Carrito"
-          className="ecoBlogDetailCart"
-        />
+        <Link to="/bag" className="ecoBlogDetailCartContainer">
+          <img
+            src="/src/assets/Icons/Cart.svg"
+            alt="Carrito"
+            className="ecoBlogDetailCart"
+          />
+          {cartCount > 0 && (
+            <span className="ecoBlogDetailCartBadge">{cartCount}</span>
+          )}
+        </Link>
       </div>
       <span className="eco-blog-title">{blog.title}</span>
       <div className="eco-blog-content">

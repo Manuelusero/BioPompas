@@ -46,14 +46,14 @@ export const register = async (req, res) => {
 
 
 export const verifyEmail = async (req, res) => {
-    const { token } = req.params;
-  
-    try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      const user = await User.findOne({ email: decoded.email });
-  
-      if (!user) {
-        return res.status(404).send(`
+  const { token } = req.params;
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findOne({ email: decoded.email });
+
+    if (!user) {
+      return res.status(404).send(`
           <html>
             <body style="font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #F6F5F0;">
               <h2 style="color: #d32f2f;">Error</h2>
@@ -62,14 +62,14 @@ export const verifyEmail = async (req, res) => {
             </body>
           </html>
         `);
-      }
-  
-      user.isVerified = true;
-      user.verificationToken = null;
-      await user.save();
+    }
 
-      // Enviar página HTML con redirección automática al home
-      res.status(200).send(`
+    user.isVerified = true;
+    user.verificationToken = null;
+    await user.save();
+
+    // Enviar página HTML con redirección automática al home
+    res.status(200).send(`
         <html>
           <head>
             <title>Email Verified Successfully</title>
@@ -83,9 +83,9 @@ export const verifyEmail = async (req, res) => {
         </html>
       `);
 
-     
-    } catch (error) {
-      res.status(500).send(`
+
+  } catch (error) {
+    res.status(500).send(`
         <html>
           <body style="font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #F6F5F0;">
             <h2 style="color: #d32f2f;">Error</h2>
@@ -94,8 +94,8 @@ export const verifyEmail = async (req, res) => {
           </body>
         </html>
       `);
-    }
-  }; export const login = async (req, res) => {
+  }
+}; export const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {

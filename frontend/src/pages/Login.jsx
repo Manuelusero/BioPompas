@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import GoogleAuthProviderWrapper from '../GoogleAuthProviderWrapper';
 import { useAuth } from '../hooks/useAuth';
+import { useCart } from '../api/CartContext';
 import './Login.css';
 
 const Login = () => {
@@ -13,6 +14,7 @@ const Login = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const { login } = useAuth();
+    const { syncCartWithBackend } = useCart();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -24,6 +26,16 @@ const Login = () => {
             });
 
             login(response.data.token); // Usar el hook de auth
+            
+            // Sincronizar carrito después del login exitoso
+            try {
+                await syncCartWithBackend();
+                console.log('✅ Carrito sincronizado después del login');
+            } catch (cartError) {
+                console.error('❌ Error sincronizando carrito:', cartError);
+                // No fallar el login si hay error en carrito
+            }
+            
             navigate('/bag');
         } catch {
             setError('Error al iniciar sesión');
@@ -36,6 +48,15 @@ const Login = () => {
                 credential: credentialResponse.credential,
             });
             login(response.data.token); // Usar el hook de auth
+            
+            // Sincronizar carrito después del login con Google
+            try {
+                await syncCartWithBackend();
+                console.log('✅ Carrito sincronizado después del login con Google');
+            } catch (cartError) {
+                console.error('❌ Error sincronizando carrito:', cartError);
+            }
+            
             navigate('/bag');
         } catch (err) {
             setError('Google authentication failed' + (err?.response?.data?.error ? ': ' + err.response.data.error : ''));

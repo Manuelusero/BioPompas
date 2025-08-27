@@ -1,37 +1,56 @@
 import mongoose from 'mongoose';
 
 const cartItemSchema = new mongoose.Schema({
-  product: {
+  productId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Product', // Relación con el modelo de productos
-    required: true,
+    ref: 'Product',
+    required: true
   },
   quantity: {
     type: Number,
     required: true,
     min: 1,
+    default: 1
   },
   price: {
     type: Number,
-    required: true,
+    required: true
   },
+  name: {
+    type: String,
+    required: true
+  },
+  image: {
+    type: String
+  }
 });
 
 const cartSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // Relación con el modelo de usuarios
+    ref: 'User',
     required: true,
+    unique: true
   },
   items: [cartItemSchema],
-  totalPrice: {
+  totalAmount: {
     type: Number,
-    default: 0,
+    default: 0
   },
   updatedAt: {
     type: Date,
-    default: Date.now,
-  },
+    default: Date.now
+  }
 });
 
-export default mongoose.model('Cart', cartSchema);
+// Middleware para calcular el total automáticamente
+cartSchema.pre('save', function (next) {
+  this.totalAmount = this.items.reduce((total, item) => {
+    return total + (item.price * item.quantity);
+  }, 0);
+  this.updatedAt = new Date();
+  next();
+});
+
+const Cart = mongoose.model('Cart', cartSchema);
+export default Cart;

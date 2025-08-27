@@ -2,37 +2,19 @@ import "./TopPicks.css";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useCart } from "../api/CartContext";
 import ArrowLeftIcon from '/src/assets/Icons/ArrowLeftIcon.png';
 import BottomSheetProductFull from "../components/BottomSheetProductFull";
 
 const TopPicks = () => {
   const [topPicks, setTopPicks] = useState([]);
-  const [cartCount, setCartCount] = useState(0);
+  const { cartCount, addToCart } = useCart();
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const [bottomSheetCount, setBottomSheetCount] = useState(1);
-  // Eliminar estado local de cart, solo usar localStorage
 
   useEffect(() => {
-    const syncCart = () => {
-      const storedCart = localStorage.getItem('cart');
-      if (storedCart) {
-        const cartArr = JSON.parse(storedCart).filter(item => item._id && item.count > 0);
-        setCartCount(cartArr.reduce((sum, item) => sum + item.count, 0));
-      } else {
-        setCartCount(0);
-      }
-    };
-    syncCart();
-    window.addEventListener('cartUpdated', syncCart);
-    window.addEventListener('storage', syncCart);
-    return () => {
-      window.removeEventListener('cartUpdated', syncCart);
-      window.removeEventListener('storage', syncCart);
-    };
-  }, []);
-
-  useEffect(() => {
+    // Ya no necesitamos manejar el contador aquí, el CartContext lo hace automáticamente
     axios.get(`${import.meta.env.VITE_APP_API_URL}/products/category/TOPPICKS`)
       .then(res => setTopPicks(res.data))
       .catch(() => setTopPicks([]));
@@ -48,23 +30,28 @@ const TopPicks = () => {
     setBottomSheetOpen(false);
   };
 
-  const handleAddToCart = (product, count) => {
-    const productId = product._id;
-    const storedCart = localStorage.getItem('cart');
-    let cartArr = storedCart ? JSON.parse(storedCart) : [];
-    // Limpiar productos sin _id o count <= 0
-    cartArr = cartArr.filter(item => item._id && item.count > 0);
-    const existingIndex = cartArr.findIndex(item => item._id === productId);
-    if (existingIndex !== -1) {
-      cartArr[existingIndex].count = (cartArr[existingIndex].count || 1) + count;
-    } else {
-      cartArr.push({ ...product, count });
+  const handleAddToCart = async (product, count) => {
+    try {
+      await addToCart(product, count);
+      setBottomSheetOpen(false);
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+      // Fallback: usar localStorage si falla el CartContext
+      const productId = product._id;
+      const storedCart = localStorage.getItem('cart');
+      let cartArr = storedCart ? JSON.parse(storedCart) : [];
+      cartArr = cartArr.filter(item => item._id && item.count > 0);
+      const existingIndex = cartArr.findIndex(item => item._id === productId);
+      if (existingIndex !== -1) {
+        cartArr[existingIndex].count = (cartArr[existingIndex].count || 1) + count;
+      } else {
+        cartArr.push({ ...product, count });
+      }
+      cartArr = cartArr.filter(item => item._id && item.count > 0);
+      localStorage.setItem('cart', JSON.stringify(cartArr));
+      window.dispatchEvent(new Event('cartUpdated'));
+      setBottomSheetOpen(false);
     }
-    // Limpiar de nuevo por si algún producto quedó con count <= 0
-    cartArr = cartArr.filter(item => item._id && item.count > 0);
-    localStorage.setItem('cart', JSON.stringify(cartArr));
-    window.dispatchEvent(new Event('cartUpdated'));
-    setBottomSheetOpen(false);
   };
 
   return (
