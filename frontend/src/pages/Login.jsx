@@ -3,13 +3,16 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import GoogleAuthProviderWrapper from '../GoogleAuthProviderWrapper';
+import { useAuth } from '../hooks/useAuth';
 import './Login.css';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,7 +23,7 @@ const Login = () => {
                 password,
             });
 
-            localStorage.setItem('token', response.data.token);
+            login(response.data.token); // Usar el hook de auth
             navigate('/bag');
         } catch {
             setError('Error al iniciar sesión');
@@ -32,7 +35,7 @@ const Login = () => {
             const response = await axios.post(`${import.meta.env.VITE_APP_API_URL}/auth/google`, {
                 credential: credentialResponse.credential,
             });
-            localStorage.setItem('token', response.data.token);
+            login(response.data.token); // Usar el hook de auth
             navigate('/bag');
         } catch (err) {
             setError('Google authentication failed' + (err?.response?.data?.error ? ': ' + err.response.data.error : ''));
@@ -48,46 +51,57 @@ const Login = () => {
             <div className="login-container">
                 <h2 className="login-title">
                     LOG IN TO<br />YOUR ACCOUNT
-                    <img src="/src/assets/Icons/PlantIcon.png" alt="Plant" className="login-plant-icon" />
+                    <img src="/PlantIcon.png" alt="Plant" className="login-plant-icon" />
                 </h2>
-                <form className="login-form" onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="email">Email address</label>
+                <form className="login-form" onSubmit={handleSubmit} autoComplete="off">
+                    <div className="login-form-group">
+                        <label htmlFor="email" className="login-email-label">Email address</label>
                         <input
                             type="email"
                             id="email"
-                            className="form-input"
+                            className="login-email-input"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            autoComplete="off"
                             required
                         />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Password</label>
-                        <input
-                            type="password"
-                            id="password"
-                            className="form-input"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
+                    <div className="login-form-group">
+                        <label htmlFor="password" className="login-password-label">Password</label>
+                        <div className="login-password-input-container">
+                            <input
+                                type={showPassword ? 'text' : 'password'}
+                                id="password"
+                                className="login-password-input"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                autoComplete="new-password"
+                                required
+                            />
+                            <button
+                                type="button"
+                                className="login-password-toggle"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? '👁️' : '👁️‍🗨️'}
+                            </button>
+                        </div>
                         <div className="login-options-row">
-                            <label className="remember-me">
-                                <input type="checkbox" className="remember-checkbox" /> Remember me
+                            <label className="login-remember-me">
+                                <input type="checkbox" className="login-remember-checkbox" /> Remember me
                             </label>
-                            <button type="button" className="forgot-password-link" onClick={() => navigate('/forgot-password')}>
+                            <button type="button" className="login-forgot-password-link" onClick={() => navigate('/forgot-password')}>
                                 Forgot your password?
                             </button>
                         </div>
                     </div>
-                    {error && <p className="error-message">{error}</p>}
-                    <button type="submit" className="login-button">Sign in</button>
+                    {error && <p className="login-error-message">{error}</p>}
+                    <button type="submit" className="login-submit-button">Sign in</button>
                 </form>
                 <div className="login-divider">
-                    <span className="divider-line"></span>
-                    <span className="divider-text">or sign up with</span>
-                    <span className="divider-line"></span>
+                    <span className="login-divider-line"></span>
+                    <span className="login-divider-text">or sign up with</span>
+                    <span className="login-divider-line"></span>
                 </div>
                 <div className="login-social-icons">
                     <GoogleLogin
@@ -97,9 +111,9 @@ const Login = () => {
                         useOneTap
                     />
                 </div>
-                <div className="login-links">
-                    <button className="link-button" onClick={() => navigate('/register')}>
-                        Create an account
+                <div className="login-guest-section">
+                    <button className="login-continue-guest-button" onClick={() => navigate('/signup')}>
+                        Don&apos;t have an account? Press here!
                     </button>
                 </div>
                 <nav className="bottom-navbar-login

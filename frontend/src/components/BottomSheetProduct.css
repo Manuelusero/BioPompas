@@ -238,7 +238,7 @@
 }
 
 .bottom-sheet-img.full:not(.expanded-img) {
-    width: 397px !important;
+    width: 430px !important;
     height: 350px;
     min-height: 280px;
     max-height: 400px;
@@ -246,7 +246,7 @@
     border-radius: 60 !important;
     background: transparent;
     display: block;
-    margin-left: 0 !important;
+    margin-left: -12px !important;
 }
 
 /* ========== IMÁGENES MODO EXPANDIDO ========== */

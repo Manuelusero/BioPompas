@@ -17,6 +17,9 @@ const Payment = () => {
   const [editingAddress, setEditingAddress] = useState(false);
   const [newStreet, setNewStreet] = useState(address.street);
   const [editingPayment, setEditingPayment] = useState(false);
+  const [showCardModal, setShowCardModal] = useState(false);
+  const [editingCardIndex, setEditingCardIndex] = useState(null);
+  const [newCardNumber, setNewCardNumber] = useState('');
   const [paymentMethods, setPaymentMethods] = useState([
     { type: 'visa', label: '**** **** **** 1234', icon: '/LogoVisa.png', selected: true },
     { type: 'mastercard', label: '**** **** **** 9856', icon: '/LogoMastercard.png', selected: false },
@@ -103,6 +106,67 @@ const Payment = () => {
     fetchTotal();
   }, []);
 
+  const handleEditCard = (index) => {
+    const currentCard = paymentMethods[index];
+    setEditingCardIndex(index);
+    
+    // Para PayPal, usar el email completo, para tarjetas usar los últimos 4 dígitos
+    if (currentCard.type === 'paypal') {
+      setNewCardNumber(currentCard.label);
+    } else {
+      setNewCardNumber(currentCard.label.slice(-4));
+    }
+    
+    setShowCardModal(true);
+  };
+
+  const handleSaveCard = () => {
+    const currentCard = paymentMethods[editingCardIndex];
+    
+    if (currentCard.type === 'paypal') {
+      // Para PayPal, validar que sea un email válido
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (newCardNumber && emailRegex.test(newCardNumber)) {
+        setPaymentMethods(prev => 
+          prev.map((pm, i) => 
+            i === editingCardIndex 
+              ? { ...pm, label: newCardNumber }
+              : pm
+          )
+        );
+        setShowCardModal(false);
+        setEditingPayment(false);
+        setNewCardNumber('');
+        setEditingCardIndex(null);
+      } else {
+        alert('Por favor ingresa un email válido');
+      }
+    } else {
+      // Para tarjetas, validar 4 dígitos
+      if (newCardNumber && newCardNumber.length === 4 && /^\d+$/.test(newCardNumber)) {
+        setPaymentMethods(prev => 
+          prev.map((pm, i) => 
+            i === editingCardIndex 
+              ? { ...pm, label: `**** **** **** ${newCardNumber}` }
+              : pm
+          )
+        );
+        setShowCardModal(false);
+        setEditingPayment(false);
+        setNewCardNumber('');
+        setEditingCardIndex(null);
+      } else {
+        alert('Por favor ingresa exactamente 4 dígitos numéricos');
+      }
+    }
+  };
+
+  const handleCancelCardEdit = () => {
+    setShowCardModal(false);
+    setNewCardNumber('');
+    setEditingCardIndex(null);
+  };
+
   const handlePayment = () => {
     const storedCart = localStorage.getItem('cart');
     const cartItems = storedCart ? JSON.parse(storedCart) : [];
@@ -146,23 +210,6 @@ const Payment = () => {
 
   const handleEditPayment = () => {
     setEditingPayment(!editingPayment);
-  };
-
-  const handleEditCard = (index) => {
-    const currentCard = paymentMethods[index];
-    const newCardNumber = prompt('Ingresa los nuevos últimos 4 dígitos:', currentCard.label.slice(-4));
-    if (newCardNumber && newCardNumber.length === 4) {
-      setPaymentMethods(prev => 
-        prev.map((pm, i) => 
-          i === index 
-            ? { ...pm, label: `**** **** **** ${newCardNumber}` }
-            : pm
-        )
-      );
-      setEditingPayment(false);
-    } else if (newCardNumber) {
-      alert('Por favor ingresa exactamente 4 dígitos');
-    }
   };
 
   return (
@@ -246,6 +293,35 @@ const Payment = () => {
         <span className="payment-total-value">€ {cartTotal.toFixed(2)}</span>
       </div>
       <button className="payment-btn" onClick={handlePayment}>Payment</button>
+      
+      {/* Modal para editar tarjeta */}
+      {showCardModal && (
+        <div className="card-modal-overlay">
+          <div className="card-modal">
+            <h3>
+              {paymentMethods[editingCardIndex]?.type === 'paypal' 
+                ? 'Editar Email de PayPal' 
+                : 'Editar últimos 4 dígitos'
+              }
+            </h3>
+            <input
+              type={paymentMethods[editingCardIndex]?.type === 'paypal' ? 'email' : 'text'}
+              value={newCardNumber}
+              onChange={(e) => setNewCardNumber(e.target.value)}
+              placeholder={paymentMethods[editingCardIndex]?.type === 'paypal' 
+                ? 'ejemplo@email.com' 
+                : 'Últimos 4 dígitos'
+              }
+              maxLength={paymentMethods[editingCardIndex]?.type === 'paypal' ? '50' : '4'}
+              className="card-modal-input"
+            />
+            <div className="card-modal-buttons">
+              <button onClick={handleSaveCard} className="card-modal-save">Guardar</button>
+              <button onClick={handleCancelCardEdit} className="card-modal-cancel">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

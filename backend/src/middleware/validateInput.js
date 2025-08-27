@@ -5,8 +5,9 @@ export const validateRegistration = [
   body('password')
     .isLength({ min: 6 })
     .withMessage('La contraseña debe tener al menos 6 caracteres'),
-  body('name').not().isEmpty().withMessage('El nombre es obligatorio'),
-  
+  body('firstName').not().isEmpty().withMessage('El nombre es obligatorio'),
+  body('lastName').not().isEmpty().withMessage('El apellido es obligatorio'),
+
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -19,7 +20,7 @@ export const validateRegistration = [
 export const validateLogin = [
   body('email').isEmail().withMessage('Correo electrónico inválido'),
   body('password').not().isEmpty().withMessage('La contraseña es obligatoria'),
-  
+
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -32,7 +33,7 @@ export const validateLogin = [
 
 export const validateForgotPassword = [
   body('email').isEmail().withMessage('Correo electrónico inválido'),
-  
+
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -46,7 +47,7 @@ export const validateResetPassword = [
   body('newPassword')
     .isLength({ min: 6 })
     .withMessage('La nueva contraseña debe tener al menos 6 caracteres'),
-  
+
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

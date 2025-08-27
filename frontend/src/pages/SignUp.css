@@ -1,9 +1,9 @@
-/* Prevent horizontal scroll on login page */
+/* Prevent horizontal scroll on signup page */
 body {
     overflow-x: hidden;
 }
 
-.login-container {
+.signup-container {
     max-width: 420px;
     margin: 0 auto;
     background: #F6F5F0;
@@ -21,7 +21,7 @@ body {
     overflow-x: hidden;
 }
 
-.login-title {
+.signup-title {
     font-family: 'Explore Magic', cursive;
     font-size: 2rem;
     color: #3a5a40;
@@ -35,7 +35,7 @@ body {
     justify-content: center;
 }
 
-.login-plant-icon {
+.signup-plant-icon {
     position: absolute;
     right: -99px;
     top: 20px;
@@ -45,7 +45,7 @@ body {
     z-index: 2;
 }
 
-.login-form {
+.signup-form {
     width: 100%;
     max-width: 320px;
     display: flex;
@@ -55,14 +55,13 @@ body {
     margin-top: 20px;
 }
 
-.login-form-group {
+.signup-form-group {
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
 
-.login-email-label,
-.login-password-label {
+.signup-label {
     color: #2C3E29;
     font-family: Raleway;
     font-size: 15px;
@@ -71,8 +70,7 @@ body {
     line-height: normal;
 }
 
-.login-email-input,
-.login-password-input {
+.signup-input {
     padding: 10px 40px 10px 12px;
     border-radius: 8px;
     border: 1px solid #b7b7b7;
@@ -86,24 +84,21 @@ body {
     box-sizing: border-box;
 }
 
-.login-email-input:-webkit-autofill,
-.login-password-input:-webkit-autofill,
-.login-email-input:-webkit-autofill:hover,
-.login-password-input:-webkit-autofill:hover,
-.login-email-input:-webkit-autofill:focus,
-.login-password-input:-webkit-autofill:focus {
+.signup-input:-webkit-autofill,
+.signup-input:-webkit-autofill:hover,
+.signup-input:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0 1000px #F6F5F0 inset;
     -webkit-text-fill-color: #222;
     transition: background-color 5000s ease-in-out 0s;
 }
 
-.login-password-input-container {
+.signup-password-input-container {
     position: relative;
     display: flex;
     align-items: center;
 }
 
-.login-password-toggle {
+.signup-password-toggle {
     position: absolute;
     right: 12px;
     background: none;
@@ -114,12 +109,11 @@ body {
     z-index: 2;
 }
 
-.login-email-input:focus,
-.login-password-input:focus {
+.signup-input:focus {
     border: 1.5px solid #3a5a40;
 }
 
-.login-submit-button {
+.signup-submit-button {
     background: #3a5a40;
     color: #fff;
     font-family: 'Raleway', Arial, sans-serif;
@@ -133,42 +127,18 @@ body {
     transition: background 0.2s;
 }
 
-.login-submit-button:hover {
+.signup-submit-button:hover {
     background: #588157;
 }
 
-.login-error-message {
+.signup-error-message {
     color: #b00020;
     font-size: 1rem;
     margin: 0 0 8px 0;
     text-align: center;
 }
 
-.login-links {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 32px;
-}
-
-.login-link-button {
-    background: none;
-    border: none;
-    color: #3a5a40;
-    font-family: 'Raleway', Arial, sans-serif;
-    font-size: 1rem;
-    text-decoration: underline;
-    cursor: pointer;
-    transition: color 0.2s;
-    padding: 0;
-}
-
-.login-link-button:hover {
-    color: #588157;
-}
-
-.bottom-navbar-login {
+.bottom-navbar-signup {
     position: fixed;
     left: 0;
     right: 0;
@@ -183,14 +153,14 @@ body {
     padding: 0 12px;
 }
 
-.bottom-navbar-login .nav-icon img {
+.bottom-navbar-signup .nav-icon img {
     width: 28px;
     height: 28px;
     object-fit: contain;
     display: block;
 }
 
-.login-divider {
+.signup-divider {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -200,7 +170,7 @@ body {
     max-width: 320px;
 }
 
-.login-divider-line {
+.signup-divider-line {
     flex: 1;
     height: 1px;
     background: #b7b7b7;
@@ -208,7 +178,7 @@ body {
     opacity: 0.6;
 }
 
-.login-divider-text {
+.signup-divider-text {
     font-family: 'Raleway', Arial, sans-serif;
     font-size: 12px;
     color: #3a5a40;
@@ -217,20 +187,20 @@ body {
     padding: 0 16px;
 }
 
-.login-social-icons {
+.signup-social-icons {
     display: flex;
     justify-content: center;
     gap: 32px;
     margin-bottom: 100px;
 }
 
-.login-guest-section {
+.signup-login-section {
     display: flex;
     justify-content: center;
     margin-bottom: 32px;
 }
 
-.login-continue-guest-button {
+.signup-login-button {
     background: none;
     border: none;
     color: #3a5a40;
@@ -241,81 +211,8 @@ body {
     cursor: pointer;
     transition: color 0.2s;
     padding: 0;
-    margin-bottom: 50px;
 }
 
-.login-continue-guest-button:hover {
-    color: #588157;
-}
-
-.social-btn {
-    background: #f3f6e6;
-    border: none;
-    border-radius: 16px;
-    padding: 18px 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: box-shadow 0.2s, background 0.2s;
-    box-shadow: 0 2px 8px #0001;
-}
-
-.social-btn img {
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
-    display: block;
-}
-
-.social-btn:hover {
-    background: #e6f6e6;
-    box-shadow: 0 4px 16px #0002;
-}
-
-.login-options-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 4px;
-    margin-bottom: 2px;
-}
-
-.login-remember-me {
-    display: flex;
-    align-items: center;
-    font-family: 'Raleway', Arial, sans-serif;
-    font-size: 12px;
-    color: #555;
-    gap: 6px;
-    cursor: pointer;
-    user-select: none;
-    flex-direction: row;
-}
-
-.login-remember-checkbox {
-    width: 18px;
-    height: 18px;
-    border-radius: 4px;
-    border: 1.5px solid #b7b7b7;
-    accent-color: #3a5a40;
-    margin-left: 4px;
-    margin-right: 0;
-    cursor: pointer;
-}
-
-.login-forgot-password-link {
-    background: none;
-    border: none;
-    color: #3a5a40;
-    font-family: 'Raleway', Arial, sans-serif;
-    font-size: 12px;
-    text-decoration: underline;
-    cursor: pointer;
-    transition: color 0.2s;
-    padding: 0;
-}
-
-.login-forgot-password-link:hover {
+.signup-login-button:hover {
     color: #588157;
 }
