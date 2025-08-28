@@ -5,6 +5,7 @@ import "swiper/css";
 import { Link } from "react-router-dom";
 import { useCart } from "../api/CartContext";
 import BottomSheetProductFull from "../components/BottomSheetProductFull";
+import { getImageUrl } from '../utils/api.js';
 import './Home.css';
 
 const Home = () => {
@@ -223,7 +224,7 @@ const Home = () => {
                             return (
                               <Link to={categoryUrl} style={{ textDecoration: 'none' }}>
                                 <div className="card">
-                                  <img src={promo.image && (promo.image.startsWith('http') ? promo.image : `${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${promo.image}`)} alt={promo.name} />
+                                  <img src={getImageUrl(promo.image)} alt={promo.name} />
                                 </div>
                               </Link>
                             );
@@ -244,7 +245,7 @@ const Home = () => {
                 <div className="top-picks-scroll">
                     {topPicks.slice(0, 4).map((product) => (
                         <div className="top-pick-card" key={product._id} onClick={() => handleCardClick(product)}>
-                            <img src={`${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${product.image}`} alt={product.name} />
+                            <img src={getImageUrl(product.image)} alt={product.name} />
                             <div className="top-pick-info">
                                 <div className="top-pick-name">{product.name}</div>
                                 <div className="top-pick-price">

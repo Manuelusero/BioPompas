@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState, useEffect } from "react";
 import './BottomSheetProduct.css';
 import PropTypes from 'prop-types';
+import { getImageUrl } from '../utils/api.js';
 
 const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, count, setCount }) => {
   const [expanded, setExpanded] = useState(false);
@@ -96,12 +97,12 @@ const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, cou
               <div className="bottom-sheet-handle-expanded" />
               <div className="bottom-sheet-img-container full expanded-img">
                 <img 
-                  src={product.image && (product.image.startsWith('http') ? product.image : `${import.meta.env.VITE_APP_API_URL?.replace('/api', '') || 'http://localhost:5001'}${product.image}`)} 
+                  src={getImageUrl(product.image)} 
                   alt={product.name} 
                   className="bottom-sheet-img full expanded-img"
                   onError={(e) => {
                     console.log('Error loading image:', e.target.src);
-                    e.target.src = '/placeholder-image.jpg';
+                    e.target.style.display = 'none';
                   }}
                 />
               </div>
@@ -137,12 +138,12 @@ const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, cou
           <>
             <div className="bottom-sheet-img-container full">
               <img 
-                src={product.image && (product.image.startsWith('http') ? product.image : `${import.meta.env.VITE_APP_API_URL?.replace('/api', '') || 'http://localhost:5001'}${product.image}`)} 
+                src={getImageUrl(product.image)} 
                 alt={product.name} 
                 className="bottom-sheet-img full"
                 onError={(e) => {
                   console.log('Error loading image:', e.target.src);
-                  e.target.src = '/placeholder-image.jpg';
+                  e.target.style.display = 'none';
                 }}
               />
             </div>
