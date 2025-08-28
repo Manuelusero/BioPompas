@@ -67,29 +67,32 @@ app.get("/api/health", (req, res) => {
     });
 });
 
-// Add debug middleware to log all API requests
+// IMPORTANT: Force JSON responses for ALL API routes
 app.use('/api', (req, res, next) => {
-    console.log(`API Request: ${req.method} ${req.path}`);
+    console.log(`🔍 API Request: ${req.method} ${req.originalUrl}`);
 
-    // Intercept response to ensure JSON format
-    const originalSend = res.send;
+    // Force Content-Type to JSON for all API responses
     const originalJson = res.json;
+    const originalSend = res.send;
 
     res.json = function (data) {
-        console.log(`API JSON Response for ${req.method} ${req.path}:`, typeof data, data);
+        console.log(`📤 JSON Response for ${req.method} ${req.originalUrl}:`, data);
+        res.setHeader('Content-Type', 'application/json; charset=utf-8');
         return originalJson.call(this, data);
     };
 
     res.send = function (data) {
-        console.log(`API Send Response for ${req.method} ${req.path}:`, typeof data, data);
-        // If it's not already JSON, ensure proper JSON response
-        if (typeof data === 'string' && !res.get('Content-Type')?.includes('json')) {
-            res.setHeader('Content-Type', 'application/json');
+        console.log(`📤 Send Response for ${req.method} ${req.originalUrl}:`, typeof data);
+        // For API routes, always return JSON
+        res.setHeader('Content-Type', 'application/json; charset=utf-8');
+
+        if (typeof data === 'string') {
             try {
                 JSON.parse(data);
+                return originalSend.call(this, data);
             } catch (e) {
-                // If it's not valid JSON, wrap it
-                data = JSON.stringify({ message: data });
+                console.log('Converting string to JSON:', data);
+                return originalSend.call(this, JSON.stringify({ message: data }));
             }
         }
         return originalSend.call(this, data);
