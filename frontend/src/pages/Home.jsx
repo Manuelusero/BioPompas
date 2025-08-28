@@ -30,18 +30,26 @@ const Home = () => {
 
         // Obtener productos reales
         fetch(`${import.meta.env.VITE_APP_API_URL}/products`)
-            .then(res => res.json())
-            .then(data => setProducts(data))
+            .then(res => {
+                if (!res.ok) throw new Error('Network response was not ok');
+                return res.json();
+            })
+            .then(data => setProducts(Array.isArray(data) ? data : []))
             .catch(error => {
                 console.error("Error al obtener productos:", error);
+                setProducts([]);
                 setError("Hubo un error al cargar los productos.");
             });
         // Obtener promociones
         fetch(`${import.meta.env.VITE_APP_API_URL}/promotions`)
-            .then(res => res.json())
-            .then(data => setPromotions(data))
+            .then(res => {
+                if (!res.ok) throw new Error('Network response was not ok');
+                return res.json();
+            })
+            .then(data => setPromotions(Array.isArray(data) ? data : []))
             .catch(error => {
                 console.error("Error al obtener promociones:", error);
+                setPromotions([]);
             })
             .finally(() => setLoading(false));
 
