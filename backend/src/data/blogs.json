@@ -16,5 +16,12 @@
         "image": "/uploads/GlobalWarming.png",
         "slug": "global-warming-what-you-can-do",
         "content": "What is global warming and why should we care?\nGlobal warming refers to the long-term increase in Earth's average surface temperature due to human activities, primarily the emission of greenhouse gases like carbon dioxide. This phenomenon is causing ice caps to melt, sea levels to rise, and extreme weather events to become more frequent. The effects of global warming impact every living being on our planet, making it one of the most pressing challenges of our time.\n\nWhat causes global warming?\nThe primary cause of global warming is the burning of fossil fuels such as coal, oil, and natural gas for electricity, heat, and transportation. These activities release carbon dioxide and other greenhouse gases into the atmosphere, which trap heat from the sun and warm the planet. Deforestation also contributes to the problem by reducing the number of trees that can absorb carbon dioxide from the atmosphere. Agriculture, particularly livestock farming, produces methane, another potent greenhouse gas.\n\nWhat can individuals do to combat global warming?\nWhile global warming seems like an overwhelming problem, there are many actions individuals can take to make a difference. Start by reducing your energy consumption at home: use LED light bulbs, unplug electronics when not in use, and adjust your thermostat. Choose sustainable transportation options like walking, biking, public transit, or carpooling. Reduce meat consumption, as livestock farming produces significant greenhouse gas emissions. Support renewable energy sources and choose products from companies committed to sustainability. Plant trees and support reforestation efforts in your community.\n\nHow can small changes make a big impact?\nEvery action counts when it comes to fighting climate change. When millions of people make small changes in their daily lives, the collective impact can be enormous. By making conscious choices about energy use, transportation, consumption, and waste, we can significantly reduce our carbon footprint and inspire others to do the same."
+    },
+    {
+        "_id": "blog1",
+        "title": "Zero Waste Movement",
+        "slug": "zero-waste-movement",
+        "image": "/uploads/blog1.jpg",
+        "content": "Learn about the zero-waste movement and how you can make a difference."
     }
 ]
