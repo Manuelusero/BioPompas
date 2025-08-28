@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -31,92 +30,115 @@ const Home = () => {
         // Obtener productos reales
         fetch(`${import.meta.env.VITE_APP_API_URL}/products`)
             .then(res => {
-                if (!res.ok) throw new Error('Network response was not ok');
+                console.log('Products response status:', res.status);
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                const contentType = res.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    throw new Error('Response is not JSON');
+                }
                 return res.json();
             })
-            .then(data => setProducts(Array.isArray(data) ? data : []))
+            .then(data => {
+                console.log('Products data received:', data);
+                setProducts(Array.isArray(data) ? data : []);
+            })
             .catch(error => {
                 console.error("Error al obtener productos:", error);
                 setProducts([]);
                 setError("Hubo un error al cargar los productos.");
             });
+        
         // Obtener promociones
         fetch(`${import.meta.env.VITE_APP_API_URL}/promotions`)
             .then(res => {
-                if (!res.ok) throw new Error('Network response was not ok');
+                console.log('Promotions response status:', res.status);
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                const contentType = res.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    throw new Error('Response is not JSON');
+                }
                 return res.json();
             })
-            .then(data => setPromotions(Array.isArray(data) ? data : []))
+            .then(data => {
+                console.log('Promotions data received:', data);
+                setPromotions(Array.isArray(data) ? data : []);
+            })
             .catch(error => {
                 console.error("Error al obtener promociones:", error);
                 setPromotions([]);
             })
             .finally(() => setLoading(false));
 
+        // Función helper para hacer fetch con manejo de errores
+        const fetchWithErrorHandling = async (url, setterFunction, errorMessage) => {
+            try {
+                const response = await fetch(url);
+                console.log(`${url} response status:`, response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    throw new Error('Response is not JSON');
+                }
+                
+                const data = await response.json();
+                console.log(`${url} data received:`, data);
+                setterFunction(Array.isArray(data) ? data : []);
+            } catch (error) {
+                console.error(`${errorMessage}:`, error);
+                setterFunction([]);
+            }
+        };
+
         // ...otros fetch (puedes dejar axios o migrar a fetch si lo prefieres)
-        const fetchTopPicks = async () => {
-            try {
-                const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/products/category/TOPPICKS`);
-                setTopPicks(Array.isArray(response.data) ? response.data : []);
-            } catch (error) {
-                console.error("Error al obtener top picks:", error);
-                setTopPicks([]);
-            }
-        };
-        const fetchCategories = async () => {
-            try {
-                const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/categories`);
-                setCategories(Array.isArray(response.data) ? response.data : []);
-            } catch (error) {
-                console.error("Error al obtener categories:", error);
-                setCategories([]);
-            }
-        };
-        const fetchGiftBundles = async () => {
-            try {
-                const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/products/category/GIFTBUNDLES`);
-                setGiftBundles(Array.isArray(response.data) ? response.data : []);
-            } catch (error) {
-                console.error("Error al obtener gift bundles:", error);
-                setGiftBundles([]);
-            }
-        };
-        const fetchBlogs = async () => {
-            try {
-                const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/blogs`);
-                setBlogs(Array.isArray(response.data) ? response.data : []);
-            } catch (error) {
-                console.error("Error al obtener blogs:", error);
-                setBlogs([]);
-            }
-        };
-        const fetchEcoBottles = async () => {
-            try {
-                const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/products/category/ECOBOTTLES`);
-                setEcoBottles(Array.isArray(response.data) ? response.data : []);
-            } catch (error) {
-                console.error("Error al obtener eco bottles:", error);
-                setEcoBottles([]);
-            }
-        };
-        const fetchEcoSouvenirs = async () => {
-            try {
-                const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/products/category/ECOSOUVENIRS`);
-                setEcoSouvenirs(Array.isArray(response.data) ? response.data : []);
-            } catch (error) {
-                console.error("Error al obtener eco souvenirs:", error);
-                setEcoSouvenirs([]);
-            }
-        };
-        const fetchOurStore = async () => {
-            try {
-                const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/our-store`);
-                setOurStore(Array.isArray(response.data) ? response.data : []);
-            } catch (error) {
-                console.error("Error al obtener our store:", error);
-                setOurStore([]);
-            }
-        };
+        const fetchTopPicks = () => fetchWithErrorHandling(
+            `${import.meta.env.VITE_APP_API_URL}/products/category/TOPPICKS`,
+            setTopPicks,
+            "Error al obtener top picks"
+        );
+        
+        const fetchCategories = () => fetchWithErrorHandling(
+            `${import.meta.env.VITE_APP_API_URL}/categories`,
+            setCategories,
+            "Error al obtener categories"
+        );
+        
+        const fetchGiftBundles = () => fetchWithErrorHandling(
+            `${import.meta.env.VITE_APP_API_URL}/products/category/GIFTBUNDLES`,
+            setGiftBundles,
+            "Error al obtener gift bundles"
+        );
+        
+        const fetchBlogs = () => fetchWithErrorHandling(
+            `${import.meta.env.VITE_APP_API_URL}/blogs`,
+            setBlogs,
+            "Error al obtener blogs"
+        );
+        
+        const fetchEcoBottles = () => fetchWithErrorHandling(
+            `${import.meta.env.VITE_APP_API_URL}/products/category/ECOBOTTLES`,
+            setEcoBottles,
+            "Error al obtener eco bottles"
+        );
+        
+        const fetchEcoSouvenirs = () => fetchWithErrorHandling(
+            `${import.meta.env.VITE_APP_API_URL}/products/category/ECOSOUVENIRS`,
+            setEcoSouvenirs,
+            "Error al obtener eco souvenirs"
+        );
+        
+        const fetchOurStore = () => fetchWithErrorHandling(
+            `${import.meta.env.VITE_APP_API_URL}/our-store`,
+            setOurStore,
+            "Error al obtener our store"
+        );
         fetchTopPicks();
         fetchCategories();
         fetchGiftBundles();

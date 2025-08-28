@@ -1,21 +1,33 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 const Products = () => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-
-        axios.get("${import.meta.env.VITE_APP_API_URL}/products")
-            .then(response => {
-                console.log(response.data);
-                setProducts(response.data);
-            })
-            .catch(error => {
+        const fetchProducts = async () => {
+            try {
+                const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/products`);
+                console.log('Products response status:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    throw new Error('Response is not JSON');
+                }
+                
+                const data = await response.json();
+                console.log('Products data:', data);
+                setProducts(Array.isArray(data) ? data : []);
+            } catch (error) {
                 console.error("Error al obtener productos:", error);
-            });
+                setProducts([]);
+            }
+        };
 
-
+        fetchProducts();
     }, []);
 
     return (

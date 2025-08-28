@@ -70,20 +70,33 @@ app.get("/api/health", (req, res) => {
 // Add debug middleware to log all API requests
 app.use('/api', (req, res, next) => {
     console.log(`API Request: ${req.method} ${req.path}`);
-    console.log('Headers:', req.headers);
-    console.log('Body:', req.body);
 
-    // Intercept response to log what's being sent
+    // Intercept response to ensure JSON format
     const originalSend = res.send;
+    const originalJson = res.json;
+
+    res.json = function (data) {
+        console.log(`API JSON Response for ${req.method} ${req.path}:`, typeof data, data);
+        return originalJson.call(this, data);
+    };
+
     res.send = function (data) {
-        console.log(`API Response for ${req.method} ${req.path}:`, data);
+        console.log(`API Send Response for ${req.method} ${req.path}:`, typeof data, data);
+        // If it's not already JSON, ensure proper JSON response
+        if (typeof data === 'string' && !res.get('Content-Type')?.includes('json')) {
+            res.setHeader('Content-Type', 'application/json');
+            try {
+                JSON.parse(data);
+            } catch (e) {
+                // If it's not valid JSON, wrap it
+                data = JSON.stringify({ message: data });
+            }
+        }
         return originalSend.call(this, data);
     };
 
     next();
-});
-
-// Wrap route imports and usage in try-catch to identify problematic routes
+});// Wrap route imports and usage in try-catch to identify problematic routes
 try {
     app.use("/api/auth", authRoutes);
     console.log("✅ Auth routes loaded successfully");

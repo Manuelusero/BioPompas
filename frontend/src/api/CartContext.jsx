@@ -62,9 +62,17 @@ export const CartProvider = ({ children }) => {
         `${import.meta.env.VITE_APP_API_URL}/cart/sync`,
         { localCartItems },
         {
-          headers: { Authorization: `Bearer ${getToken()}` }
+          headers: { 
+            Authorization: `Bearer ${getToken()}`,
+            'Content-Type': 'application/json'
+          }
         }
       );
+
+      // Verificar que la respuesta sea JSON válido
+      if (!response.data || !response.data.items) {
+        throw new Error('Invalid response format from backend');
+      }
 
       // Actualizar carrito con respuesta del backend
       const backendCart = response.data.items.map(item => ({

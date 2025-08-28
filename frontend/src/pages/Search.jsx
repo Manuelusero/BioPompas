@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import BottomSheetProductFull from '../components/BottomSheetProductFull';
 import "./Search.css";
 
@@ -52,9 +51,30 @@ const Search = () => {
 
   // Get product suggestions on mount
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_APP_API_URL}/products?isFeatured=true`)
-      .then(res => setSuggested(res.data.slice(0, 4)))
-      .catch(() => setSuggested([]));
+    const fetchSuggested = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/products?isFeatured=true`);
+        console.log('Suggested products response status:', response.status);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          throw new Error('Response is not JSON');
+        }
+        
+        const data = await response.json();
+        console.log('Suggested products data received:', data);
+        setSuggested(Array.isArray(data) ? data.slice(0, 4) : []);
+      } catch (error) {
+        console.error("Error al obtener productos sugeridos:", error);
+        setSuggested([]);
+      }
+    };
+    
+    fetchSuggested();
   }, []);
 
   // Search products as user types
@@ -64,22 +84,46 @@ const Search = () => {
       setError("");
       return;
     }
-    setLoading(true);
-    setError("");
-    axios.get(`${import.meta.env.VITE_APP_API_URL}/products`)
-      .then(res => {
-        const products = res.data;
-        setAllProducts(products);
+    
+    const searchProducts = async () => {
+      setLoading(true);
+      setError("");
+      
+      try {
+        const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/products`);
+        console.log('Search products response status:', response.status);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          throw new Error('Response is not JSON');
+        }
+        
+        const products = await response.json();
+        console.log('Search products data received:', products);
+        
+        setAllProducts(Array.isArray(products) ? products : []);
         const q = query.trim().toLowerCase();
-        const filtered = products.filter(prod =>
+        const filtered = (Array.isArray(products) ? products : []).filter(prod =>
           prod.name?.toLowerCase().includes(q) ||
           prod.description?.toLowerCase().includes(q) ||
           prod.category?.toLowerCase().includes(q)
         );
         setResults(filtered);
-      })
-      .catch(() => setError("Error loading products"))
-      .finally(() => setLoading(false));
+      } catch (error) {
+        console.error("Error loading products:", error);
+        setError("Error loading products");
+        setResults([]);
+        setAllProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    searchProducts();
   }, [query]);
 
   const handleCardClick = (product) => {

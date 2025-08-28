@@ -1,6 +1,5 @@
 import './Categories.css';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useCart } from '../api/CartContext';
 import ArrowLeftIcon from '/src/assets/Icons/ArrowLeftIcon.png';
@@ -30,9 +29,30 @@ const Categories = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_APP_API_URL}/categories`)
-      .then(res => setCategories(res.data))
-      .catch(() => setCategories([]));
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/categories`);
+        console.log('Categories response status:', response.status);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          throw new Error('Response is not JSON');
+        }
+        
+        const data = await response.json();
+        console.log('Categories data received:', data);
+        setCategories(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error("Error al obtener categories:", error);
+        setCategories([]);
+      }
+    };
+
+    fetchCategories();
   }, []);
 
   // Scroll automático al top cuando se carga la página
