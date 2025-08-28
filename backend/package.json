@@ -8,7 +8,6 @@
     "dev": "nodemon index.js",
     "sync-db": "node sync-db.js"
   },
-  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
