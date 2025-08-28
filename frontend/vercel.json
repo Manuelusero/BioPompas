@@ -4,5 +4,10 @@
             "source": "/(.*)",
             "destination": "/index.html"
         }
-    ]
+    ],
+    "functions": {
+        "src/pages/**": {
+            "runtime": "@vercel/static-build"
+        }
+    }
 }
