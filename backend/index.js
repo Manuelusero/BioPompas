@@ -27,6 +27,18 @@ app.use(cors({
     credentials: true
 }));
 
+app.get("/", (req, res) => {
+    res.send("API funcionando 🚀");
+});
+
+app.get("/api/health", (req, res) => {
+    res.json({
+        status: "OK",
+        message: "API funcionando correctamente",
+        timestamp: new Date().toISOString()
+    });
+});
+
 app.use("/api/auth", authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/cart', cartRoutes);
@@ -36,15 +48,3 @@ app.use('/api/promotions', promotionsRoutes);
 app.use('/api/blogs', blogRoutes);
 app.use('/api/our-store', ourStoreRoutes);
 app.use('/uploads', express.static(path.join(process.cwd(), 'src/uploads')));
-
-
-
-
-app.use(errorHandler);
-
-const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
-
-app.get("/", (req, res) => {
-    res.send("API funcionando 🚀");
-});
