@@ -56,61 +56,65 @@ const Home = () => {
         // ...otros fetch (puedes dejar axios o migrar a fetch si lo prefieres)
         const fetchTopPicks = async () => {
             try {
-                // Usar el endpoint unificado de productos filtrando por categoría TOPPICKS
                 const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/products/category/TOPPICKS`);
-                setTopPicks(response.data);
+                setTopPicks(Array.isArray(response.data) ? response.data : []);
             } catch (error) {
                 console.error("Error al obtener top picks:", error);
+                setTopPicks([]);
             }
         };
         const fetchCategories = async () => {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/categories`);
-                setCategories(response.data);
+                setCategories(Array.isArray(response.data) ? response.data : []);
             } catch (error) {
                 console.error("Error al obtener categories:", error);
+                setCategories([]);
             }
         };
         const fetchGiftBundles = async () => {
             try {
-                // Usar el endpoint unificado de productos filtrando por categoría GIFTBUNDLES
                 const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/products/category/GIFTBUNDLES`);
-                setGiftBundles(response.data);
+                setGiftBundles(Array.isArray(response.data) ? response.data : []);
             } catch (error) {
                 console.error("Error al obtener gift bundles:", error);
+                setGiftBundles([]);
             }
         };
         const fetchBlogs = async () => {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/blogs`);
-                setBlogs(response.data);
+                setBlogs(Array.isArray(response.data) ? response.data : []);
             } catch (error) {
                 console.error("Error al obtener blogs:", error);
+                setBlogs([]);
             }
         };
         const fetchEcoBottles = async () => {
             try {
-                // Usar el endpoint unificado de productos filtrando por categoría ECOBOTTLES
                 const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/products/category/ECOBOTTLES`);
-                setEcoBottles(response.data);
+                setEcoBottles(Array.isArray(response.data) ? response.data : []);
             } catch (error) {
                 console.error("Error al obtener eco bottles:", error);
+                setEcoBottles([]);
             }
         };
         const fetchEcoSouvenirs = async () => {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/products/category/ECOSOUVENIRS`);
-                setEcoSouvenirs(response.data);
+                setEcoSouvenirs(Array.isArray(response.data) ? response.data : []);
             } catch (error) {
                 console.error("Error al obtener eco souvenirs:", error);
+                setEcoSouvenirs([]);
             }
         };
         const fetchOurStore = async () => {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/our-store`);
-                setOurStore(response.data);
+                setOurStore(Array.isArray(response.data) ? response.data : []);
             } catch (error) {
                 console.error("Error al obtener our store:", error);
+                setOurStore([]);
             }
         };
         fetchTopPicks();
