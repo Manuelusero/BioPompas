@@ -93,7 +93,7 @@ const GiftBundles = () => {
         {bundles.map((bundle) => (
           <div className="toppick-card" key={bundle._id} onClick={() => handleCardClick(bundle)}>
             <img
-              src={`http://localhost:5001${bundle.image}`}
+              src={`${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${bundle.image}`}
               alt={bundle.name}
             />
             <div className="toppick-name">{bundle.name}</div>

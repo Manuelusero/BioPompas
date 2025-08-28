@@ -30,7 +30,7 @@ const Categories = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5001/api/categories')
+    axios.get(`${import.meta.env.VITE_APP_API_URL}/categories`)
       .then(res => setCategories(res.data))
       .catch(() => setCategories([]));
   }, []);
@@ -46,7 +46,7 @@ const Categories = () => {
       <div className="categoriesGrid">
         {categories.map(cat => (
           <Link to={`/category/${encodeURIComponent(cat.name.split(',')[0].trim())}`} className="categoryCard" key={cat._id} style={{ position: 'relative' }}>
-            <img src={`http://localhost:5001${cat.image}`} alt={cat.name} />
+            <img src={`${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${cat.image}`} alt={cat.name} />
           </Link>
         ))}
       </div>

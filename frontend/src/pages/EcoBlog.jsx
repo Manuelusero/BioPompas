@@ -42,7 +42,7 @@ const EcoBlog = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/blogs")
+        fetch(`${import.meta.env.VITE_APP_API_URL}/blogs`)
       .then((res) => res.json())
       .then((data) => {
         setBlogs(data);
@@ -64,7 +64,7 @@ const EcoBlog = () => {
       <div className="eco-blog-list">
         {blogs.map((blog) => (
           <div className="eco-blog-card" key={blog._id}>
-            <img src={`http://localhost:5001${blog.image}`} alt={blog.title} />
+            <img src={`${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${blog.image}`} alt={blog.title} />
             <div className="eco-blog-info">
               <div className="eco-blog-title-card">{blog.title}</div>
               <div className="eco-blog-summary">{blog.summary}</div>

@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PropTypes from 'prop-types';
 import "./OurStore.css";
 import { useCart } from "../api/CartContext";
 import ArrowLeftIcon from '/src/assets/Icons/ArrowLeftIcon.png';
@@ -34,7 +34,7 @@ const OurStore = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    fetch("http://localhost:5001/api/our-store")
+    fetch(`${import.meta.env.VITE_APP_API_URL}/our-store`)
       .then((res) => res.json())
       .then((data) => setOurStore(data))
       .catch(() => setOurStore([]));
@@ -46,7 +46,7 @@ const OurStore = () => {
       <div className="ourStoreImageContainer">
         {ourStore[0] && (
           <img
-            src={`http://localhost:5001${ourStore[0].image}`}
+            src={`${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${ourStore[0].image}`}
             alt={ourStore[0].title}
             className="ourStoreImage"
           />

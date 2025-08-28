@@ -6,7 +6,7 @@ const Products = () => {
 
     useEffect(() => {
 
-        axios.get("http://localhost:5001/api/products")
+        axios.get("${import.meta.env.VITE_APP_API_URL}/products")
             .then(response => {
                 console.log(response.data);
                 setProducts(response.data);
@@ -27,7 +27,7 @@ const Products = () => {
                         <h3>{product.name}</h3>
                         <p>{product.description}</p>
                         <p>Precio: ${product.price}</p>
-                        <img src={`http://localhost:5001${product.image}`} alt={product.name} width="100" />
+                        <img src={`${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${product.image}`} alt={product.name} width="100" />
                     </li>
                 ))}
             </ul>

@@ -205,7 +205,7 @@ const Search = () => {
           {results.map((product) => (
             <div className="search-result-card" key={product._id || product.id} onClick={() => handleCardClick(product)} style={{ cursor: 'pointer' }}>
               <img
-                src={product.image?.startsWith('http') ? product.image : `http://localhost:5001${product.image || product.url}`}
+                src={product.image?.startsWith('http') ? product.image : `${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${product.image || product.url}`}
                 alt={product.name}
                 className="search-result-image"
                 onError={e => { e.target.onerror = null; e.target.src = '/src/assets/Icons/ImagePlaceholder.png'; }}

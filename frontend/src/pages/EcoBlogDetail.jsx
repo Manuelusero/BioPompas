@@ -84,7 +84,7 @@ const EcoBlogDetail = () => {
           <div className="eco-blog-readalso-list">
             {otherBlogs.map((b) => (
               <Link to={`/eco-blog/${b.slug}`} key={b._id} className="eco-blog-readalso-card">
-                <img src={`http://localhost:5001${b.image}`} alt={b.title} />
+                <img src={`${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${b.image}`} alt={b.title} />
               </Link>
             ))}
           </div>

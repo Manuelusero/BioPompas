@@ -3,10 +3,10 @@ import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
-import "./Home.css";
 import { Link } from "react-router-dom";
-import BottomSheetProductFull from "../components/BottomSheetProductFull";
 import { useCart } from "../api/CartContext";
+import BottomSheetProductFull from "../components/BottomSheetProductFull";
+import './Home.css';
 
 const Home = () => {
     const { cartCount, addToCart } = useCart(); // Usar CartContext
@@ -57,7 +57,7 @@ const Home = () => {
         };
         const fetchCategories = async () => {
             try {
-                const response = await axios.get("http://localhost:5001/api/categories");
+                const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/categories`);
                 setCategories(response.data);
             } catch (error) {
                 console.error("Error al obtener categories:", error);
@@ -189,7 +189,7 @@ const Home = () => {
                             return (
                               <Link to={categoryUrl} style={{ textDecoration: 'none' }}>
                                 <div className="card">
-                                  <img src={promo.image && (promo.image.startsWith('http') ? promo.image : `http://localhost:5001${promo.image}`)} alt={promo.name} />
+                                  <img src={promo.image && (promo.image.startsWith('http') ? promo.image : `${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${promo.image}`)} alt={promo.name} />
                                 </div>
                               </Link>
                             );
@@ -210,7 +210,7 @@ const Home = () => {
                 <div className="top-picks-scroll">
                     {topPicks.slice(0, 4).map((product) => (
                         <div className="top-pick-card" key={product._id} onClick={() => handleCardClick(product)}>
-                            <img src={`http://localhost:5001${product.image}`} alt={product.name} />
+                            <img src={`${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${product.image}`} alt={product.name} />
                             <div className="top-pick-info">
                                 <div className="top-pick-name">{product.name}</div>
                                 <div className="top-pick-price">
@@ -235,7 +235,7 @@ const Home = () => {
                 <div className="categories-scroll">
                     {categories.slice(0, 4).map((cat) => (
                         <a href={cat.url} className="category-card" key={cat._id}>
-                            <img src={`http://localhost:5001${cat.image}`} alt={cat.name} />
+                            <img src={`${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${cat.image}`} alt={cat.name} />
                         </a>
                     ))}
                 </div>
@@ -251,7 +251,7 @@ const Home = () => {
                 <div className="gift-bundles-scroll">
                     {giftBundles.map((bundle) => (
                         <div className="gift-bundle-card" key={bundle._id} onClick={() => handleCardClick(bundle)}>
-                            <img src={`http://localhost:5001${bundle.image}`} alt={bundle.name} />
+                            <img src={`${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${bundle.image}`} alt={bundle.name} />
                             <div className="gift-bundle-info">
                                 <div className="gift-bundle-name">{bundle.name}</div>
                                 <div className="gift-bundle-price">
@@ -273,7 +273,7 @@ const Home = () => {
                 <div className="eco-blog-scroll">
                     {blogs.map((blog) => (
                         <Link to={`/eco-blog/${blog.slug}`} className="eco-blog-card" key={blog._id}>
-                            <img src={`http://localhost:5001${blog.image}`} alt={blog.title} />
+                            <img src={`${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${blog.image}`} alt={blog.title} />
                             
                         </Link>
                     ))}
@@ -289,7 +289,7 @@ const Home = () => {
                 <div className="eco-bottles-scroll">
                     {ecoBottles.map((bottle) => (
                         <div className="eco-bottle-card" key={bottle._id} onClick={() => handleCardClick(bottle)}>
-                            <img src={`http://localhost:5001${bottle.image}`} alt={bottle.name} />
+                            <img src={`${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${bottle.image}`} alt={bottle.name} />
                             <div className="eco-bottle-info">
                                 <div className="eco-bottle-name">{bottle.name}</div>
                                 <div className="eco-bottle-price">
@@ -310,7 +310,7 @@ const Home = () => {
                 </div>
                 {ecoSouvenirs[0] && (
                   <Link to="/contact" className="eco-souvenir-image-container">
-                      <img src={`http://localhost:5001${ecoSouvenirs[0].image}`} alt={ecoSouvenirs[0].name} />
+                      <img src={`${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${ecoSouvenirs[0].image}`} alt={ecoSouvenirs[0].name} />
                   </Link>
                 )}
             </section>
@@ -323,7 +323,7 @@ const Home = () => {
                 </div>
                 {ourStore[0] && (
                   <Link to="/our-store" className="our-store-image-container">
-                      <img src={`http://localhost:5001${ourStore[0].image}`} alt={ourStore[0].title} />
+                      <img src={`${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${ourStore[0].image}`} alt={ourStore[0].title} />
                   </Link>
                 )}
             </section>

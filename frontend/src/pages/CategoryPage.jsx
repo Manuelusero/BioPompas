@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import './CategoryPage.css';
 import ArrowLeftIcon from '/src/assets/Icons/ArrowLeftIcon.png';
 import BottomSheetProductFull from '../components/BottomSheetProductFull';
@@ -17,17 +16,20 @@ const CategoryPage = () => {
   const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/products/category/${category}`);
-        setProducts(response.data);
-      } catch (err) {
-        setError('Error loading products' + (err?.response?.data?.error ? ': ' + err.response.data.error : ''));
-      } finally {
+    fetch(`${import.meta.env.VITE_APP_API_URL}/products`)
+      .then(response => response.json())
+      .then(data => {
+        const filtered = data.filter(p => 
+          p.category && p.category.toLowerCase().includes(category.toLowerCase())
+        );
+        setProducts(filtered);
         setLoading(false);
-      }
-    };
-    fetchProducts();
+      })
+      .catch(error => {
+        console.error('Error fetching products:', error);
+        setError('Error loading products');
+        setLoading(false);
+      });
   }, [category]);
 
   // Unificar contador global SOLO localStorage
@@ -105,7 +107,7 @@ const CategoryPage = () => {
           products.map(product => (
             <div className="category-product-card" key={product._id} onClick={() => handleCardClick(product)}>
               <img
-                src={product.image?.startsWith('http') ? product.image : `http://localhost:5001${product.image || product.url}`}
+                src={product.image?.startsWith('http') ? product.image : `${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${product.image || product.url}`}
                 alt={product.name}
                 className="category-product-image"
                 onError={e => { e.target.onerror = null; e.target.src = '/src/assets/Icons/ImagePlaceholder.png'; }}
@@ -141,6 +143,7 @@ const CategoryPage = () => {
       </nav>
     </div>
   );
-};
+}
+
 
 export default CategoryPage;

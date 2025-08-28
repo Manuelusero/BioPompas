@@ -69,7 +69,7 @@ const TopPicks = () => {
       <div className="toppicks-list">
         {topPicks.map((product) => (
           <div className="toppick-card" key={product._id} onClick={() => handleCardClick(product)}>
-            <img src={`http://localhost:5001${product.image}`} alt={product.name} />
+            <img src={`${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${product.image}`} alt={product.name} />
             <div className="toppick-name">{product.name}</div>
             <div className="toppick-price">€{Number(product.price).toFixed(2)}</div>
           </div>

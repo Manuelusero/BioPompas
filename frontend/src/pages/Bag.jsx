@@ -76,7 +76,7 @@ const Bag = () => {
           cartItems.map((item, index) => (
             <div className="bag-item" key={`${item._id}-${index}`}>
               <img
-                src={item.image?.startsWith('http') ? item.image : `http://localhost:5001${item.image || item.url}`}
+                src={item.image?.startsWith('http') ? item.image : `${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${item.image || item.url}`}
                 alt={item.name}
                 className="bag-item-img"
                 onError={e => { e.target.onerror = null; e.target.src = '/src/assets/Icons/ImagePlaceholder.png'; }}
