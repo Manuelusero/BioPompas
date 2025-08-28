@@ -388,14 +388,13 @@
     align-items: center;
     background: #5C7347;
     border-radius: 18px;
-    padding: 0 2px;
-    height: 33px;
     box-shadow: 0 2px 8px #0001;
     margin-left: auto;
     justify-content: center;
     width: 100px;
     height: 35px;
     flex-shrink: 0;
+    margin-right: 10px;
 }
 
 .bottom-sheet-counter button {

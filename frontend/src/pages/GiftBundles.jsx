@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./GiftBundles.css";
@@ -44,6 +43,11 @@ const GiftBundles = () => {
         setLoading(false);
       })
       .catch(() => setLoading(false));
+  }, []);
+
+  useEffect(() => {
+    // Scroll automático al top cuando se carga la página
+    window.scrollTo(0, 0);
   }, []);
 
   if (loading) return <div style={{ padding: 24 }}>Loading...</div>;

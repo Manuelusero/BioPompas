@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useCart } from '../api/CartContext';
 import ArrowLeftIcon from '/src/assets/Icons/ArrowLeftIcon.png';
 
+
 // Cart badge header component
 function CategoriesHeaderWithCartBadge() {
   const { cartCount } = useCart();
@@ -32,6 +33,11 @@ const Categories = () => {
     axios.get('http://localhost:5001/api/categories')
       .then(res => setCategories(res.data))
       .catch(() => setCategories([]));
+  }, []);
+
+  // Scroll automático al top cuando se carga la página
+  useEffect(() => {
+    window.scrollTo(0, 0);
   }, []);
 
   return (

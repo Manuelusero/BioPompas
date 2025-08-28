@@ -24,6 +24,12 @@ const EcoBlogDetail = () => {
       .catch(() => setLoading(false));
   }, [slug]);
 
+  // Al inicio del componente EcoBlogDetail, agregar:
+  useEffect(() => {
+    // Scroll automático al top cuando se carga la página
+    window.scrollTo(0, 0);
+  }, []);
+
   if (loading) return <div style={{ padding: 24 }}>Loading...</div>;
   if (!blog) return <div style={{ padding: 24 }}>Blog not found.</div>;
 

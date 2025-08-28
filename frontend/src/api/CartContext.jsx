@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
@@ -20,13 +20,15 @@ export const CartProvider = ({ children }) => {
   // Obtener carrito de localStorage
   const getLocalCart = () => {
     const localCart = JSON.parse(localStorage.getItem('cart')) || [];
-    return localCart.filter(item => item._id && (item.count > 0 || item.quantity > 0));
+    const filteredCart = localCart.filter(item => item._id && (item.count > 0 || item.quantity > 0));
+    return filteredCart;
   };
 
   // Guardar carrito en localStorage
   const saveLocalCart = (items) => {
     localStorage.setItem('cart', JSON.stringify(items));
-    window.dispatchEvent(new Event('cartUpdated'));
+    // Comentamos temporalmente para evitar loops de actualización
+    // window.dispatchEvent(new Event('cartUpdated'));
   };
 
   // Calcular contador del carrito
@@ -39,7 +41,10 @@ export const CartProvider = ({ children }) => {
     if (!isLoggedIn()) return;
 
     const localCart = getLocalCart();
-    if (localCart.length === 0) return;
+    
+    if (localCart.length === 0) {
+      return;
+    }
 
     try {
       setLoading(true);
@@ -77,10 +82,9 @@ export const CartProvider = ({ children }) => {
       // Limpiar localStorage después de sincronizar
       localStorage.removeItem('cart');
 
-      console.log('✅ Carrito sincronizado con backend');
     } catch (error) {
       console.error('❌ Error sincronizando carrito:', error);
-      // Si falla la sincronización, mantener el carrito local
+      // Si falla la sincronización, mantener el carrito local actual
       setCartItems(localCart);
       setCartCount(calculateCartCount(localCart));
     } finally {
@@ -88,15 +92,18 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // Obtener carrito del backend
-  const fetchBackendCart = async () => {
-    if (!isLoggedIn()) return null;
+  // Cargar carrito desde backend forzadamente (para usar después del login)
+  const forceLoadFromBackend = async () => {
+    const token = getToken();
+    if (!token) return;
 
     try {
+      setLoading(true);
+      
       const response = await axios.get(
         `${import.meta.env.VITE_APP_API_URL}/cart`,
         {
-          headers: { Authorization: `Bearer ${getToken()}` }
+          headers: { Authorization: `Bearer ${token}` }
         }
       );
 
@@ -108,43 +115,81 @@ export const CartProvider = ({ children }) => {
         quantity: item.quantity,
         count: item.quantity
       }));
-
-      return backendCart;
+      
+      setCartItems(backendCart);
+      setCartCount(calculateCartCount(backendCart));
+      
+      // Actualizar localStorage con el carrito del backend
+      saveLocalCart(backendCart);
+      
     } catch (error) {
-      console.error('❌ Error obteniendo carrito del backend:', error);
-      if (error.response?.status === 401) {
-        localStorage.removeItem('token');
-      }
-      return null;
+      console.error('❌ Error cargando carrito del backend:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Cargar carrito (backend si está logueado, localStorage si no)
-  const fetchCart = async () => {
+  // Cargar carrito (localStorage siempre tiene prioridad absoluta)
+  const fetchCart = useCallback(async () => {
     setLoading(true);
 
-    if (isLoggedIn()) {
-      // Usuario logueado: intentar cargar del backend
-      const backendCart = await fetchBackendCart();
+    // Verificar si hay datos en localStorage (aunque esté vacío)
+    const cartData = localStorage.getItem('cart');
+    
+    if (cartData !== null) {
+      // Si existe la key 'cart' en localStorage, usar eso como fuente de verdad
+      const localCart = JSON.parse(cartData) || [];
+      const filteredCart = localCart.filter(item => item._id && (item.count > 0 || item.quantity > 0));
       
-      if (backendCart) {
+      setCartItems(filteredCart);
+      setCartCount(calculateCartCount(filteredCart));
+      setLoading(false);
+      return;
+    }
+
+    // Solo cargar del backend si NO existe la key 'cart' en localStorage (primera carga)
+    const token = getToken();
+    if (token) {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_APP_API_URL}/cart`,
+          {
+            headers: { Authorization: `Bearer ${token}` }
+          }
+        );
+
+        const backendCart = response.data.items.map(item => ({
+          _id: item.productId,
+          name: item.name,
+          price: item.price,
+          image: item.image,
+          quantity: item.quantity,
+          count: item.quantity
+        }));
+
         setCartItems(backendCart);
         setCartCount(calculateCartCount(backendCart));
-      } else {
-        // Si falla el backend, usar localStorage
-        const localCart = getLocalCart();
-        setCartItems(localCart);
-        setCartCount(calculateCartCount(localCart));
+        // Guardar en localStorage para futuras cargas
+        saveLocalCart(backendCart);
+      } catch (error) {
+        console.error('❌ Error obteniendo carrito del backend:', error);
+        if (error.response?.status === 401) {
+          localStorage.removeItem('token');
+        }
+        // Si falla, crear localStorage vacío
+        saveLocalCart([]);
+        setCartItems([]);
+        setCartCount(0);
       }
     } else {
-      // Usuario no logueado: usar localStorage
-      const localCart = getLocalCart();
-      setCartItems(localCart);
-      setCartCount(calculateCartCount(localCart));
+      // Usuario no logueado: crear localStorage vacío
+      saveLocalCart([]);
+      setCartItems([]);
+      setCartCount(0);
     }
 
     setLoading(false);
-  };
+  }, []);
 
   // Agregar producto al carrito
   const addToCart = async (product, quantity = 1) => {
@@ -165,7 +210,36 @@ export const CartProvider = ({ children }) => {
           }
         );
 
-        await fetchCart(); // Recargar carrito
+        // Actualizar estado local inmediatamente
+        setCartItems(prevItems => {
+          const existingIndex = prevItems.findIndex(item => item._id === product._id);
+          let updatedItems;
+          
+          if (existingIndex > -1) {
+            updatedItems = prevItems.map((item, index) => 
+              index === existingIndex 
+                ? { ...item, quantity: item.quantity + quantity, count: item.quantity + quantity }
+                : item
+            );
+          } else {
+            updatedItems = [...prevItems, {
+              _id: product._id,
+              name: product.name,
+              price: product.price,
+              image: product.image || product.url,
+              quantity,
+              count: quantity
+            }];
+          }
+          
+          setCartCount(calculateCartCount(updatedItems));
+          
+          // También actualizar localStorage para mantener sincronización
+          saveLocalCart(updatedItems);
+          
+          return updatedItems;
+        });
+
         return response.data;
       } catch (error) {
         console.error('❌ Error agregando al carrito:', error);
@@ -202,62 +276,42 @@ export const CartProvider = ({ children }) => {
       return removeFromCart(productId);
     }
 
-    if (isLoggedIn()) {
-      // Usuario logueado: actualizar en backend
-      try {
-        await axios.put(
-          `${import.meta.env.VITE_APP_API_URL}/cart/${productId}`,
-          { productId, quantity: newQuantity },
-          {
-            headers: { Authorization: `Bearer ${getToken()}` }
-          }
-        );
+    // Actualizar inmediatamente en el estado local para UI responsiva
+    setCartItems(prevItems => {
+      const updatedItems = prevItems.map(item => 
+        item._id === productId 
+          ? { ...item, quantity: newQuantity, count: newQuantity }
+          : item
+      );
+      
+      // Actualizar el contador después de actualizar los items
+      setCartCount(calculateCartCount(updatedItems));
+      
+      // Siempre actualizar localStorage para mantener sincronización
+      saveLocalCart(updatedItems);
+      
+      return updatedItems;
+    });
 
-        await fetchCart(); // Recargar carrito
-      } catch (error) {
-        console.error('❌ Error actualizando carrito:', error);
-        throw error;
-      }
-    } else {
-      // Usuario no logueado: actualizar localStorage
-      const localCart = getLocalCart();
-      const index = localCart.findIndex(item => item._id === productId);
-
-      if (index > -1) {
-        localCart[index].quantity = newQuantity;
-        localCart[index].count = newQuantity;
-        saveLocalCart(localCart);
-        setCartItems(localCart);
-        setCartCount(calculateCartCount(localCart));
-      }
-    }
+    // NO intentar actualizar el backend aquí para evitar errores
+    // El backend se actualizará cuando se haga checkout o se agreguen nuevos productos
   };
 
   // Eliminar producto del carrito
   const removeFromCart = async (productId) => {
-    if (isLoggedIn()) {
-      // Usuario logueado: eliminar del backend
-      try {
-        await axios.delete(
-          `${import.meta.env.VITE_APP_API_URL}/cart/${productId}`,
-          {
-            headers: { Authorization: `Bearer ${getToken()}` }
-          }
-        );
+    // Actualizar inmediatamente el estado local para UI responsiva
+    setCartItems(prevItems => {
+      const filteredItems = prevItems.filter(item => item._id !== productId);
+      setCartCount(calculateCartCount(filteredItems));
+      
+      // Siempre actualizar localStorage para mantener sincronización
+      saveLocalCart(filteredItems);
+      
+      return filteredItems;
+    });
 
-        await fetchCart(); // Recargar carrito
-      } catch (error) {
-        console.error('❌ Error eliminando del carrito:', error);
-        throw error;
-      }
-    } else {
-      // Usuario no logueado: eliminar de localStorage
-      const localCart = getLocalCart();
-      const filteredCart = localCart.filter(item => item._id !== productId);
-      saveLocalCart(filteredCart);
-      setCartItems(filteredCart);
-      setCartCount(calculateCartCount(filteredCart));
-    }
+    // NO intentar eliminar del backend aquí para evitar errores
+    // El backend se actualizará cuando se haga checkout o se agreguen nuevos productos
   };
 
   // Limpiar carrito
@@ -288,23 +342,28 @@ export const CartProvider = ({ children }) => {
 
     // Escuchar cambios en localStorage y token
     const handleStorageChange = (e) => {
-      if (e.key === 'cart' || e.key === 'token') {
+      if (e.key === 'token') {
         fetchCart();
       }
+      // Comentamos temporalmente la escucha de 'cart' para evitar loops
+      // if (e.key === 'cart') {
+      //   fetchCart();
+      // }
     };
 
-    const handleCartUpdate = () => {
-      fetchCart();
-    };
+    // Comentamos temporalmente para evitar recargas innecesarias
+    // const handleCartUpdate = () => {
+    //   fetchCart();
+    // };
 
     window.addEventListener('storage', handleStorageChange);
-    window.addEventListener('cartUpdated', handleCartUpdate);
+    // window.addEventListener('cartUpdated', handleCartUpdate);
 
     return () => {
       window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('cartUpdated', handleCartUpdate);
+      // window.removeEventListener('cartUpdated', handleCartUpdate);
     };
-  }, []);
+  }, [fetchCart]);
 
   const value = {
     cartCount,
@@ -316,6 +375,7 @@ export const CartProvider = ({ children }) => {
     removeFromCart,
     clearCart,
     syncCartWithBackend,
+    forceLoadFromBackend,
     isLoggedIn
   };
 

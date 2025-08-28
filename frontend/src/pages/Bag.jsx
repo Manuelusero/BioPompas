@@ -7,21 +7,25 @@ const DELIVERY_COST = 8;
 
 const Bag = () => {
   const navigate = useNavigate();
-  const { cartItems, loading, updateCartItem, removeFromCart } = useCart();
+  const { cartItems, loading, updateCartItem, removeFromCart, fetchCart } = useCart();
   const [localLoading, setLocalLoading] = useState(true);
 
   useEffect(() => {
-    // Pequeño delay para asegurar que el cart context esté cargado
-    const timer = setTimeout(() => {
+    // Cargar carrito al montar el componente
+    const loadCart = async () => {
+      setLocalLoading(true);
+      await fetchCart();
       setLocalLoading(false);
-    }, 500);
+    };
 
-    return () => clearTimeout(timer);
-  }, []);
+    loadCart();
+  }, [fetchCart]);
 
   const handleRemove = async (itemId) => {
+    console.log('Removing item:', itemId);
     try {
       await removeFromCart(itemId);
+      console.log('Successfully removed item');
     } catch (error) {
       console.error('Error removing item:', error);
     }
@@ -29,10 +33,15 @@ const Bag = () => {
 
   const handleCountChange = async (itemId, delta) => {
     const currentItem = cartItems.find(item => item._id === itemId);
-    if (!currentItem) return;
+    if (!currentItem) {
+      console.log('Item not found:', itemId);
+      return;
+    }
 
     const currentQuantity = currentItem.quantity || currentItem.count || 1;
     const newQuantity = currentQuantity + delta;
+    
+    console.log('Changing quantity:', { itemId, currentQuantity, delta, newQuantity });
     
     if (newQuantity <= 0) {
       await handleRemove(itemId);
@@ -41,18 +50,9 @@ const Bag = () => {
 
     try {
       await updateCartItem(itemId, newQuantity);
+      console.log('Successfully updated item quantity');
     } catch (error) {
       console.error('Error updating item:', error);
-      // Fallback: actualizar localStorage directamente
-      const storedCart = localStorage.getItem('cart');
-      let cartArr = storedCart ? JSON.parse(storedCart) : [];
-      const idx = cartArr.findIndex(item => item._id === itemId);
-      if (idx !== -1) {
-        cartArr[idx].count = Math.max(1, newQuantity);
-        cartArr[idx].quantity = cartArr[idx].count;
-        localStorage.setItem('cart', JSON.stringify(cartArr));
-        window.dispatchEvent(new Event('cartUpdated'));
-      }
     }
   };
 
@@ -73,8 +73,8 @@ const Bag = () => {
         ) : cartItems.length === 0 ? (
           <div className="bag-empty">Your bag is empty.</div>
         ) : (
-          cartItems.map((item) => (
-                        <div className="bag-item" key={item._id}>
+          cartItems.map((item, index) => (
+            <div className="bag-item" key={`${item._id}-${index}`}>
               <img
                 src={item.image?.startsWith('http') ? item.image : `http://localhost:5001${item.image || item.url}`}
                 alt={item.name}
@@ -86,10 +86,7 @@ const Bag = () => {
                   <div className="bag-item-title">{item.name}</div>
                   <button 
                     className="bag-item-remove" 
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleRemove(item._id);
-                    }}
+                    onClick={() => handleRemove(item._id)}
                     disabled={loading}
                   >
                     <img src="/src/assets/Icons/Basura.png" alt="Delete" />
@@ -99,20 +96,14 @@ const Bag = () => {
                   <div className="bag-item-price">€ {item.price.toFixed(2)}</div>
                   <div className="bag-item-counter">
                     <button 
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleCountChange(item._id, -1);
-                      }}
+                      onClick={() => handleCountChange(item._id, -1)}
                       disabled={loading}
                     >
                       -
                     </button>
                     <span>{item.quantity || item.count || 1}</span>
                     <button 
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleCountChange(item._id, 1);
-                      }}
+                      onClick={() => handleCountChange(item._id, 1)}
                       disabled={loading}
                     >
                       +

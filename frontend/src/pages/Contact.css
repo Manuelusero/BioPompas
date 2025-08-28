@@ -69,15 +69,19 @@
 
 .contact-cart-badge {
     position: absolute;
-    top: -8px;
-    right: -8px;
+    top: 2px;
+    right: 0px;
     background: #588157;
     color: #fff;
     border-radius: 50%;
-    padding: 2px 7px;
-    font-size: 12px;
+    width: 11.85px;
+    height: 11.85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
     font-family: 'Raleway';
-    font-weight: 600;
+    font-weight: 400;
 }
 
 /* Contact page styles */
