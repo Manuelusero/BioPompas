@@ -67,61 +67,83 @@ app.get("/api/health", (req, res) => {
     });
 });
 
+// Add debug middleware to log all API requests
+app.use('/api', (req, res, next) => {
+    console.log(`API Request: ${req.method} ${req.path}`);
+    console.log('Headers:', req.headers);
+    console.log('Body:', req.body);
+
+    // Intercept response to log what's being sent
+    const originalSend = res.send;
+    res.send = function (data) {
+        console.log(`API Response for ${req.method} ${req.path}:`, data);
+        return originalSend.call(this, data);
+    };
+
+    next();
+});
+
 // Wrap route imports and usage in try-catch to identify problematic routes
 try {
     app.use("/api/auth", authRoutes);
-    console.log("Auth routes loaded successfully");
+    console.log("✅ Auth routes loaded successfully");
 } catch (error) {
-    console.error("Error loading auth routes:", error);
+    console.error("❌ Error loading auth routes:", error);
 }
 
 try {
-    app.use('/api/products', productRoutes);
-    console.log("Product routes loaded successfully");
+    app.use('/api/products', (req, res, next) => {
+        console.log(`Products route hit: ${req.method} ${req.originalUrl}`);
+        next();
+    }, productRoutes);
+    console.log("✅ Product routes loaded successfully");
 } catch (error) {
-    console.error("Error loading product routes:", error);
+    console.error("❌ Error loading product routes:", error);
 }
 
 try {
     app.use('/api/cart', cartRoutes);
-    console.log("Cart routes loaded successfully");
+    console.log("✅ Cart routes loaded successfully");
 } catch (error) {
-    console.error("Error loading cart routes:", error);
+    console.error("❌ Error loading cart routes:", error);
 }
 
 try {
     app.use('/api/checkout', checkoutRoutes);
-    console.log("Checkout routes loaded successfully");
+    console.log("✅ Checkout routes loaded successfully");
 } catch (error) {
-    console.error("Error loading checkout routes:", error);
+    console.error("❌ Error loading checkout routes:", error);
 }
 
 try {
     app.use('/api/categories', categoryRoutes);
-    console.log("Category routes loaded successfully");
+    console.log("✅ Category routes loaded successfully");
 } catch (error) {
-    console.error("Error loading category routes:", error);
+    console.error("❌ Error loading category routes:", error);
 }
 
 try {
-    app.use('/api/promotions', promotionsRoutes);
-    console.log("Promotion routes loaded successfully");
+    app.use('/api/promotions', (req, res, next) => {
+        console.log(`Promotions route hit: ${req.method} ${req.originalUrl}`);
+        next();
+    }, promotionsRoutes);
+    console.log("✅ Promotion routes loaded successfully");
 } catch (error) {
-    console.error("Error loading promotion routes:", error);
+    console.error("❌ Error loading promotion routes:", error);
 }
 
 try {
     app.use('/api/blogs', blogRoutes);
-    console.log("Blog routes loaded successfully");
+    console.log("✅ Blog routes loaded successfully");
 } catch (error) {
-    console.error("Error loading blog routes:", error);
+    console.error("❌ Error loading blog routes:", error);
 }
 
 try {
     app.use('/api/our-store', ourStoreRoutes);
-    console.log("Our store routes loaded successfully");
+    console.log("✅ Our store routes loaded successfully");
 } catch (error) {
-    console.error("Error loading our store routes:", error);
+    console.error("❌ Error loading our store routes:", error);
 }
 app.use('/uploads', express.static(path.join(process.cwd(), 'src/uploads')));
 
