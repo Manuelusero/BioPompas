@@ -19,7 +19,9 @@ connectDB();
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://127.0.0.1:5173'],
+    origin: ['http://localhost:5173', 'http://127.0.0.1:5173', 'https://natural-staff.vercel.app',
+        'https://natural-staff-git-main-manuel-useros-projects.vercel.app', 'https://natural-staff-bem3bawc5-manuel-useros-projects.vercel.app'
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
