@@ -83,7 +83,7 @@ const Contact = () => {
         </a>
         <h1 className="contact-title">Contact</h1>
         <div className="contact-cart-icon" onClick={() => window.location.href = '/cart'}>
-          <img src="/src/assets/Icons/Cart.svg" alt="Carrito" />
+          <img src="/Cart.svg" alt="Carrito" />
           {cartCount > 0 && (
             <span className="contact-cart-badge">{cartCount}</span>
           )}
@@ -101,13 +101,13 @@ const Contact = () => {
       </form>
       <nav className="bottom-navbar">
         <a href="/home" className="nav-icon" aria-label="Home">
-          <img src="/src/assets/Icons/HomeIcon.png" alt="Home" />
+          <img src="/HomeIcon.png" alt="Home" />
         </a>
         <a href="/search" className="nav-icon" aria-label="Search">
-          <img src="/src/assets/Icons/SearchIcon.png" alt="Search" />
+          <img src="/SearchIcon.png" alt="Search" />
         </a>
         <a href="/login" className="nav-icon" aria-label="Avatar">
-          <img src="/src/assets/Icons/AvatarIcon.png" alt="Avatar" />
+          <img src="/AvatarIcon.png"  alt="Avatar" />
         </a>
       </nav>
     </div>

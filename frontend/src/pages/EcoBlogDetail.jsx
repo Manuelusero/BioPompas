@@ -49,7 +49,7 @@ const EcoBlogDetail = () => {
         <h2 className="ecoBlogDetailTitle">Eco Blog</h2>
         <Link to="/bag" className="ecoBlogDetailCartContainer">
           <img
-            src="/src/assets/Icons/Cart.svg"
+            src="/Cart.svg"
             alt="Carrito"
             className="ecoBlogDetailCart"
           />
@@ -92,13 +92,13 @@ const EcoBlogDetail = () => {
       )}
       <nav className="bottom-navbar">
         <a href="/home" className="nav-icon" aria-label="Home">
-          <img src="/src/assets/Icons/HomeIcon.png" alt="Home" />
+          <img src="/HomeIcon.png" alt="Home" />
         </a>
         <a href="/search" className="nav-icon" aria-label="Search">
-          <img src="/src/assets/Icons/SearchIcon.png" alt="Search" />
+          <img src="/SearchIcon.png" alt="Search" />
         </a>
         <a href="/login" className="nav-icon" aria-label="Avatar">
-          <img src="/src/assets/Icons/AvatarIcon.png" alt="Avatar" />
+          <img src="/AvatarIcon.png"  alt="Avatar" />
         </a>
       </nav>
     </div>

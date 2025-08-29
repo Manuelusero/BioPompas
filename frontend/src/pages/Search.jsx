@@ -214,7 +214,7 @@ const Search = () => {
         </div>
         <div className="search-cart-icon-container">
           <img 
-            src="/src/assets/Icons/Cart.svg" 
+            src="/Cart.svg" 
             alt="Cart" 
             className="searchCartIcon"
             onClick={handleCartClick}
@@ -282,7 +282,7 @@ const Search = () => {
           <img src="/src/assets/Icons/Searchseccion.png" alt="Search" />
         </a>
         <a href="/login" className="nav-icon" aria-label="Avatar">
-          <img src="/src/assets/Icons/AvatarIcon.png" alt="Avatar" />
+          <img src="/AvatarIcon.png"  alt="Avatar" />
         </a>
       </nav>
     </div>

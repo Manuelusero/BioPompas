@@ -28,7 +28,7 @@ function EcoBlogHeaderWithCartBadge() {
         Eco Blog <span className="eco-blog-sub">(Tips for a sustainable life)</span>
       </h1>
       <div style={{ position: 'relative', display: 'inline-block', marginLeft: '10px' }}>
-        <img src="/src/assets/Icons/Cart.svg" alt="Cart" />
+        <img src="/Cart.svg" alt="Cart" />
         {cartCount > 0 && (
           <span style={{ position: 'absolute', top: '-10px', right: '-8px', background: '#5C7347', color: '#fff', borderRadius: '50%', padding: '2px 6px', fontSize: '10px', fontWeight: 'bold', zIndex: 10, boxShadow: '0 2px 8px #0002' }}>{cartCount}</span>
         )}
@@ -74,13 +74,13 @@ const EcoBlog = () => {
       </div>
       <nav className="bottom-navbar">
         <a href="/home" className="nav-icon" aria-label="Home">
-          <img src="/src/assets/Icons/HomeIcon.png" alt="Home" />
+          <img src="/HomeIcon.png" alt="Home" />
         </a>
         <a href="/search" className="nav-icon" aria-label="Search">
-          <img src="/src/assets/Icons/SearchIcon.png" alt="Search" />
+          <img src="/SearchIcon.png" alt="Search" />
         </a>
         <a href="/login" className="nav-icon" aria-label="Avatar">
-          <img src="/src/assets/Icons/AvatarIcon.png" alt="Avatar" />
+          <img src="/AvatarIcon.png"  alt="Avatar" />
         </a>
       </nav>
     </div>

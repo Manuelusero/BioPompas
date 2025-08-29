@@ -16,7 +16,7 @@ function CategoriesHeaderWithCartBadge() {
       </Link>
       <h2 className="categoriesTitle">CATEGORIES</h2>
       <Link to="/bag" className="categoriesCartIcon">
-        <img src="/src/assets/Icons/Cart.svg" alt="Carrito" className="categoriesCartIconImg" />
+        <img src="/Cart.svg" alt="Carrito" className="categoriesCartIconImg" />
         {cartCount > 0 && (
           <span className="categoriesCartBadge">{cartCount}</span>
         )}
@@ -72,13 +72,13 @@ const Categories = () => {
       </div>
       <nav className="bottom-navbar">
         <a href="/home" className="nav-icon" aria-label="Home">
-          <img src="/src/assets/Icons/HomeIcon.png" alt="Home" />
+          <img src="/HomeIcon.png" alt="Home" />
         </a>
         <a href="/search" className="nav-icon" aria-label="Search">
-          <img src="/src/assets/Icons/SearchIcon.png" alt="Search" />
+          <img src="/SearchIcon.png" alt="Search" />
         </a>
         <a href="/login" className="nav-icon" aria-label="Avatar">
-          <img src="/src/assets/Icons/AvatarIcon.png" alt="Avatar" />
+          <img src="/AvatarIcon.png" alt="Avatar" />
         </a>
       </nav>
     </div>

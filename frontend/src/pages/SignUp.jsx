@@ -181,7 +181,7 @@ const SignUp = () => {
                         <img src="/src/assets/Icons/Home.png" alt="Home" />
                     </a>
                     <a href="/search" className="nav-icon" aria-label="Search">
-                        <img src="/src/assets/Icons/SearchIcon.png" alt="Search" />
+                        <img src="/SearchIcon.png" alt="Search" />
                     </a>
                     <a href="/login" className="nav-icon" aria-label="Avatar">
                         <img src="/src/assets/Icons/AvatarSeccion.png" alt="Avatar" />

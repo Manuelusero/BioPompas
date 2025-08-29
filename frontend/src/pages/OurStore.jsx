@@ -15,7 +15,7 @@ function OurStoreHeaderWithCartBadge({ navigate }) {
       </button>
       <h2 className="ourStoreTitle">OUR STORE</h2>
       <div className="ourStoreCartIcon">
-        <img src="/src/assets/Icons/Cart.svg" alt="Cart" />
+        <img src="/Cart.svg" alt="Cart" />
         {cartCount > 0 && (
           <span className="ourStoreCartBadge">{cartCount}</span>
         )}
@@ -75,13 +75,13 @@ const OurStore = () => {
       </div>
       <nav className="bottom-navbar">
         <a href="/home" className="nav-icon" aria-label="Home">
-          <img src="/src/assets/Icons/HomeIcon.png" alt="Home" />
+          <img src="/HomeIcon.png" alt="Home" />
         </a>
         <a href="/search" className="nav-icon" aria-label="Search">
-          <img src="/src/assets/Icons/SearchIcon.png" alt="Search" />
+          <img src="/SearchIcon.png" alt="Search" />
         </a>
         <a href="/login" className="nav-icon" aria-label="Avatar">
-          <img src="/src/assets/Icons/AvatarIcon.png" alt="Avatar" />
+          <img src="/AvatarIcon.png"  alt="Avatar" />
         </a>
       </nav>
     </div>

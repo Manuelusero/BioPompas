@@ -82,7 +82,7 @@ const Home = () => {
                 <div className="logo-container">
                     <img src="/LogoSmall.svg" alt="Logo" />
                     <Link to="/bag" className="cart-icon-container">
-                        <img src="/src/assets/Icons/Cart.svg" alt="Carrito" className="cart-icon" />
+                        <img src="/Cart.svg" alt="Carrito" className="cart-icon" />
                         {cartCount > 0 && (
                             <span className="cart-badge">{cartCount}</span>
                         )}
@@ -112,7 +112,7 @@ const Home = () => {
             <div className="logo-container">
                 <img src="/LogoSmall.svg" alt="Logo" />
                 <Link to="/bag" className="cart-icon-container">
-                    <img src="/src/assets/Icons/Cart.svg" alt="Carrito" className="cart-icon" />
+                    <img src="/Cart.svg" alt="Carrito" className="cart-icon" />
                     {cartCount > 0 && (
                         <span className="cart-badge">{cartCount}</span>
                     )}
@@ -164,13 +164,13 @@ const Home = () => {
             {/* NavBar inferior */}
             <nav className="bottom-navbar">
                 <a href="#top" className="nav-icon" aria-label="Home">
-                    <img src="/src/assets/Icons/HomeIcon.png" alt="Home" />
+                    <img src="/HomeIcon.png" alt="Home" />
                 </a>
                 <Link to="/search" className="nav-icon" aria-label="Search">
-                    <img src="/src/assets/Icons/SearchIcon.png" alt="Search" />
+                    <img src="/SearchIcon.png" alt="Search" />
                 </Link>
                 <a href="/login" className="nav-icon" aria-label="Avatar">
-                    <img src="/src/assets/Icons/AvatarIcon.png" alt="Avatar" />
+                    <img src="/AvatarIcon.png" alt="Avatar" />
                 </a>
             </nav>
         </div>

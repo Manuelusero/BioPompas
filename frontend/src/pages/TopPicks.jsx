@@ -60,7 +60,7 @@ const TopPicks = () => {
         <Link to="/home" className="toppicks-back"><img src={ArrowLeftIcon} alt="Back" className="arrow-icon" /></Link>
         <h2 className="toppicks-title">Top Picks</h2>
         <div className="toppicks-cart-container">
-          <img src="/src/assets/Icons/Cart.svg" alt="Carrito" className="toppicks-cart" />
+          <img src="/Cart.svg" alt="Carrito" className="toppicks-cart" />
           {cartCount > 0 && (
             <span className="cart-badge-topPick">{cartCount}</span>
           )}
@@ -86,13 +86,13 @@ const TopPicks = () => {
       />
       <nav className="bottom-navbar">
         <a href="/home" className="nav-icon" aria-label="Home">
-          <img src="/src/assets/Icons/HomeIcon.png" alt="Home" />
+          <img src="/HomeIcon.png" alt="Home" />
         </a>
         <a href="/search" className="nav-icon" aria-label="Search">
-          <img src="/src/assets/Icons/SearchIcon.png" alt="Search" />
+          <img src="/SearchIcon.png" alt="Search" />
         </a>
         <a href="/login" className="nav-icon" aria-label="Avatar">
-          <img src="/src/assets/Icons/AvatarIcon.png" alt="Avatar" />
+          <img src="/AvatarIcon.png"  alt="Avatar" />
         </a>
       </nav>
     </div>
