@@ -67,39 +67,7 @@ app.get("/api/health", (req, res) => {
     });
 });
 
-// IMPORTANT: Force JSON responses for ALL API routes
-app.use('/api', (req, res, next) => {
-    console.log(`🔍 API Request: ${req.method} ${req.originalUrl}`);
-
-    // Force Content-Type to JSON for all API responses
-    const originalJson = res.json;
-    const originalSend = res.send;
-
-    res.json = function (data) {
-        console.log(`📤 JSON Response for ${req.method} ${req.originalUrl}:`, data);
-        res.setHeader('Content-Type', 'application/json; charset=utf-8');
-        return originalJson.call(this, data);
-    };
-
-    res.send = function (data) {
-        console.log(`📤 Send Response for ${req.method} ${req.originalUrl}:`, typeof data);
-        // For API routes, always return JSON
-        res.setHeader('Content-Type', 'application/json; charset=utf-8');
-
-        if (typeof data === 'string') {
-            try {
-                JSON.parse(data);
-                return originalSend.call(this, data);
-            } catch (e) {
-                console.log('Converting string to JSON:', data);
-                return originalSend.call(this, JSON.stringify({ message: data }));
-            }
-        }
-        return originalSend.call(this, data);
-    };
-
-    next();
-});// Wrap route imports and usage in try-catch to identify problematic routes
+// Wrap route imports and usage in try-catch to identify problematic routes
 try {
     app.use("/api/auth", authRoutes);
     console.log("✅ Auth routes loaded successfully");
@@ -108,10 +76,7 @@ try {
 }
 
 try {
-    app.use('/api/products', (req, res, next) => {
-        console.log(`Products route hit: ${req.method} ${req.originalUrl}`);
-        next();
-    }, productRoutes);
+    app.use('/api/products', productRoutes);
     console.log("✅ Product routes loaded successfully");
 } catch (error) {
     console.error("❌ Error loading product routes:", error);
@@ -139,10 +104,7 @@ try {
 }
 
 try {
-    app.use('/api/promotions', (req, res, next) => {
-        console.log(`Promotions route hit: ${req.method} ${req.originalUrl}`);
-        next();
-    }, promotionsRoutes);
+    app.use('/api/promotions', promotionsRoutes);
     console.log("✅ Promotion routes loaded successfully");
 } catch (error) {
     console.error("❌ Error loading promotion routes:", error);

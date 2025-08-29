@@ -1,24 +1,22 @@
 import { useEffect, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import { Link } from "react-router-dom";
 import { useCart } from "../api/CartContext";
 import BottomSheetProductFull from "../components/BottomSheetProductFull";
-import { getImageUrl } from '../utils/api.js';
+import { getImageUrl, getApiUrl } from '../utils/api.js';
 import './Home.css';
 
 const Home = () => {
-    const { cartCount, addToCart } = useCart(); // Usar CartContext
-    const [products, setProducts] = useState([]); // Solo productos reales
-    const [promotions, setPromotions] = useState([]); // Promociones para el Swiper
-    const [topPicks, setTopPicks] = useState([]);
-    const [categories, setCategories] = useState([]);
-    const [giftBundles, setGiftBundles] = useState([]);
-    const [blogs, setBlogs] = useState([]);
-    const [ecoBottles, setEcoBottles] = useState([]);
-    const [ecoSouvenirs, setEcoSouvenirs] = useState([]);
-    const [ourStore, setOurStore] = useState([]);
+    const { cartCount, addToCart } = useCart();
+    const [products, setProducts] = useState([]);
+    // const [promotions, setPromotions] = useState([]);
+    // const [topPicks, setTopPicks] = useState([]);
+    // const [categories, setCategories] = useState([]);
+    // const [giftBundles, setGiftBundles] = useState([]);
+    // const [blogs, setBlogs] = useState([]);
+    // const [ecoBottles, setEcoBottles] = useState([]);
+    // const [ecoSouvenirs, setEcoSouvenirs] = useState([]);
+    // const [ourStore, setOurStore] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [selectedProductId, setSelectedProductId] = useState(null);
@@ -26,127 +24,35 @@ const Home = () => {
     const [bottomSheetCount, setBottomSheetCount] = useState(1);
 
     useEffect(() => {
-        // Ya no necesitamos manejar el contador aquí, el CartContext lo hace automáticamente
-
-        // Obtener productos reales
-        fetch(`${import.meta.env.VITE_APP_API_URL}/products`)
-            .then(res => {
-                console.log('Products response status:', res.status);
-                if (!res.ok) {
-                    throw new Error(`HTTP error! status: ${res.status}`);
-                }
-                const contentType = res.headers.get('content-type');
-                if (!contentType || !contentType.includes('application/json')) {
-                    throw new Error('Response is not JSON');
-                }
-                return res.json();
-            })
-            .then(data => {
-                console.log('Products data received:', data);
-                setProducts(Array.isArray(data) ? data : []);
-            })
-            .catch(error => {
-                console.error("Error al obtener productos:", error);
-                setProducts([]);
-                setError("Hubo un error al cargar los productos.");
-            });
+        console.log('🚀 Home component mounting...');
+        console.log('API URL:', getApiUrl());
         
-        // Obtener promociones
-        fetch(`${import.meta.env.VITE_APP_API_URL}/promotions`)
-            .then(res => {
-                console.log('Promotions response status:', res.status);
-                if (!res.ok) {
-                    throw new Error(`HTTP error! status: ${res.status}`);
-                }
-                const contentType = res.headers.get('content-type');
-                if (!contentType || !contentType.includes('application/json')) {
-                    throw new Error('Response is not JSON');
-                }
-                return res.json();
-            })
-            .then(data => {
-                console.log('Promotions data received:', data);
-                setPromotions(Array.isArray(data) ? data : []);
-            })
-            .catch(error => {
-                console.error("Error al obtener promociones:", error);
-                setPromotions([]);
-            })
-            .finally(() => setLoading(false));
-
-        // Función helper para hacer fetch con manejo de errores
-        const fetchWithErrorHandling = async (url, setterFunction, errorMessage) => {
+        const loadData = async () => {
             try {
-                const response = await fetch(url);
-                console.log(`${url} response status:`, response.status);
+                setLoading(true);
                 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                // Simplified fetch - just try to get products first
+                console.log('Fetching products...');
+                const response = await fetch(`${getApiUrl()}/products`);
+                console.log('Products response:', response);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('Products data:', data);
+                    setProducts(Array.isArray(data) ? data : []);
+                } else {
+                    console.error('Products fetch failed:', response.status);
                 }
                 
-                const contentType = response.headers.get('content-type');
-                if (!contentType || !contentType.includes('application/json')) {
-                    throw new Error('Response is not JSON');
-                }
-                
-                const data = await response.json();
-                console.log(`${url} data received:`, data);
-                setterFunction(Array.isArray(data) ? data : []);
             } catch (error) {
-                console.error(`${errorMessage}:`, error);
-                setterFunction([]);
+                console.error("Error loading data:", error);
+                setError("Error cargando datos");
+            } finally {
+                setLoading(false);
             }
         };
 
-        // ...otros fetch (puedes dejar axios o migrar a fetch si lo prefieres)
-        const fetchTopPicks = () => fetchWithErrorHandling(
-            `${import.meta.env.VITE_APP_API_URL}/products/category/TOPPICKS`,
-            setTopPicks,
-            "Error al obtener top picks"
-        );
-        
-        const fetchCategories = () => fetchWithErrorHandling(
-            `${import.meta.env.VITE_APP_API_URL}/categories`,
-            setCategories,
-            "Error al obtener categories"
-        );
-        
-        const fetchGiftBundles = () => fetchWithErrorHandling(
-            `${import.meta.env.VITE_APP_API_URL}/products/category/GIFTBUNDLES`,
-            setGiftBundles,
-            "Error al obtener gift bundles"
-        );
-        
-        const fetchBlogs = () => fetchWithErrorHandling(
-            `${import.meta.env.VITE_APP_API_URL}/blogs`,
-            setBlogs,
-            "Error al obtener blogs"
-        );
-        
-        const fetchEcoBottles = () => fetchWithErrorHandling(
-            `${import.meta.env.VITE_APP_API_URL}/products/category/ECOBOTTLES`,
-            setEcoBottles,
-            "Error al obtener eco bottles"
-        );
-        
-        const fetchEcoSouvenirs = () => fetchWithErrorHandling(
-            `${import.meta.env.VITE_APP_API_URL}/products/category/ECOSOUVENIRS`,
-            setEcoSouvenirs,
-            "Error al obtener eco souvenirs"
-        );
-        
-        const fetchOurStore = () => fetchWithErrorHandling(
-            `${import.meta.env.VITE_APP_API_URL}/our-store`,
-            setOurStore,
-            "Error al obtener our store"
-        );
-        fetchTopPicks();
-        fetchCategories();
-        fetchGiftBundles();
-        fetchBlogs();
-        fetchEcoBottles();
-        fetchEcoSouvenirs();
-        fetchOurStore();
+        loadData();
     }, []);
 
     const handleCardClick = (product) => {
@@ -167,202 +73,93 @@ const Home = () => {
             setSelectedProductId(null);
         } catch (error) {
             console.error('Error adding to cart:', error);
-            // Fallback: agregar a localStorage si falla el CartContext
-            const productId = product._id;
-            const storedCart = localStorage.getItem('cart');
-            let cartArr = storedCart ? JSON.parse(storedCart) : [];
-            cartArr = cartArr.filter(item => item._id && item.count > 0);
-            const existingIndex = cartArr.findIndex(item => item._id === productId);
-            if (existingIndex !== -1) {
-                cartArr[existingIndex].count = (cartArr[existingIndex].count || 1) + count;
-            } else {
-                cartArr.push({ ...product, count });
-            }
-            cartArr = cartArr.filter(item => item._id && item.count > 0);
-            localStorage.setItem('cart', JSON.stringify(cartArr));
-            window.dispatchEvent(new Event('cartUpdated'));
-            setBottomSheetOpen(false);
-            setSelectedProductId(null);
         }
     };
+
+    if (loading) {
+        return (
+            <div className="homePage">
+                <div className="logo-container">
+                    <img src="/LogoSmall.svg" alt="Logo" />
+                    <Link to="/bag" className="cart-icon-container">
+                        <img src="/src/assets/Icons/Cart.svg" alt="Carrito" className="cart-icon" />
+                        {cartCount > 0 && (
+                            <span className="cart-badge">{cartCount}</span>
+                        )}
+                    </Link>
+                </div>
+                <h2 className="titulo-marca">CARGANDO...</h2>
+                <p>Cargando productos...</p>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="homePage">
+                <div className="logo-container">
+                    <img src="/LogoSmall.svg" alt="Logo" />
+                </div>
+                <h2 className="titulo-marca">ERROR</h2>
+                <p>{error}</p>
+                <p>API URL: {getApiUrl()}</p>
+            </div>
+        );
+    }
 
     return (
         <div className="homePage">
             <div className="logo-container">
                 <img src="/LogoSmall.svg" alt="Logo" />
                 <Link to="/bag" className="cart-icon-container">
-                  <img src="/src/assets/Icons/Cart.svg" alt="Carrito" className="cart-icon" />
-                  {cartCount > 0 && (
-                    <span className="cart-badge">{cartCount}</span>
-                  )}
+                    <img src="/src/assets/Icons/Cart.svg" alt="Carrito" className="cart-icon" />
+                    {cartCount > 0 && (
+                        <span className="cart-badge">{cartCount}</span>
+                    )}
                 </Link>
             </div>
             <h2 className="titulo-marca">DEALS OF THE WEEK</h2>
-
-            {loading ? (
-                <p>Cargando productos...</p>
-            ) : error ? (
-                <p>{error}</p>
-            ) : (
-                <Swiper
-                    modules={[Autoplay]}
-                    autoplay={{ delay: 3000, disableOnInteraction: false }} // Avanza cada 3s
-                    spaceBetween={20}
-                    slidesPerView={1}
-                    loop // Hace que los productos vuelvan a empezar en bucle
-                >
-                    {promotions.map((promo) => (
-                        <SwiperSlide key={promo._id}>
-                          {(() => {
-                            // Find the best matching category for this promo
-                            let matchedCategory = categories.find(cat => {
-                              // Match by name (case-insensitive, partial match)
-                              return promo.category && cat.name && promo.category.toLowerCase().includes(cat.name.toLowerCase());
-                            });
-                            // Fallback: first category if no match
-                            const categoryUrl = matchedCategory ? matchedCategory.url : (categories[0] ? categories[0].url : '/categories');
-                            return (
-                              <Link to={categoryUrl} style={{ textDecoration: 'none' }}>
-                                <div className="card">
-                                  <img src={getImageUrl(promo.image)} alt={promo.name} />
-                                </div>
-                              </Link>
-                            );
-                          })()}
-                        </SwiperSlide>
+            
+            <p>Productos encontrados: {products.length}</p>
+            
+            {/* Simple product list for testing */}
+            {products.length > 0 && (
+                <div>
+                    <h3>Primeros 3 productos:</h3>
+                    {products.slice(0, 3).map((product) => (
+                        <div key={product._id} onClick={() => handleCardClick(product)} style={{ 
+                            border: '1px solid #ccc', 
+                            margin: '10px', 
+                            padding: '10px',
+                            cursor: 'pointer'
+                        }}>
+                            <h4>{product.name}</h4>
+                            <p>€{product.price}</p>
+                            {product.image && (
+                                <img 
+                                    src={getImageUrl(product.image)} 
+                                    alt={product.name} 
+                                    style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+                                    onError={(e) => {
+                                        console.log('Image load error:', e.target.src);
+                                        e.target.style.display = 'none';
+                                    }}
+                                />
+                            )}
+                        </div>
                     ))}
-                </Swiper>
+                </div>
             )}
 
-            {/* Sección Top Picks */}
-            <section className="top-picks-section">
-                <div className="top-picks-header">
-                    <h3 className="top-picks-title">TOP PICKS</h3>
-                    <span className="see-all-link">
-                        <Link to="/top-picks">SEE ALL</Link>
-                    </span>
-                </div>
-                <div className="top-picks-scroll">
-                    {topPicks.slice(0, 4).map((product) => (
-                        <div className="top-pick-card" key={product._id} onClick={() => handleCardClick(product)}>
-                            <img src={getImageUrl(product.image)} alt={product.name} />
-                            <div className="top-pick-info">
-                                <div className="top-pick-name">{product.name}</div>
-                                <div className="top-pick-price">
-                                    <span>€</span>
-                                    <span>{Number(product.price).toFixed(2)}</span>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </section>
-            {/* Fin sección Top Picks */}
-
-            {/* Sección Categories */}
-            <section className="categories-section">
-                <div className="categories-header">
-                    <h3 className="categories-title">CATEGORIES</h3>
-                    <span className="see-all-link">
-                        <Link to="/categories">SEE ALL</Link>
-                    </span>
-                </div>
-                <div className="categories-scroll">
-                    {categories.slice(0, 4).map((cat) => (
-                        <a href={cat.url} className="category-card" key={cat._id}>
-                            <img src={`${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${cat.image}`} alt={cat.name} />
-                        </a>
-                    ))}
-                </div>
-            </section>
-            {/* Fin sección Categories */}
-
-            {/* Sección Gift Bundles */}
-            <section className="gift-bundles-section">
-                <div className="gift-bundles-header">
-                    <h2 className="gift-bundles-title">Gift Bundles</h2>
-                    <Link to="/gift-bundles" className="see-all-link">SEE ALL</Link>
-                </div>
-                <div className="gift-bundles-scroll">
-                    {giftBundles.map((bundle) => (
-                        <div className="gift-bundle-card" key={bundle._id} onClick={() => handleCardClick(bundle)}>
-                            <img src={`${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${bundle.image}`} alt={bundle.name} />
-                            <div className="gift-bundle-info">
-                                <div className="gift-bundle-name">{bundle.name}</div>
-                                <div className="gift-bundle-price">
-                                    <span>€</span>
-                                    <span>{Number(bundle.price).toFixed(2)}</span>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </section>
-            {/* Fin sección Gift Bundles */}
-
-            {/* Sección Eco Blog */}
-            <section className="eco-blog-section">
-                <div className="eco-blog-header">
-                    <h2 className="eco-blog-title">Eco Blog <span className="eco-blog-sub">(Tips for a sustainable life)</span></h2>
-                </div>
-                <div className="eco-blog-scroll">
-                    {blogs.map((blog) => (
-                        <Link to={`/eco-blog/${blog.slug}`} className="eco-blog-card" key={blog._id}>
-                            <img src={`${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${blog.image}`} alt={blog.title} />
-                            
-                        </Link>
-                    ))}
-                </div>
-            </section>
-            {/* Fin sección Eco Blog */}
-
-            {/* Sección Eco Bottles */}
-            <section className="eco-bottles-section">
-                <div className="eco-bottles-header">
-                    <h2 className="eco-bottles-title">Eco Bottles</h2>
-                </div>
-                <div className="eco-bottles-scroll">
-                    {ecoBottles.map((bottle) => (
-                        <div className="eco-bottle-card" key={bottle._id} onClick={() => handleCardClick(bottle)}>
-                            <img src={`${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${bottle.image}`} alt={bottle.name} />
-                            <div className="eco-bottle-info">
-                                <div className="eco-bottle-name">{bottle.name}</div>
-                                <div className="eco-bottle-price">
-                                    <span>€</span>
-                                    <span>{Number(bottle.price).toFixed(2)}</span>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </section>
-            {/* Fin sección Eco Bottles */}
-
-            {/* Sección Eco Souvenirs */}
-            <section className="eco-souvenirs-section">
-                <div className="eco-souvenirs-header">
-                    <h2 className="eco-souvenirs-title">Eco Souvenirs</h2>
-                </div>
-                {ecoSouvenirs[0] && (
-                  <Link to="/contact" className="eco-souvenir-image-container">
-                      <img src={`${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${ecoSouvenirs[0].image}`} alt={ecoSouvenirs[0].name} />
-                  </Link>
-                )}
-            </section>
-            {/* Fin sección Eco Souvenirs */}
-
-            {/* Sección Our Store */}
-            <section className="our-store-section">
-                <div className="our-store-header">
-                    <h2 className="our-store-title">Our Store</h2>
-                </div>
-                {ourStore[0] && (
-                  <Link to="/our-store" className="our-store-image-container">
-                      <img src={`${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${ourStore[0].image}`} alt={ourStore[0].title} />
-                  </Link>
-                )}
-            </section>
-            {/* Fin sección Our Store */}
+            <BottomSheetProductFull
+                productId={selectedProductId}
+                products={products}
+                open={bottomSheetOpen}
+                onClose={handleCloseBottomSheet}
+                onAdd={handleAddToCart}
+                count={bottomSheetCount}
+                setCount={setBottomSheetCount}
+            />
 
             {/* NavBar inferior */}
             <nav className="bottom-navbar">
@@ -376,20 +173,9 @@ const Home = () => {
                     <img src="/src/assets/Icons/AvatarIcon.png" alt="Avatar" />
                 </a>
             </nav>
-
-            <BottomSheetProductFull
-                productId={selectedProductId}
-                products={[...products, ...topPicks, ...giftBundles, ...ecoBottles]}
-                open={bottomSheetOpen}
-                onClose={handleCloseBottomSheet}
-                onAdd={handleAddToCart}
-                count={bottomSheetCount}
-                setCount={setBottomSheetCount}
-                cartCount={cartCount}
-            />
         </div>
     );
-    
 };
 
 export default Home;
+    
