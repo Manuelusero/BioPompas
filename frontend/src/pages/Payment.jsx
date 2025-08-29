@@ -219,7 +219,7 @@ const Payment = () => {
   return (
     <div className="payment-container">
       <button className="payment-back-btn" onClick={() => navigate('/bag')}>
-        <img src='/src/assets/Icons/ArrowLeftIcon.png' alt="Back" />
+        <img src='/ArrowLeftIcon.png' alt="Back" />
       </button>
       <h1 className="payment-title">PAYMENT</h1>
       <div className="payment-address-header">

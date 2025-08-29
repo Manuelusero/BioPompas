@@ -71,7 +71,7 @@ const OurStore = () => {
         </p>
       </div>
       <div className="ourStoreIcons">
-        <img src="/src/assets/Icons/Fullicons.png" alt="Eco Icons" className="ourStoreFullIcons" />
+        <img src="/FullIcons.png" alt="Eco Icons" className="ourStoreFullIcons" />
       </div>
       <nav className="bottom-navbar">
         <a href="/home" className="nav-icon" aria-label="Home">

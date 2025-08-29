@@ -89,7 +89,7 @@ const Bag = () => {
                     onClick={() => handleRemove(item._id)}
                     disabled={loading}
                   >
-                    <img src="/src/assets/Icons/Basura.png" alt="Delete" />
+                    <img src="/Basura.png" alt="Delete" />
                   </button>
                 </div>
                 <div className="bag-item-footer">

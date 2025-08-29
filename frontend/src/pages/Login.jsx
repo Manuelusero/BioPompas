@@ -137,8 +137,7 @@ const Login = () => {
                         Don&apos;t have an account? Press here!
                     </button>
                 </div>
-                <nav className="bottom-navbar-login
-                ">
+                <nav className="bottom-navbar-login">
                     <a href="/home" className="nav-icon" aria-label="Home">
                         <img src="/Home.png" alt="Home" />
                     </a>

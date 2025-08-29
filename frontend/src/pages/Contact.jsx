@@ -79,7 +79,7 @@ const Contact = () => {
       <div className="contact-header">
         <a href="/home" className="contact-back" aria-label="Volver">
           {/* Si el SVG no se muestra, usa un emoji o FontAwesome temporalmente */}
-          <img src="/src/assets/Icons/ArrowLeftIcon.png" alt="Volver" className="contact-arrow-icon" onError={e => {e.target.style.display='none'; e.target.parentNode.innerHTML = '←';}} />
+          <img src="/ArrowLeftIcon.png" alt="Volver" className="contact-arrow-icon" onError={e => {e.target.style.display='none'; e.target.parentNode.innerHTML = '←';}} />
         </a>
         <h1 className="contact-title">Contact</h1>
         <div className="contact-cart-icon" onClick={() => window.location.href = '/cart'}>
