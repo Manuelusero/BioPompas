@@ -46,14 +46,23 @@ app.use((err, req, res, next) => {
 });
 
 app.use(express.json());
+
+// CORS config (después de imports y antes de rutas)
+const allowedOrigins = [
+    'https://natural-staff.vercel.app',
+    'http://localhost:5173',
+    'http://127.0.0.1:5173'
+];
+
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://127.0.0.1:5173', 'https://natural-staff.vercel.app',
-        'https://natural-staff-git-main-manuel-useros-projects.vercel.app', 'https://natural-staff-bem3bawc5-manuel-useros-projects.vercel.app'
-    ],
+    origin: allowedOrigins,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 }));
+
+// CORS para imágenes
+app.use('/uploads', cors({ origin: allowedOrigins }), express.static(path.join(process.cwd(), 'src/uploads')));
 
 app.get("/", (req, res) => {
     res.send("API funcionando 🚀");
@@ -123,7 +132,6 @@ try {
 } catch (error) {
     console.error("❌ Error loading our store routes:", error);
 }
-app.use('/uploads', express.static(path.join(process.cwd(), 'src/uploads')));
 
 app.use(errorHandler);
 
