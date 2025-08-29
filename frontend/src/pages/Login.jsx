@@ -140,13 +140,13 @@ const Login = () => {
                 <nav className="bottom-navbar-login
                 ">
                     <a href="/home" className="nav-icon" aria-label="Home">
-                        <img src="/src/assets/Icons/Home.png" alt="Home" />
+                        <img src="/Home.png" alt="Home" />
                     </a>
                     <a href="/search" className="nav-icon" aria-label="Search">
                         <img src="/SearchIcon.png" alt="Search" />
                     </a>
                     <a href="/login" className="nav-icon" aria-label="Avatar">
-                        <img src="/src/assets/Icons/AvatarSeccion.png" alt="Avatar" />
+                        <img src="/AvatarSeccion.png" alt="Avatar" />
                     </a>
                 </nav>
             </div>
