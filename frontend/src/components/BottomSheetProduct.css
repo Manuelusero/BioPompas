@@ -104,16 +104,16 @@
 
 .bottom-sheet-handle,
 .bottom-sheet-handle-expanded {
-    height: 40px;
-    /* Más alto para que sea fácil de agarrar */
+    height: 8px;
+    width: 50%;
+    min-width: 60px;
+    max-width: 120px;
+    background: #5C7347;
+    border-radius: 4px;
+    margin: 8px auto 12px auto;
+    display: block;
     cursor: grab;
-    background: #e0e0e0;
-    border-radius: 12px;
-    margin: 0 auto;
-    width: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    opacity: 0.95;
 }
 
 /* Opcional: haz que toda la franja superior sea draggable */
@@ -609,4 +609,31 @@
 /* Ocultar el header expandido cuando no está expandido */
 .bottom-sheet:not(.expanded) .bottom-sheet-expanded-header {
     display: none;
+}
+
+/* Franja superior draggable */
+.bottom-sheet-draggable-bar {
+    width: 100%;
+    min-height: 36px;
+    background: #eaf3e2;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    position: relative;
+}
+
+/* Barrita verde centrada dentro de la franja */
+.bottom-sheet-draggable-bar .bottom-sheet-handle {
+    height: 8px;
+    width: 50%;
+    min-width: 60px;
+    max-width: 120px;
+    background: #5C7347;
+    border-radius: 4px;
+    margin: 0 auto;
+    display: block;
+    opacity: 0.95;
 }

@@ -8,13 +8,12 @@ const Payment = () => {
   const { cartItems, clearCart } = useCart();
   const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
   
-  // Obtener dirección del usuario de localStorage o usar mock
-  const userAddress = JSON.parse(localStorage.getItem('address') || 'null');
-  const [address, setAddress] = useState(userAddress || {
-    name: 'Home',
-    street: 'FLORIDA 1263 PERGAMINO BUENOS AIRES',
-    zip: '20100',
-    mapImg: `https://maps.googleapis.com/maps/api/staticmap?center=Barcelona,Spain&zoom=14&size=123x114&maptype=roadmap&markers=color:red%7Clabel:A%7CBarcelona,Spain&key=${GOOGLE_MAPS_API_KEY}`,
+  // Dirección vacía por defecto
+  const [address, setAddress] = useState({
+    name: '',
+    street: '',
+    zip: '',
+    mapImg: ''
   });
   const [editingAddress, setEditingAddress] = useState(false);
   const [newStreet, setNewStreet] = useState(address.street);

@@ -10,7 +10,7 @@ function OurStoreHeaderWithCartBadge({ navigate }) {
   return (
     <div className="ourStoreHeader">
       <button className="ourStoreBack" onClick={() => navigate("/home")}> 
-        <span className="ourStoreArrowIcon"><img src="/ArrowLeftIcon"alt="Back" className="arrowIcon" /></span>
+        <span className="ourStoreArrowIcon"><img src="/ArrowLeftIcon.png"alt="Back" className="arrowIcon" /></span>
       </button>
       <h2 className="ourStoreTitle">OUR STORE</h2>
       <div className="ourStoreCartIcon">

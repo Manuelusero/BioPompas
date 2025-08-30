@@ -56,7 +56,9 @@ const TopPicks = () => {
   return (
     <div className="toppicks-page">
       <div className="toppicks-header">
-        <Link to="/home" className="toppicks-back"><img src="/ArrowLeftIcon"alt="Back" className="arrow-icon" /></Link>
+        <Link to="/home" className="toppicks-back">
+          <img src="/ArrowLeftIcon.png" alt="Back" className="arrow-icon" />
+        </Link>
         <h2 className="toppicks-title">Top Picks</h2>
         <div className="toppicks-cart-container">
           <img src="/Cart.svg" alt="Carrito" className="toppicks-cart" />

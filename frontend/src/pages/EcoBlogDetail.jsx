@@ -44,7 +44,7 @@ const EcoBlogDetail = () => {
           onClick={() => navigate("/home")}
           title="Volver al Home"
         >
-          <span className="ecoBlogDetailArrowIcon"><img src="/ArrowLeftIcon"alt="Back" className="arrowIcon" /></span>
+          <span className="ecoBlogDetailArrowIcon"><img src="/ArrowLeftIcon.png"alt="Back" className="arrowIcon" /></span>
         </button>
         <h2 className="ecoBlogDetailTitle">Eco Blog</h2>
         <Link to="/bag" className="ecoBlogDetailCartContainer">

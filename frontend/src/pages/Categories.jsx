@@ -12,7 +12,7 @@ function CategoriesHeaderWithCartBadge() {
   return (
     <div className="categoriesHeader">
       <Link to="/home" className="categoriesBack">
-        <img src="/ArrowLeftIcon" alt="Back" className="arrowIcon" />
+        <img src="/ArrowLeftIcon.png" alt="Back" className="arrowIcon" />
       </Link>
       <h2 className="categoriesTitle">CATEGORIES</h2>
       <Link to="/bag" className="categoriesCartIcon">
