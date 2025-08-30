@@ -2,7 +2,7 @@ import './Categories.css';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../api/CartContext';
-import ArrowLeftIcon from '/src/assets/Icons/ArrowLeftIcon.png';
+
 
 
 // Cart badge header component
@@ -12,7 +12,7 @@ function CategoriesHeaderWithCartBadge() {
   return (
     <div className="categoriesHeader">
       <Link to="/home" className="categoriesBack">
-        <img src={ArrowLeftIcon} alt="Back" className="arrowIcon" />
+        <img src="/ArrowLeftIcon" alt="Back" className="arrowIcon" />
       </Link>
       <h2 className="categoriesTitle">CATEGORIES</h2>
       <Link to="/bag" className="categoriesCartIcon">

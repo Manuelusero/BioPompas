@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import "./GiftBundles.css";
 import axios from "axios";
 import { useCart } from "../api/CartContext";
-import ArrowLeftIcon from '/src/assets/Icons/ArrowLeftIcon.png';
 import BottomSheetProductFull from "../components/BottomSheetProductFull";
 
 function GiftBundlesHeaderWithCartBadge() {
@@ -12,7 +11,7 @@ function GiftBundlesHeaderWithCartBadge() {
   return (
     <div className="giftBundlesHeader">
       <Link to="/home" className="giftBundlesBack">
-        <span className="giftBundlesArrowIcon"><img src={ArrowLeftIcon} alt="Back" className="arrowIcon" /></span>
+        <span className="giftBundlesArrowIcon"><img src="/ArrowLeftIcon"alt="Back" className="arrowIcon" /></span>
       </Link>
       <h2 className="giftBundlesTitle">GIFT BUNDLES</h2>
       <Link to="/bag" className="giftBundlesCartIcon">

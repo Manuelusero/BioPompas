@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import "./EcoBlogDetail.css";
 import { useCart } from "../api/CartContext";
-import ArrowLeftIcon from '/src/assets/Icons/ArrowLeftIcon.png';
+
 
 const EcoBlogDetail = () => {
   const { slug } = useParams();
@@ -44,7 +44,7 @@ const EcoBlogDetail = () => {
           onClick={() => navigate("/home")}
           title="Volver al Home"
         >
-          <span className="ecoBlogDetailArrowIcon"><img src={ArrowLeftIcon} alt="Back" className="arrowIcon" /></span>
+          <span className="ecoBlogDetailArrowIcon"><img src="/ArrowLeftIcon"alt="Back" className="arrowIcon" /></span>
         </button>
         <h2 className="ecoBlogDetailTitle">Eco Blog</h2>
         <Link to="/bag" className="ecoBlogDetailCartContainer">

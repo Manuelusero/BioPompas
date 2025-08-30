@@ -90,7 +90,7 @@ const CategoryPage = () => {
     <div className="category-page-container">
       <div className="category-header">
         <a href="/categories" className="category-back category-header-left">
-          <img src={ArrowLeftIcon} alt="Back" className="arrowIcon" />
+          <img src="/ArrowLeftIcon"alt="Back" className="arrowIcon" />
         </a>
         <h2 className="category-title category-header-center">{category}</h2>
         <a href="/bag" className="categoryCartIcon category-header-right">

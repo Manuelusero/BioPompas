@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
 import "./OurStore.css";
 import { useCart } from "../api/CartContext";
-import ArrowLeftIcon from '/src/assets/Icons/ArrowLeftIcon.png';
 
 function OurStoreHeaderWithCartBadge({ navigate }) {
   const { cartCount } = useCart();
@@ -11,7 +10,7 @@ function OurStoreHeaderWithCartBadge({ navigate }) {
   return (
     <div className="ourStoreHeader">
       <button className="ourStoreBack" onClick={() => navigate("/home")}> 
-        <span className="ourStoreArrowIcon"><img src={ArrowLeftIcon} alt="Back" className="arrowIcon" /></span>
+        <span className="ourStoreArrowIcon"><img src="/ArrowLeftIcon"alt="Back" className="arrowIcon" /></span>
       </button>
       <h2 className="ourStoreTitle">OUR STORE</h2>
       <div className="ourStoreCartIcon">
