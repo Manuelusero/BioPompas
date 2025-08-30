@@ -79,6 +79,17 @@ const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, cou
     document.removeEventListener('mouseup', handleDragEnd);
   };
 
+  // Bloquear scroll del body cuando el Bottom Sheet está abierto
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [open]);
 
   if (!open || !product) return null;
 
