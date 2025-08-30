@@ -102,20 +102,28 @@
     border: none !important;
 }
 
-.bottom-sheet-handle {
-    width: 72px;
-    height: 3px;
-    background: #2C3E29;
-    border-radius: 3px;
-    margin: 12px auto 30px auto;
-    position: relative;
-    top: -287px;
-    left: 0;
-    transform: none;
+.bottom-sheet-handle,
+.bottom-sheet-handle-expanded {
+    height: 40px;
+    /* Más alto para que sea fácil de agarrar */
     cursor: grab;
-    box-shadow: 0 2px 8px #0001;
-    /* box-shadow eliminado para quitar sombras laterales */
-    box-shadow: none;
+    background: #e0e0e0;
+    border-radius: 12px;
+    margin: 0 auto;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Opcional: haz que toda la franja superior sea draggable */
+.bottom-sheet-expanded-content>.bottom-sheet-handle-expanded,
+.bottom-sheet-expanded-content.compact>.bottom-sheet-handle {
+    width: 100%;
+    min-height: 40px;
+    background: #f5f5f5;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 /* Barra deslizable específica para el estado expandido */

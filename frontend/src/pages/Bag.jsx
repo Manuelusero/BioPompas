@@ -87,9 +87,8 @@ const Bag = () => {
                   <button 
                     className="bag-item-remove" 
                     onClick={() => handleRemove(item._id)}
-                    disabled={loading}
-                  >
-                    <img src="/Basura.png" alt="Delete" />
+                    disabled={loading}>
+                    <img src="/Trash.png" alt="Delete" />
                   </button>
                 </div>
                 <div className="bag-item-footer">

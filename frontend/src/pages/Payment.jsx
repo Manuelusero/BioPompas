@@ -28,6 +28,7 @@ const Payment = () => {
     { type: 'paypal', label: 'carmensuarez@gmail.com', icon: '/LogoPaypal.png', selected: false },
   ]);
   const inputRef = useRef(null);
+  const [saveAddress, setSaveAddress] = useState(false);
 
   // Cargar Google Maps API dinámicamente
   useEffect(() => {
@@ -219,7 +220,7 @@ const Payment = () => {
   return (
     <div className="payment-container">
       <button className="payment-back-btn" onClick={() => navigate('/bag')}>
-        <img src='/ArrowLeftIcon.png' alt="Back" />
+        <img src="/ArrowLeftIcon.png" alt="Back" />
       </button>
       <h1 className="payment-title">PAYMENT</h1>
       <div className="payment-address-header">
@@ -249,7 +250,11 @@ const Payment = () => {
                 e.preventDefault();
                 const updated = { ...address, street: newStreet };
                 setAddress(updated);
-                localStorage.setItem('address', JSON.stringify(updated));
+                if (saveAddress) {
+                  localStorage.setItem('address', JSON.stringify(updated));
+                } else {
+                  localStorage.removeItem('address');
+                }
                 setEditingAddress(false);
               }} className="payment-edit-form">
                 <input
@@ -260,6 +265,15 @@ const Payment = () => {
                   placeholder="Enter address"
                   className="payment-address-input"
                 />
+                <div style={{margin: '8px 0'}}>
+                  <input
+                    type="checkbox"
+                    checked={saveAddress}
+                    onChange={e => setSaveAddress(e.target.checked)}
+                    id="saveAddressCheckbox"
+                  />
+                  <label htmlFor="saveAddressCheckbox" style={{marginLeft: '6px'}}>Recordar mi dirección para la próxima vez</label>
+                </div>
                 <button type="submit" className="payment-form-save-btn">Save</button>
                 <button type="button" className="payment-form-cancel-btn" onClick={() => setEditingAddress(false)}>Cancel</button>
               </form>
