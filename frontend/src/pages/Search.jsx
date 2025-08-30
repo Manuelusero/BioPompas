@@ -276,10 +276,10 @@ const Search = () => {
       />
       <nav className="bottom-navbar">
         <a href="/home" className="nav-icon" aria-label="Home">
-          <img src="/src/assets/Icons/Home.png" alt="Home" />
+          <img src="/Home.png" alt="Home" />
         </a>
         <a href="/search" className="nav-icon" aria-label="Search">
-          <img src="/src/assets/Icons/Searchseccion.png" alt="Search" />
+          <img src="/Searchseccion.png" alt="Search" />
         </a>
         <a href="/login" className="nav-icon" aria-label="Avatar">
           <img src="/AvatarIcon.png"  alt="Avatar" />
