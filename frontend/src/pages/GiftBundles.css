@@ -34,7 +34,10 @@
     justify-content: center;
     font-size: 10px;
     font-weight: 400;
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    ,
+    Arial,
+    sans-serif;
     min-width: 12px;
 }
 
@@ -80,7 +83,9 @@
 }
 
 .giftBundlesTitle {
-    font-family: 'Explore Magic', cursive;
+    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+    ,
+    cursive;
     font-size: 30px;
     font-weight: 400;
     color: #3a5a40;
@@ -128,7 +133,8 @@
 }
 
 .giftBundleName {
-    font-family: 'Raleway';
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    ;
     font-weight: 600;
     color: #222;
     font-size: 12px;
@@ -139,7 +145,8 @@
 }
 
 .giftBundlePrice {
-    font-family: 'Raleway';
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    ;
     font-weight: 400;
     color: #3a5a40;
     font-size: 12px;

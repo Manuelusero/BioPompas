@@ -6,7 +6,7 @@
     color: var(--Primary-text, #2C3E29);
     font-variant-numeric: lining-nums proportional-nums;
     font-feature-settings: 'dlig' on;
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
@@ -25,7 +25,7 @@
     text-align: left;
     font-variant-numeric: lining-nums proportional-nums;
     font-feature-settings: 'dlig' on;
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
@@ -361,7 +361,7 @@
 }
 
 .bottom-sheet-title {
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 800;
@@ -379,7 +379,7 @@
 }
 
 .bottom-sheet-price {
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
@@ -452,7 +452,7 @@
 .bottom-sheet-add {
     background: #5C7347;
     color: #fff;
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
     font-size: 1.1rem;
     font-weight: 600;
     border: none;
@@ -498,7 +498,7 @@
     width: 100%;
     background: transparent;
     color: #3a5a40;
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
     font-size: 10px;
     font-weight: 600;
     border: none;
@@ -600,7 +600,7 @@
     justify-content: center;
     font-size: 10px;
     font-weight: 600;
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
     min-width: 18px;
 }
 
@@ -634,4 +634,23 @@
     margin: 0 auto;
     display: block;
     opacity: 0.95;
+}
+
+/* Para Explore Magic */
+.bottom-sheet-title,
+.bottom-sheet-close,
+.bottom-sheet-add,
+.bottom-sheet-add-text {
+    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+}
+
+/* Para Raleway */
+.bottom-sheet-about-desc,
+.bottom-sheet-about-title,
+.bottom-sheet-title,
+.bottom-sheet-price,
+.bottom-sheet-counter span,
+.bottom-sheet-add,
+.bottom-sheet-close {
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
 }

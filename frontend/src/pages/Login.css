@@ -22,7 +22,9 @@ body {
 }
 
 .login-title {
-    font-family: 'Explore Magic', cursive;
+    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+    ,
+    cursive;
     font-size: 2rem;
     color: #3a5a40;
     margin: 40px 0 20px 0;
@@ -77,7 +79,10 @@ body {
     border-radius: 8px;
     border: 1px solid #b7b7b7;
     font-size: 1rem;
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    ,
+    Arial,
+    sans-serif;
     color: #222;
     background: transparent;
     outline: none;
@@ -122,7 +127,10 @@ body {
 .login-submit-button {
     background: #3a5a40;
     color: #fff;
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    ,
+    Arial,
+    sans-serif;
     font-size: 15px;
     font-weight: 500;
     border: none;
@@ -156,7 +164,10 @@ body {
     background: none;
     border: none;
     color: #3a5a40;
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    ,
+    Arial,
+    sans-serif;
     font-size: 1rem;
     text-decoration: underline;
     cursor: pointer;
@@ -209,7 +220,10 @@ body {
 }
 
 .login-divider-text {
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    ,
+    Arial,
+    sans-serif;
     font-size: 12px;
     color: #3a5a40;
     font-weight: 400;
@@ -234,7 +248,10 @@ body {
     background: none;
     border: none;
     color: #3a5a40;
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    ,
+    Arial,
+    sans-serif;
     font-size: 12px;
     font-weight: 400;
     text-decoration: underline;
@@ -284,7 +301,10 @@ body {
 .login-remember-me {
     display: flex;
     align-items: center;
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    ,
+    Arial,
+    sans-serif;
     font-size: 12px;
     color: #555;
     gap: 6px;
@@ -308,7 +328,10 @@ body {
     background: none;
     border: none;
     color: #3a5a40;
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    ,
+    Arial,
+    sans-serif;
     font-size: 12px;
     text-decoration: underline;
     cursor: pointer;

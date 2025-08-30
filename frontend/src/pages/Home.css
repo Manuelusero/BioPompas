@@ -76,7 +76,7 @@
 }
 
 .titulo-marca {
-    font-family: 'Explore Magic';
+    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
     font-size: 25px;
     font-weight: 400;
     letter-spacing: 1%;
@@ -146,7 +146,7 @@ h2 {
 }
 
 .top-picks-title {
-    font-family: 'Explore Magic';
+    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
     font-size: 25px;
     font-weight: 400;
     letter-spacing: 1%;
@@ -169,7 +169,7 @@ h2 {
 }
 
 .see-all-link a {
-    font-family: 'Explore Magic';
+    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
     font-size: 1.1rem;
     color: #3a5a40;
     text-decoration: underline;
@@ -245,7 +245,7 @@ h2 {
 }
 
 .top-pick-name {
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
     font-weight: 500;
     color: #2C3E29;
     font-size: 12px;
@@ -257,7 +257,7 @@ h2 {
 }
 
 .top-pick-price {
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
     font-weight: 400;
     color: #3a5a40;
     font-size: 12px;
@@ -284,7 +284,7 @@ h2 {
 }
 
 .categories-title {
-    font-family: 'Explore Magic', cursive;
+    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
     font-size: 25px;
     color: #3a5a40;
     margin: 0;
@@ -333,10 +333,10 @@ h2 {
 }
 
 .category-card-title {
+    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
     width: 100%;
     background: #3a5a40;
     color: #fff;
-    font-family: 'Explore Magic', cursive;
     font-size: 1.1rem;
     text-align: center;
     padding: 8px 0 8px 0;
@@ -360,7 +360,7 @@ h2 {
 }
 
 .gift-bundles-title {
-    font-family: 'Explore Magic', cursive;
+    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
     font-size: 25px;
     color: #3a5a40;
     margin: 0;
@@ -429,7 +429,7 @@ h2 {
 }
 
 .gift-bundle-name {
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
     font-weight: 500;
     color: #2C3E29;
     font-size: 12px;
@@ -441,7 +441,7 @@ h2 {
 }
 
 .gift-bundle-price {
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
     font-weight: 400;
     color: #3a5a40;
     font-size: 12px;
@@ -461,7 +461,7 @@ h2 {
 }
 
 .gift-bundles-page .gift-bundles-title {
-    font-family: 'Explore Magic', cursive;
+    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
     font-size: 2rem;
     color: #3a5a40;
     margin-bottom: 24px;
@@ -511,7 +511,7 @@ h2 {
 }
 
 .gift-bundles-list .gift-bundle-name {
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
     font-weight: 600;
     color: #222;
     font-size: 1rem;
@@ -520,7 +520,7 @@ h2 {
 }
 
 .gift-bundles-list .gift-bundle-price {
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
     font-weight: 400;
     color: #3a5a40;
     font-size: 1rem;
@@ -531,7 +531,7 @@ h2 {
 .gift-bundles-header .see-all-link,
 .categories-header .see-all-link,
 .top-picks-header .see-all-link {
-    font-family: 'Explore Magic', cursive;
+    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
     font-size: 1.1rem;
     color: #3a5a40;
     text-decoration: underline;
@@ -570,7 +570,7 @@ h2 {
 }
 
 .eco-blog-title {
-    font-family: 'Explore Magic', cursive;
+    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
     color: #3a5a40;
     font-size: 25px;
     font-weight: 400;
@@ -580,7 +580,7 @@ h2 {
 }
 
 .eco-blog-sub {
-    font-family: 'Explore Magic', cursive;
+    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
     font-size: 1rem;
     color: #588157;
     font-weight: 400;
@@ -625,7 +625,7 @@ h2 {
 }
 
 .eco-blog-title-card {
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
     font-weight: 700;
     color: #222;
     font-size: 1.05rem;
@@ -633,7 +633,7 @@ h2 {
 }
 
 .eco-blog-summary {
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
     font-weight: 400;
     color: #666;
     font-size: 0.97rem;
@@ -652,7 +652,7 @@ h2 {
 }
 
 .eco-bottles-title {
-    font-family: 'Explore Magic', cursive;
+    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
     font-size: 1.5rem;
     color: #3a5a40;
     margin: 0;
@@ -721,7 +721,7 @@ h2 {
 }
 
 .eco-bottle-name {
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
     font-weight: 500;
     color: #2C3E29;
     font-size: 12px;
@@ -733,7 +733,7 @@ h2 {
 }
 
 .eco-bottle-price {
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
     font-weight: 400;
     color: #3a5a40;
     font-size: 12px;
@@ -760,7 +760,7 @@ h2 {
 }
 
 .eco-souvenirs-title {
-    font-family: 'Explore Magic', cursive;
+    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
     font-size: 1.5rem;
     color: #3a5a40;
     margin: 0;
@@ -796,7 +796,7 @@ h2 {
     border: none;
     border-radius: 8px;
     padding: 10px 22px;
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
     font-weight: 600;
     font-size: 1rem;
     cursor: pointer;
@@ -820,7 +820,7 @@ h2 {
 }
 
 .our-store-title {
-    font-family: 'Explore Magic', cursive;
+    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
     font-size: 1.5rem;
     color: #3a5a40;
     margin: 0 0 1px 0;
@@ -858,7 +858,7 @@ h2 {
     border: none;
     border-radius: 8px;
     padding: 10px 22px;
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
     font-weight: 600;
     font-size: 1rem;
     cursor: pointer;

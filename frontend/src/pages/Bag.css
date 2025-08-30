@@ -30,7 +30,11 @@
     box-shadow: 0 4px 24px #0001;
     padding: 24px 0 0 0;
     min-height: 100vh;
-    font-family: 'Raleway',
+    font-family:'Raleway',
+    Arial,
+    Helvetica,
+    sans-serif;
+    ,
     sans-serif;
 }
 
@@ -53,7 +57,10 @@
 }
 
 .bag-title {
-    font-family: 'Explore Magic', 'Raleway', sans-serif;
+    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+    ,
+    'Raleway',
+    sans-serif;
     color: #5c7347;
     font-size: 30px;
     font-weight: 400;
@@ -177,7 +184,10 @@
 }
 
 .bag-total-title {
-    font-family: 'Explore Magic', 'Raleway', sans-serif;
+    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+    ,
+    'Raleway',
+    sans-serif;
     color: #5c7347;
     font-size: 25px;
     font-weight: 400;

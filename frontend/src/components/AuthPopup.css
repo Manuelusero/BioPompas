@@ -42,7 +42,9 @@
 }
 
 .auth-popup-title {
-    font-family: 'Explore Magic', cursive;
+    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+    ,
+    cursive;
     font-size: 1.8rem;
     color: #3a5a40;
     margin: 0 0 16px 0;
@@ -50,7 +52,10 @@
 }
 
 .auth-popup-message {
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    ,
+    Arial,
+    sans-serif;
     font-size: 1rem;
     color: #2C3E29;
     margin: 0 0 32px 0;
@@ -65,7 +70,10 @@
 }
 
 .auth-popup-button {
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    ,
+    Arial,
+    sans-serif;
     font-size: 1rem;
     font-weight: 600;
     border: none;

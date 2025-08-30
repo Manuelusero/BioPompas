@@ -45,7 +45,9 @@
 }
 
 .toppicks-title {
-    font-family: 'Explore Magic', cursive;
+    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+    ,
+    cursive;
     font-size: 30px;
     font-weight: 400;
     color: #3a5a40;
@@ -61,7 +63,9 @@
 .toppicks-seeall {
     margin-left: auto;
     align-self: flex-end;
-    font-family: 'Explore Magic', cursive;
+    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+    ,
+    cursive;
     font-size: 1.1rem;
     color: #3a5a40;
     text-decoration: underline;
@@ -128,7 +132,8 @@
 }
 
 .toppick-name {
-    font-family: 'Raleway';
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    ;
     font-weight: 600;
     color: #222;
     font-size: 12px;
@@ -138,7 +143,8 @@
 }
 
 .toppick-price {
-    font-family: 'Raleway';
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    ;
     font-weight: 400;
     color: #3a5a40;
     font-size: 12px;

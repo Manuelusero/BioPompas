@@ -12,7 +12,8 @@
 }
 
 @font-face {
-    font-family: 'Explore Magic';
+    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+    ;
     src: url('/fonts/ExploreMagic-Regular.woff2') format('woff2'),
         url('/fonts/ExploreMagic-Regular.woff') format('woff'),
         url('/fonts/explore-magic-400.ttf') format('truetype');
@@ -22,7 +23,8 @@
 }
 
 @font-face {
-    font-family: 'Raleway';
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    ;
     src: url('/fonts/Raleway-Regular.woff2') format('woff2'),
         url('/fonts/Raleway-Regular.woff') format('woff'),
         url('/fonts/Raleway-Regular.ttf') format('truetype');
@@ -32,7 +34,8 @@
 }
 
 @font-face {
-    font-family: 'Raleway';
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    ;
     src: url('/fonts/Raleway-Medium.woff2') format('woff2'),
         url('/fonts/Raleway-Medium.woff') format('woff'),
         url('/fonts/Raleway-Medium.ttf') format('truetype');
@@ -42,7 +45,8 @@
 }
 
 @font-face {
-    font-family: 'Raleway';
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    ;
     src: url('/fonts/Raleway-SemiBold.woff2') format('woff2'),
         url('/fonts/Raleway-SemiBold.woff') format('woff'),
         url('/fonts/Raleway-SemiBold.ttf') format('truetype');
@@ -52,7 +56,8 @@
 }
 
 @font-face {
-    font-family: 'Raleway';
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    ;
     src: url('/fonts/Raleway-ExtraBold.woff2') format('woff2'),
         url('/fonts/Raleway-ExtraBold.woff') format('woff'),
         url('/fonts/Raleway-ExtraBold.ttf') format('truetype');
