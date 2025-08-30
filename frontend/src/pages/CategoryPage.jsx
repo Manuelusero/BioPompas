@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './CategoryPage.css';
-import ArrowLeftIcon from '/src/assets/Icons/ArrowLeftIcon.png';
 import BottomSheetProductFull from '../components/BottomSheetProductFull';
 
 const CategoryPage = () => {
