@@ -17,6 +17,7 @@ const Payment = () => {
   });
   const [editingAddress, setEditingAddress] = useState(false);
   const [newStreet, setNewStreet] = useState(address.street);
+  const [newZip, setNewZip] = useState(address.zip);
   const [editingPayment, setEditingPayment] = useState(false);
   const [showCardModal, setShowCardModal] = useState(false);
   const [editingCardIndex, setEditingCardIndex] = useState(null);
@@ -162,6 +163,9 @@ const Payment = () => {
     setEditingCardIndex(null);
   };
 
+  // Ejemplo de verificación de login (ajusta según tu lógica real)
+  const isLoggedIn = !!localStorage.getItem('token');
+
   const handlePayment = async () => {
     // Verificar que hay productos en el carrito usando CartContext
     if (!cartItems || cartItems.length === 0) {
@@ -173,6 +177,12 @@ const Payment = () => {
     const validItems = cartItems.filter(item => item._id && (item.count > 0 || item.quantity > 0));
     if (validItems.length === 0) {
       alert('Tu carrito está vacío. Agrega productos antes de proceder al pago.');
+      return;
+    }
+
+    // Verificar login antes de pagar
+    if (!isLoggedIn) {
+      alert('Debes iniciar sesión para poder completar el pedido.');
       return;
     }
 
@@ -247,7 +257,7 @@ const Payment = () => {
             {editingAddress ? (
               <form onSubmit={e => {
                 e.preventDefault();
-                const updated = { ...address, street: newStreet };
+                const updated = { ...address, street: newStreet, zip: newZip };
                 setAddress(updated);
                 if (saveAddress) {
                   localStorage.setItem('address', JSON.stringify(updated));
@@ -263,6 +273,14 @@ const Payment = () => {
                   onChange={e => setNewStreet(e.target.value)}
                   placeholder="Enter address"
                   className="payment-address-input"
+                />
+                <input
+                  type="text"
+                  value={newZip}
+                  onChange={e => setNewZip(e.target.value)}
+                  placeholder="Código postal"
+                  className="payment-address-input"
+                  style={{marginTop: '8px'}}
                 />
                 <div style={{margin: '8px 0'}}>
                   <input

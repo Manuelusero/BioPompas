@@ -99,6 +99,15 @@ const Home = () => {
         );
     }
 
+    // Filtrar Bamboo ToothBrush y completar con otros productos si faltan
+    const filteredTopPicks = topPicks.filter(p => p.name !== 'Bamboo ToothBrush');
+    let topPicksToShow = [...filteredTopPicks];
+    if (topPicksToShow.length < 4) {
+      const usedIds = new Set(topPicksToShow.map(p => p._id || p.id));
+      const extra = products.filter(p => !usedIds.has(p._id || p.id)).slice(0, 4 - topPicksToShow.length);
+      topPicksToShow = [...topPicksToShow, ...extra];
+    }
+
     return (
         <div className="homePage">
             <div className="logo-container">
@@ -131,7 +140,7 @@ const Home = () => {
                     </span>
                 </div>
                 <div className="top-picks-scroll">
-                    {topPicks.slice(0, 4).map((product) => (
+                    {topPicksToShow.map((product) => (
                         <div className="top-pick-card" key={product._id} onClick={() => handleCardClick(product)}>
                             <img src={getImageUrl(product.image)} alt={product.name} />
                             <div className="top-pick-info">
