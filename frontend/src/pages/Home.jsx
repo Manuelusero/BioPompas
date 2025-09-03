@@ -34,7 +34,7 @@ const Home = () => {
         // Obtener promociones
         fetch(`${getApiUrl()}/promotions`)
             .then(res => res.json())
-            .then(data => setPromotions(Array.isArray(data) ? data : []))
+            .then (data => setPromotions(Array.isArray(data) ? data : []))
             .catch(() => setPromotions([]));
         // Otros fetchs
         fetch(`${getApiUrl()}/products/category/TOPPICKS`).then(res => res.json()).then(data => setTopPicks(Array.isArray(data) ? data : [])).catch(() => setTopPicks([]));
@@ -140,7 +140,7 @@ const Home = () => {
                     </span>
                 </div>
                 <div className="top-picks-scroll">
-                    {topPicksToShow.map((product) => (
+                    {topPicksToShow.filter(product => product.name !== 'Bamboo Toothbrush').map((product) => (
                         <div className="top-pick-card" key={product._id} onClick={() => handleCardClick(product)}>
                             <img src={getImageUrl(product.image)} alt={product.name} />
                             <div className="top-pick-info">
