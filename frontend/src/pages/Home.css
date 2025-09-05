@@ -104,7 +104,7 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 7px;
+    /* padding: 7px; */
     transition: box-shadow 0.3s;
     width: 100%;
     /* box-shadow: 0 30px 500px 0 rgba(60, 60, 60, 0.12), 8px 8px 24px 0 rgba(60, 60, 60, 0.10); */

@@ -59,6 +59,7 @@ const Home = () => {
     };
 
     const handleAddToCart = async (product, count) => {
+        console.log('Add to bag click', product, count);
         try {
             await addToCart(product, count);
             setBottomSheetOpen(false);
