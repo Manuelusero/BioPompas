@@ -389,7 +389,7 @@ h2 {
     flex: 0 0 auto;
     min-width: 180px;
     max-width: 80vw;
-    margin-right: 12px;
+    margin-right: 24px;
     scroll-snap-align: start;
     align-self: flex-start;
 }
