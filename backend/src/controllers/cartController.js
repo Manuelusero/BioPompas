@@ -1,182 +1,149 @@
 import Cart from '../models/Cart.js';
+import { v4 as uuidv4 } from 'uuid';
 
-// Obtener carrito del usuario
+// Obtener carrito del usuario o anónimo
 export const getCart = async (req, res) => {
   try {
-    const userId = req.user.id;
-
-    let cart = await Cart.findOne({ userId }).populate('items.productId');
-
-    if (!cart) {
-      cart = new Cart({ userId, items: [] });
-      await cart.save();
+    const userId = req.user ? req.user.id : null;
+    const cartId = req.cookies.cartId || req.headers['x-cart-id'] || null;
+    let cart = null;
+    if (userId) {
+      cart = await Cart.findOne({ userId }).populate('items.productId');
+    } else if (cartId) {
+      cart = await Cart.findOne({ cartId }).populate('items.productId');
     }
-
-    res.json(cart);
+    res.json(cart || { items: [] });
   } catch (error) {
-    console.error('Error al obtener carrito:', error);
-    res.status(500).json({ error: 'Error al obtener carrito' });
+    res.status(500).json({ message: 'Error obteniendo carrito', error });
   }
 };
 
-// Agregar producto al carrito
+// Agregar producto al carrito (usuario o anónimo)
 export const addToCart = async (req, res) => {
   try {
-    const userId = req.user.id;
-    const { productId, quantity = 1, price, name, image } = req.body;
-
-    let cart = await Cart.findOne({ userId });
-
-    if (!cart) {
-      cart = new Cart({ userId, items: [] });
-    }
-
-    // Verificar si el producto ya existe en el carrito
-    const existingItemIndex = cart.items.findIndex(
-      item => item.productId.toString() === productId
-    );
-
-    if (existingItemIndex > -1) {
-      // Si existe, actualizar cantidad
-      cart.items[existingItemIndex].quantity += quantity;
+    const userId = req.user ? req.user.id : null;
+    let cartId = req.cookies.cartId || req.headers['x-cart-id'] || null;
+    const { productId, quantity } = req.body;
+    let cart;
+    if (userId) {
+      cart = await Cart.findOne({ userId });
+      if (!cart) cart = new Cart({ userId, items: [] });
     } else {
-      // Si no existe, agregar nuevo item
-      cart.items.push({
-        productId,
-        quantity,
-        price,
-        name,
-        image
-      });
+      if (!cartId) {
+        cartId = uuidv4();
+        res.cookie('cartId', cartId, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 30 });
+      }
+      cart = await Cart.findOne({ cartId });
+      if (!cart) cart = new Cart({ cartId, items: [] });
     }
-
+    // Buscar si el producto ya está en el carrito
+    const itemIndex = cart.items.findIndex(item => String(item.productId) === String(productId));
+    if (itemIndex > -1) {
+      cart.items[itemIndex].quantity += quantity;
+    } else {
+      cart.items.push({ productId, quantity });
+    }
     await cart.save();
-    await cart.populate('items.productId');
-
     res.json(cart);
   } catch (error) {
-    console.error('Error al agregar al carrito:', error);
-    res.status(500).json({ error: 'Error al agregar al carrito' });
+    res.status(500).json({ message: 'Error agregando al carrito', error });
   }
 };
 
 // Actualizar cantidad de producto en carrito
 export const updateCartItem = async (req, res) => {
   try {
-    const userId = req.user.id;
-    const { productId, quantity } = req.body;
-
-    const cart = await Cart.findOne({ userId });
-
-    if (!cart) {
-      return res.status(404).json({ error: 'Carrito no encontrado' });
-    }
-
-    const itemIndex = cart.items.findIndex(
-      item => item.productId.toString() === productId
-    );
-
-    if (itemIndex === -1) {
-      return res.status(404).json({ error: 'Producto no encontrado en carrito' });
-    }
-
-    if (quantity <= 0) {
-      // Si la cantidad es 0 o menor, eliminar el producto
-      cart.items.splice(itemIndex, 1);
-    } else {
-      // Actualizar cantidad
-      cart.items[itemIndex].quantity = quantity;
-    }
-
+    const userId = req.user ? req.user.id : null;
+    const cartId = req.cookies.cartId || req.headers['x-cart-id'] || null;
+    const { itemId } = req.params;
+    const { quantity } = req.body;
+    let cart = userId
+      ? await Cart.findOne({ userId })
+      : await Cart.findOne({ cartId });
+    if (!cart) return res.status(404).json({ message: 'Carrito no encontrado' });
+    const item = cart.items.id(itemId);
+    if (!item) return res.status(404).json({ message: 'Producto no encontrado en el carrito' });
+    item.quantity = quantity;
     await cart.save();
-    await cart.populate('items.productId');
-
     res.json(cart);
   } catch (error) {
-    console.error('Error al actualizar carrito:', error);
-    res.status(500).json({ error: 'Error al actualizar carrito' });
+    res.status(500).json({ message: 'Error actualizando cantidad', error });
   }
 };
 
 // Eliminar producto del carrito
 export const removeFromCart = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user ? req.user.id : null;
+    const cartId = req.cookies.cartId || req.headers['x-cart-id'] || null;
     const { productId } = req.params;
-
-    const cart = await Cart.findOne({ userId });
-
-    if (!cart) {
-      return res.status(404).json({ error: 'Carrito no encontrado' });
-    }
-
-    cart.items = cart.items.filter(
-      item => item.productId.toString() !== productId
-    );
-
+    let cart = userId
+      ? await Cart.findOne({ userId })
+      : await Cart.findOne({ cartId });
+    if (!cart) return res.status(404).json({ message: 'Carrito no encontrado' });
+    cart.items = cart.items.filter(item => String(item.productId) !== String(productId));
     await cart.save();
-    await cart.populate('items.productId');
-
     res.json(cart);
   } catch (error) {
-    console.error('Error al eliminar del carrito:', error);
-    res.status(500).json({ error: 'Error al eliminar del carrito' });
+    res.status(500).json({ message: 'Error eliminando producto', error });
   }
 };
 
 // Limpiar carrito
 export const clearCart = async (req, res) => {
   try {
-    const userId = req.user.id;
-
-    let cart = await Cart.findOne({ userId });
-
-    if (!cart) {
-      cart = new Cart({ userId, items: [] });
-    } else {
-      cart.items = [];
-    }
-
+    const userId = req.user ? req.user.id : null;
+    const cartId = req.cookies.cartId || req.headers['x-cart-id'] || null;
+    let cart = userId
+      ? await Cart.findOne({ userId })
+      : await Cart.findOne({ cartId });
+    if (!cart) return res.status(404).json({ message: 'Carrito no encontrado' });
+    cart.items = [];
     await cart.save();
-
     res.json(cart);
   } catch (error) {
-    console.error('Error al limpiar carrito:', error);
-    res.status(500).json({ error: 'Error al limpiar carrito' });
+    res.status(500).json({ message: 'Error vaciando carrito', error });
   }
 };
 
-// Sincronizar carrito de localStorage con el backend
+// Sincronizar carrito de localStorage con el backend y migrar carrito anónimo al usuario
 export const syncCart = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user ? req.user.id : null;
+    const cartId = req.cookies.cartId || req.headers['x-cart-id'] || null;
     const { localCartItems } = req.body;
 
-    let cart = await Cart.findOne({ userId });
-
-    if (!cart) {
-      cart = new Cart({ userId, items: [] });
+    if (!userId) {
+      return res.status(401).json({ error: 'No autorizado' });
     }
 
-    // Merge localStorage items with backend cart
-    for (const localItem of localCartItems) {
-      const existingItemIndex = cart.items.findIndex(
-        item => item.productId.toString() === localItem.productId
-      );
+    // Buscar carrito anónimo y de usuario
+    const anonCart = cartId ? await Cart.findOne({ cartId }) : null;
+    let userCart = await Cart.findOne({ userId });
+    if (!userCart) userCart = new Cart({ userId, items: [] });
 
-      if (existingItemIndex > -1) {
-        // Si existe, sumar las cantidades
-        cart.items[existingItemIndex].quantity += localItem.quantity;
+    // Unir items del carrito anónimo y localStorage
+    let itemsToMerge = [...(anonCart ? anonCart.items : []), ...(localCartItems || [])];
+    for (const localItem of itemsToMerge) {
+      const existingIndex = userCart.items.findIndex(
+        item => String(item.productId) === String(localItem.productId)
+      );
+      if (existingIndex > -1) {
+        userCart.items[existingIndex].quantity += localItem.quantity;
       } else {
-        // Si no existe, agregar nuevo item
-        cart.items.push(localItem);
+        userCart.items.push({ productId: localItem.productId, quantity: localItem.quantity });
       }
     }
+    await userCart.save();
+    await userCart.populate('items.productId');
 
-    await cart.save();
-    await cart.populate('items.productId');
+    // Eliminar carrito anónimo si existe
+    if (anonCart) {
+      await Cart.deleteOne({ cartId });
+      res.clearCookie('cartId');
+    }
 
-    res.json(cart);
+    res.json(userCart);
   } catch (error) {
     console.error('Error al sincronizar carrito:', error);
     res.status(500).json({ error: 'Error al sincronizar carrito' });

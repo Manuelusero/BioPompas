@@ -11,22 +11,22 @@ import { authenticateToken } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-// Obtener el carrito del usuario
-router.get('/', authenticateToken, getCart);
+// Obtener el carrito del usuario o anónimo
+router.get('/', getCart);
 
-// Agregar un producto al carrito
-router.post('/', authenticateToken, addToCart);
+// Agregar un producto al carrito (usuario o anónimo)
+router.post('/', addToCart);
 
-// Sincronizar carrito de localStorage con backend
+// Sincronizar carrito de localStorage con backend (requiere login)
 router.post('/sync', authenticateToken, syncCart);
 
 // Actualizar cantidad de un producto en el carrito
-router.put('/:itemId', authenticateToken, updateCartItem);
+router.put('/:itemId', updateCartItem);
 
 // Eliminar un producto del carrito
-router.delete('/:productId', authenticateToken, removeFromCart);
+router.delete('/:productId', removeFromCart);
 
 // Vaciar el carrito
-router.delete('/', authenticateToken, clearCart);
+router.delete('/', clearCart);
 
 export default router;

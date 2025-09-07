@@ -3,6 +3,7 @@
     "@react-oauth/google": "^0.12.2",
     "axios": "^1.10.0",
     "git-filter-repo": "^0.0.30",
-    "prop-types": "^15.8.1"
+    "prop-types": "^15.8.1",
+    "uuid": "^12.0.0"
   }
 }
