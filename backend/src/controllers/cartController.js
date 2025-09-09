@@ -24,7 +24,7 @@ export const addToCart = async (req, res) => {
     const userId = req.user ? req.user.id : null;
     let cartId = req.cookies.cartId || req.headers['x-cart-id'] || null;
     const { productId, quantity } = req.body;
-    console.log('[addToCart] userId:', userId, 'cartId:', cartId, 'body:', req.body);
+    console.error('[addToCart] userId:', userId, 'cartId:', cartId, 'body:', req.body);
     let cart;
     if (userId) {
       cart = await Cart.findOne({ userId });
