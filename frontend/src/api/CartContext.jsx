@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 
 const CartContext = createContext();
-
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
@@ -204,6 +203,13 @@ export const CartProvider = ({ children }) => {
     if (isLoggedIn()) {
       // Usuario logueado: agregar al backend
       try {
+        console.log("🛒 Enviando al backend:", {
+        productId: product._id,
+        quantity,
+        price: product.price,
+        name: product.name,
+        image: product.image || product.url
+});
         const response = await axios.post(
           `${import.meta.env.VITE_APP_API_URL}/cart`,
           {
@@ -393,10 +399,6 @@ export const CartProvider = ({ children }) => {
       {children}
     </CartContext.Provider>
   );
-};
-
-CartProvider.propTypes = {
-  children: PropTypes.node,
 };
 
 CartProvider.propTypes = {
