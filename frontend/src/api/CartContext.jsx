@@ -214,7 +214,8 @@ export const CartProvider = ({ children }) => {
             image: product.image || product.url
           },
           {
-            headers: { Authorization: `Bearer ${getToken()}` }
+            headers: { Authorization: `Bearer ${getToken()}`,
+            'Content-Type': 'application/json' }
           }
         );
 
