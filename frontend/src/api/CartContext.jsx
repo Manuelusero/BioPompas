@@ -200,21 +200,23 @@ export const CartProvider = ({ children }) => {
 
   // Agregar producto al carrito
   const addToCart = async (product, quantity = 1) => {
+    // Validar quantity
+    const safeQuantity = typeof quantity === 'number' && quantity > 0 ? quantity : 1;
     if (isLoggedIn()) {
       // Usuario logueado: agregar al backend
       try {
         console.log("🛒 Enviando al backend:", {
-        productId: product._id,
-        quantity,
-        price: product.price,
-        name: product.name,
-        image: product.image || product.url
-});
+          productId: product._id,
+          quantity: safeQuantity,
+          price: product.price,
+          name: product.name,
+          image: product.image || product.url
+        });
         const response = await axios.post(
           `${import.meta.env.VITE_APP_API_URL}/cart`,
           {
             productId: product._id,
-            quantity,
+            quantity: safeQuantity,
             price: product.price,
             name: product.name,
             image: product.image || product.url
@@ -233,7 +235,7 @@ export const CartProvider = ({ children }) => {
           if (existingIndex > -1) {
             updatedItems = prevItems.map((item, index) => 
               index === existingIndex 
-                ? { ...item, quantity: item.quantity + quantity, count: item.quantity + quantity }
+                ? { ...item, quantity: item.quantity + safeQuantity, count: item.quantity + safeQuantity }
                 : item
             );
           } else {
@@ -242,8 +244,8 @@ export const CartProvider = ({ children }) => {
               name: product.name,
               price: product.price,
               image: product.image || product.url,
-              quantity,
-              count: quantity
+              quantity: safeQuantity,
+              count: safeQuantity
             }];
           }
           

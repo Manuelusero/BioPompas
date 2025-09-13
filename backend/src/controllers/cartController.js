@@ -25,6 +25,13 @@ export const addToCart = async (req, res) => {
     let cartId = req.cookies.cartId || req.headers['x-cart-id'] || null;
     const { productId, quantity } = req.body;
     console.error('[addToCart] userId:', userId, 'cartId:', cartId, 'body:', req.body);
+
+    // Validaciones robustas
+    if (!productId || typeof quantity !== 'number' || quantity <= 0) {
+      console.error('[addToCart] Datos inválidos:', { productId, quantity });
+      return res.status(400).json({ message: 'Datos inválidos para agregar al carrito' });
+    }
+
     let cart;
     if (userId) {
       cart = await Cart.findOne({ userId });
@@ -37,6 +44,9 @@ export const addToCart = async (req, res) => {
       cart = await Cart.findOne({ cartId });
       if (!cart) cart = new Cart({ cartId, items: [] });
     }
+
+    if (!cart.items) cart.items = [];
+
     // Buscar si el producto ya está en el carrito
     const itemIndex = cart.items.findIndex(item => String(item.productId) === String(productId));
     if (itemIndex > -1) {
@@ -47,6 +57,7 @@ export const addToCart = async (req, res) => {
     await cart.save();
     res.json(cart);
   } catch (error) {
+    console.error('[addToCart] Error:', error);
     res.status(500).json({ message: 'Error agregando al carrito', error });
   }
 };
