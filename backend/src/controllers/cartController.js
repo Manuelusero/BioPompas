@@ -52,7 +52,7 @@ export const addToCart = async (req, res) => {
         res.cookie('cartId', cartId, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 30 });
       }
       cart = await Cart.findOne({ cartId });
-      if (!cart) cart = new Cart({ cartId, items: [] });
+      if (!cart) cart = new Cart({ cartId: cartId, items: [] });
     }
 
     if (!cart.items) cart.items = [];
