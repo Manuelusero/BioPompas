@@ -1,5 +1,6 @@
 import Cart from '../models/Cart.js';
 import { v4 as uuidv4 } from 'uuid';
+import mongoose from 'mongoose';
 
 // Obtener carrito del usuario o anónimo
 export const getCart = async (req, res) => {
@@ -23,13 +24,22 @@ export const addToCart = async (req, res) => {
   try {
     const userId = req.user ? req.user.id : null;
     let cartId = req.cookies.cartId || req.headers['x-cart-id'] || null;
-    const { productId, quantity } = req.body;
+    let { productId, quantity, price, name, image } = req.body;
     console.error('[addToCart] userId:', userId, 'cartId:', cartId, 'body:', req.body);
 
     // Validaciones robustas
     if (!productId || typeof quantity !== 'number' || quantity <= 0) {
       console.error('[addToCart] Datos inválidos:', { productId, quantity });
       return res.status(400).json({ message: 'Datos inválidos para agregar al carrito' });
+    }
+
+    // Convertir productId a ObjectId si es string
+    if (typeof productId === 'string') {
+      try {
+        productId = new mongoose.Types.ObjectId(productId);
+      } catch (e) {
+        return res.status(400).json({ message: 'productId inválido' });
+      }
     }
 
     let cart;
@@ -52,8 +62,9 @@ export const addToCart = async (req, res) => {
     if (itemIndex > -1) {
       cart.items[itemIndex].quantity += quantity;
     } else {
-      cart.items.push({ productId, quantity });
+      cart.items.push({ productId, quantity, price, name, image });
     }
+    console.error('[addToCart] Antes de guardar:', JSON.stringify(cart, null, 2));
     await cart.save();
     res.json(cart);
   } catch (error) {
