@@ -23,13 +23,15 @@ export const getCart = async (req, res) => {
 export const addToCart = async (req, res) => {
   try {
     const userId = req.user ? req.user.id : null;
-    let cartId = req.cookies.cartId || req.headers['x-cart-id'] || null;
+    let cartId = req.cookies.cartId || req.headers['x-cart-id'] || req.body.cartId || null;
     let { productId, quantity, price, name, image } = req.body;
-    console.error('[addToCart] userId:', userId, 'cartId:', cartId, 'body:', req.body);
+    console.log('[addToCart] Safari Debug - userId:', userId, 'cartId:', cartId, 'body:', req.body);
+    console.log('[addToCart] Safari headers:', req.headers);
+    console.log('[addToCart] Safari cookies:', req.cookies);
 
     // Validaciones robustas
     if (!productId || typeof quantity !== 'number' || quantity <= 0) {
-      console.error('[addToCart] Datos inválidos:', { productId, quantity });
+      console.log('[addToCart] Datos inválidos:', { productId, quantity });
       return res.status(400).json({ message: 'Datos inválidos para agregar al carrito' });
     }
 
@@ -49,7 +51,13 @@ export const addToCart = async (req, res) => {
     } else {
       if (!cartId) {
         cartId = uuidv4();
-        res.cookie('cartId', cartId, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 30 });
+        // Configuración de cookie más permisiva para Safari
+        res.cookie('cartId', cartId, {
+          httpOnly: false, // Cambiar a false para Safari
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'none',
+          maxAge: 1000 * 60 * 60 * 24 * 30
+        });
       }
       cart = await Cart.findOne({ cartId });
       if (!cart) cart = new Cart({ cartId: cartId, items: [] });
@@ -64,9 +72,16 @@ export const addToCart = async (req, res) => {
     } else {
       cart.items.push({ productId, quantity, price, name, image });
     }
-    console.error('[addToCart] Antes de guardar:', JSON.stringify(cart, null, 2));
+    console.log('[addToCart] Antes de guardar:', JSON.stringify(cart, null, 2));
     await cart.save();
-    res.json(cart);
+
+    // Para Safari, devolver el cartId en la respuesta también
+    const response = {
+      ...cart.toJSON(),
+      cartId: cartId // Incluir cartId para Safari
+    };
+
+    res.json(response);
   } catch (error) {
     console.error('[addToCart] Error:', error);
     res.status(500).json({ message: 'Error agregando al carrito', error });

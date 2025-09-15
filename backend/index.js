@@ -10,6 +10,7 @@ import categoryRoutes from "./src/routes/categoryRoutes.js";
 import blogRoutes from "./src/routes/blogRoutes.js";
 import ourStoreRoutes from "./src/routes/ourStoreRoutes.js";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import { errorHandler } from "./src/middleware/errorMiddleware.js";
 import path from 'path';
 
@@ -46,6 +47,7 @@ app.use((err, req, res, next) => {
 });
 
 app.use(express.json());
+app.use(cookieParser()); // Importante para Safari
 
 // CORS config (después de imports y antes de rutas)
 const allowedOrigins = [
@@ -55,10 +57,21 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-    origin: allowedOrigins,
+    origin: function (origin, callback) {
+        // Permitir requests sin origin (aplicaciones móviles, Postman, etc.)
+        if (!origin) return callback(null, true);
+
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('No permitido por CORS'));
+        }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Cart-Id'],
+    credentials: true,
+    preflightContinue: false,
+    optionsSuccessStatus: 200
 }));
 
 // CORS para imágenes

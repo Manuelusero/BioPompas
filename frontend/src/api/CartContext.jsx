@@ -10,6 +10,16 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  // Obtener o generar cartId para Safari
+  const getCartId = () => {
+    let cartId = localStorage.getItem('cartId');
+    if (!cartId) {
+      cartId = 'cart_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem('cartId', cartId);
+    }
+    return cartId;
+  };
+
   // Obtener token del usuario
   const getToken = () => localStorage.getItem('token');
 
@@ -63,8 +73,10 @@ export const CartProvider = ({ children }) => {
         {
           headers: { 
             Authorization: `Bearer ${getToken()}`,
-            'Content-Type': 'application/json'
-          }
+            'Content-Type': 'application/json',
+            'X-Cart-Id': getCartId()
+          },
+          withCredentials: true
         }
       );
 
@@ -110,7 +122,11 @@ export const CartProvider = ({ children }) => {
       const response = await axios.get(
         `${import.meta.env.VITE_APP_API_URL}/cart`,
         {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { 
+            Authorization: `Bearer ${token}`,
+            'X-Cart-Id': getCartId() // Header para Safari
+          },
+          withCredentials: true // Importante para Safari
         }
       );
 
@@ -212,20 +228,35 @@ export const CartProvider = ({ children }) => {
           name: product.name,
           image: product.image || product.url
         });
+
+        const requestBody = {
+          productId: product._id,
+          quantity: safeQuantity,
+          price: product.price,
+          name: product.name,
+          image: product.image || product.url
+        };
+
+        // Para Safari, siempre incluir cartId como fallback
+        requestBody.cartId = getCartId();
+
         const response = await axios.post(
           `${import.meta.env.VITE_APP_API_URL}/cart`,
+          requestBody,
           {
-            productId: product._id,
-            quantity: safeQuantity,
-            price: product.price,
-            name: product.name,
-            image: product.image || product.url
-          },
-          {
-            headers: { Authorization: `Bearer ${getToken()}`,
-            'Content-Type': 'application/json' }
+            headers: { 
+              Authorization: `Bearer ${getToken()}`,
+              'Content-Type': 'application/json',
+              'X-Cart-Id': getCartId() // Header adicional para Safari
+            },
+            withCredentials: true // Importante para Safari
           }
         );
+
+        // Si el backend devuelve un cartId, guardarlo
+        if (response.data.cartId) {
+          localStorage.setItem('cartId', response.data.cartId);
+        }
 
         // Actualizar estado local inmediatamente
         setCartItems(prevItems => {
@@ -339,7 +370,11 @@ export const CartProvider = ({ children }) => {
         await axios.delete(
           `${import.meta.env.VITE_APP_API_URL}/cart`,
           {
-            headers: { Authorization: `Bearer ${getToken()}` }
+            headers: { 
+              Authorization: `Bearer ${getToken()}`,
+              'X-Cart-Id': getCartId()
+            },
+            withCredentials: true
           }
         );
       } catch (error) {
