@@ -10,7 +10,6 @@ import categoryRoutes from "./src/routes/categoryRoutes.js";
 import blogRoutes from "./src/routes/blogRoutes.js";
 import ourStoreRoutes from "./src/routes/ourStoreRoutes.js";
 import cors from "cors";
-import cookieParser from "cookie-parser";
 import { errorHandler } from "./src/middleware/errorMiddleware.js";
 import path from 'path';
 
@@ -47,7 +46,6 @@ app.use((err, req, res, next) => {
 });
 
 app.use(express.json());
-app.use(cookieParser()); // Importante para Safari
 
 // CORS config (después de imports y antes de rutas)
 const allowedOrigins = [
