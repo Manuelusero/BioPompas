@@ -151,3 +151,4 @@ app.listen(PORT, () => {
     console.log(`Servidor corriendo en puerto ${PORT}`);
     console.log(`Health check disponible en: http://localhost:${PORT}/api/health`);
 });
+// Force deploy Mon Sep 15 16:10:44 CEST 2025
