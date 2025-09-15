@@ -203,7 +203,8 @@ export const CartProvider = ({ children }) => {
         const response = await axios.get(
           `${import.meta.env.VITE_APP_API_URL}/cart`,
           {
-            headers: { Authorization: `Bearer ${token}` }
+            headers: { Authorization: `Bearer ${token}` },
+            timeout: 5000 // Timeout de 5 segundos
           }
         );
 
@@ -222,17 +223,20 @@ export const CartProvider = ({ children }) => {
         saveLocalCart(backendCart);
       } catch (error) {
         console.error('❌ Error obteniendo carrito del backend:', error);
+        
+        // En caso de error 500 o cualquier error del backend, usar localStorage vacío
         if (error.response?.status === 401) {
           localStorage.removeItem('token');
         }
-        // Si falla, crear localStorage vacío
-        saveLocalCart([]);
+        
+        // Si falla, crear localStorage vacío y continuar
+        localStorage.setItem('cart', JSON.stringify([]));
         setCartItems([]);
         setCartCount(0);
       }
     } else {
       // Usuario no logueado: crear localStorage vacío
-      saveLocalCart([]);
+      localStorage.setItem('cart', JSON.stringify([]));
       setCartItems([]);
       setCartCount(0);
     }
@@ -275,7 +279,8 @@ export const CartProvider = ({ children }) => {
               'Content-Type': 'application/json',
               'X-Cart-Id': getCartId() // Header adicional para Safari
             },
-            withCredentials: true // Importante para Safari
+            withCredentials: true, // Importante para Safari
+            timeout: 10000 // Timeout de 10 segundos
           }
         );
 
@@ -316,8 +321,35 @@ export const CartProvider = ({ children }) => {
 
         return response.data;
       } catch (error) {
-        console.error('❌ Error agregando al carrito:', error);
-        throw error;
+        console.error('❌ Error agregando al carrito del backend, usando localStorage como fallback:', error);
+        
+        // FALLBACK: Si el backend falla, usar localStorage como si fuera usuario no logueado
+        const localCart = getLocalCart();
+        const existingIndex = localCart.findIndex(item => item._id === product._id);
+
+        let updatedItems;
+        if (existingIndex > -1) {
+          localCart[existingIndex].quantity = (localCart[existingIndex].quantity || localCart[existingIndex].count || 1) + safeQuantity;
+          localCart[existingIndex].count = localCart[existingIndex].quantity;
+          updatedItems = localCart;
+        } else {
+          const newItem = {
+            _id: product._id,
+            name: product.name,
+            price: product.price,
+            image: product.image || product.url,
+            quantity: safeQuantity,
+            count: safeQuantity
+          };
+          updatedItems = [...localCart, newItem];
+        }
+
+        saveLocalCart(updatedItems);
+        setCartItems(updatedItems);
+        setCartCount(calculateCartCount(updatedItems));
+        
+        // No hacer throw, solo devolver éxito
+        return { success: true, fallback: true };
       }
     } else {
       // Usuario no logueado: agregar a localStorage
@@ -422,30 +454,25 @@ export const CartProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchCart();
+    // Solo hacer fetchCart después de un pequeño delay para no bloquear el render inicial
+    const timer = setTimeout(() => {
+      fetchCart();
+    }, 100);
 
     // Escuchar cambios en localStorage y token
     const handleStorageChange = (e) => {
       if (e.key === 'token') {
-        fetchCart();
+        setTimeout(() => {
+          fetchCart();
+        }, 100);
       }
-      // Comentamos temporalmente la escucha de 'cart' para evitar loops
-      // if (e.key === 'cart') {
-      //   fetchCart();
-      // }
     };
 
-    // Comentamos temporalmente para evitar recargas innecesarias
-    // const handleCartUpdate = () => {
-    //   fetchCart();
-    // };
-
     window.addEventListener('storage', handleStorageChange);
-    // window.addEventListener('cartUpdated', handleCartUpdate);
 
     return () => {
+      clearTimeout(timer);
       window.removeEventListener('storage', handleStorageChange);
-      // window.removeEventListener('cartUpdated', handleCartUpdate);
     };
   }, [fetchCart]);
 
