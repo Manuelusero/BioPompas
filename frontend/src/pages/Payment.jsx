@@ -5,7 +5,7 @@ import { useCart } from '../api/CartContext';
 
 const Payment = () => {
   const navigate = useNavigate();
-  const { cartItems, clearCart } = useCart();
+  const { cartItems, clearCart, forceCartReset } = useCart();
   const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
   
   // Dirección vacía por defecto
@@ -195,17 +195,21 @@ const Payment = () => {
     alert('Procesando pago... Serás redirigido en un momento.');
 
     try {
-      // Limpiar carrito usando CartContext
+      // Limpiar carrito usando CartContext de forma completa
       await clearCart();
+      
+      // Forzar reset completo para asegurar limpieza total
+      forceCartReset();
+      
+      console.log('✅ Carrito limpiado completamente después del pago');
       
       setTimeout(() => {
         navigate('/order-complete');
       }, 1000);
     } catch (error) {
       console.error('Error clearing cart:', error);
-      // Fallback: limpiar localStorage también
-      localStorage.removeItem('cart');
-      window.dispatchEvent(new Event('cartUpdated'));
+      // Fallback: usar forceCartReset para limpiar todo
+      forceCartReset();
       
       setTimeout(() => {
         navigate('/order-complete');
