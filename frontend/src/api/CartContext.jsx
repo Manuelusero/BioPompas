@@ -160,14 +160,40 @@ export const CartProvider = ({ children }) => {
     const cartData = localStorage.getItem('cart');
     
     if (cartData !== null) {
-      // Si existe la key 'cart' en localStorage, usar eso como fuente de verdad
-      const localCart = JSON.parse(cartData) || [];
-      const filteredCart = localCart.filter(item => item._id && (item.count > 0 || item.quantity > 0));
-      
-      setCartItems(filteredCart);
-      setCartCount(calculateCartCount(filteredCart));
-      setLoading(false);
-      return;
+      try {
+        // Si existe la key 'cart' en localStorage, usar eso como fuente de verdad
+        const localCart = JSON.parse(cartData) || [];
+        
+        // Validar que los datos del localStorage sean válidos
+        const validCart = localCart.filter(item => 
+          item && 
+          item._id && 
+          typeof item._id === 'string' && 
+          (item.count > 0 || item.quantity > 0) &&
+          item.name &&
+          item.price
+        );
+        
+        // Si encontramos datos corruptos, limpiar localStorage
+        if (validCart.length !== localCart.length) {
+          console.log('🔧 Datos corruptos detectados en localStorage, limpiando...');
+          localStorage.setItem('cart', JSON.stringify(validCart));
+        }
+        
+        setCartItems(validCart);
+        setCartCount(calculateCartCount(validCart));
+        setLoading(false);
+        return;
+      } catch (error) {
+        console.error('❌ Error parseando localStorage:', error);
+        // Si hay error parseando, limpiar localStorage
+        localStorage.removeItem('cart');
+        localStorage.setItem('cart', JSON.stringify([]));
+        setCartItems([]);
+        setCartCount(0);
+        setLoading(false);
+        return;
+      }
     }
 
     // Solo cargar del backend si NO existe la key 'cart' en localStorage (primera carga)
@@ -382,10 +408,16 @@ export const CartProvider = ({ children }) => {
       }
     }
 
-    // Limpiar localStorage y estado
+    // LIMPIAR COMPLETAMENTE localStorage y estado
     localStorage.removeItem('cart');
+    localStorage.removeItem('cartId'); // También limpiar cartId
     setCartItems([]);
     setCartCount(0);
+    
+    // Forzar reinicialización del carrito vacío
+    localStorage.setItem('cart', JSON.stringify([]));
+    
+    console.log('🧹 Carrito completamente limpiado');
     window.dispatchEvent(new Event('cartUpdated'));
   };
 
@@ -417,6 +449,27 @@ export const CartProvider = ({ children }) => {
     };
   }, [fetchCart]);
 
+  // Forzar reinicialización completa del carrito (usar después del checkout)
+  const forceCartReset = () => {
+    console.log('🔄 Forzando reset completo del carrito...');
+    
+    // Limpiar TODO el localStorage relacionado al carrito
+    localStorage.removeItem('cart');
+    localStorage.removeItem('cartId');
+    
+    // Reinicializar con carrito vacío
+    localStorage.setItem('cart', JSON.stringify([]));
+    
+    // Resetear estados
+    setCartItems([]);
+    setCartCount(0);
+    
+    // Disparar evento de actualización
+    window.dispatchEvent(new Event('cartUpdated'));
+    
+    console.log('✅ Reset completo del carrito terminado');
+  };
+
   const value = {
     cartCount,
     cartItems,
@@ -428,6 +481,7 @@ export const CartProvider = ({ children }) => {
     clearCart,
     syncCartWithBackend,
     forceLoadFromBackend,
+    forceCartReset, // Nueva función
     isLoggedIn
   };
 
