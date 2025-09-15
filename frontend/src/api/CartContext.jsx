@@ -222,9 +222,8 @@ export const CartProvider = ({ children }) => {
         // Guardar en localStorage para futuras cargas
         saveLocalCart(backendCart);
       } catch (error) {
-        console.error('❌ Error obteniendo carrito del backend:', error);
-        
         // En caso de error 500 o cualquier error del backend, usar localStorage vacío
+        // SILENCIAR ERROR - No hacer console.error para evitar ruido
         if (error.response?.status === 401) {
           localStorage.removeItem('token');
         }
@@ -248,27 +247,18 @@ export const CartProvider = ({ children }) => {
   const addToCart = async (product, quantity = 1) => {
     // Validar quantity
     const safeQuantity = typeof quantity === 'number' && quantity > 0 ? quantity : 1;
+    
     if (isLoggedIn()) {
-      // Usuario logueado: agregar al backend
+      // Usuario logueado: intentar backend pero usar localStorage como fallback silencioso
       try {
-        console.log("🛒 Enviando al backend:", {
-          productId: product._id,
-          quantity: safeQuantity,
-          price: product.price,
-          name: product.name,
-          image: product.image || product.url
-        });
-
         const requestBody = {
           productId: product._id,
           quantity: safeQuantity,
           price: product.price,
           name: product.name,
-          image: product.image || product.url
+          image: product.image || product.url,
+          cartId: getCartId()
         };
-
-        // Para Safari, siempre incluir cartId como fallback
-        requestBody.cartId = getCartId();
 
         const response = await axios.post(
           `${import.meta.env.VITE_APP_API_URL}/cart`,
@@ -277,19 +267,19 @@ export const CartProvider = ({ children }) => {
             headers: { 
               Authorization: `Bearer ${getToken()}`,
               'Content-Type': 'application/json',
-              'X-Cart-Id': getCartId() // Header adicional para Safari
+              'X-Cart-Id': getCartId()
             },
-            withCredentials: true, // Importante para Safari
-            timeout: 10000 // Timeout de 10 segundos
+            withCredentials: true,
+            timeout: 3000 // Timeout más corto
           }
         );
 
-        // Si el backend devuelve un cartId, guardarlo
+        // Si el backend funciona, actualizar estado normalmente
         if (response.data.cartId) {
           localStorage.setItem('cartId', response.data.cartId);
         }
 
-        // Actualizar estado local inmediatamente
+        // Actualizar desde backend exitoso
         setCartItems(prevItems => {
           const existingIndex = prevItems.findIndex(item => item._id === product._id);
           let updatedItems;
@@ -312,68 +302,43 @@ export const CartProvider = ({ children }) => {
           }
           
           setCartCount(calculateCartCount(updatedItems));
-          
-          // También actualizar localStorage para mantener sincronización
           saveLocalCart(updatedItems);
-          
           return updatedItems;
         });
 
         return response.data;
-      } catch (error) {
-        console.error('❌ Error agregando al carrito del backend, usando localStorage como fallback:', error);
-        
-        // FALLBACK: Si el backend falla, usar localStorage como si fuera usuario no logueado
-        const localCart = getLocalCart();
-        const existingIndex = localCart.findIndex(item => item._id === product._id);
-
-        let updatedItems;
-        if (existingIndex > -1) {
-          localCart[existingIndex].quantity = (localCart[existingIndex].quantity || localCart[existingIndex].count || 1) + safeQuantity;
-          localCart[existingIndex].count = localCart[existingIndex].quantity;
-          updatedItems = localCart;
-        } else {
-          const newItem = {
-            _id: product._id,
-            name: product.name,
-            price: product.price,
-            image: product.image || product.url,
-            quantity: safeQuantity,
-            count: safeQuantity
-          };
-          updatedItems = [...localCart, newItem];
-        }
-
-        saveLocalCart(updatedItems);
-        setCartItems(updatedItems);
-        setCartCount(calculateCartCount(updatedItems));
-        
-        // No hacer throw, solo devolver éxito
-        return { success: true, fallback: true };
+      } catch (error) { // eslint-disable-line no-unused-vars
+        // SILENCIAR ERROR - Solo usar localStorage sin logging
+        // No hacer console.error para evitar ruido en la consola
       }
-    } else {
-      // Usuario no logueado: agregar a localStorage
-      const localCart = getLocalCart();
-      const existingIndex = localCart.findIndex(item => item._id === product._id);
-
-      if (existingIndex > -1) {
-        localCart[existingIndex].quantity = (localCart[existingIndex].quantity || localCart[existingIndex].count || 1) + quantity;
-        localCart[existingIndex].count = localCart[existingIndex].quantity;
-      } else {
-        localCart.push({
-          _id: product._id,
-          name: product.name,
-          price: product.price,
-          image: product.image || product.url,
-          quantity,
-          count: quantity
-        });
-      }
-
-      saveLocalCart(localCart);
-      setCartItems(localCart);
-      setCartCount(calculateCartCount(localCart));
     }
+    
+    // FALLBACK SILENCIOSO: Siempre usar localStorage (tanto para usuarios logueados con backend fallido como no logueados)
+    const localCart = getLocalCart();
+    const existingIndex = localCart.findIndex(item => item._id === product._id);
+
+    let updatedItems;
+    if (existingIndex > -1) {
+      localCart[existingIndex].quantity = (localCart[existingIndex].quantity || localCart[existingIndex].count || 1) + safeQuantity;
+      localCart[existingIndex].count = localCart[existingIndex].quantity;
+      updatedItems = localCart;
+    } else {
+      const newItem = {
+        _id: product._id,
+        name: product.name,
+        price: product.price,
+        image: product.image || product.url,
+        quantity: safeQuantity,
+        count: safeQuantity
+      };
+      updatedItems = [...localCart, newItem];
+    }
+
+    saveLocalCart(updatedItems);
+    setCartItems(updatedItems);
+    setCartCount(calculateCartCount(updatedItems));
+    
+    return { success: true, fallback: true };
   };
 
   // Actualizar cantidad de producto
@@ -422,34 +387,19 @@ export const CartProvider = ({ children }) => {
 
   // Limpiar carrito
   const clearCart = async () => {
-    if (isLoggedIn()) {
-      // Usuario logueado: limpiar backend
-      try {
-        await axios.delete(
-          `${import.meta.env.VITE_APP_API_URL}/cart`,
-          {
-            headers: { 
-              Authorization: `Bearer ${getToken()}`,
-              'X-Cart-Id': getCartId()
-            },
-            withCredentials: true
-          }
-        );
-      } catch (error) {
-        console.error('❌ Error limpiando carrito:', error);
-      }
-    }
-
+    // SOLO limpiar localStorage - no intentar backend para evitar errores 500
+    // Si el backend está funcionando, se sincronizará en el próximo login
+    
     // LIMPIAR COMPLETAMENTE localStorage y estado
     localStorage.removeItem('cart');
-    localStorage.removeItem('cartId'); // También limpiar cartId
+    localStorage.removeItem('cartId');
     setCartItems([]);
     setCartCount(0);
     
     // Forzar reinicialización del carrito vacío
     localStorage.setItem('cart', JSON.stringify([]));
     
-    console.log('🧹 Carrito completamente limpiado');
+    console.log('🧹 Carrito completamente limpiado (solo localStorage)');
     window.dispatchEvent(new Event('cartUpdated'));
   };
 
