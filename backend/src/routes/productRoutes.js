@@ -13,23 +13,23 @@ import { authenticateToken, authorizeAdmin } from '../middleware/authMiddleware.
 
 const router = express.Router();
 
-// Crear un producto
-router.post('/', authenticateToken, authorizeAdmin, validateProduct, createProduct);
-
-// Obtener todos los productos
+// Obtener productos (ruta pública)
 router.get('/', getProducts);
 
-// Obtener un producto por su ID
-router.get('/:id', getProductById);
+// Crear producto (solo administrador)
+router.post('/', authenticateToken, authorizeAdmin, validateProduct, createProduct);
 
-// Actualizar un producto
+// Actualizar producto (solo administrador)
 router.put('/:id', authenticateToken, authorizeAdmin, validateProduct, updateProduct);
 
-// Eliminar un producto
+// Eliminar producto (solo administrador)
 router.delete('/:id', authenticateToken, authorizeAdmin, deleteProduct);
 
 // Eliminar todos los productos
 router.delete('/all', authenticateToken, authorizeAdmin, deleteAllProducts);
+
+// Obtener un producto por su ID
+router.get('/:id', getProductById);
 
 // Obtener productos por categoría (coincidencia robusta, ignora espacios y mayúsculas)
 router.get('/category/:category', async (req, res) => {
