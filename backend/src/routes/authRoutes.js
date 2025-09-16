@@ -34,8 +34,8 @@ router.get('/protected', authenticateToken, (req, res) => {
   res.status(200).json({ message: 'Ruta protegida, acceso autorizado.' });
 });
 
-// Ruta protegida de ejemplo para probar autenticación
-router.get('/profile', protect, getProfile);
+// Ruta protegida para obtener el perfil del usuario
+router.get('/profile', authenticateToken, getProfile);
 
 export default router;
 user: req.user
