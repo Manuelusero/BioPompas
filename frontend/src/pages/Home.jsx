@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../api/CartContext";
 import BottomSheetProductFull from "../components/BottomSheetProductFull";
 import { getImageUrl, getApiUrl } from '../utils/api.js';
 import './Home.css';
 
 const Home = () => {
+    const navigate = useNavigate();
     const { cartCount, addToCart } = useCart();
     const [products, setProducts] = useState([]);
     const [promotions, setPromotions] = useState([]);
@@ -66,6 +67,16 @@ const Home = () => {
             setSelectedProductId(null);
         } catch (error) {
             console.error('Error adding to cart:', error);
+        }
+    };
+
+    const handleAvatarClick = () => {
+        const isLoggedIn = !!localStorage.getItem('token');
+        if (isLoggedIn) {
+            navigate('/profile');
+        } else {
+            alert('Debes iniciar sesión para acceder a tu perfil.');
+            navigate('/login');
         }
     };
 
@@ -255,9 +266,9 @@ const Home = () => {
                 <Link to="/search" className="nav-icon" aria-label="Search">
                     <img src="/SearchIcon.png" alt="Search" />
                 </Link>
-                <a href="/login" className="nav-icon" aria-label="Avatar">
+                <button onClick={handleAvatarClick} className="nav-icon avatar-button" aria-label="Avatar">
                     <img src="/AvatarIcon.png" alt="Avatar" />
-                </a>
+                </button>
             </nav>
             <BottomSheetProductFull
                 productId={selectedProductId}

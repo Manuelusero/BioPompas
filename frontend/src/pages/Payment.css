@@ -4,10 +4,7 @@
     background: #F6F5F0;
     min-height: 100vh;
     padding: 24px 16px 0 16px;
-    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-    ,
-    Raleway,
-    sans-serif;
+    font-family: 'Explore Magic', 'Raleway', sans-serif;
     position: relative;
 }
 
@@ -37,9 +34,7 @@
 .payment-title {
     text-align: center;
     color: #3a5a40;
-    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-    ,
-    cursive;
+    font-family: 'Explore Magic', 'Raleway', sans-serif;
     font-size: 1.8rem;
     font-weight: 400;
     letter-spacing: 2px;
@@ -349,8 +344,6 @@
 .card-modal h3 {
     margin: 0 0 16px 0;
     font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    ,
-    sans-serif;
     font-size: 18px;
     font-weight: 600;
     color: #2C3E29;
@@ -364,8 +357,6 @@
     border-radius: 8px;
     font-size: 16px;
     font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    ,
-    sans-serif;
     margin-bottom: 16px;
     text-align: center;
     letter-spacing: 1px;
@@ -391,8 +382,6 @@
     border: none;
     border-radius: 8px;
     font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    ,
-    sans-serif;
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.2s;
@@ -414,4 +403,8 @@
 
 .card-modal-cancel:hover {
     background: #e0e0e0;
+}
+
+.payment-content {
+    padding-top: 80px;
 }
