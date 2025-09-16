@@ -7,7 +7,7 @@ import {
   validateForgotPassword,
   validateResetPassword
 } from '../middleware/validateInput.js';
-import { authenticateToken, protect, authorizeAdmin } from '../middleware/authMiddleware.js';
+import { authenticateToken, protect } from '../middleware/authMiddleware.js';
 
 const router = Router();
 
