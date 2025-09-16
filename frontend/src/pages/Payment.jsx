@@ -169,14 +169,14 @@ const Payment = () => {
   const handlePayment = async () => {
     // Verificar que hay productos en el carrito usando CartContext
     if (!cartItems || cartItems.length === 0) {
-      alert('Tu carrito está vacío. Agrega productos antes de proceder al pago.');
+      navigate('/profile'); // Redirigir directamente a la página de perfil
       return;
     }
 
     // Verificar que los productos tienen cantidad
     const validItems = cartItems.filter(item => item._id && (item.count > 0 || item.quantity > 0));
     if (validItems.length === 0) {
-      alert('Tu carrito está vacío. Agrega productos antes de proceder al pago.');
+      navigate('/profile'); // Redirigir directamente a la página de perfil
       return;
     }
 

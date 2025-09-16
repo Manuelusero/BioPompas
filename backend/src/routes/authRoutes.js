@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { register, login, verifyEmail, forgotPassword, resetPassword } from '../controllers/authController.js';
+import { register, login, verifyEmail, forgotPassword, resetPassword, getProfile } from '../controllers/authController.js';
 import { googleLogin } from '../controllers/googleAuthController.js';
 import {
   validateRegistration,
@@ -7,7 +7,7 @@ import {
   validateForgotPassword,
   validateResetPassword
 } from '../middleware/validateInput.js';
-import { authenticateToken } from '../middleware/authMiddleware.js';
+import { authenticateToken, protect } from '../middleware/authMiddleware.js';
 
 const router = Router();
 
@@ -35,11 +35,7 @@ router.get('/protected', authenticateToken, (req, res) => {
 });
 
 // Ruta protegida de ejemplo para probar autenticación
-router.get('/profile', authenticateToken, (req, res) => {
-  res.status(200).json({
-    message: 'Acceso autorizado',
-    user: req.user,
-  });
-});
+router.get('/profile', protect, getProfile);
 
 export default router;
+user: req.user

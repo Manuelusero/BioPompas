@@ -16,14 +16,15 @@ const Profile = () => {
           navigate('/login');
           return;
         }
-        
+
         const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/auth/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         setUser(response.data.user);
-      } catch {
+      } catch (err) {
+        console.error('Error obteniendo perfil:', err);
         setError('No autorizado o token inválido');
         setTimeout(() => navigate('/login'), 2000);
       }
@@ -88,5 +89,4 @@ const Profile = () => {
 };
 
 export default Profile;
-        
-  
+

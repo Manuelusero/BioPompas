@@ -14,7 +14,7 @@ const Login = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const { login } = useAuth();
-    const { syncCartWithBackend } = useCart();
+    const { syncCartWithBackend, cartItems } = useCart();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -36,7 +36,12 @@ const Login = () => {
                 // No fallar el login si hay error en carrito
             }
             
-            navigate('/bag');
+            // Redirigir según el estado del carrito
+            if (cartItems.length > 0) {
+                navigate('/bag'); // Si hay productos, redirigir al carrito
+            } else {
+                navigate('/profile'); // Si no hay productos, redirigir al perfil
+            }
         } catch {
             setError('Error al iniciar sesión');
         }

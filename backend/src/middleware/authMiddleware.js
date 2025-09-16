@@ -1,32 +1,26 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
-export const authenticateToken = async (req, res, next) => {
-  const token = req.header('Authorization')?.replace('Bearer ', '');
+export const protect = async (req, res, next) => {
+  let token;
+
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
+    token = req.headers.authorization.split(' ')[1];
+  }
 
   if (!token) {
-    return res.status(401).json({ error: 'Acceso denegado. No se proporcionó token.' });
+    return res.status(401).json({ message: 'No autorizado, no hay token' });
   }
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findById(decoded.id).select('-password');
-
-    if (!user) {
-        return res.status(401).json({ error: 'Usuario no encontradp.'});
-    }
-   
-    req.user = user;
+    req.user = await User.findById(decoded.id).select('-password');
     next();
   } catch (error) {
-    return res.status(401).json({ error: 'Token inválido o expirado' });
+    console.error('Error verificando token:', error);
+    res.status(401).json({ message: 'No autorizado, token inválido' });
   }
 };
-// Verifica si el usuario tiene rol de administrador
-export const authorizeAdmin = (req, res, next) => {
-    if (req.user?.role === 'admin') {
-      next();
-    } else {
-      return res.status(403).json({ error: 'Acceso denegado. Se requieren permisos de administrador.' });
-    }
-  };
