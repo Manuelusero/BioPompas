@@ -19,6 +19,11 @@ export const protect = async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = await User.findById(decoded.id).select('-password');
+
+    if (!req.user) {
+      return res.status(401).json({ message: 'Usuario no encontrado' });
+    }
+
     next();
   } catch (error) {
     console.error('Error verificando token:', error);
@@ -27,7 +32,7 @@ export const protect = async (req, res, next) => {
 };
 
 // Middleware para autenticar el token (más ligero, solo verifica token)
-export const authenticateToken = (req, res, next) => {
+export const authenticateToken = async (req, res, next) => {
   const authHeader = req.headers.authorization;
   const token = authHeader && authHeader.split(' ')[1];
 
@@ -35,25 +40,21 @@ export const authenticateToken = (req, res, next) => {
     return res.status(401).json({ message: 'No autorizado, no hay token' });
   }
 
-  jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
-    if (err) {
-      return res.status(403).json({ message: 'Token inválido' });
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // Buscar el usuario y adjuntarlo al request
+    const user = await User.findById(decoded.id).select('-password');
+    if (!user) {
+      return res.status(401).json({ message: 'Usuario no encontrado' });
     }
 
-    try {
-      // Buscar el usuario y adjuntarlo al request
-      const user = await User.findById(decoded.id).select('-password');
-      if (!user) {
-        return res.status(401).json({ message: 'Usuario no encontrado' });
-      }
-
-      req.user = user;
-      next();
-    } catch (error) {
-      console.error('Error obteniendo usuario:', error);
-      return res.status(500).json({ message: 'Error interno del servidor' });
-    }
-  });
+    req.user = user;
+    next();
+  } catch (error) {
+    console.error('Error verificando token:', error);
+    return res.status(403).json({ message: 'Token inválido' });
+  }
 };
 
 // Middleware para verificar si el usuario es administrador
