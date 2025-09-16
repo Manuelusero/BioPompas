@@ -199,14 +199,26 @@ export const resetPassword = async (req, res) => {
 
 export const getProfile = async (req, res) => {
   try {
-    const user = req.user; // El usuario debe estar adjuntado por el middleware de autenticación
+    // El usuario debe estar adjuntado por el middleware de autenticación
+    const user = req.user;
+
     if (!user) {
       return res.status(401).json({ message: 'No autorizado' });
     }
-    res.json({ user });
+
+    // Devolver información del usuario sin la contraseña
+    res.json({
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role || 'user',
+        createdAt: user.createdAt
+      }
+    });
   } catch (error) {
     console.error('Error obteniendo perfil:', error);
-    res.status(500).json({ message: 'Error obteniendo perfil', error });
+    res.status(500).json({ message: 'Error obteniendo perfil', error: error.message });
   }
 };
 

@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
-// Middleware para proteger rutas
+// Middleware para proteger rutas (más completo, con lookup de usuario)
 export const protect = async (req, res, next) => {
   let token;
 
@@ -26,7 +26,7 @@ export const protect = async (req, res, next) => {
   }
 };
 
-// Middleware para autenticar el token
+// Middleware para autenticar el token (más ligero, solo verifica token)
 export const authenticateToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
   const token = authHeader && authHeader.split(' ')[1];
@@ -35,12 +35,24 @@ export const authenticateToken = (req, res, next) => {
     return res.status(401).json({ message: 'No autorizado, no hay token' });
   }
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+  jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
     if (err) {
       return res.status(403).json({ message: 'Token inválido' });
     }
-    req.user = user;
-    next();
+
+    try {
+      // Buscar el usuario y adjuntarlo al request
+      const user = await User.findById(decoded.id).select('-password');
+      if (!user) {
+        return res.status(401).json({ message: 'Usuario no encontrado' });
+      }
+
+      req.user = user;
+      next();
+    } catch (error) {
+      console.error('Error obteniendo usuario:', error);
+      return res.status(500).json({ message: 'Error interno del servidor' });
+    }
   });
 };
 
