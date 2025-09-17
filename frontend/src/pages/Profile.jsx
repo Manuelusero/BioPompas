@@ -7,6 +7,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [error, setError] = useState('');
+  const [activeTab, setActiveTab] = useState('saved');
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -53,36 +54,70 @@ const Profile = () => {
 
   return (
     <div className="profile-container">
-      <button onClick={() => navigate('/home')} className="profile-back-btn">
-        ← Volver
-      </button>
-      
-      <div className="profile-card">
-        <div className="profile-header">
-          <div className="profile-avatar">👤</div>
-          <h2>Mi Perfil</h2>
-        </div>
-        
-        <div className="profile-details">
-          <div className="profile-field">
-            <strong>Nombre:</strong>
-            <span>{user.name}</span>
-          </div>
-          
-          <div className="profile-field">
-            <strong>Email:</strong>
-            <span>{user.email}</span>
-          </div>
-          
-          <div className="profile-field">
-            <strong>Rol:</strong>
-            <span>{user.role}</span>
-          </div>
-        </div>
-        
-        <button onClick={handleLogout} className="profile-logout-btn">
-          Cerrar Sesión
+      {/* Header con título y configuración */}
+      <div className="profile-header">
+        <h1 className="profile-title">PROFILE</h1>
+        <button className="profile-settings-btn">
+          <img src="/settings-icon.png" alt="Settings" className="settings-icon" />
         </button>
+      </div>
+
+      {/* Pestañas */}
+      <div className="profile-tabs">
+        <button 
+          className={`profile-tab ${activeTab === 'saved' ? 'active' : ''}`}
+          onClick={() => setActiveTab('saved')}
+        >
+          SAVED
+        </button>
+        <button 
+          className={`profile-tab ${activeTab === 'account' ? 'active' : ''}`}
+          onClick={() => setActiveTab('account')}
+        >
+          ACCOUNT
+        </button>
+      </div>
+
+      {/* Contenido de las pestañas */}
+      <div className="profile-content">
+        {activeTab === 'saved' && (
+          <div className="saved-section">
+            <div className="empty-state">
+              <div className="empty-state-icon">
+                <img src="/leaf-hand-icon.png" alt="Nothing here" className="leaf-icon" />
+              </div>
+              <h3 className="empty-state-title">Nothing here yet!</h3>
+              <p className="empty-state-text">
+                Looks like there are not any favourite products in this section of your Profile.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'account' && (
+          <div className="account-section">
+            <div className="profile-info">
+              <div className="profile-field">
+                <strong>Nombre:</strong>
+                <span>{user.name}</span>
+              </div>
+              
+              <div className="profile-field">
+                <strong>Email:</strong>
+                <span>{user.email}</span>
+              </div>
+              
+              <div className="profile-field">
+                <strong>Rol:</strong>
+                <span>{user.role}</span>
+              </div>
+            </div>
+            
+            <button onClick={handleLogout} className="profile-logout-btn">
+              Cerrar Sesión
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
