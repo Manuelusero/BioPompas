@@ -38,7 +38,7 @@
     font-size: 20px;
     font-weight: 400;
     margin: 0;
-    color: #333;
+    color: #2C3E29;
     letter-spacing: 1px;
     position: absolute;
     left: 50%;
@@ -125,14 +125,14 @@
     font-family: 'Raleway', Arial, sans-serif;
     font-size: 20px;
     font-weight: 600;
-    color: #333;
+    color: #2C3E29;
     margin: 0 0 15px 0;
 }
 
 .empty-state-text {
     font-family: 'Raleway', Arial, sans-serif;
     font-size: 14px;
-    color: #666;
+    color: #2C3E29;
     line-height: 1.5;
     margin: 0;
 }
