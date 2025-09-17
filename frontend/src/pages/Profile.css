@@ -13,6 +13,8 @@
     padding: 20px 24px 10px;
     background: #f5f5f5;
     position: relative;
+    margin-top: 35px;
+    /* Agregar margen de 35px hacia arriba */
 }
 
 .profile-back-btn {
