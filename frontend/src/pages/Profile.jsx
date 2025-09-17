@@ -64,8 +64,11 @@ const Profile = () => {
 
   return (
     <div className="profile-container">
-      {/* Header con título y configuración */}
+      {/* Header con flecha de regreso y título centrado */}
       <div className="profile-header">
+        <button className="profile-back-btn" onClick={() => navigate('/home')}>
+          <img src="/ArrowLeftIcon.png" alt="Back" />
+        </button>
         <h1 className="profile-title">PROFILE</h1>
         <button className="profile-settings-btn">
           <img src="/Configuration.png" alt="Settings" className="settings-icon" />

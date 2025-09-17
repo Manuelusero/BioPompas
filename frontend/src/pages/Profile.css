@@ -12,6 +12,23 @@
     align-items: center;
     padding: 20px 24px 10px;
     background: #f5f5f5;
+    position: relative;
+}
+
+.profile-back-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.profile-back-btn img {
+    width: 24px;
+    height: 24px;
 }
 
 .profile-title {
@@ -21,6 +38,10 @@
     margin: 0;
     color: #333;
     letter-spacing: 1px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .profile-settings-btn {
@@ -28,6 +49,10 @@
     border: none;
     cursor: pointer;
     padding: 8px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .settings-icon {
@@ -220,6 +245,14 @@
 @media (max-width: 480px) {
     .profile-header {
         padding: 15px 20px 10px;
+    }
+
+    .profile-back-btn {
+        left: 15px;
+    }
+
+    .profile-settings-btn {
+        right: 15px;
     }
 
     .profile-tabs {
