@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import './Profile.css';
 
@@ -38,6 +38,16 @@ const Profile = () => {
     localStorage.removeItem('cart');
     localStorage.removeItem('cartId');
     navigate('/login');
+  };
+
+  const handleAvatarClick = () => {
+    const isLoggedIn = !!localStorage.getItem('token');
+    if (isLoggedIn) {
+      navigate('/profile');
+    } else {
+      alert('Debes iniciar sesión para acceder a tu perfil.');
+      navigate('/login');
+    }
   };
 
   if (error) return (
@@ -119,6 +129,19 @@ const Profile = () => {
           </div>
         )}
       </div>
+
+      {/* NavBar inferior */}
+      <nav className="bottom-navbar">
+        <Link to="/home" className="nav-icon" aria-label="Home">
+          <img src="/HomeIcon.png" alt="Home" />
+        </Link>
+        <Link to="/search" className="nav-icon" aria-label="Search">
+          <img src="/SearchIcon.png" alt="Search" />
+        </Link>
+        <button onClick={handleAvatarClick} className="nav-icon avatar-button" aria-label="Avatar">
+          <img src="/AvatarIcon.png" alt="Avatar" />
+        </button>
+      </nav>
     </div>
   );
 };
