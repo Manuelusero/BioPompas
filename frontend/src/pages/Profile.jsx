@@ -58,7 +58,7 @@ const Profile = () => {
       <div className="profile-header">
         <h1 className="profile-title">PROFILE</h1>
         <button className="profile-settings-btn">
-          <img src="/settings-icon.png" alt="Settings" className="settings-icon" />
+          <img src="/Configuration.png" alt="Settings" className="settings-icon" />
         </button>
       </div>
 
@@ -84,7 +84,7 @@ const Profile = () => {
           <div className="saved-section">
             <div className="empty-state">
               <div className="empty-state-icon">
-                <img src="/leaf-hand-icon.png" alt="Nothing here" className="leaf-icon" />
+                <img src="/Handplant.png" alt="Nothing here" className="leaf-icon" />
               </div>
               <h3 className="empty-state-title">Nothing here yet!</h3>
               <p className="empty-state-text">
