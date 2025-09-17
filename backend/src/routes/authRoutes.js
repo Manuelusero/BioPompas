@@ -38,4 +38,3 @@ router.get('/protected', authenticateToken, (req, res) => {
 router.get('/profile', authenticateToken, getProfile);
 
 export default router;
-user: req.user
