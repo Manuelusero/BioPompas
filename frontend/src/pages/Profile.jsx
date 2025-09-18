@@ -8,6 +8,30 @@ const Profile = () => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('saved');
+  
+  // Estados para dirección
+  const [savedAddress, setSavedAddress] = useState(
+    JSON.parse(localStorage.getItem('savedAddress')) || {
+      street: '',
+      zip: '',
+      name: ''
+    }
+  );
+  const [editingAddress, setEditingAddress] = useState(false);
+  const [tempAddress, setTempAddress] = useState({ ...savedAddress });
+
+  // Estados para métodos de pago
+  const [savedPaymentMethods, setSavedPaymentMethods] = useState(
+    JSON.parse(localStorage.getItem('savedPaymentMethods')) || [
+      { type: 'visa', label: '**** **** **** 1234', icon: '/LogoVisa.png', selected: true },
+      { type: 'mastercard', label: '**** **** **** 9856', icon: '/LogoMastercard.png', selected: false },
+      { type: 'paypal', label: 'user@email.com', icon: '/LogoPaypal.png', selected: false },
+    ]
+  );
+  const [editingPayment, setEditingPayment] = useState(false);
+  const [showCardModal, setShowCardModal] = useState(false);
+  const [editingCardIndex, setEditingCardIndex] = useState(null);
+  const [newCardNumber, setNewCardNumber] = useState('');
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -48,6 +72,90 @@ const Profile = () => {
       alert('Debes iniciar sesión para acceder a tu perfil.');
       navigate('/login');
     }
+  };
+
+  // Guardar dirección
+  const handleSaveAddress = () => {
+    setSavedAddress(tempAddress);
+    localStorage.setItem('savedAddress', JSON.stringify(tempAddress));
+    setEditingAddress(false);
+  };
+
+  // Cancelar edición de dirección
+  const handleCancelAddress = () => {
+    setTempAddress({ ...savedAddress });
+    setEditingAddress(false);
+  };
+
+  // Manejar edición de tarjeta
+  const handleEditCard = (index) => {
+    const currentCard = savedPaymentMethods[index];
+    setEditingCardIndex(index);
+    
+    if (currentCard.type === 'paypal') {
+      setNewCardNumber(currentCard.label);
+    } else {
+      setNewCardNumber(currentCard.label.slice(-4));
+    }
+    
+    setShowCardModal(true);
+  };
+
+  // Guardar cambios de tarjeta
+  const handleSaveCard = () => {
+    const currentCard = savedPaymentMethods[editingCardIndex];
+    
+    if (currentCard.type === 'paypal') {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (newCardNumber && emailRegex.test(newCardNumber)) {
+        const updatedMethods = savedPaymentMethods.map((pm, i) => 
+          i === editingCardIndex 
+            ? { ...pm, label: newCardNumber }
+            : pm
+        );
+        setSavedPaymentMethods(updatedMethods);
+        localStorage.setItem('savedPaymentMethods', JSON.stringify(updatedMethods));
+        setShowCardModal(false);
+        setEditingPayment(false);
+        setNewCardNumber('');
+        setEditingCardIndex(null);
+      } else {
+        alert('Por favor ingresa un email válido');
+      }
+    } else {
+      if (newCardNumber && newCardNumber.length === 4 && /^\d+$/.test(newCardNumber)) {
+        const updatedMethods = savedPaymentMethods.map((pm, i) => 
+          i === editingCardIndex 
+            ? { ...pm, label: `**** **** **** ${newCardNumber}` }
+            : pm
+        );
+        setSavedPaymentMethods(updatedMethods);
+        localStorage.setItem('savedPaymentMethods', JSON.stringify(updatedMethods));
+        setShowCardModal(false);
+        setEditingPayment(false);
+        setNewCardNumber('');
+        setEditingCardIndex(null);
+      } else {
+        alert('Por favor ingresa exactamente 4 dígitos numéricos');
+      }
+    }
+  };
+
+  // Cancelar edición de tarjeta
+  const handleCancelCardEdit = () => {
+    setShowCardModal(false);
+    setNewCardNumber('');
+    setEditingCardIndex(null);
+  };
+
+  // Seleccionar método de pago por defecto
+  const handleSelectPaymentMethod = (selectedType) => {
+    const updatedMethods = savedPaymentMethods.map(pm => ({
+      ...pm,
+      selected: pm.type === selectedType
+    }));
+    setSavedPaymentMethods(updatedMethods);
+    localStorage.setItem('savedPaymentMethods', JSON.stringify(updatedMethods));
   };
 
   if (error) return (
@@ -109,9 +217,11 @@ const Profile = () => {
 
         {activeTab === 'account' && (
           <div className="account-section">
+            {/* Información personal */}
             <div className="profile-info">
+              <h3 className="account-section-title">Personal Information</h3>
               <div className="profile-field">
-                <strong>Nombre:</strong>
+                <strong>Name:</strong>
                 <span>{user.name}</span>
               </div>
               
@@ -119,10 +229,98 @@ const Profile = () => {
                 <strong>Email:</strong>
                 <span>{user.email}</span>
               </div>
+            </div>
+
+            {/* Dirección de entrega */}
+            <div className="profile-info">
+              <div className="account-section-header">
+                <h3 className="account-section-title">Delivery Address</h3>
+                <button 
+                  className="edit-btn" 
+                  onClick={() => setEditingAddress(true)}
+                >
+                  Edit
+                </button>
+              </div>
               
-              <div className="profile-field">
-                <strong>Rol:</strong>
-                <span>{user.role}</span>
+              {editingAddress ? (
+                <div className="edit-form">
+                  <input
+                    type="text"
+                    placeholder="Full Name"
+                    value={tempAddress.name}
+                    onChange={(e) => setTempAddress({...tempAddress, name: e.target.value})}
+                    className="form-input"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Street Address"
+                    value={tempAddress.street}
+                    onChange={(e) => setTempAddress({...tempAddress, street: e.target.value})}
+                    className="form-input"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Postal Code"
+                    value={tempAddress.zip}
+                    onChange={(e) => setTempAddress({...tempAddress, zip: e.target.value})}
+                    className="form-input"
+                  />
+                  <div className="form-buttons">
+                    <button onClick={handleSaveAddress} className="save-btn">Save</button>
+                    <button onClick={handleCancelAddress} className="cancel-btn">Cancel</button>
+                  </div>
+                </div>
+              ) : (
+                <div className="address-display">
+                  {savedAddress.name || savedAddress.street ? (
+                    <>
+                      <div className="address-line">{savedAddress.name}</div>
+                      <div className="address-line">{savedAddress.street}</div>
+                      <div className="address-line">{savedAddress.zip}</div>
+                    </>
+                  ) : (
+                    <div className="no-data">No address saved</div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Métodos de pago */}
+            <div className="profile-info">
+              <div className="account-section-header">
+                <h3 className="account-section-title">Payment Methods</h3>
+                <button 
+                  className="edit-btn" 
+                  onClick={() => setEditingPayment(!editingPayment)}
+                >
+                  {editingPayment ? 'Done' : 'Edit'}
+                </button>
+              </div>
+              
+              <div className="payment-methods-list">
+                {savedPaymentMethods.map((pm, index) => (
+                  <div 
+                    key={`${pm.type}-${index}`} 
+                    className={`payment-method-item ${pm.selected ? 'selected' : ''}`}
+                    onClick={() => !editingPayment && handleSelectPaymentMethod(pm.type)}
+                  >
+                    <img src={pm.icon} alt={pm.type} className="payment-icon" />
+                    <span className="payment-label">{pm.label}</span>
+                    {pm.selected && !editingPayment && <span className="check-mark">✓</span>}
+                    {editingPayment && (
+                      <button 
+                        className="edit-payment-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleEditCard(index);
+                        }}
+                      >
+                        Edit
+                      </button>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
             
@@ -136,15 +334,44 @@ const Profile = () => {
       {/* NavBar inferior */}
       <nav className="bottom-navbar">
         <Link to="/home" className="nav-icon" aria-label="Home">
-          <img src="/HomeIcon.png" alt="Home" />
+          <img src="/Home.png" alt="Home" />
         </Link>
         <Link to="/search" className="nav-icon" aria-label="Search">
           <img src="/SearchIcon.png" alt="Search" />
         </Link>
         <button onClick={handleAvatarClick} className="nav-icon avatar-button" aria-label="Avatar">
-          <img src="/AvatarIcon.png" alt="Avatar" />
+          <img src="/AvatarSeccion.png" alt="Avatar" />
         </button>
       </nav>
+
+      {/* Modal para editar tarjeta */}
+      {showCardModal && (
+        <div className="card-modal-overlay">
+          <div className="card-modal">
+            <h3>
+              {savedPaymentMethods[editingCardIndex]?.type === 'paypal' 
+                ? 'Edit PayPal Email' 
+                : 'Edit Last 4 Digits'
+              }
+            </h3>
+            <input
+              type={savedPaymentMethods[editingCardIndex]?.type === 'paypal' ? 'email' : 'text'}
+              value={newCardNumber}
+              onChange={(e) => setNewCardNumber(e.target.value)}
+              placeholder={savedPaymentMethods[editingCardIndex]?.type === 'paypal' 
+                ? 'example@email.com' 
+                : 'Last 4 digits'
+              }
+              maxLength={savedPaymentMethods[editingCardIndex]?.type === 'paypal' ? '50' : '4'}
+              className="card-modal-input"
+            />
+            <div className="card-modal-buttons">
+              <button onClick={handleSaveCard} className="card-modal-save">Save</button>
+              <button onClick={handleCancelCardEdit} className="card-modal-cancel">Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
