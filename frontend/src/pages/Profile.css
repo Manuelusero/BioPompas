@@ -146,137 +146,237 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-.profile-info {
-    margin-bottom: 30px;
+.account-section-title {
+    font-family: 'Raleway', Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 15px 0;
 }
 
-.profile-field {
+.account-section-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 0;
-    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 15px;
 }
 
-.profile-field:last-child {
+.edit-btn {
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.edit-btn:hover {
+    border-color: #999;
+    color: #333;
+}
+
+.edit-form {
+    margin-top: 10px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    font-family: 'Raleway', Arial, sans-serif;
+    font-size: 14px;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #3a5a40;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.save-btn,
+.cancel-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.save-btn {
+    background: #3a5a40;
+    color: white;
+}
+
+.save-btn:hover {
+    background: #2c4532;
+}
+
+.cancel-btn {
+    background: #f0f0f0;
+    color: #666;
+}
+
+.cancel-btn:hover {
+    background: #e0e0e0;
+}
+
+.address-display {
+    padding: 15px 0;
+}
+
+.address-line {
+    font-family: 'Raleway', Arial, sans-serif;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.no-data {
+    font-family: 'Raleway', Arial, sans-serif;
+    font-size: 14px;
+    color: #999;
+    font-style: italic;
+}
+
+.payment-methods-list {
+    margin-top: 10px;
+}
+
+.payment-method-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.payment-method-item:hover {
+    background: #f9f9f9;
+}
+
+.payment-method-item.selected {
+    background: #f0f8f0;
+}
+
+.payment-method-item:last-child {
     border-bottom: none;
 }
 
-.profile-field strong {
-    font-family: 'Raleway', Arial, sans-serif;
-    font-weight: 600;
-    color: #333;
-    font-size: 14px;
+.payment-icon {
+    width: 32px;
+    height: 20px;
+    object-fit: contain;
+    margin-right: 12px;
 }
 
-.profile-field span {
+.payment-label {
+    flex: 1;
     font-family: 'Raleway', Arial, sans-serif;
+    font-size: 14px;
     color: #666;
-    font-size: 14px;
 }
 
-.profile-logout-btn {
-    width: 100%;
-    padding: 15px;
-    background: #ff4444;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
+.check-mark {
+    color: #3a5a40;
     font-weight: bold;
-    cursor: pointer;
-    transition: background 0.2s ease;
-    font-family: 'Raleway', Arial, sans-serif;
+    font-size: 16px;
 }
 
-.profile-logout-btn:hover {
-    background: #cc3333;
-}
-
-.profile-error {
-    text-align: center;
-    color: #ff4444;
-    margin-top: 50px;
-    font-family: 'Raleway', Arial, sans-serif;
-}
-
-.profile-loading {
-    text-align: center;
+.edit-payment-btn {
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 12px;
     color: #666;
-    margin-top: 50px;
-    font-family: 'Raleway', Arial, sans-serif;
+    cursor: pointer;
 }
 
-/* Estilos para la navbar inferior */
-.bottom-navbar {
+.edit-payment-btn:hover {
+    border-color: #999;
+    color: #333;
+}
+
+/* Modal styles */
+.card-modal-overlay {
     position: fixed;
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 100;
-    background: #F6F5F0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 62px;
-    padding: 0 12px;
-}
-
-.bottom-navbar .nav-icon {
-    background: none;
-    border: none;
-    cursor: pointer;
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
-    text-decoration: none;
+    z-index: 1000;
 }
 
-.bottom-navbar .nav-icon img {
-    width: 28px;
-    height: 28px;
-    object-fit: contain;
-    display: block;
+.card-modal {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 320px;
+    width: 90%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
-.avatar-button {
-    background: none;
+.card-modal h3 {
+    margin: 0 0 16px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.card-modal-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.card-modal-input:focus {
+    outline: none;
+    border-color: #3a5a40;
+}
+
+.card-modal-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.card-modal-save,
+.card-modal-cancel {
+    flex: 1;
+    padding: 12px;
     border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
 }
 
-/* Responsive */
-@media (max-width: 480px) {
-    .profile-header {
-        padding: 15px 20px 10px;
-    }
-
-    .profile-back-btn {
-        left: 15px;
-    }
-
-    .profile-settings-btn {
-        right: 15px;
-    }
-
-    .profile-tabs {
-        padding: 0 20px;
-    }
-
-    .profile-content {
-        padding: 0 20px;
-    }
-
-    .account-section {
-        margin: 0 10px;
-        padding: 20px;
-    }
+.card-modal-save {
+    background: #3a5a40;
+    color: white;
 }
 
-@media (min-width: 700px) {
-    .bottom-navbar {
-        max-width: 420px;
-        left: 50%;
-        transform: translateX(-50%);
-    }
+.card-modal-cancel {
+    background: #f0f0f0;
+    color: #666;
 }
+
+/* ...existing code... */
