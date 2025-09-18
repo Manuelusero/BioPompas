@@ -150,15 +150,18 @@
     font-family: 'Raleway', Arial, sans-serif;
     font-size: 16px;
     font-weight: 600;
-    color: #333;
+    color: #3a5a40;
     margin: 0 0 15px 0;
+    text-align: center;
 }
 
-.account-section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
+.profile-info {
+    margin-bottom: 35px;
+    /* Aumentar espacio entre secciones */
+}
+
+.profile-info:last-child {
+    margin-bottom: 0;
 }
 
 .edit-btn {
@@ -379,4 +382,27 @@
     color: #666;
 }
 
-/* ...existing code... */
+.profile-logout-btn {
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto 0 auto;
+    /* Centrar y agregar margen superior */
+    padding: 15px;
+    background: #3a5a40;
+    /* Cambiar a verde consistente */
+    color: white;
+    border: none;
+    border-radius: 12px;
+    /* Border radius como en la imagen */
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    font-family: 'Raleway', Arial, sans-serif;
+    display: block;
+}
+
+.profile-logout-btn:hover {
+    background: #2c4532;
+    /* Verde más oscuro en hover */
+}

@@ -216,118 +216,121 @@ const Profile = () => {
         )}
 
         {activeTab === 'account' && (
-          <div className="account-section">
-            {/* Información personal */}
-            <div className="profile-info">
-              <h3 className="account-section-title">Personal Information</h3>
-              <div className="profile-field">
-                <strong>Name:</strong>
-                <span>{user.name}</span>
-              </div>
-              
-              <div className="profile-field">
-                <strong>Email:</strong>
-                <span>{user.email}</span>
-              </div>
-            </div>
-
-            {/* Dirección de entrega */}
-            <div className="profile-info">
-              <div className="account-section-header">
-                <h3 className="account-section-title">Delivery Address</h3>
-                <button 
-                  className="edit-btn" 
-                  onClick={() => setEditingAddress(true)}
-                >
-                  Edit
-                </button>
-              </div>
-              
-              {editingAddress ? (
-                <div className="edit-form">
-                  <input
-                    type="text"
-                    placeholder="Full Name"
-                    value={tempAddress.name}
-                    onChange={(e) => setTempAddress({...tempAddress, name: e.target.value})}
-                    className="form-input"
-                  />
-                  <input
-                    type="text"
-                    placeholder="Street Address"
-                    value={tempAddress.street}
-                    onChange={(e) => setTempAddress({...tempAddress, street: e.target.value})}
-                    className="form-input"
-                  />
-                  <input
-                    type="text"
-                    placeholder="Postal Code"
-                    value={tempAddress.zip}
-                    onChange={(e) => setTempAddress({...tempAddress, zip: e.target.value})}
-                    className="form-input"
-                  />
-                  <div className="form-buttons">
-                    <button onClick={handleSaveAddress} className="save-btn">Save</button>
-                    <button onClick={handleCancelAddress} className="cancel-btn">Cancel</button>
-                  </div>
+          <>
+            <div className="account-section">
+              {/* Información personal */}
+              <div className="profile-info">
+                <h3 className="account-section-title">Personal Information</h3>
+                <div className="profile-field">
+                  <strong>Name:</strong>
+                  <span>{user.name}</span>
                 </div>
-              ) : (
-                <div className="address-display">
-                  {savedAddress.name || savedAddress.street ? (
-                    <>
-                      <div className="address-line">{savedAddress.name}</div>
-                      <div className="address-line">{savedAddress.street}</div>
-                      <div className="address-line">{savedAddress.zip}</div>
-                    </>
-                  ) : (
-                    <div className="no-data">No address saved</div>
-                  )}
+                
+                <div className="profile-field">
+                  <strong>Email:</strong>
+                  <span>{user.email}</span>
                 </div>
-              )}
-            </div>
-
-            {/* Métodos de pago */}
-            <div className="profile-info">
-              <div className="account-section-header">
-                <h3 className="account-section-title">Payment Methods</h3>
-                <button 
-                  className="edit-btn" 
-                  onClick={() => setEditingPayment(!editingPayment)}
-                >
-                  {editingPayment ? 'Done' : 'Edit'}
-                </button>
               </div>
-              
-              <div className="payment-methods-list">
-                {savedPaymentMethods.map((pm, index) => (
-                  <div 
-                    key={`${pm.type}-${index}`} 
-                    className={`payment-method-item ${pm.selected ? 'selected' : ''}`}
-                    onClick={() => !editingPayment && handleSelectPaymentMethod(pm.type)}
+
+              {/* Dirección de entrega */}
+              <div className="profile-info">
+                <div className="account-section-header">
+                  <h3 className="account-section-title">Delivery Address</h3>
+                  <button 
+                    className="edit-btn" 
+                    onClick={() => setEditingAddress(true)}
                   >
-                    <img src={pm.icon} alt={pm.type} className="payment-icon" />
-                    <span className="payment-label">{pm.label}</span>
-                    {pm.selected && !editingPayment && <span className="check-mark">✓</span>}
-                    {editingPayment && (
-                      <button 
-                        className="edit-payment-btn"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleEditCard(index);
-                        }}
-                      >
-                        Edit
-                      </button>
+                    Edit
+                  </button>
+                </div>
+                
+                {editingAddress ? (
+                  <div className="edit-form">
+                    <input
+                      type="text"
+                      placeholder="Full Name"
+                      value={tempAddress.name}
+                      onChange={(e) => setTempAddress({...tempAddress, name: e.target.value})}
+                      className="form-input"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Street Address"
+                      value={tempAddress.street}
+                      onChange={(e) => setTempAddress({...tempAddress, street: e.target.value})}
+                      className="form-input"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Postal Code"
+                      value={tempAddress.zip}
+                      onChange={(e) => setTempAddress({...tempAddress, zip: e.target.value})}
+                      className="form-input"
+                    />
+                    <div className="form-buttons">
+                      <button onClick={handleSaveAddress} className="save-btn">Save</button>
+                      <button onClick={handleCancelAddress} className="cancel-btn">Cancel</button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="address-display">
+                    {savedAddress.name || savedAddress.street ? (
+                      <>
+                        <div className="address-line">{savedAddress.name}</div>
+                        <div className="address-line">{savedAddress.street}</div>
+                        <div className="address-line">{savedAddress.zip}</div>
+                      </>
+                    ) : (
+                      <div className="no-data">No address saved</div>
                     )}
                   </div>
-                ))}
+                )}
+              </div>
+
+              {/* Métodos de pago */}
+              <div className="profile-info">
+                <div className="account-section-header">
+                  <h3 className="account-section-title">Payment Methods</h3>
+                  <button 
+                    className="edit-btn" 
+                    onClick={() => setEditingPayment(!editingPayment)}
+                  >
+                    {editingPayment ? 'Done' : 'Edit'}
+                  </button>
+                </div>
+                
+                <div className="payment-methods-list">
+                  {savedPaymentMethods.map((pm, index) => (
+                    <div 
+                      key={`${pm.type}-${index}`} 
+                      className={`payment-method-item ${pm.selected ? 'selected' : ''}`}
+                      onClick={() => !editingPayment && handleSelectPaymentMethod(pm.type)}
+                    >
+                      <img src={pm.icon} alt={pm.type} className="payment-icon" />
+                      <span className="payment-label">{pm.label}</span>
+                      {pm.selected && !editingPayment && <span className="check-mark">✓</span>}
+                      {editingPayment && (
+                        <button 
+                          className="edit-payment-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleEditCard(index);
+                          }}
+                        >
+                          Edit
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
             
+            {/* Botón de cerrar sesión fuera del contenedor blanco */}
             <button onClick={handleLogout} className="profile-logout-btn">
               Cerrar Sesión
             </button>
-          </div>
+          </>
         )}
       </div>
 
