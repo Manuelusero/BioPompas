@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import GoogleAuthProviderWrapper from '../GoogleAuthProviderWrapper';
 import { useAuth } from '../hooks/useAuth';
@@ -13,6 +13,7 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const location = useLocation();
     const { login } = useAuth();
     const { syncCartWithBackend, cartItems } = useCart();
 
@@ -36,11 +37,18 @@ const Login = () => {
                 // No fallar el login si hay error en carrito
             }
             
-            // Redirigir según el estado del carrito
-            if (cartItems.length > 0) {
-                navigate('/bag'); // Si hay productos, redirigir al carrito
+            // Determinar redirección según el contexto
+            const from = location.state?.from;
+            
+            if (from === 'profile') {
+                // Si vino desde el profile, regresar al profile
+                navigate('/profile');
+            } else if (from === 'payment' || cartItems.length > 0) {
+                // Si vino desde payment o hay productos en el carrito, ir al carrito
+                navigate('/bag');
             } else {
-                navigate('/profile'); // Si no hay productos, redirigir al perfil
+                // Caso por defecto: ir al profile si no hay productos
+                navigate('/profile');
             }
         } catch {
             setError('Error al iniciar sesión');

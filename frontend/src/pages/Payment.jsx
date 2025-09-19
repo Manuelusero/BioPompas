@@ -8,12 +8,15 @@ const Payment = () => {
   const { cartItems, clearCart, forceCartReset } = useCart();
   const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
   
-  // Dirección vacía por defecto
-  const [address, setAddress] = useState({
-    name: '',
-    street: '',
-    zip: '',
-    mapImg: ''
+  // Cargar dirección guardada desde localStorage
+  const [address, setAddress] = useState(() => {
+    const savedAddress = JSON.parse(localStorage.getItem('savedAddress')) || {};
+    return {
+      name: savedAddress.name || '',
+      street: savedAddress.street || '',
+      zip: savedAddress.zip || '',
+      mapImg: ''
+    };
   });
   const [editingAddress, setEditingAddress] = useState(false);
   const [newStreet, setNewStreet] = useState(address.street);
@@ -183,6 +186,7 @@ const Payment = () => {
     // Verificar login antes de pagar
     if (!isLoggedIn) {
       alert('Debes iniciar sesión para poder completar el pedido.');
+      navigate('/login', { state: { from: 'payment' } });
       return;
     }
 

@@ -70,7 +70,7 @@ const Profile = () => {
       navigate('/profile');
     } else {
       alert('Debes iniciar sesión para acceder a tu perfil.');
-      navigate('/login');
+      navigate('/login', { state: { from: 'profile' } });
     }
   };
 

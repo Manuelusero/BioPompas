@@ -61,6 +61,37 @@ const Bag = () => {
 
   const isLoading = loading || localLoading;
 
+  // Si el carrito está vacío, mostrar el estado vacío
+  if (cartItems.length === 0) {
+    return (
+      <div className="bag-empty-container">
+        <div className="bag-header">
+          <button className="bag-back-btn" onClick={() => navigate('/home')}>
+            <img src="/CloseIcon.png" alt="Close" />
+          </button>
+          <h1 className="bag-title">MY BAG</h1>
+        </div>
+
+        <div className="bag-empty-content">
+          <div className="bag-empty-icon">
+            <img src="/BagEmpty.png" alt="Empty bag" className="empty-bag-image" />
+          </div>
+          
+          <h2 className="bag-empty-title">Nothing here yet!</h2>
+          <p className="bag-empty-text">Looks like your bag is empty.</p>
+          
+          <button 
+            className="bag-go-shopping-btn"
+            onClick={() => navigate('/home')}
+          >
+            Go shopping
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Si hay productos en el carrito, mostrar el carrito normal
   return (
     <div className="bag-page">
       <div className="bag-header-row">
