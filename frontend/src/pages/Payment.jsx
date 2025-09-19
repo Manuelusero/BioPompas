@@ -32,6 +32,8 @@ const Payment = () => {
   ]);
   const inputRef = useRef(null);
   const [saveAddress, setSaveAddress] = useState(false);
+  // Agregar estado de procesando pago
+  const [processingPayment, setProcessingPayment] = useState(false);
 
   // Cargar Google Maps API dinámicamente
   useEffect(() => {
@@ -172,14 +174,14 @@ const Payment = () => {
   const handlePayment = async () => {
     // Verificar que hay productos en el carrito usando CartContext
     if (!cartItems || cartItems.length === 0) {
-      navigate('/profile'); // Redirigir directamente a la página de perfil
+      navigate('/profile');
       return;
     }
 
     // Verificar que los productos tienen cantidad
     const validItems = cartItems.filter(item => item._id && (item.count > 0 || item.quantity > 0));
     if (validItems.length === 0) {
-      navigate('/profile'); // Redirigir directamente a la página de perfil
+      navigate('/profile');
       return;
     }
 
@@ -195,8 +197,8 @@ const Payment = () => {
       return;
     }
 
-    // Mostrar mensaje de procesamiento
-    alert('Procesando pago... Serás redirigido en un momento.');
+    // Iniciar estado de procesamiento
+    setProcessingPayment(true);
 
     try {
       // Limpiar carrito usando CartContext de forma completa
@@ -207,17 +209,22 @@ const Payment = () => {
       
       console.log('✅ Carrito limpiado completamente después del pago');
       
-      setTimeout(() => {
-        navigate('/order-complete');
-      }, 1000);
+      // Simular tiempo de procesamiento de pago (opcional)
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      // Navegar a order complete
+      navigate('/order-complete');
     } catch (error) {
       console.error('Error clearing cart:', error);
       // Fallback: usar forceCartReset para limpiar todo
       forceCartReset();
       
-      setTimeout(() => {
-        navigate('/order-complete');
-      }, 1000);
+      // Simular tiempo de procesamiento incluso si hay error
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      navigate('/order-complete');
+    } finally {
+      setProcessingPayment(false);
     }
   };
 
@@ -236,7 +243,18 @@ const Payment = () => {
 
   return (
     <div className="payment-container">
-      <button className="payment-back-btn" onClick={() => navigate('/bag')}>
+      {/* Overlay de carga durante el procesamiento */}
+      {processingPayment && (
+        <div className="payment-processing-overlay">
+          <div className="payment-processing-content">
+            <div className="payment-spinner"></div>
+            <h3>Processing payment...</h3>
+            <p>Please wait while we process your order</p>
+          </div>
+        </div>
+      )}
+      
+      <button className="payment-back-btn" onClick={() => navigate('/bag')} disabled={processingPayment}>
         <img src="/ArrowLeftIcon.png" alt="Back" />
       </button>
       <h1 className="payment-title">PAYMENT</h1>
@@ -335,7 +353,13 @@ const Payment = () => {
         <span className="payment-total-label">TOTAL</span>
         <span className="payment-total-value">€ {cartTotal.toFixed(2)}</span>
       </div>
-      <button className="payment-btn" onClick={handlePayment}>Payment</button>
+      <button 
+        className="payment-btn" 
+        onClick={handlePayment}
+        disabled={processingPayment}
+      >
+        {processingPayment ? 'Processing...' : 'Payment'}
+      </button>
       
       {/* Modal para editar tarjeta */}
       {showCardModal && (

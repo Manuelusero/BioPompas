@@ -2,7 +2,6 @@
 .order-complete-container {
     background: #f6f7ef;
     min-height: 100vh;
-    max-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,48 +15,54 @@
     right: 0;
     bottom: 0;
     width: 100%;
-    padding: 20px;
+    padding: 40px 20px;
+    /* Más padding para centrar mejor */
 }
 
 .order-complete-title {
     color: #2C3E29;
-    /* var(--Primary-text, #2C3E29) */
     text-align: center;
     font-family: "Explore Magic", 'Raleway', sans-serif;
-    font-size: 60px;
-    /* Como especifica Figma */
+    font-size: 42px;
+    /* Tamaño intermedio para móvil */
     font-style: normal;
     font-weight: 400;
-    line-height: normal;
-    margin-bottom: 8px;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    /* Más espacio */
     margin-top: 0;
     letter-spacing: 0.5px;
-    max-width: 320px;
-    /* Ajustar para que el texto se vea bien */
+    max-width: 300px;
 }
 
 .order-complete-desc {
     color: #2C3E29;
-    font-size: 14px;
+    font-size: 16px;
+    /* Más grande para mejor legibilidad */
     text-align: center;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
+    /* Más espacio */
     font-weight: 400;
     max-width: 280px;
-    line-height: 1.3;
+    line-height: 1.4;
     font-family: 'Raleway', sans-serif;
 }
 
 .order-complete-btn {
     background: #5c7347;
     color: #fff;
-    font-size: 14px;
+    font-size: 16px;
+    /* Más grande */
     font-weight: 500;
     border: none;
-    border-radius: 20px;
-    padding: 12px 0;
-    width: 180px;
-    max-width: 220px;
-    margin-top: 16px;
+    border-radius: 25px;
+    /* Más redondeado */
+    padding: 16px 40px;
+    /* Más padding */
+    width: auto;
+    /* Ancho automático */
+    min-width: 200px;
+    margin-top: 24px;
     cursor: pointer;
     transition: background 0.2s ease;
     font-family: 'Raleway', sans-serif;
@@ -69,80 +74,136 @@
 
 .order-complete-leaves {
     position: absolute;
-    top: 60px;
-    right: 20px;
-    width: 50px;
-    opacity: 0.8;
+    top: 15%;
+    /* Posición relativa en porcentaje */
+    right: 8%;
+    /* Posición relativa */
+    width: 70px;
+    /* Más grande para que se vea bien */
+    opacity: 0.7;
+    z-index: 1;
 }
 
 .order-complete-sun {
     position: absolute;
-    bottom: 60px;
-    left: 20px;
-    width: 40px;
-    height: 40px;
+    bottom: 15%;
+    /* Posición relativa en porcentaje */
+    left: 8%;
+    /* Posición relativa */
+    width: 70px;
+    /* Más grande */
+    height: 70px;
     opacity: 0.8;
+    z-index: 1;
 }
 
-/* Responsive para pantallas muy pequeñas */
-@media (max-width: 360px) {
+/* Responsive para pantallas pequeñas */
+@media (max-width: 480px) {
+    .order-complete-container {
+        padding: 30px 15px;
+    }
+
     .order-complete-title {
         font-size: 36px;
-        /* Reducir en pantallas muy pequeñas */
+        /* Mantener buen tamaño */
         max-width: 280px;
+        margin-bottom: 12px;
     }
 
     .order-complete-desc {
-        font-size: 12px;
-        max-width: 240px;
-        margin-bottom: 20px;
+        font-size: 15px;
+        max-width: 260px;
+        margin-bottom: 28px;
     }
 
     .order-complete-btn {
-        width: 160px;
-        padding: 10px 0;
-        font-size: 13px;
-        margin-top: 14px;
+        font-size: 15px;
+        padding: 14px 36px;
+        min-width: 180px;
+        margin-top: 20px;
     }
 
     .order-complete-leaves {
-        width: 40px;
-        top: 40px;
-        right: 15px;
+        width: 55px;
+        top: 12%;
+        right: 6%;
     }
 
     .order-complete-sun {
-        width: 32px;
-        height: 32px;
-        bottom: 40px;
-        left: 15px;
+        width: 55px;
+        height: 55px;
+        bottom: 12%;
+        left: 6%;
     }
 }
 
-/* Para pantallas medianas */
-@media (min-width: 400px) and (max-width: 600px) {
+/* Para iPhone específicamente */
+@media (max-width: 390px) {
     .order-complete-title {
-        font-size: 48px;
-        /* Tamaño intermedio */
-        max-width: 300px;
+        font-size: 32px;
+        max-width: 260px;
+    }
+
+    .order-complete-desc {
+        font-size: 14px;
+        max-width: 240px;
+    }
+
+    .order-complete-btn {
+        font-size: 14px;
+        padding: 12px 32px;
+        min-width: 160px;
+    }
+
+    .order-complete-leaves {
+        width: 50px;
+        top: 10%;
+        right: 5%;
+    }
+
+    .order-complete-sun {
+        width: 50px;
+        height: 50px;
+        bottom: 10%;
+        left: 5%;
+    }
+}
+
+/* Para pantallas muy pequeñas */
+@media (max-width: 360px) {
+    .order-complete-container {
+        padding: 25px 10px;
+    }
+
+    .order-complete-title {
+        font-size: 28px;
+        max-width: 240px;
+        margin-bottom: 10px;
     }
 
     .order-complete-desc {
         font-size: 13px;
-        max-width: 260px;
+        max-width: 220px;
+        margin-bottom: 24px;
     }
 
     .order-complete-btn {
-        width: 170px;
-        font-size: 14px;
+        font-size: 13px;
+        padding: 10px 28px;
+        min-width: 150px;
+        margin-top: 18px;
     }
 
     .order-complete-leaves {
         width: 45px;
+        top: 8%;
+        right: 4%;
     }
 
     .order-complete-sun {
-        width: 36px;
-        height: 36px;
+        width: 45px;
+        height: 45px;
+        bottom: 8%;
+        left: 4%;
     }
 }
