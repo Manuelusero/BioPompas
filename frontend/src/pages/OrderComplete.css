@@ -16,25 +16,35 @@
     right: 0;
     bottom: 0;
     width: 100%;
+    padding: 20px;
+    /* Agregar padding para pantallas pequeñas */
 }
 
 .order-complete-title {
     color: #3a5a40;
-    font-size: 60px;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 18px;
-    margin-top: 80px;
-    letter-spacing: 2px;
+    font-size: 32px;
+    /* Reducir de 60px a 32px */
     font-weight: 400;
+    text-align: center;
+    margin-bottom: 12px;
+    /* Reducir margen */
+    margin-top: 40px;
+    /* Reducir margen superior */
+    letter-spacing: 1px;
+    /* Reducir letter-spacing */
+    line-height: 1.2;
+    /* Mejorar line-height */
 }
 
 .order-complete-desc {
     color: #3a5a40;
     font-size: 14px;
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 20px;
+    /* Reducir margen */
     font-weight: 400;
+    max-width: 280px;
+    /* Limitar ancho máximo */
 }
 
 .order-complete-btn {
@@ -44,26 +54,95 @@
     font-weight: 500;
     border: none;
     border-radius: 24px;
-    padding: 16px 0;
-    width: 200px;
-    max-width: 320px;
-    margin-bottom: 32px;
+    padding: 12px 0;
+    /* Reducir padding vertical */
+    width: 180px;
+    /* Reducir ancho */
+    max-width: 280px;
+    margin-top: 30px;
+    /* Reducir margen superior */
     cursor: pointer;
-    margin-top: 72px;
+    transition: background 0.2s ease;
+}
 
+.order-complete-btn:hover {
+    background: #4a5f3a;
 }
 
 .order-complete-leaves {
     position: absolute;
-    top: 80px;
-    right: 0px;
-    width: 102.841px;
+    top: 40px;
+    /* Reducir posición superior */
+    right: 10px;
+    /* Ajustar posición derecha */
+    width: 60px;
+    /* Reducir tamaño */
+    opacity: 0.7;
+    /* Hacer más sutil */
 }
 
 .order-complete-sun {
     position: absolute;
-    bottom: 32px;
-    width: 80px;
-    height: 83px;
-    margin-right: 376px;
+    bottom: 20px;
+    /* Reducir margen inferior */
+    left: 20px;
+    /* Cambiar a left para mejor posicionamiento */
+    width: 50px;
+    /* Reducir tamaño */
+    height: 50px;
+    /* Reducir tamaño */
+    opacity: 0.7;
+    /* Hacer más sutil */
+}
+
+/* Responsive para pantallas muy pequeñas */
+@media (max-width: 360px) {
+    .order-complete-title {
+        font-size: 28px;
+        margin-top: 20px;
+    }
+
+    .order-complete-desc {
+        font-size: 13px;
+        max-width: 250px;
+    }
+
+    .order-complete-btn {
+        width: 160px;
+        padding: 10px 0;
+        font-size: 13px;
+    }
+
+    .order-complete-leaves {
+        width: 50px;
+        top: 30px;
+        right: 5px;
+    }
+
+    .order-complete-sun {
+        width: 40px;
+        height: 40px;
+        bottom: 15px;
+        left: 15px;
+    }
+}
+
+/* Para pantallas medianas */
+@media (min-width: 400px) and (max-width: 600px) {
+    .order-complete-title {
+        font-size: 36px;
+    }
+
+    .order-complete-btn {
+        width: 200px;
+    }
+
+    .order-complete-leaves {
+        width: 70px;
+    }
+
+    .order-complete-sun {
+        width: 60px;
+        height: 60px;
+    }
 }
