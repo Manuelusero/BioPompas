@@ -34,6 +34,9 @@ const Profile = () => {
   const [newCardNumber, setNewCardNumber] = useState('');
 
   useEffect(() => {
+    // Scroll hacia arriba cuando se monta el componente
+    window.scrollTo(0, 0);
+    
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem('token');

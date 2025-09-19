@@ -3,7 +3,10 @@
     background: #f5f5f5;
     font-family: 'Raleway', 'Explore Magic', Arial, sans-serif;
     padding-bottom: 80px;
-    /* Espacio para la navbar */
+    position: relative;
+    overflow-x: hidden;
+    padding-top: 0;
+    /* Asegurar que no hay padding superior */
 }
 
 .profile-header {
@@ -13,8 +16,12 @@
     padding: 20px 24px 10px;
     background: #f5f5f5;
     position: relative;
-    margin-top: 35px;
-    /* Agregar margen de 35px hacia arriba */
+    margin-top: 20px;
+    /* Reducir margen superior para que aparezca más arriba */
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    /* Asegurar que esté encima */
 }
 
 .profile-back-btn {
@@ -69,8 +76,8 @@
     background: #f5f5f5;
     padding: 0 24px;
     margin-bottom: 40px;
-    margin-top: 57px;
-    /* Agregar margen de 57px desde el título */
+    margin-top: 40px;
+    /* Reducir de 57px a 40px para que esté más cerca del header */
 }
 
 .profile-tab {
@@ -411,4 +418,58 @@
 .profile-logout-btn:hover {
     background: #2c4532;
     /* Verde más oscuro en hover */
+}
+
+/* Responsive para mantener el contenido visible desde arriba */
+@media (max-width: 480px) {
+    .profile-container {
+        padding-top: 0;
+    }
+
+    .profile-header {
+        padding: 15px 20px 10px;
+        margin-top: 10px;
+        /* Reducir aún más en móvil */
+    }
+
+    .profile-tabs {
+        margin-top: 30px;
+        /* Reducir en móvil */
+    }
+
+    .profile-tab {
+        margin-right: 20px;
+    }
+}
+
+@media (min-width: 768px) {
+    .profile-container {
+        padding-top: 0;
+    }
+
+    .profile-header {
+        margin-top: 15px;
+        /* Reducir margen */
+    }
+
+    .profile-tabs {
+        margin-top: 35px;
+        /* Ajustar proporcionalmente */
+    }
+}
+
+@media (min-width: 1024px) {
+    .profile-container {
+        padding-top: 0;
+    }
+
+    .profile-header {
+        margin-top: 10px;
+        /* Margen mínimo en desktop */
+    }
+
+    .profile-tabs {
+        margin-top: 30px;
+        /* Ajustar proporcionalmente */
+    }
 }
