@@ -114,6 +114,15 @@
     display: block;
     cursor: grab;
     opacity: 0.95;
+    padding: 10px 0;
+    /* Área más grande para tocar */
+    touch-action: pan-y;
+    /* Permitir drag vertical */
+}
+
+.bottom-sheet-handle:active,
+.bottom-sheet-handle-expanded:active {
+    cursor: grabbing;
 }
 
 /* Opcional: haz que toda la franja superior sea draggable */
@@ -158,6 +167,8 @@
     display: flex;
     align-items: flex-end;
     justify-content: center;
+    touch-action: none;
+    /* Prevenir scroll del fondo */
 }
 
 .bottom-sheet {
@@ -170,6 +181,10 @@
     animation: slideUp 0.3s ease-out;
     position: relative;
     overflow: hidden;
+    min-height: 400px;
+    /* Altura mínima para asegurar visibilidad */
+    max-height: 90vh;
+    /* Máximo 90% de la pantalla */
 }
 
 .bottom-sheet.expanded {
@@ -342,7 +357,8 @@
     background: #F6F5F0;
     margin-bottom: 0;
     margin-top: 0;
-    padding: 1px 0 0 0;
+    padding: 15px 0 10px 0;
+    /* Más padding */
     z-index: 2;
 }
 
@@ -431,17 +447,21 @@
 .bottom-sheet-add-row {
     width: 100%;
     margin-top: 18px;
-    margin-bottom: 8px;
+    margin-bottom: 15px;
+    /* Más espacio para el botón de continuar */
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0 20px;
+    /* Padding lateral */
 }
 
 .bottom-sheet-add-row.compact {
     background: #F6F5F0;
     margin-top: 0;
-    margin-bottom: 25px;
-    padding: 0;
+    margin-bottom: 20px;
+    /* Más espacio */
+    padding: 0 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -496,23 +516,37 @@
 
 .bottom-sheet-close {
     width: 100%;
-    background: transparent;
+    background: #f0f0f0;
+    /* Fondo más visible */
     color: #3a5a40;
     font-family: 'Raleway', 'Explore Magic', sans-serif;
-    font-size: 10px;
+    font-size: 14px;
+    /* Texto más grande */
     font-weight: 600;
-    border: none;
-    border-radius: 18px;
-    padding: 10px 0;
-    margin-bottom: 4px;
+    border: 2px solid #e0e0e0;
+    /* Borde para más visibilidad */
+    border-radius: 25px;
+    /* Más redondeado */
+    padding: 12px 0;
+    /* Más padding */
+    margin-bottom: 8px;
+    margin-top: 15px;
+    /* Menos margen superior */
     cursor: pointer;
-    text-decoration: underline;
-    transition: color 0.2s;
-    margin-top: 35px;
+    text-decoration: none;
+    /* Quitar underline */
+    transition: all 0.2s;
+    min-height: 44px;
+    /* Altura mínima para fácil toque */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .bottom-sheet-close:hover {
-    color: #588157;
+    background: #e8e8e8;
+    border-color: #d0d0d0;
+    color: #2c4532;
 }
 
 /* Header del estado expandido con flecha atrás y carrito - superpuesto EN la imagen */
@@ -612,7 +646,8 @@
 /* Franja superior draggable */
 .bottom-sheet-draggable-bar {
     width: 100%;
-    min-height: 36px;
+    min-height: 40px;
+    /* Aumentar altura para más área de drag */
     background: #eaf3e2;
     border-radius: 12px 12px 0 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
@@ -621,19 +656,14 @@
     justify-content: center;
     cursor: grab;
     position: relative;
+    touch-action: pan-y;
+    /* Permitir drag vertical */
+    padding: 15px 0;
+    /* Más área táctil */
 }
 
-/* Barrita verde centrada dentro de la franja */
-.bottom-sheet-draggable-bar .bottom-sheet-handle {
-    height: 8px;
-    width: 50%;
-    min-width: 60px;
-    max-width: 120px;
-    background: #5C7347;
-    border-radius: 4px;
-    margin: 0 auto;
-    display: block;
-    opacity: 0.95;
+.bottom-sheet-draggable-bar:active {
+    cursor: grabbing;
 }
 
 /* Para Explore Magic */

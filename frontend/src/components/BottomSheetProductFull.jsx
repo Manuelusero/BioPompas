@@ -22,17 +22,24 @@ const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, cou
     return products.find(p => p.id === productId || p._id === productId) || null;
   }, [productId, products]);
 
-  // Drag/Touch logic SOLO en el handle
+  // Drag/Touch logic mejorado - hacer toda la barra superior draggable
   const handleDragStart = (e) => {
-    // Solo si el target es el handle (compacto o expandido)
-    if (!e.target.classList.contains('bottom-sheet-handle') && 
-        !e.target.classList.contains('bottom-sheet-handle-expanded')) return;
+    // Expandir área draggable para incluir toda la barra superior y el handle
+    const target = e.target;
+    const isHandle = target.classList.contains('bottom-sheet-handle') || 
+                    target.classList.contains('bottom-sheet-handle-expanded') ||
+                    target.classList.contains('bottom-sheet-draggable-bar');
+    
+    if (!isHandle) return;
+    
     dragging.current = true;
-    if (e.touches) {
-      startY.current = e.touches[0].clientY;
-    } else {
-      startY.current = e.clientY;
-    }
+    startY.current = e.touches ? e.touches[0].clientY : e.clientY;
+    currentY.current = startY.current;
+    
+    // Prevenir comportamientos por defecto
+    e.preventDefault();
+    e.stopPropagation();
+    
     document.addEventListener('touchmove', handleDragMove, { passive: false });
     document.addEventListener('touchend', handleDragEnd);
     document.addEventListener('mousemove', handleDragMove);
@@ -41,42 +48,56 @@ const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, cou
 
   const handleDragMove = (e) => {
     if (!dragging.current) return;
-    if (e.touches) {
-      currentY.current = e.touches[0].clientY;
-    } else {
-      currentY.current = e.clientY;
-    }
+    
+    e.preventDefault(); // Prevenir scroll
+    
+    currentY.current = e.touches ? e.touches[0].clientY : e.clientY;
     const diff = currentY.current - startY.current;
+    
     if (sheetRef.current) {
-      sheetRef.current.style.transform = `translateY(${Math.max(diff, 0)}px)`;
+      // Solo permitir arrastrar hacia abajo
+      const translateY = Math.max(diff, 0);
+      sheetRef.current.style.transform = `translateY(${translateY}px)`;
+      sheetRef.current.style.transition = 'none';
     }
   };
 
-  const handleDragEnd = (e) => {
+  const handleDragEnd = () => {
     if (!dragging.current) return;
+    
     dragging.current = false;
-    if (e && e.touches && e.touches.length > 0) {
-      currentY.current = e.touches[0].clientY;
-    } else if (e && typeof e.clientY === 'number') {
-      currentY.current = e.clientY;
-    }
     const diff = currentY.current - startY.current;
-    if (diff > 120) {
-      // Si baja mucho, cerrar el bottom sheet
-      if (typeof onClose === 'function') onClose();
-      setExpanded(false);
-    } else if (diff > 60) {
-      setExpanded(false); // Compacto
-    } else if (diff < -60) {
-      setExpanded(true); // Expandido
-    }
+    
     if (sheetRef.current) {
+      sheetRef.current.style.transition = 'transform 0.3s ease-out';
       sheetRef.current.style.transform = '';
     }
+    
+    // Umbrales de drag mejorados
+    if (diff > 100) {
+      // Cerrar si arrastra más de 100px hacia abajo
+      onClose();
+      setExpanded(false);
+    } else if (diff > 50 && expanded) {
+      // Si está expandido y arrastra más de 50px, volver a compacto
+      setExpanded(false);
+    } else if (diff < -50 && !expanded) {
+      // Si está compacto y arrastra hacia arriba más de 50px, expandir
+      setExpanded(true);
+    }
+    
+    // Limpiar event listeners
     document.removeEventListener('touchmove', handleDragMove);
     document.removeEventListener('touchend', handleDragEnd);
     document.removeEventListener('mousemove', handleDragMove);
     document.removeEventListener('mouseup', handleDragEnd);
+  };
+
+  // Cerrar al hacer clic en el overlay
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
   };
 
   // Bloquear scroll del body cuando el Bottom Sheet está abierto
@@ -94,18 +115,23 @@ const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, cou
   if (!open || !product) return null;
 
   return (
-    <div className="bottom-sheet-overlay">
+    <div className="bottom-sheet-overlay" onClick={handleOverlayClick}>
       <div
         className={`bottom-sheet${expanded ? ' expanded' : ''}`}
         ref={sheetRef}
-        onMouseDown={handleDragStart}
-        onTouchStart={handleDragStart}
-        onClick={e => e.stopPropagation()}
       >
         {expanded ? (
           <>
             <div className="bottom-sheet-expanded-content">
-              <div className="bottom-sheet-handle-expanded" />
+              {/* Barra draggable para estado expandido */}
+              <div 
+                className="bottom-sheet-draggable-bar"
+                onMouseDown={handleDragStart}
+                onTouchStart={handleDragStart}
+              >
+                <div className="bottom-sheet-handle-expanded" />
+              </div>
+              
               <div className="bottom-sheet-img-container full expanded-img">
                 <img 
                   src={getImageUrl(product.image)} 
@@ -142,11 +168,23 @@ const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, cou
                   <span className="bottom-sheet-add-text">Add to bag</span>
                 </button>
               </div>
-              <button className="bottom-sheet-close" onClick={onClose}>Continue shopping</button>
+              {/* Botón Continue shopping siempre visible */}
+              <button className="bottom-sheet-close" onClick={onClose}>
+                Continue shopping
+              </button>
             </div>
           </>
         ) : (
           <>
+            {/* Barra draggable para estado compacto */}
+            <div 
+              className="bottom-sheet-draggable-bar"
+              onMouseDown={handleDragStart}
+              onTouchStart={handleDragStart}
+            >
+              <div className="bottom-sheet-handle" />
+            </div>
+            
             <div className="bottom-sheet-img-container full">
               <img 
                 src={getImageUrl(product.image)} 
@@ -159,7 +197,6 @@ const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, cou
               />
             </div>
             <div className="bottom-sheet-expanded-content compact">
-              <div className="bottom-sheet-handle" />
               <div className="bottom-sheet-info compact">
                 <div className="bottom-sheet-title-price">
                   <div className="bottom-sheet-title">{product.name}</div>
@@ -179,6 +216,10 @@ const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, cou
                   <span className="bottom-sheet-add-text">Add to bag</span>
                 </button>
               </div>
+              {/* Botón Continue shopping siempre visible en modo compacto también */}
+              <button className="bottom-sheet-close" onClick={onClose}>
+                Continue shopping
+              </button>
             </div>
           </>
         )}
