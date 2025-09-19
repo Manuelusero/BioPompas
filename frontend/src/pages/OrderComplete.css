@@ -17,34 +17,34 @@
     bottom: 0;
     width: 100%;
     padding: 20px;
-    /* Agregar padding para pantallas pequeñas */
 }
 
 .order-complete-title {
-    color: #3a5a40;
-    font-size: 32px;
-    /* Reducir de 60px a 32px */
-    font-weight: 400;
+    color: #2C3E29;
+    /* var(--Primary-text, #2C3E29) */
     text-align: center;
-    margin-bottom: 12px;
-    /* Reducir margen */
-    margin-top: 40px;
-    /* Reducir margen superior */
-    letter-spacing: 1px;
-    /* Reducir letter-spacing */
-    line-height: 1.2;
-    /* Mejorar line-height */
+    font-family: "Explore Magic", 'Raleway', sans-serif;
+    font-size: 60px;
+    /* Como especifica Figma */
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 8px;
+    margin-top: 0;
+    letter-spacing: 0.5px;
+    max-width: 320px;
+    /* Ajustar para que el texto se vea bien */
 }
 
 .order-complete-desc {
-    color: #3a5a40;
+    color: #2C3E29;
     font-size: 14px;
     text-align: center;
-    margin-bottom: 20px;
-    /* Reducir margen */
+    margin-bottom: 24px;
     font-weight: 400;
     max-width: 280px;
-    /* Limitar ancho máximo */
+    line-height: 1.3;
+    font-family: 'Raleway', sans-serif;
 }
 
 .order-complete-btn {
@@ -53,16 +53,14 @@
     font-size: 14px;
     font-weight: 500;
     border: none;
-    border-radius: 24px;
+    border-radius: 20px;
     padding: 12px 0;
-    /* Reducir padding vertical */
     width: 180px;
-    /* Reducir ancho */
-    max-width: 280px;
-    margin-top: 30px;
-    /* Reducir margen superior */
+    max-width: 220px;
+    margin-top: 16px;
     cursor: pointer;
     transition: background 0.2s ease;
+    font-family: 'Raleway', sans-serif;
 }
 
 .order-complete-btn:hover {
@@ -71,58 +69,52 @@
 
 .order-complete-leaves {
     position: absolute;
-    top: 40px;
-    /* Reducir posición superior */
-    right: 10px;
-    /* Ajustar posición derecha */
-    width: 60px;
-    /* Reducir tamaño */
-    opacity: 0.7;
-    /* Hacer más sutil */
+    top: 60px;
+    right: 20px;
+    width: 50px;
+    opacity: 0.8;
 }
 
 .order-complete-sun {
     position: absolute;
-    bottom: 20px;
-    /* Reducir margen inferior */
+    bottom: 60px;
     left: 20px;
-    /* Cambiar a left para mejor posicionamiento */
-    width: 50px;
-    /* Reducir tamaño */
-    height: 50px;
-    /* Reducir tamaño */
-    opacity: 0.7;
-    /* Hacer más sutil */
+    width: 40px;
+    height: 40px;
+    opacity: 0.8;
 }
 
 /* Responsive para pantallas muy pequeñas */
 @media (max-width: 360px) {
     .order-complete-title {
-        font-size: 28px;
-        margin-top: 20px;
+        font-size: 36px;
+        /* Reducir en pantallas muy pequeñas */
+        max-width: 280px;
     }
 
     .order-complete-desc {
-        font-size: 13px;
-        max-width: 250px;
+        font-size: 12px;
+        max-width: 240px;
+        margin-bottom: 20px;
     }
 
     .order-complete-btn {
         width: 160px;
         padding: 10px 0;
         font-size: 13px;
+        margin-top: 14px;
     }
 
     .order-complete-leaves {
-        width: 50px;
-        top: 30px;
-        right: 5px;
+        width: 40px;
+        top: 40px;
+        right: 15px;
     }
 
     .order-complete-sun {
-        width: 40px;
-        height: 40px;
-        bottom: 15px;
+        width: 32px;
+        height: 32px;
+        bottom: 40px;
         left: 15px;
     }
 }
@@ -130,19 +122,27 @@
 /* Para pantallas medianas */
 @media (min-width: 400px) and (max-width: 600px) {
     .order-complete-title {
-        font-size: 36px;
+        font-size: 48px;
+        /* Tamaño intermedio */
+        max-width: 300px;
+    }
+
+    .order-complete-desc {
+        font-size: 13px;
+        max-width: 260px;
     }
 
     .order-complete-btn {
-        width: 200px;
+        width: 170px;
+        font-size: 14px;
     }
 
     .order-complete-leaves {
-        width: 70px;
+        width: 45px;
     }
 
     .order-complete-sun {
-        width: 60px;
-        height: 60px;
+        width: 36px;
+        height: 36px;
     }
 }
