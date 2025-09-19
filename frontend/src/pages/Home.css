@@ -226,18 +226,24 @@ h2 {
     transition: box-shadow 0.2s;
     cursor: pointer;
     overflow: visible;
-    aspect-ratio: 1/1.2;
     flex-shrink: 0;
+    min-height: 180px;
+    /* Agregar altura mínima para Safari */
+    height: auto;
+    /* Permitir que crezca automáticamente */
 }
 
 .top-pick-card img {
     width: 135px;
-    /* height: 130px; */
+    height: 130px;
+    /* Altura fija para la imagen */
     object-fit: cover;
     border-radius: 10px;
     background: #F6F5F0;
     display: block;
     margin-left: 0;
+    flex-shrink: 0;
+    /* Evitar que la imagen se contraiga */
 }
 
 .top-pick-info {
@@ -245,8 +251,16 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-top: 6px;
-    margin-bottom: 8px;
+    margin-top: 8px;
+    /* Aumentar margen superior */
+    margin-bottom: 12px;
+    /* Aumentar margen inferior */
+    padding: 0 4px;
+    /* Agregar padding horizontal */
+    flex-grow: 1;
+    /* Permitir que crezca */
+    min-height: 40px;
+    /* Altura mínima para el contenido de texto */
 }
 
 .top-pick-name {
@@ -255,10 +269,14 @@ h2 {
     color: #2C3E29;
     font-size: 12px;
     text-align: start;
-    margin-left: 7px;
+    margin-left: 3px;
+    margin-bottom: 4px;
+    /* Agregar margen inferior */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    line-height: 1.3;
+    /* Mejorar line-height */
 }
 
 .top-pick-price {
@@ -267,10 +285,14 @@ h2 {
     color: #3a5a40;
     font-size: 12px;
     text-align: left;
-    margin: 0 0 0 8px;
+    margin: 0 0 0 4px;
     display: flex;
     align-items: center;
     gap: 2px;
+    line-height: 1.3;
+    /* Mejorar line-height */
+    min-height: 16px;
+    /* Altura mínima para el precio */
 }
 
 /* .top-pick-card:hover {
@@ -411,17 +433,23 @@ h2 {
     transition: box-shadow 0.2s;
     cursor: pointer;
     overflow: visible;
-    aspect-ratio: 1/1.2;
     flex-shrink: 0;
+    min-height: 180px;
+    /* Agregar altura mínima */
+    height: auto;
+    /* Permitir que crezca automáticamente */
 }
 
 .gift-bundle-card img {
     width: 135px;
     height: 130px;
+    /* Altura fija para la imagen */
     object-fit: cover;
     border-radius: 10px;
     background: #F6F5F0;
     display: block;
+    flex-shrink: 0;
+    /* Evitar que la imagen se contraiga */
 }
 
 .gift-bundle-info {
@@ -429,8 +457,16 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-top: 6px;
-    margin-bottom: 8px;
+    margin-top: 8px;
+    /* Aumentar margen superior */
+    margin-bottom: 12px;
+    /* Aumentar margen inferior */
+    padding: 0 4px;
+    /* Agregar padding horizontal */
+    flex-grow: 1;
+    /* Permitir que crezca */
+    min-height: 40px;
+    /* Altura mínima para el contenido de texto */
 }
 
 .gift-bundle-name {
@@ -439,10 +475,14 @@ h2 {
     color: #2C3E29;
     font-size: 12px;
     text-align: start;
-    margin-left: 7px;
+    margin-left: 3px;
+    margin-bottom: 4px;
+    /* Agregar margen inferior */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    line-height: 1.3;
+    /* Mejorar line-height */
 }
 
 .gift-bundle-price {
@@ -451,10 +491,14 @@ h2 {
     color: #3a5a40;
     font-size: 12px;
     text-align: left;
-    margin: 0 0 0 8px;
+    margin: 0 0 0 4px;
     display: flex;
     align-items: center;
     gap: 2px;
+    line-height: 1.3;
+    /* Mejorar line-height */
+    min-height: 16px;
+    /* Altura mínima para el precio */
 }
 
 /* .gift-bundle-card:hover {
@@ -703,17 +747,23 @@ h2 {
     transition: box-shadow 0.2s;
     cursor: pointer;
     overflow: visible;
-    aspect-ratio: 1/1.2;
     flex-shrink: 0;
+    min-height: 180px;
+    /* Agregar altura mínima */
+    height: auto;
+    /* Permitir que crezca automáticamente */
 }
 
 .eco-bottle-card img {
     width: 135px;
     height: 130px;
+    /* Altura fija para la imagen */
     object-fit: cover;
     border-radius: 10px;
     background: #F6F5F0;
     display: block;
+    flex-shrink: 0;
+    /* Evitar que la imagen se contraiga */
 }
 
 .eco-bottle-info {
@@ -721,8 +771,16 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-top: 6px;
-    margin-bottom: 8px;
+    margin-top: 8px;
+    /* Aumentar margen superior */
+    margin-bottom: 12px;
+    /* Aumentar margen inferior */
+    padding: 0 4px;
+    /* Agregar padding horizontal */
+    flex-grow: 1;
+    /* Permitir que crezca */
+    min-height: 40px;
+    /* Altura mínima para el contenido de texto */
 }
 
 .eco-bottle-name {
@@ -731,10 +789,14 @@ h2 {
     color: #2C3E29;
     font-size: 12px;
     text-align: start;
-    margin-left: 7px;
+    margin-left: 3px;
+    margin-bottom: 4px;
+    /* Agregar margen inferior */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    line-height: 1.3;
+    /* Mejorar line-height */
 }
 
 .eco-bottle-price {
@@ -743,10 +805,14 @@ h2 {
     color: #3a5a40;
     font-size: 12px;
     text-align: left;
-    margin: 0 0 0 8px;
+    margin: 0 0 0 4px;
     display: flex;
     align-items: center;
     gap: 2px;
+    line-height: 1.3;
+    /* Mejorar line-height */
+    min-height: 16px;
+    /* Altura mínima para el precio */
 }
 
 .eco-bottle-card:hover {

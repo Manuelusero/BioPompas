@@ -268,12 +268,15 @@
 
 .bag-empty-icon {
     margin-bottom: 40px;
+    width: 45px;
+    height: 61.464px;
+    flex-shrink: 0;
 }
 
 .empty-bag-image {
-    width: 120px;
-    height: 120px;
-    opacity: 0.7;
+    width: 45px;
+    height: 61.464px;
+    flex-shrink: 0;
 }
 
 .bag-empty-title {

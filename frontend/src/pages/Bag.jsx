@@ -67,14 +67,14 @@ const Bag = () => {
       <div className="bag-empty-container">
         <div className="bag-header">
           <button className="bag-back-btn" onClick={() => navigate('/home')}>
-            <img src="/CloseIcon.png" alt="Close" />
+            <img src="/ArrowLefticon.png" alt="Close" />
           </button>
           <h1 className="bag-title">MY BAG</h1>
         </div>
 
         <div className="bag-empty-content">
           <div className="bag-empty-icon">
-            <img src="/BagEmpty.png" alt="Empty bag" className="empty-bag-image" />
+            <img src="/Cart.svg" alt="Empty bag" className="empty-bag-image" />
           </div>
           
           <h2 className="bag-empty-title">Nothing here yet!</h2>
@@ -82,7 +82,10 @@ const Bag = () => {
           
           <button 
             className="bag-go-shopping-btn"
-            onClick={() => navigate('/home')}
+            onClick={() => {
+              console.log('Go shopping button clicked');
+              navigate('/home');
+            }}
           >
             Go shopping
           </button>
