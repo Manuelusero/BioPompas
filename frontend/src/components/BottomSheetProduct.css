@@ -361,7 +361,7 @@
 }
 
 .bottom-sheet-title {
-    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+    font-family: 'Explore Magic', 'Raleway', sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 800;
@@ -379,7 +379,7 @@
 }
 
 .bottom-sheet-price {
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    font-family: 'Raleway', 'Explore Magic', sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
@@ -452,7 +452,7 @@
 .bottom-sheet-add {
     background: #5C7347;
     color: #fff;
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    font-family: 'Raleway', 'Explore Magic', sans-serif;
     font-size: 1.1rem;
     font-weight: 600;
     border: none;
@@ -498,7 +498,7 @@
     width: 100%;
     background: transparent;
     color: #3a5a40;
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    font-family: 'Raleway', 'Explore Magic', sans-serif;
     font-size: 10px;
     font-weight: 600;
     border: none;
@@ -600,7 +600,7 @@
     justify-content: center;
     font-size: 10px;
     font-weight: 600;
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    font-family: 'Raleway', 'Explore Magic', sans-serif;
     min-width: 18px;
 }
 
@@ -641,7 +641,7 @@
 .bottom-sheet-close,
 .bottom-sheet-add,
 .bottom-sheet-add-text {
-    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+    font-family: 'Explore Magic', 'Raleway', sans-serif;
 }
 
 /* Para Raleway */
@@ -652,5 +652,5 @@
 .bottom-sheet-counter span,
 .bottom-sheet-add,
 .bottom-sheet-close {
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    font-family: 'Raleway', 'Explore Magic', sans-serif;
 }

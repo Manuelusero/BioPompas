@@ -31,9 +31,7 @@
 }
 
 .contact-title {
-    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-    ,
-    cursive;
+    font-family: 'Explore Magic', 'Raleway', sans-serif;
     font-size: 30px;
     font-weight: 400;
     color: #3a5a40;
@@ -94,9 +92,7 @@
 }
 
 .contact-title {
-    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-    ,
-    cursive;
+    font-family: 'Explore Magic', 'Raleway', sans-serif;
     color: #3a5a40;
     margin-bottom: 24px;
     font-size: 2rem;
@@ -106,10 +102,7 @@
 .contact-form label {
     display: block;
     margin-bottom: 8px;
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    ,
-    Arial,
-    sans-serif;
+    font-family: 'Raleway', 'Explore Magic', sans-serif;
     font-weight: 600;
     color: #3a5a40;
     margin-left: 40px;
@@ -122,10 +115,7 @@
     padding: 8px;
     border-radius: 8px;
     border: 1px solid #ccc;
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    ,
-    Arial,
-    sans-serif;
+    font-family: 'Raleway', 'Explore Magic', sans-serif;
     font-size: 1rem;
     margin-left: 40px;
 }
@@ -146,10 +136,7 @@
     border: none;
     border-radius: 8px;
     padding: 10px 24px;
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    ,
-    Arial,
-    sans-serif;
+    font-family: 'Raleway', 'Explore Magic', sans-serif;
     font-weight: 600;
     font-size: 16px;
     cursor: pointer;

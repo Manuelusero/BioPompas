@@ -35,10 +35,7 @@
     justify-content: center;
     font-size: 10px;
     font-weight: 400;
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    ,
-    Arial,
-    sans-serif;
+    font-family: 'Raleway', 'Explore Magic', sans-serif;
     min-width: 12px;
 }
 
@@ -98,9 +95,7 @@
     border-radius: 50%;
     padding: 1px 7px;
     font-size: 12px;
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    ,
-    sans-serif;
+    font-family: 'Raleway', 'Explore Magic', sans-serif;
     font-weight: 400;
 }
 
@@ -127,9 +122,7 @@
 .category-title {
     flex: 1;
     text-align: center;
-    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-    ,
-    cursive;
+    font-family: 'Explore Magic', 'Raleway', sans-serif;
     font-size: 30px;
     color: #3a5a40;
 

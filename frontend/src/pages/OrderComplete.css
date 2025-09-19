@@ -8,10 +8,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-    ,
-    Raleway,
-    sans-serif;
+    font-family: 'Explore Magic', 'Raleway', sans-serif;
     overflow: hidden;
     position: fixed;
     top: 0;

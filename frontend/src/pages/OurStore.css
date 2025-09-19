@@ -35,10 +35,7 @@
     justify-content: center;
     font-size: 10px;
     font-weight: 400;
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    ,
-    Arial,
-    sans-serif;
+    font-family: 'Raleway', 'Explore Magic', sans-serif;
     z-index: 3;
 }
 
@@ -94,9 +91,7 @@
 }
 
 .ourStoreTitle {
-    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-    ,
-    cursive;
+    font-family: 'Explore Magic', 'Raleway', sans-serif;
     font-size: 2rem;
     color: #3a5a40;
     letter-spacing: 1px;
@@ -151,10 +146,7 @@
 .ourStoreText {
     margin: 24px auto;
     max-width: 340px;
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    ,
-    Arial,
-    sans-serif;
+    font-family: 'Raleway', 'Explore Magic', sans-serif;
     font-size: 1.1rem;
     color: #444;
     text-align: left;
@@ -168,9 +160,7 @@
 }
 
 .ourStoreSubtitle {
-    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-    ,
-    cursive;
+    font-family: 'Explore Magic', 'Raleway', sans-serif;
     font-size: 1.4rem;
     color: #3a5a40;
     margin-bottom: 16px;
@@ -180,10 +170,7 @@
 }
 
 .ourStoreParagraph {
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    ,
-    Arial,
-    sans-serif;
+    font-family: 'Raleway', 'Explore Magic', sans-serif;
     font-size: 1.08rem;
     color: #444;
     text-align: left;

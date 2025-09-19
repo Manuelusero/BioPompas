@@ -12,7 +12,7 @@
 }
 
 @font-face {
-    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+    font-family: 'Explore Magic', 'Comic Sans MS', sans-serif;
     ;
     src: url('/fonts/ExploreMagic-Regular.woff2') format('woff2'),
         url('/fonts/ExploreMagic-Regular.woff') format('woff'),

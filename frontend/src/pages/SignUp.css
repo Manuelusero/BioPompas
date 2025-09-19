@@ -22,9 +22,7 @@ body {
 }
 
 .signup-title {
-    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-    ,
-    cursive;
+    font-family: 'Explore Magic', 'Raleway', sans-serif;
     font-size: 2rem;
     color: #3a5a40;
     margin: 40px 0 20px 0;
@@ -77,10 +75,7 @@ body {
     border-radius: 8px;
     border: 1px solid #b7b7b7;
     font-size: 1rem;
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    ,
-    Arial,
-    sans-serif;
+    font-family: 'Raleway', 'Explore Magic', sans-serif;
     color: #222;
     background: transparent;
     outline: none;
@@ -121,10 +116,7 @@ body {
 .signup-submit-button {
     background: #3a5a40;
     color: #fff;
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    ,
-    Arial,
-    sans-serif;
+    font-family: 'Raleway', 'Explore Magic', sans-serif;
     font-size: 15px;
     font-weight: 500;
     border: none;
@@ -187,10 +179,7 @@ body {
 }
 
 .signup-divider-text {
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    ,
-    Arial,
-    sans-serif;
+    font-family: 'Raleway', 'Explore Magic', sans-serif;
     font-size: 12px;
     color: #3a5a40;
     font-weight: 400;
@@ -215,10 +204,7 @@ body {
     background: none;
     border: none;
     color: #3a5a40;
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    ,
-    Arial,
-    sans-serif;
+    font-family: 'Raleway', 'Explore Magic', sans-serif;
     font-size: 12px;
     font-weight: 400;
     text-decoration: underline;

@@ -42,9 +42,7 @@
 }
 
 .ecoBlogDetailTitle {
-    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-    ,
-    cursive;
+    font-family: 'Explore Magic', 'Raleway', sans-serif;
     font-size: 2rem;
     color: #3a5a40;
     margin: 0 auto;
@@ -93,10 +91,7 @@
     justify-content: center;
     font-size: 10px;
     font-weight: bold;
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    ,
-    Arial,
-    sans-serif;
+    font-family: 'Raleway', 'Explore Magic', sans-serif;
     z-index: 3;
     font-weight: 400;
 
@@ -104,8 +99,7 @@
 
 .eco-blog-content,
 .ecoBlogDetailPage p {
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    ;
+    font-family: 'Raleway', 'Explore Magic', sans-serif;
     font-size: 13px;
     font-weight: 600;
     line-height: 20px;
@@ -115,10 +109,7 @@
 }
 
 .eco-blog-content h3 {
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    ,
-    Arial,
-    sans-serif;
+    font-family: 'Raleway', 'Explore Magic', sans-serif;
     font-size: 15px;
     font-weight: 700;
     color: #3a5a40;
@@ -129,10 +120,7 @@
 
 .eco-blog-title {
     margin-top: 24px;
-    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-    ,
-    Arial,
-    sans-serif;
+    font-family: 'Explore Magic', 'Raleway', sans-serif;
     color: #3a5a40;
     font-size: 20px;
     font-weight: 700;
@@ -146,9 +134,7 @@
 }
 
 .eco-blog-readalso-title {
-    font-family: 'Explore Magic', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-    ,
-    cursive;
+    font-family: 'Explore Magic', 'Raleway', sans-serif;
     color: #3a5a40;
     font-weight: 700;
     font-size: 22px;
