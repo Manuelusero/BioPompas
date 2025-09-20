@@ -42,11 +42,11 @@ const Login = () => {
             if (from === 'profile') {
                 navigate('/profile');
             } else if (from === 'payment') {
-                navigate('/bag');
+                navigate('/payment'); // Cambiar de '/bag' a '/payment'
             } else {
                 navigate('/profile');
             }
-        } catch  {
+        } catch {
             setError('Credenciales inválidas. Inténtalo de nuevo.');
         }
     };
@@ -72,9 +72,9 @@ const Login = () => {
             if (from === 'profile') {
                 navigate('/profile');
             } else if (from === 'payment') {
-                navigate('/bag');
+                navigate('/payment'); // Cambiar de '/bag' a '/payment'
             } else {
-                navigate('/profile'); // Cambiar de '/bag' a '/profile' para consistencia
+                navigate('/profile');
             }
         } catch (err) {
             setError('Google authentication failed' + (err?.response?.data?.error ? ': ' + err.response.data.error : ''));

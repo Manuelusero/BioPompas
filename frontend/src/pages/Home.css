@@ -79,14 +79,16 @@
     font-family: 'Explore Magic', 'Raleway', sans-serif;
     font-size: 25px;
     font-weight: 400;
-    letter-spacing: 1%;
+    letter-spacing: 1px;
+    /* Cambiar de 1% a 1px para consistencia */
+    color: #3a5a40;
+    margin: 0;
+    /* Cambiar para consistencia */
     text-align: start;
     height: 20px;
     margin-bottom: 20px;
     padding-top: 20px;
-    color: #3a5a40;
     margin-left: 10px;
-
 }
 
 @media (min-width: 600px) {
@@ -154,11 +156,13 @@ h2 {
     font-family: 'Explore Magic', 'Raleway', sans-serif;
     font-size: 25px;
     font-weight: 400;
-    letter-spacing: 1%;
+    letter-spacing: 1px;
+    /* Cambiar para consistencia */
     color: #3a5a40;
+    margin: 0;
+    /* Cambiar para consistencia */
     text-align: left;
     flex: none;
-    margin: 0;
     padding-top: 0;
     height: auto;
     line-height: 1.2;
@@ -313,10 +317,11 @@ h2 {
 .categories-title {
     font-family: 'Explore Magic', 'Raleway', sans-serif;
     font-size: 25px;
+    font-weight: 400;
+    /* Cambiar para consistencia */
+    letter-spacing: 1px;
     color: #3a5a40;
     margin: 0;
-    letter-spacing: 1px;
-    font-weight: 400;
 }
 
 .categories-scroll {
@@ -620,11 +625,16 @@ h2 {
 
 .eco-blog-title {
     font-family: 'Explore Magic', 'Raleway', sans-serif;
-    color: #3a5a40;
     font-size: 25px;
+    /* Cambiar para consistencia */
     font-weight: 400;
-    letter-spacing: 0.25px;
-    text-align: center;
+    letter-spacing: 1px;
+    /* Cambiar de 0.25px a 1px para consistencia */
+    color: #3a5a40;
+    margin: 0;
+    /* Cambiar para consistencia */
+    text-align: left;
+    /* Cambiar de center a left para consistencia */
     margin-bottom: 3px;
 }
 
@@ -702,10 +712,13 @@ h2 {
 
 .eco-bottles-title {
     font-family: 'Explore Magic', 'Raleway', sans-serif;
-    font-size: 1.5rem;
+    font-size: 25px;
+    /* Cambiar de 1.5rem a 25px para consistencia */
+    font-weight: 400;
+    /* Agregar para consistencia */
+    letter-spacing: 1px;
     color: #3a5a40;
     margin: 0;
-    letter-spacing: 1px;
 }
 
 .eco-bottles-scroll {
@@ -832,10 +845,13 @@ h2 {
 
 .eco-souvenirs-title {
     font-family: 'Explore Magic', 'Raleway', sans-serif;
-    font-size: 1.5rem;
+    font-size: 25px;
+    /* Cambiar de 1.5rem a 25px para consistencia */
+    font-weight: 400;
+    /* Agregar para consistencia */
+    letter-spacing: 1px;
     color: #3a5a40;
     margin: 0;
-    letter-spacing: 1px;
 }
 
 .eco-souvenir-image-container,
@@ -892,10 +908,13 @@ h2 {
 
 .our-store-title {
     font-family: 'Explore Magic', 'Raleway', sans-serif;
-    font-size: 1.5rem;
-    color: #3a5a40;
-    margin: 0 0 1px 0;
+    font-size: 25px;
+    /* Cambiar de 1.5rem a 25px para consistencia */
+    font-weight: 400;
+    /* Agregar para consistencia */
     letter-spacing: 1px;
+    color: #3a5a40;
+    margin: 0;
 }
 
 .our-store-image-container {
