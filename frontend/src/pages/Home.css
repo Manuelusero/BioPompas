@@ -143,9 +143,8 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 24px 10px 24px;
-    /* Margen consistente */
-    background: none;
+    margin: 0 12px 10px 12px;
+    /* background: none; */
     border-radius: 0;
     box-shadow: none;
     padding: 0;
@@ -160,7 +159,8 @@ h2 {
     letter-spacing: 1px;
     color: #3a5a40;
     margin: 0;
-    /* NO cambiar text-align aquí porque usa flex */
+    /* Quitar margin para que use el del contenedor */
+    text-align: left;
     flex: none;
     padding-top: 0;
     height: auto;
@@ -311,8 +311,8 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 24px 10px 24px;
-    /* Margen consistente */
+    margin: 0 12px 10px 12px;
+    /* Igual que las otras secciones */
 }
 
 .categories-title {
@@ -322,7 +322,7 @@ h2 {
     letter-spacing: 1px;
     color: #3a5a40;
     margin: 0;
-    /* NO agregar text-align para mantener posición original */
+    text-align: left;
 }
 
 .categories-scroll {
@@ -390,8 +390,8 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 24px 10px 24px;
-    /* Margen consistente */
+    margin: 0 12px 10px 12px;
+    /* Igual que las otras secciones */
 }
 
 .gift-bundles-title {
@@ -401,7 +401,7 @@ h2 {
     margin: 0;
     letter-spacing: 1px;
     font-weight: 400;
-    /* NO agregar text-align para mantener posición original */
+    text-align: left;
 }
 
 .gift-bundles-scroll {
@@ -625,8 +625,8 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 24px 10px 24px;
-    /* Margen consistente */
+    margin: 0 12px 10px 12px;
+    /* Igual que las otras secciones */
 }
 
 .eco-blog-title {
@@ -637,7 +637,6 @@ h2 {
     color: #3a5a40;
     margin: 0;
     text-align: left;
-    /* Solo cambiar este que originalmente era center */
     margin-bottom: 3px;
 }
 
