@@ -81,14 +81,11 @@
     font-weight: 400;
     letter-spacing: 1px;
     color: #3a5a40;
-    margin: 0 6px 10px 6px;
-    /* Agregar margen igual que los otros headers */
+    margin: 60px 6px 20px 6px;
+    /* Aumentar margen superior para más espacio */
     text-align: left;
     height: 20px;
-    margin-bottom: 20px;
     padding-top: 20px;
-    /* margin-left: 10px; */
-    /* Comentar este margen para usar el margen del contenedor */
 }
 
 @media (min-width: 600px) {
@@ -990,31 +987,21 @@ body,
 
 .homePage {
     padding-top: 64px;
-
+    padding-bottom: 20px;
+    /* Agregar padding inferior para espacio extra con el primer contenido */
 }
 
-
-@media (min-width: 700px) {
-    .bottom-navbar {
-        max-width: 420px;
-        left: 50%;
-        transform: translateX(-50%);
-    }
+/* Agregar margen superior a la primera sección (Deals of the Week) */
+.deals-section {
+    margin: 60px 5px 16px 9px;
+    /* Aumentar margen superior de 32px a 60px */
 }
 
-.avatar-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-/* Agregar header container para Deals Of The Week */
 .deals-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 0 6px 10px 6px;
-    /* Mismo margen que los otros headers */
 }
 
 .deals-title {
@@ -1026,3 +1013,5 @@ body,
     margin: 0;
     text-align: left;
 }
+
+/* ...existing code... */

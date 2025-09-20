@@ -132,22 +132,24 @@ const Home = () => {
                 </Link>
             </div>
 
-            {/* Deals Of The Week - Agregar header container */}
-            <div className="deals-header">
+            {/* Deals Of The Week - Agregar section wrapper */}
+            <section className="deals-section">
+              <div className="deals-header">
                 <h2 className="deals-title">Deals Of The Week</h2>
-            </div>
+              </div>
+              <Swiper modules={[Autoplay]} autoplay={{ delay: 3000, disableOnInteraction: false }} spaceBetween={20} slidesPerView={1} loop>
+                  {promotions.map((promo) => (
+                      <SwiperSlide key={promo._id}>
+                          <Link to={"/categories"} style={{ textDecoration: 'none' }}>
+                              <div className="card">
+                                  <img src={getImageUrl(promo.image)} alt={promo.name} />
+                              </div>
+                          </Link>
+                      </SwiperSlide>
+                  ))}
+              </Swiper>
+            </section>
 
-            <Swiper modules={[Autoplay]} autoplay={{ delay: 3000, disableOnInteraction: false }} spaceBetween={20} slidesPerView={1} loop>
-                {promotions.map((promo) => (
-                    <SwiperSlide key={promo._id}>
-                        <Link to={"/categories"} style={{ textDecoration: 'none' }}>
-                            <div className="card">
-                                <img src={getImageUrl(promo.image)} alt={promo.name} />
-                            </div>
-                        </Link>
-                    </SwiperSlide>
-                ))}
-            </Swiper>
             {/* Top Picks */}
             <section className="top-picks-section">
                 <div className="top-picks-header">
