@@ -575,7 +575,7 @@ h2 {
 .categories-header .see-all-link,
 .top-picks-header .see-all-link {
     font-family: 'Explore Magic', 'Raleway', sans-serif;
-    font-size: 1.1rem;
+    font-size: 14px;
     color: #3a5a40;
     text-decoration: underline;
     cursor: pointer;
