@@ -992,7 +992,7 @@ body,
 
 /* Agregar margen superior específico para la primera sección (Deals of the Week) */
 .deals-section {
-    margin: 110px 5px 16px 9px;
+    margin: 40px 5px 16px 9px;
     /* Aumentar margen superior de 60px a 110px para lograr 40px adicionales */
 }
 
