@@ -104,23 +104,20 @@
 
 .bottom-sheet-handle,
 .bottom-sheet-handle-expanded {
-    height: 4px;
-    /* Reducir de 8px a 4px */
-    width: 40px;
-    /* Reducir ancho también */
-    min-width: 40px;
-    max-width: 60px;
+    height: 3px;
+    /* Reducir aún más de 4px a 3px */
+    width: 36px;
+    /* Reducir ancho para que sea más fina */
+    min-width: 36px;
+    max-width: 36px;
     background: #5C7347;
     border-radius: 2px;
-    /* Más redondeado para que se vea más elegante */
-    margin: 12px auto 16px auto;
-    /* Más margen inferior */
+    margin: 8px auto 12px auto;
     display: block;
     cursor: grab;
     opacity: 0.8;
-    /* Menos opacidad para que sea más sutil */
-    padding: 8px 0;
-    /* Mantener área táctil pero barra más fina */
+    padding: 6px 0;
+    /* Reducir padding */
     /* Área más grande para tocar */
     touch-action: pan-y;
     /* Permitir drag vertical */
@@ -187,31 +184,45 @@
     animation: slideUp 0.3s ease-out;
     position: relative;
     overflow: hidden;
-    min-height: 480px;
-    /* Aumentar altura mínima de 400px a 480px */
+    min-height: 460px;
+    /* Reducir un poco más para compensar */
     max-height: 85vh;
-    /* Reducir de 90vh a 85vh para mejor visibilidad */
 }
 
-.bottom-sheet.expanded {
-    min-height: calc(100vh - 70px);
-    max-height: calc(100vh - 70px);
-    overflow-y: auto;
-    border-radius: 28px;
-    margin-top: 70px;
-    background: #F6F5F0;
+/* Ajustar la franja superior draggable con las propiedades específicas */
+.bottom-sheet-draggable-bar {
+    display: flex;
+    width: 360px;
+    /* Ancho específico como en la imagen */
+    padding: 16px;
+    /* Padding específico */
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    /* Gap específico */
+    min-height: 28px;
+    /* Reducir altura mínima */
+    background: transparent;
+    border-radius: 12px 12px 0 0;
+    cursor: grab;
+    position: relative;
+    touch-action: pan-y;
+    margin: 0 auto;
+    /* Centrar el contenedor */
 }
 
-@keyframes slideUp {
-    from {
-        transform: translateY(100%);
-    }
-
-    to {
-        transform: translateY(0);
-    }
+.bottom-sheet-draggable-bar:active {
+    cursor: grabbing;
 }
 
+/* Ajustar el handle dentro de la barra draggable */
+.bottom-sheet-draggable-bar .bottom-sheet-handle,
+.bottom-sheet-draggable-bar .bottom-sheet-handle-expanded {
+    margin: 0;
+    /* Quitar márgenes para que use el gap del contenedor */
+    padding: 0;
+    /* Quitar padding extra */
+}
 
 /* ========== IMÁGENES MODO COMPACTO ========== */
 
@@ -363,8 +374,8 @@
     background: #F6F5F0;
     margin-bottom: 0;
     margin-top: 0;
-    padding: 10px 0 5px 0;
-    /* Reducir padding para dar más espacio */
+    padding: 8px 0 5px 0;
+    /* Reducir padding superior */
     z-index: 2;
 }
 
