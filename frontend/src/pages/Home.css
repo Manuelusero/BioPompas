@@ -142,7 +142,8 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 12px 10px 12px;
+    margin: 0 6px 10px 6px;
+    /* Reducir margen de 12px a 6px para mover más a la izquierda */
     background: none;
     border-radius: 0;
     box-shadow: none;
@@ -307,7 +308,8 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 12px 10px 12px;
+    margin: 0 6px 10px 6px;
+    /* Reducir margen de 12px a 6px para mover más a la izquierda */
 }
 
 .categories-title {
@@ -384,7 +386,8 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 12px 10px 12px;
+    margin: 0 6px 10px 6px;
+    /* Reducir margen de 12px a 6px para mover más a la izquierda */
 }
 
 .gift-bundles-title {
@@ -618,7 +621,8 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 12px 10px 12px;
+    margin: 0 6px 10px 6px;
+    /* Reducir margen de 12px a 6px para mover más a la izquierda */
     /* Mismo margen */
 }
 
@@ -704,7 +708,8 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 12px 10px 12px;
+    margin: 0 6px 10px 6px;
+    /* Reducir margen de 12px a 6px para mover más a la izquierda */
     /* Mismo margen */
 }
 
@@ -838,7 +843,8 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 12px 10px 12px;
+    margin: 0 6px 10px 6px;
+    /* Reducir margen de 12px a 6px para mover más a la izquierda */
     /* Mismo margen que las otras */
 }
 
@@ -902,7 +908,8 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 12px 10px 12px;
+    margin: 0 6px 10px 6px;
+    /* Reducir margen de 12px a 6px para mover más a la izquierda */
     /* Mismo margen */
 }
 
