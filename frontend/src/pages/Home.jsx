@@ -131,7 +131,7 @@ const Home = () => {
                     )}
                 </Link>
             </div>
-            <h2 className="titulo-marca">DEALS OF THE WEEK</h2>
+            <h2 className="titulo-marca">Deals Of The Week</h2>
             <Swiper modules={[Autoplay]} autoplay={{ delay: 3000, disableOnInteraction: false }} spaceBetween={20} slidesPerView={1} loop>
                 {promotions.map((promo) => (
                     <SwiperSlide key={promo._id}>
@@ -146,9 +146,9 @@ const Home = () => {
             {/* Top Picks */}
             <section className="top-picks-section">
                 <div className="top-picks-header">
-                    <h3 className="top-picks-title">TOP PICKS</h3>
+                    <h3 className="top-picks-title">Top Picks</h3>
                     <span className="see-all-link">
-                        <Link to="/top-picks">SEE ALL</Link>
+                        <Link to="/top-picks">See All</Link>
                     </span>
                 </div>
                 <div className="top-picks-scroll">
@@ -169,9 +169,9 @@ const Home = () => {
             {/* Categories */}
             <section className="categories-section">
                 <div className="categories-header">
-                    <h3 className="categories-title">CATEGORIES</h3>
+                    <h3 className="categories-title">Categories</h3>
                     <span className="see-all-link">
-                        <Link to="/categories">SEE ALL</Link>
+                        <Link to="/categories">See All</Link>
                     </span>
                 </div>
                 <div className="categories-scroll">
@@ -186,7 +186,7 @@ const Home = () => {
             <section className="gift-bundles-section">
                 <div className="gift-bundles-header">
                     <h2 className="gift-bundles-title">Gift Bundles</h2>
-                    <Link to="/gift-bundles" className="see-all-link">SEE ALL</Link>
+                    <Link to="/gift-bundles" className="see-all-link">See All</Link>
                 </div>
                 <div className="gift-bundles-scroll">
                     {giftBundles.map((bundle) => (
