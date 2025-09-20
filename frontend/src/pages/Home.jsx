@@ -76,7 +76,7 @@ const Home = () => {
             navigate('/profile');
         } else {
             alert('Debes iniciar sesión para acceder a tu perfil.');
-            navigate('/login', { state: { from: 'profile' } });
+            navigate('/login', { state: { from: 'profile' } }); // Especificar que viene de profile
         }
     };
 

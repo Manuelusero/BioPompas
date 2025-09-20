@@ -145,3 +145,123 @@
     align-items: center;
     justify-content: center;
 }
+
+.featured-products-title {
+    font-family: 'Raleway', 'Explore Magic', Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #2C3E29;
+    margin: 30px 20px 15px 20px;
+    text-align: left;
+}
+
+.categories-products {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 0 20px 20px 20px;
+    margin-bottom: 80px;
+    /* Espacio para navbar */
+}
+
+.categories-product-card {
+    background: white;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.categories-product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.categories-product-card:active {
+    transform: translateY(0);
+}
+
+.categories-product-image {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.categories-product-info {
+    text-align: left;
+}
+
+.categories-product-name {
+    font-family: 'Raleway', 'Explore Magic', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin: 0 0 4px 0;
+    line-height: 1.2;
+}
+
+.categories-product-price {
+    font-family: 'Raleway', 'Explore Magic', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #3a5a40;
+    margin: 0;
+}
+
+/* Estilos para el botón de avatar en navbar */
+.nav-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-icon img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Estilos para el botón de avatar en navbar */
+.bottom-navbar .nav-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.bottom-navbar .nav-icon img {
+    width: 24px;
+    height: 24px;
+}
+
+.bottom-navbar .nav-icon:hover {
+    opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .categories-products {
+        gap: 12px;
+        padding: 0 15px 20px 15px;
+    }
+
+    .categories-product-image {
+        height: 100px;
+    }
+
+    .categories-product-name,
+    .categories-product-price {
+        font-size: 13px;
+    }
+}

@@ -104,17 +104,23 @@
 
 .bottom-sheet-handle,
 .bottom-sheet-handle-expanded {
-    height: 8px;
-    width: 50%;
-    min-width: 60px;
-    max-width: 120px;
+    height: 4px;
+    /* Reducir de 8px a 4px */
+    width: 40px;
+    /* Reducir ancho también */
+    min-width: 40px;
+    max-width: 60px;
     background: #5C7347;
-    border-radius: 4px;
-    margin: 8px auto 12px auto;
+    border-radius: 2px;
+    /* Más redondeado para que se vea más elegante */
+    margin: 12px auto 16px auto;
+    /* Más margen inferior */
     display: block;
     cursor: grab;
-    opacity: 0.95;
-    padding: 10px 0;
+    opacity: 0.8;
+    /* Menos opacidad para que sea más sutil */
+    padding: 8px 0;
+    /* Mantener área táctil pero barra más fina */
     /* Área más grande para tocar */
     touch-action: pan-y;
     /* Permitir drag vertical */
@@ -181,10 +187,10 @@
     animation: slideUp 0.3s ease-out;
     position: relative;
     overflow: hidden;
-    min-height: 400px;
-    /* Altura mínima para asegurar visibilidad */
-    max-height: 90vh;
-    /* Máximo 90% de la pantalla */
+    min-height: 480px;
+    /* Aumentar altura mínima de 400px a 480px */
+    max-height: 85vh;
+    /* Reducir de 90vh a 85vh para mejor visibilidad */
 }
 
 .bottom-sheet.expanded {
@@ -357,8 +363,8 @@
     background: #F6F5F0;
     margin-bottom: 0;
     margin-top: 0;
-    padding: 15px 0 10px 0;
-    /* Más padding */
+    padding: 10px 0 5px 0;
+    /* Reducir padding para dar más espacio */
     z-index: 2;
 }
 
@@ -369,7 +375,8 @@
     flex-wrap: nowrap;
     margin-bottom: 0;
     position: relative;
-    top: 30px;
+    top: 25px;
+    /* Reducir de 30px a 25px */
     gap: 8px;
     min-width: 0;
     width: 100%;
@@ -401,7 +408,8 @@
     font-weight: 600;
     line-height: 16px;
     color: #3a5a40;
-    margin-top: 40px;
+    margin-top: 35px;
+    /* Reducir de 40px a 35px */
     margin-left: 16px;
 }
 
@@ -459,8 +467,8 @@
 .bottom-sheet-add-row.compact {
     background: #F6F5F0;
     margin-top: 0;
-    margin-bottom: 20px;
-    /* Más espacio */
+    margin-bottom: 10px;
+    /* Reducir de 20px a 10px */
     padding: 0 20px;
     display: flex;
     align-items: center;
@@ -529,9 +537,10 @@
     /* Más redondeado */
     padding: 12px 0;
     /* Más padding */
-    margin-bottom: 8px;
-    margin-top: 15px;
-    /* Menos margen superior */
+    margin-bottom: 16px;
+    /* Más margen inferior */
+    margin-top: 8px;
+    /* Reducir margen superior */
     cursor: pointer;
     text-decoration: none;
     /* Quitar underline */
@@ -541,6 +550,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    /* Asegurar que esté en el flujo normal */
 }
 
 .bottom-sheet-close:hover {
@@ -646,24 +657,19 @@
 /* Franja superior draggable */
 .bottom-sheet-draggable-bar {
     width: 100%;
-    min-height: 40px;
-    /* Aumentar altura para más área de drag */
-    background: #eaf3e2;
+    min-height: 32px;
+    /* Reducir de 40px a 32px */
+    background: transparent;
+    /* Hacer transparente para que no se vea grueso */
     border-radius: 12px 12px 0 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: grab;
     position: relative;
     touch-action: pan-y;
-    /* Permitir drag vertical */
-    padding: 15px 0;
-    /* Más área táctil */
-}
-
-.bottom-sheet-draggable-bar:active {
-    cursor: grabbing;
+    padding: 12px 0;
+    /* Reducir padding */
 }
 
 /* Para Explore Magic */

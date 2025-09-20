@@ -15,7 +15,7 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { login } = useAuth();
-    const { syncCartWithBackend, cartItems } = useCart();
+    const { syncCartWithBackend } = useCart(); // Remover cartItems ya que no se usa
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -26,7 +26,7 @@ const Login = () => {
                 password,
             });
 
-            login(response.data.token); // Usar el hook de auth
+            login(response.data.token);
             
             // Sincronizar carrito después del login exitoso
             try {
@@ -34,24 +34,20 @@ const Login = () => {
                 console.log('✅ Carrito sincronizado después del login');
             } catch (cartError) {
                 console.error('❌ Error sincronizando carrito:', cartError);
-                // No fallar el login si hay error en carrito
             }
             
             // Determinar redirección según el contexto
             const from = location.state?.from;
             
             if (from === 'profile') {
-                // Si vino desde el profile, regresar al profile
                 navigate('/profile');
-            } else if (from === 'payment' || cartItems.length > 0) {
-                // Si vino desde payment o hay productos en el carrito, ir al carrito
+            } else if (from === 'payment') {
                 navigate('/bag');
             } else {
-                // Caso por defecto: ir al profile si no hay productos
                 navigate('/profile');
             }
-        } catch {
-            setError('Error al iniciar sesión');
+        } catch  {
+            setError('Credenciales inválidas. Inténtalo de nuevo.');
         }
     };
 
@@ -60,7 +56,7 @@ const Login = () => {
             const response = await axios.post(`${import.meta.env.VITE_APP_API_URL}/auth/google`, {
                 credential: credentialResponse.credential,
             });
-            login(response.data.token); // Usar el hook de auth
+            login(response.data.token);
             
             // Sincronizar carrito después del login con Google
             try {
@@ -70,7 +66,16 @@ const Login = () => {
                 console.error('❌ Error sincronizando carrito:', cartError);
             }
             
-            navigate('/bag');
+            // Aplicar la misma lógica de redirección para Google login
+            const from = location.state?.from;
+            
+            if (from === 'profile') {
+                navigate('/profile');
+            } else if (from === 'payment') {
+                navigate('/bag');
+            } else {
+                navigate('/profile'); // Cambiar de '/bag' a '/profile' para consistencia
+            }
         } catch (err) {
             setError('Google authentication failed' + (err?.response?.data?.error ? ': ' + err.response.data.error : ''));
         }

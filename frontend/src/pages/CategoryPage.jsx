@@ -1,18 +1,21 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './CategoryPage.css';
 import BottomSheetProductFull from '../components/BottomSheetProductFull';
+import { useCart } from '../api/CartContext';
 
 const CategoryPage = () => {
   const { category } = useParams();
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const { addToCart, cartCount } = useCart(); // Agregar cartCount aquí
+  
+  // Estados para BottomSheet
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const [bottomSheetCount, setBottomSheetCount] = useState(1);
-  // Eliminado cart, solo usamos cartCount
-  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_APP_API_URL}/products`)
@@ -31,65 +34,51 @@ const CategoryPage = () => {
       });
   }, [category]);
 
-  // Unificar contador global SOLO localStorage
-  useEffect(() => {
-    const fetchCart = () => {
-      const storedCart = localStorage.getItem('cart');
-      if (storedCart) {
-        // Solo contar productos válidos
-        const cartArr = JSON.parse(storedCart).filter(item => item._id && item.count > 0);
-        setCartCount(cartArr.reduce((sum, item) => sum + item.count, 0));
-      } else {
-        setCartCount(0);
-      }
-    };
-    fetchCart();
-    window.addEventListener('cartUpdated', fetchCart);
-    window.addEventListener('storage', fetchCart);
-    return () => {
-      window.removeEventListener('cartUpdated', fetchCart);
-      window.removeEventListener('storage', fetchCart);
-    };
-  }, []);
+  // Manejar clic en producto para abrir BottomSheet
+  const handleProductClick = (product) => {
+    setSelectedProductId(product._id || product.id);
+    setBottomSheetCount(1);
+    setBottomSheetOpen(true);
+  };
+
+  // Cerrar BottomSheet
+  const handleCloseBottomSheet = () => {
+    setBottomSheetOpen(false);
+    setSelectedProductId(null);
+    setBottomSheetCount(1);
+  };
+
+  // Agregar producto al carrito desde BottomSheet
+  const handleAddFromBottomSheet = async (product, count) => {
+    try {
+      await addToCart(product, count);
+      setBottomSheetOpen(false);
+      setSelectedProductId(null);
+      setBottomSheetCount(1);
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+    }
+  };
+
+  // Agregar función para manejar clic en avatar
+  const handleAvatarClick = () => {
+    const isLoggedIn = !!localStorage.getItem('token');
+    if (isLoggedIn) {
+      navigate('/profile');
+    } else {
+      alert('Debes iniciar sesión para acceder a tu perfil.');
+      navigate('/login', { state: { from: 'profile' } }); // Especificar que viene de profile
+    }
+  };
 
   if (loading) return <div className="category-loading">Loading...</div>;
   if (error) return <div className="category-error">{error}</div>;
 
-  const handleCardClick = (product) => {
-    setSelectedProductId(product._id);
-    setBottomSheetOpen(true);
-    setBottomSheetCount(1);
-  };
-
-  const handleCloseBottomSheet = () => {
-    setBottomSheetOpen(false);
-  };
-
-  const handleAddToCart = (product, count) => {
-    const productId = product._id;
-    // Siempre localStorage
-    const storedCart = localStorage.getItem('cart');
-    let cartArr = storedCart ? JSON.parse(storedCart) : [];
-    // Limpiar productos sin _id o count <= 0
-    cartArr = cartArr.filter(item => item._id && item.count > 0);
-    const existingIndex = cartArr.findIndex(item => item._id === productId);
-    if (existingIndex !== -1) {
-      cartArr[existingIndex].count = (cartArr[existingIndex].count || 1) + count;
-    } else {
-      cartArr.push({ ...product, count });
-    }
-    // Limpiar de nuevo por si algún producto quedó con count <= 0
-    cartArr = cartArr.filter(item => item._id && item.count > 0);
-    localStorage.setItem('cart', JSON.stringify(cartArr));
-    window.dispatchEvent(new Event('cartUpdated'));
-    setBottomSheetOpen(false);
-  };
-
   return (
-    <div className="category-page-container">
+    <div className="category-page">
       <div className="category-header">
         <a href="/categories" className="category-back category-header-left">
-          <img src="/ArrowLeftIcon.png"alt="Back" className="arrowIcon" />
+          <img src="/ArrowLeftIcon.png" alt="Back" className="arrowIcon" />
         </a>
         <h2 className="category-title category-header-center">{category}</h2>
         <a href="/bag" className="categoryCartIcon category-header-right">
@@ -99,36 +88,44 @@ const CategoryPage = () => {
           )}
         </a>
       </div>
-      <div className="category-products-list">
+      <div className="category-products">
         {products.length === 0 ? (
           <div className="category-no-products">No products found.</div>
         ) : (
           products.map(product => (
-            <div className="category-product-card" key={product._id} onClick={() => handleCardClick(product)}>
-              <img
-                src={product.image?.startsWith('http') ? product.image : `${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${product.image || product.url}`}
+            <div 
+              key={product._id || product.id} 
+              className="category-product-card"
+              onClick={() => handleProductClick(product)}
+            >
+              <img 
+                src={product.image?.startsWith('http') 
+                  ? product.image 
+                  : `${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${product.image}`
+                }
                 alt={product.name}
                 className="category-product-image"
-                onError={e => { e.target.onerror = null; e.target.src = '/src/assets/Icons/ImagePlaceholder.png'; }}
               />
               <div className="category-product-info">
-                <h3>{product.name}</h3>
-                <p><span>€</span>{Number(product.price).toFixed(2)}</p>
+                <h3 className="category-product-name">{product.name}</h3>
+                <p className="category-product-price">€{product.price}</p>
               </div>
             </div>
           ))
         )}
       </div>
+      
+      {/* BottomSheet para productos */}
       <BottomSheetProductFull
         productId={selectedProductId}
-        products={products}
+        products={products} // Cambiar de filteredProducts a products
         open={bottomSheetOpen}
         onClose={handleCloseBottomSheet}
-        onAdd={handleAddToCart}
+        onAdd={handleAddFromBottomSheet}
         count={bottomSheetCount}
         setCount={setBottomSheetCount}
-        cartCount={cartCount}
       />
+      
       <nav className="bottom-navbar">
         <a href="/home" className="nav-icon" aria-label="Home">
           <img src="/HomeIcon.png" alt="Home" />
@@ -136,13 +133,12 @@ const CategoryPage = () => {
         <a href="/search" className="nav-icon" aria-label="Search">
           <img src="/SearchIcon.png" alt="Search" />
         </a>
-        <a href="/login" className="nav-icon" aria-label="Avatar">
-          <img src="/AvatarIcon.png"  alt="Avatar" />
-        </a>
+        <button onClick={handleAvatarClick} className="nav-icon" aria-label="Avatar"> {/* Cambiar a button con onClick */}
+          <img src="/AvatarIcon.png" alt="Avatar" />
+        </button>
       </nav>
     </div>
   );
-}
-
+};
 
 export default CategoryPage;

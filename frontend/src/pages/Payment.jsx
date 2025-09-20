@@ -188,7 +188,7 @@ const Payment = () => {
     // Verificar login antes de pagar
     if (!isLoggedIn) {
       alert('Debes iniciar sesión para poder completar el pedido.');
-      navigate('/login', { state: { from: 'payment' } });
+      navigate('/login', { state: { from: 'payment' } }); // Especificar que viene de payment
       return;
     }
 

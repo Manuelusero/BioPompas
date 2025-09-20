@@ -1,8 +1,9 @@
 import './Categories.css';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import BottomSheetProductFull from '../components/BottomSheetProductFull';
 import { useCart } from '../api/CartContext';
-
 
 
 // Cart badge header component
@@ -26,7 +27,27 @@ function CategoriesHeaderWithCartBadge() {
 }
 
 const Categories = () => {
+  const navigate = useNavigate(); // Agregar useNavigate aquí en el componente principal
   const [categories, setCategories] = useState([]);
+  const [categoryProducts, setCategoryProducts] = useState([]);
+  const { addToCart } = useCart();
+  
+  // Estados para BottomSheet
+  const [selectedProductId, setSelectedProductId] = useState(null);
+  const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
+  const [bottomSheetCount, setBottomSheetCount] = useState(1);
+  const [allProducts, setAllProducts] = useState([]);
+
+  // Agregar función handleAvatarClick en el componente principal
+  const handleAvatarClick = () => {
+    const isLoggedIn = !!localStorage.getItem('token');
+    if (isLoggedIn) {
+      navigate('/profile');
+    } else {
+      alert('Debes iniciar sesión para acceder a tu perfil.');
+      navigate('/login', { state: { from: 'profile' } });
+    }
+  };
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -55,13 +76,57 @@ const Categories = () => {
     fetchCategories();
   }, []);
 
+  // Obtener todos los productos para el BottomSheet y para mostrar
+  useEffect(() => {
+    const getAllProducts = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/products`);
+        setAllProducts(response.data);
+        // Mostrar algunos productos destacados en la página principal de categorías
+        setCategoryProducts(response.data.slice(0, 6)); // Mostrar solo 6 productos
+      } catch (error) {
+        console.error('Error fetching all products:', error);
+        setAllProducts([]);
+        setCategoryProducts([]);
+      }
+    };
+
+    getAllProducts();
+  }, []);
+
   // Scroll automático al top cuando se carga la página
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  // Manejar clic en producto para abrir BottomSheet
+  const handleProductClick = (product) => {
+    setSelectedProductId(product._id || product.id);
+    setBottomSheetCount(1);
+    setBottomSheetOpen(true);
+  };
+
+  // Cerrar BottomSheet
+  const handleCloseBottomSheet = () => {
+    setBottomSheetOpen(false);
+    setSelectedProductId(null);
+    setBottomSheetCount(1);
+  };
+
+  // Agregar producto al carrito desde BottomSheet
+  const handleAddFromBottomSheet = async (product, count) => {
+    try {
+      await addToCart(product, count);
+      setBottomSheetOpen(false);
+      setSelectedProductId(null);
+      setBottomSheetCount(1);
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+    }
+  };
+
   return (
-    <div className="categoriesPage">
+    <div className="categories-container">
       <CategoriesHeaderWithCartBadge />
       <div className="categoriesGrid">
         {categories.map(cat => (
@@ -70,6 +135,36 @@ const Categories = () => {
           </Link>
         ))}
       </div>
+
+      {/* Mostrar productos destacados solo si hay productos */}
+      {categoryProducts.length > 0 && (
+        <>
+          <h3 className="featured-products-title">Featured Products</h3>
+          <div className="categories-products">
+            {categoryProducts.map((product) => (
+              <div 
+                key={product._id || product.id} 
+                className="categories-product-card"
+                onClick={() => handleProductClick(product)} // Agregar onClick
+              >
+                <img 
+                  src={product.image?.startsWith('http') 
+                    ? product.image 
+                    : `${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${product.image}`
+                  }
+                  alt={product.name}
+                  className="categories-product-image"
+                />
+                <div className="categories-product-info">
+                  <h3 className="categories-product-name">{product.name}</h3>
+                  <p className="categories-product-price">€{product.price}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
       <nav className="bottom-navbar">
         <a href="/home" className="nav-icon" aria-label="Home">
           <img src="/HomeIcon.png" alt="Home" />
@@ -77,10 +172,21 @@ const Categories = () => {
         <a href="/search" className="nav-icon" aria-label="Search">
           <img src="/SearchIcon.png" alt="Search" />
         </a>
-        <a href="/login" className="nav-icon" aria-label="Avatar">
+        <button onClick={handleAvatarClick} className="nav-icon" aria-label="Avatar"> {/* Cambiar a button con onClick */}
           <img src="/AvatarIcon.png" alt="Avatar" />
-        </a>
+        </button>
       </nav>
+
+      {/* BottomSheet para productos */}
+      <BottomSheetProductFull
+        productId={selectedProductId}
+        products={allProducts}
+        open={bottomSheetOpen}
+        onClose={handleCloseBottomSheet}
+        onAdd={handleAddFromBottomSheet}
+        count={bottomSheetCount}
+        setCount={setBottomSheetCount}
+      />
     </div>
   );
 };

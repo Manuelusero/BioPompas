@@ -148,10 +148,18 @@
     margin-bottom: 8px;
     padding: 1px 8px 15px 10px;
     cursor: pointer;
-    transition: box-shadow 0.2s;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     overflow: hidden;
 }
 
+.category-product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.category-product-card:active {
+    transform: translateY(0);
+}
 
 .category-product-card img {
     width: 156px;
@@ -197,4 +205,21 @@
     color: #b00020;
     margin-top: 40px;
     font-size: 1.2rem;
+}
+
+/* Estilos para el botón de avatar en navbar */
+.nav-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.nav-icon img {
+    width: 24px;
+    height: 24px;
 }
