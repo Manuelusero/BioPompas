@@ -81,7 +81,7 @@
     font-weight: 400;
     letter-spacing: 1px;
     color: #3a5a40;
-    margin: 60px 6px 20px 6px;
+    margin: 110px 6px 20px 6px;
     /* Aumentar margen superior para más espacio */
     text-align: left;
     height: 20px;
@@ -988,13 +988,12 @@ body,
 .homePage {
     padding-top: 64px;
     padding-bottom: 20px;
-    /* Agregar padding inferior para espacio extra con el primer contenido */
 }
 
-/* Agregar margen superior a la primera sección (Deals of the Week) */
+/* Agregar margen superior específico para la primera sección (Deals of the Week) */
 .deals-section {
-    margin: 60px 5px 16px 9px;
-    /* Aumentar margen superior de 32px a 60px */
+    margin: 110px 5px 16px 9px;
+    /* Aumentar margen superior de 60px a 110px para lograr 40px adicionales */
 }
 
 .deals-header {
@@ -1013,5 +1012,3 @@ body,
     margin: 0;
     text-align: left;
 }
-
-/* ...existing code... */
