@@ -131,7 +131,12 @@ const Home = () => {
                     )}
                 </Link>
             </div>
-            <h2 className="titulo-marca">Deals Of The Week</h2>
+
+            {/* Deals Of The Week - Agregar header container */}
+            <div className="deals-header">
+                <h2 className="deals-title">Deals Of The Week</h2>
+            </div>
+
             <Swiper modules={[Autoplay]} autoplay={{ delay: 3000, disableOnInteraction: false }} spaceBetween={20} slidesPerView={1} loop>
                 {promotions.map((promo) => (
                     <SwiperSlide key={promo._id}>
@@ -146,10 +151,10 @@ const Home = () => {
             {/* Top Picks */}
             <section className="top-picks-section">
                 <div className="top-picks-header">
-                    <h3 className="top-picks-title">Top Picks</h3>
-                    <span className="see-all-link">
+                    <h2 className="top-picks-title">Top Picks</h2>
+                    <div className="see-all-link">
                         <Link to="/top-picks">See All</Link>
-                    </span>
+                    </div>
                 </div>
                 <div className="top-picks-scroll">
                     {topPicksToShow.filter(product => product.name !== 'Bamboo Toothbrush').map((product) => (

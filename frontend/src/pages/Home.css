@@ -81,13 +81,14 @@
     font-weight: 400;
     letter-spacing: 1px;
     color: #3a5a40;
-    margin: 0;
-    text-align: start;
-    /* Mantener como estaba originalmente */
+    margin: 0 6px 10px 6px;
+    /* Agregar margen igual que los otros headers */
+    text-align: left;
     height: 20px;
     margin-bottom: 20px;
     padding-top: 20px;
-    margin-left: 10px;
+    /* margin-left: 10px; */
+    /* Comentar este margen para usar el margen del contenedor */
 }
 
 @media (min-width: 600px) {
@@ -1005,4 +1006,23 @@ body,
     background: none;
     border: none;
     cursor: pointer;
+}
+
+/* Agregar header container para Deals Of The Week */
+.deals-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 6px 10px 6px;
+    /* Mismo margen que los otros headers */
+}
+
+.deals-title {
+    font-family: 'Explore Magic', 'Raleway', sans-serif;
+    font-size: 25px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: #3a5a40;
+    margin: 0;
+    text-align: left;
 }
