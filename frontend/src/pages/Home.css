@@ -80,16 +80,17 @@
     font-size: 25px;
     font-weight: 400;
     letter-spacing: 1px;
-    /* Cambiar de 1% a 1px para consistencia */
     color: #3a5a40;
     margin: 0;
-    /* Cambiar para consistencia */
-    text-align: start;
+    text-align: left;
+    /* Alineado a la izquierda */
     height: 20px;
     margin-bottom: 20px;
     padding-top: 20px;
     margin-left: 10px;
 }
+
+/* ...existing code... */
 
 @media (min-width: 600px) {
     .titulo-marca {
@@ -136,14 +137,16 @@ h2 {
 }
 
 .top-picks-section {
-    margin: 32px 5px 16px 9px;
+    margin: 32px 24px 16px 24px;
+    /* Cambiar margen lateral de 5px a 24px */
 }
 
 .top-picks-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 12px 10px 12px;
+    margin: 0 24px 10px 24px;
+    /* Margen consistente */
     background: none;
     border-radius: 0;
     box-shadow: none;
@@ -157,11 +160,10 @@ h2 {
     font-size: 25px;
     font-weight: 400;
     letter-spacing: 1px;
-    /* Cambiar para consistencia */
     color: #3a5a40;
     margin: 0;
-    /* Cambiar para consistencia */
     text-align: left;
+    /* Alineado a la izquierda */
     flex: none;
     padding-top: 0;
     height: auto;
@@ -304,24 +306,27 @@ h2 {
 } */
 
 .categories-section {
-    margin: 50px 5px 16px 9px;
+    margin: 50px 24px 16px 24px;
+    /* Cambiar margen lateral de 5px a 24px */
 }
 
 .categories-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 12px 10px 12px;
+    margin: 0 24px 10px 24px;
+    /* Margen consistente */
 }
 
 .categories-title {
     font-family: 'Explore Magic', 'Raleway', sans-serif;
     font-size: 25px;
     font-weight: 400;
-    /* Cambiar para consistencia */
     letter-spacing: 1px;
     color: #3a5a40;
     margin: 0;
+    text-align: left;
+    /* Alineado a la izquierda */
 }
 
 .categories-scroll {
@@ -381,14 +386,16 @@ h2 {
 }
 
 .gift-bundles-section {
-    margin: 50px 5px 16px 9px;
+    margin: 50px 24px 16px 24px;
+    /* Cambiar margen lateral de 5px a 24px */
 }
 
 .gift-bundles-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 12px 10px 12px;
+    margin: 0 24px 10px 24px;
+    /* Margen consistente */
 }
 
 .gift-bundles-title {
@@ -398,6 +405,8 @@ h2 {
     margin: 0;
     letter-spacing: 1px;
     font-weight: 400;
+    text-align: left;
+    /* Alineado a la izquierda */
 }
 
 .gift-bundles-scroll {
@@ -613,28 +622,27 @@ h2 {
 }
 
 .eco-blog-section {
-    margin: 32px 5px 16px 9px;
+    margin: 32px 24px 16px 24px;
+    /* Cambiar margen lateral de 5px a 24px */
 }
 
 .eco-blog-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 12px 10px 12px;
+    margin: 0 24px 10px 24px;
+    /* Margen consistente */
 }
 
 .eco-blog-title {
     font-family: 'Explore Magic', 'Raleway', sans-serif;
     font-size: 25px;
-    /* Cambiar para consistencia */
     font-weight: 400;
     letter-spacing: 1px;
-    /* Cambiar de 0.25px a 1px para consistencia */
     color: #3a5a40;
     margin: 0;
-    /* Cambiar para consistencia */
     text-align: left;
-    /* Cambiar de center a left para consistencia */
+    /* Alineado a la izquierda */
     margin-bottom: 3px;
 }
 
@@ -660,6 +668,8 @@ h2 {
 }
 
 .eco-blog-card {
+    min-width: 314.24px;
+    max-width: 314.24px;
     min-width: 314.24px;
     max-width: 314.24px;
     width: 314.24px;
@@ -713,12 +723,12 @@ h2 {
 .eco-bottles-title {
     font-family: 'Explore Magic', 'Raleway', sans-serif;
     font-size: 25px;
-    /* Cambiar de 1.5rem a 25px para consistencia */
     font-weight: 400;
-    /* Agregar para consistencia */
     letter-spacing: 1px;
     color: #3a5a40;
     margin: 0;
+    text-align: left;
+    /* Alineado a la izquierda */
 }
 
 .eco-bottles-scroll {
@@ -846,12 +856,12 @@ h2 {
 .eco-souvenirs-title {
     font-family: 'Explore Magic', 'Raleway', sans-serif;
     font-size: 25px;
-    /* Cambiar de 1.5rem a 25px para consistencia */
     font-weight: 400;
-    /* Agregar para consistencia */
     letter-spacing: 1px;
     color: #3a5a40;
     margin: 0;
+    text-align: left;
+    /* Alineado a la izquierda */
 }
 
 .eco-souvenir-image-container,
@@ -909,12 +919,12 @@ h2 {
 .our-store-title {
     font-family: 'Explore Magic', 'Raleway', sans-serif;
     font-size: 25px;
-    /* Cambiar de 1.5rem a 25px para consistencia */
     font-weight: 400;
-    /* Agregar para consistencia */
     letter-spacing: 1px;
     color: #3a5a40;
     margin: 0;
+    text-align: left;
+    /* Alineado a la izquierda */
 }
 
 .our-store-image-container {
