@@ -82,15 +82,13 @@
     letter-spacing: 1px;
     color: #3a5a40;
     margin: 0;
-    text-align: left;
-    /* Alineado a la izquierda */
+    text-align: start;
+    /* Mantener como estaba originalmente */
     height: 20px;
     margin-bottom: 20px;
     padding-top: 20px;
     margin-left: 10px;
 }
-
-/* ...existing code... */
 
 @media (min-width: 600px) {
     .titulo-marca {
@@ -162,8 +160,7 @@ h2 {
     letter-spacing: 1px;
     color: #3a5a40;
     margin: 0;
-    text-align: left;
-    /* Alineado a la izquierda */
+    /* NO cambiar text-align aquí porque usa flex */
     flex: none;
     padding-top: 0;
     height: auto;
@@ -325,8 +322,7 @@ h2 {
     letter-spacing: 1px;
     color: #3a5a40;
     margin: 0;
-    text-align: left;
-    /* Alineado a la izquierda */
+    /* NO agregar text-align para mantener posición original */
 }
 
 .categories-scroll {
@@ -405,8 +401,7 @@ h2 {
     margin: 0;
     letter-spacing: 1px;
     font-weight: 400;
-    text-align: left;
-    /* Alineado a la izquierda */
+    /* NO agregar text-align para mantener posición original */
 }
 
 .gift-bundles-scroll {
@@ -642,7 +637,7 @@ h2 {
     color: #3a5a40;
     margin: 0;
     text-align: left;
-    /* Alineado a la izquierda */
+    /* Solo cambiar este que originalmente era center */
     margin-bottom: 3px;
 }
 
@@ -727,8 +722,7 @@ h2 {
     letter-spacing: 1px;
     color: #3a5a40;
     margin: 0;
-    text-align: left;
-    /* Alineado a la izquierda */
+    /* NO agregar text-align para mantener posición original */
 }
 
 .eco-bottles-scroll {
@@ -860,8 +854,7 @@ h2 {
     letter-spacing: 1px;
     color: #3a5a40;
     margin: 0;
-    text-align: left;
-    /* Alineado a la izquierda */
+    /* NO agregar text-align para mantener posición original */
 }
 
 .eco-souvenir-image-container,
@@ -923,8 +916,7 @@ h2 {
     letter-spacing: 1px;
     color: #3a5a40;
     margin: 0;
-    text-align: left;
-    /* Alineado a la izquierda */
+    /* NO agregar text-align para mantener posición original */
 }
 
 .our-store-image-container {
