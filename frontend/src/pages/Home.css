@@ -135,8 +135,8 @@ h2 {
 }
 
 .top-picks-section {
-    margin: 32px 24px 16px 24px;
-    /* Cambiar margen lateral de 5px a 24px */
+    margin: 32px 5px 16px 9px;
+    /* Asegurar mismo margen que las otras secciones */
 }
 
 .top-picks-header {
@@ -144,6 +144,7 @@ h2 {
     align-items: center;
     justify-content: space-between;
     margin: 0 12px 10px 12px;
+    /* Mismo margen que las demás */
     background: none;
     border-radius: 0;
     box-shadow: none;
@@ -301,8 +302,8 @@ h2 {
 } */
 
 .categories-section {
-    margin: 50px 24px 16px 24px;
-    /* Cambiar margen lateral de 5px a 24px */
+    margin: 50px 5px 16px 9px;
+    /* Asegurar mismo margen */
 }
 
 .categories-header {
@@ -310,6 +311,7 @@ h2 {
     align-items: center;
     justify-content: space-between;
     margin: 0 12px 10px 12px;
+    /* Mismo margen */
 }
 
 .categories-title {
@@ -379,8 +381,8 @@ h2 {
 }
 
 .gift-bundles-section {
-    margin: 50px 24px 16px 24px;
-    /* Cambiar margen lateral de 5px a 24px */
+    margin: 50px 5px 16px 9px;
+    /* Asegurar mismo margen */
 }
 
 .gift-bundles-header {
@@ -388,6 +390,7 @@ h2 {
     align-items: center;
     justify-content: space-between;
     margin: 0 12px 10px 12px;
+    /* Mismo margen */
 }
 
 .gift-bundles-title {
@@ -613,8 +616,8 @@ h2 {
 }
 
 .eco-blog-section {
-    margin: 32px 24px 16px 24px;
-    /* Cambiar margen lateral de 5px a 24px */
+    margin: 32px 5px 16px 9px;
+    /* Mismo margen que las otras */
 }
 
 .eco-blog-header {
@@ -622,6 +625,7 @@ h2 {
     align-items: center;
     justify-content: space-between;
     margin: 0 12px 10px 12px;
+    /* Mismo margen */
 }
 
 .eco-blog-title {
@@ -707,6 +711,7 @@ h2 {
     align-items: center;
     justify-content: space-between;
     margin: 0 12px 10px 12px;
+    /* Mismo margen */
 }
 
 .eco-bottles-title {
@@ -832,6 +837,7 @@ h2 {
 
 .eco-souvenirs-section {
     margin: 32px 5px 16px 9px;
+    /* Mismo margen que las otras */
 }
 
 .eco-souvenirs-header {
@@ -839,6 +845,7 @@ h2 {
     align-items: center;
     justify-content: space-between;
     margin: 0 12px 10px 12px;
+    /* Mismo margen que las otras */
 }
 
 .eco-souvenirs-title {
@@ -848,7 +855,7 @@ h2 {
     letter-spacing: 1px;
     color: #3a5a40;
     margin: 0;
-    /* NO agregar text-align para mantener posición original */
+    text-align: left;
 }
 
 .eco-souvenir-image-container,
@@ -894,6 +901,7 @@ h2 {
 
 .our-store-section {
     margin: 32px 5px 16px 9px;
+    /* Mismo margen */
 }
 
 .our-store-header {
@@ -901,6 +909,7 @@ h2 {
     align-items: center;
     justify-content: space-between;
     margin: 0 12px 10px 12px;
+    /* Mismo margen */
 }
 
 .our-store-title {
@@ -910,7 +919,7 @@ h2 {
     letter-spacing: 1px;
     color: #3a5a40;
     margin: 0;
-    /* NO agregar text-align para mantener posición original */
+    text-align: left;
 }
 
 .our-store-image-container {
