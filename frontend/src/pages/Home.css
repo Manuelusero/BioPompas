@@ -144,7 +144,7 @@ h2 {
     align-items: center;
     justify-content: space-between;
     margin: 0 12px 10px 12px;
-    /* background: none; */
+    background: none;
     border-radius: 0;
     box-shadow: none;
     padding: 0;
@@ -159,14 +159,12 @@ h2 {
     letter-spacing: 1px;
     color: #3a5a40;
     margin: 0;
-    /* Quitar margin para que use el del contenedor */
     text-align: left;
     flex: none;
     padding-top: 0;
     height: auto;
     line-height: 1.2;
-    display: flex;
-    align-items: flex-end;
+    /* Quitar display: flex y align-items que causan problemas */
 }
 
 .see-all-link {
@@ -312,7 +310,6 @@ h2 {
     align-items: center;
     justify-content: space-between;
     margin: 0 12px 10px 12px;
-    /* Igual que las otras secciones */
 }
 
 .categories-title {
@@ -391,7 +388,6 @@ h2 {
     align-items: center;
     justify-content: space-between;
     margin: 0 12px 10px 12px;
-    /* Igual que las otras secciones */
 }
 
 .gift-bundles-title {
@@ -626,7 +622,6 @@ h2 {
     align-items: center;
     justify-content: space-between;
     margin: 0 12px 10px 12px;
-    /* Igual que las otras secciones */
 }
 
 .eco-blog-title {
@@ -721,7 +716,7 @@ h2 {
     letter-spacing: 1px;
     color: #3a5a40;
     margin: 0;
-    /* NO agregar text-align para mantener posición original */
+    text-align: left;
 }
 
 .eco-bottles-scroll {
@@ -843,7 +838,7 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 1px 1px 12px;
+    margin: 0 12px 10px 12px;
 }
 
 .eco-souvenirs-title {
@@ -905,7 +900,7 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 1px 1px 12px;
+    margin: 0 12px 10px 12px;
 }
 
 .our-store-title {
