@@ -105,10 +105,8 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* padding: 7px; */
     transition: box-shadow 0.3s;
     width: 100%;
-    /* box-shadow: 0 30px 500px 0 rgba(60, 60, 60, 0.12), 8px 8px 24px 0 rgba(60, 60, 60, 0.10); */
 }
 
 
@@ -143,7 +141,6 @@ h2 {
     align-items: center;
     justify-content: space-between;
     margin: 0 6px 10px 6px;
-    /* Reducir margen de 12px a 6px para mover más a la izquierda */
     background: none;
     border-radius: 0;
     box-shadow: none;
@@ -164,7 +161,6 @@ h2 {
     padding-top: 0;
     height: auto;
     line-height: 1.2;
-    /* Quitar display: flex y align-items que causan problemas */
 }
 
 .see-all-link {
@@ -272,12 +268,11 @@ h2 {
     text-align: start;
     margin-left: 3px;
     margin-bottom: 4px;
-    /* Agregar margen inferior */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 1.3;
-    /* Mejorar line-height */
+
 }
 
 .top-pick-price {
@@ -291,14 +286,9 @@ h2 {
     align-items: center;
     gap: 2px;
     line-height: 1.3;
-    /* Mejorar line-height */
     min-height: 16px;
-    /* Altura mínima para el precio */
-}
 
-/* .top-pick-card:hover {
-    box-shadow: 0 8px 20px 0 rgba(60, 60, 60, 0.16), 8px 8px 20px 0 rgba(60, 60, 60, 0.12);
-} */
+}
 
 .categories-section {
     margin: 50px 5px 16px 9px;
@@ -309,7 +299,6 @@ h2 {
     align-items: center;
     justify-content: space-between;
     margin: 0 6px 10px 6px;
-    /* Reducir margen de 12px a 6px para mover más a la izquierda */
 }
 
 .categories-title {

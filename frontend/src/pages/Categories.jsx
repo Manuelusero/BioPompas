@@ -15,7 +15,7 @@ function CategoriesHeaderWithCartBadge() {
       <Link to="/home" className="categoriesBack">
         <img src="/ArrowLeftIcon.png" alt="Back" className="arrowIcon" />
       </Link>
-      <h2 className="categoriesTitle">CATEGORIES</h2>
+      <h2 className="categoriesTitle">Categories</h2>
       <Link to="/bag" className="categoriesCartIcon">
         <img src="/Cart.svg" alt="Carrito" className="categoriesCartIconImg" />
         {cartCount > 0 && (

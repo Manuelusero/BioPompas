@@ -73,7 +73,7 @@ const SignUp = () => {
         <GoogleAuthProviderWrapper>
             <div className="signup-container">
                 <h2 className="signup-title">
-                    CREATE YOUR<br />ACCOUNT
+                    Create Your<br />Account
                     <img src="/PlantIcon.png" alt="Plant" className="signup-plant-icon" />
                 </h2>
                 <form className="signup-form" onSubmit={handleSubmit} autoComplete="off">

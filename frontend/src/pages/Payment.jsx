@@ -257,9 +257,9 @@ const Payment = () => {
       <button className="payment-back-btn" onClick={() => navigate('/bag')} disabled={processingPayment}>
         <img src="/ArrowLeftIcon.png" alt="Back" />
       </button>
-      <h1 className="payment-title">PAYMENT</h1>
+      <h1 className="payment-title">Payment</h1>
       <div className="payment-address-header">
-        <h2 className="payment-subtitle">DELIVERY ADDRESS</h2>
+        <h2 className="payment-subtitle">Delivery Address</h2>
       </div>
       <section className="payment-section">
         <div className="payment-address-container">
@@ -330,7 +330,7 @@ const Payment = () => {
         </div>
       </section>
       <div className="payment-method-header">
-        <h2 className="payment-subtitle-dos">PAYMENT METHOD</h2>
+        <h2 className="payment-subtitle-dos">Payment Method</h2>
         <button className="payment-edit" onClick={handleEditPayment}>Edit</button>
       </div>
       <section className="payment-section">
@@ -350,7 +350,7 @@ const Payment = () => {
         </div>
       </section>
       <div className="payment-total-row">
-        <span className="payment-total-label">TOTAL</span>
+        <span className="payment-total-label">Total</span>
         <span className="payment-total-value">€ {cartTotal.toFixed(2)}</span>
       </div>
       <button 

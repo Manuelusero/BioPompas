@@ -180,7 +180,7 @@ const Profile = () => {
         <button className="profile-back-btn" onClick={() => navigate('/home')}>
           <img src="/ArrowLeftIcon.png" alt="Back" />
         </button>
-        <h1 className="profile-title">PROFILE</h1>
+        <h1 className="profile-title">Profile</h1>
         <button className="profile-settings-btn">
           <img src="/Configuration.png" alt="Settings" className="settings-icon" />
         </button>
@@ -192,13 +192,13 @@ const Profile = () => {
           className={`profile-tab ${activeTab === 'saved' ? 'active' : ''}`}
           onClick={() => setActiveTab('saved')}
         >
-          SAVED
+          Saved
         </button>
         <button 
           className={`profile-tab ${activeTab === 'account' ? 'active' : ''}`}
           onClick={() => setActiveTab('account')}
         >
-          ACCOUNT
+          Account
         </button>
       </div>
 

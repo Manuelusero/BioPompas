@@ -67,9 +67,9 @@ const Bag = () => {
       <div className="bag-empty-container">
         <div className="bag-header">
           <button className="bag-back-btn" onClick={() => navigate('/home')}>
-            <img src="/ArrowLefticon.png" alt="Close" />
+            <img src="/ArrowLeftIcon.png" alt="Close" />
           </button>
-          <h1 className="bag-title">MY BAG</h1>
+          <h1 className="bag-title">My Bag</h1>
         </div>
 
         <div className="bag-empty-content">
@@ -99,7 +99,7 @@ const Bag = () => {
     <div className="bag-page">
       <div className="bag-header-row">
         <button className="bag-close-btn" onClick={() => navigate('/home')}>&times;</button>
-        <h1 className="bag-title">MY BAG</h1>
+        <h1 className="bag-title">My Bag</h1>
       </div>
       <div className="bag-list">
         {isLoading ? (
@@ -149,7 +149,7 @@ const Bag = () => {
         )}
       </div>
       <div className="bag-total-section">
-        <div className="bag-total-title">TOTAL</div>
+        <div className="bag-total-title">Total</div>
         <div className="bag-total-box">
           <div className="bag-total-row">
             <span>Order</span>

@@ -13,7 +13,7 @@ function GiftBundlesHeaderWithCartBadge() {
       <Link to="/home" className="giftBundlesBack">
         <span className="giftBundlesArrowIcon"><img src="/ArrowLeftIcon.png"alt="Back" className="arrowIcon" /></span>
       </Link>
-      <h2 className="giftBundlesTitle">GIFT BUNDLES</h2>
+      <h2 className="giftBundlesTitle">Gift Bundles</h2>
       <Link to="/bag" className="giftBundlesCartIcon">
         <img src="/Cart.svg" alt="Cart" className="giftBundlesCartIconImg" />
         {cartCount > 0 && (

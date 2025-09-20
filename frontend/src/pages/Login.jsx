@@ -89,7 +89,7 @@ const Login = () => {
         <GoogleAuthProviderWrapper>
             <div className="login-container">
                 <h2 className="login-title">
-                    LOG IN TO<br />YOUR ACCOUNT
+                    Log In To<br />Your Account
                     <img src="/PlantIcon.png" alt="Plant" className="login-plant-icon" />
                 </h2>
                 <form className="login-form" onSubmit={handleSubmit} autoComplete="off">
