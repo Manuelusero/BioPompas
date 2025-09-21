@@ -71,11 +71,15 @@
     border-radius: 60px 60px 0 0;
     margin-top: 0;
     padding-top: 0;
+    justify-content: space-between;
+    /* Distribuir espacio para que los botones estén abajo */
 }
 
 .bottom-sheet-expanded-content .bottom-sheet-info {
     padding: 0 24px;
     margin-bottom: 18px;
+    flex-grow: 1;
+    /* Permitir que crezca y ocupe espacio disponible */
 }
 
 /* SOLO para modo expandido */
@@ -729,51 +733,121 @@
     /* Distribuir espacio entre elementos */
 }
 
-/* Media queries específicas para móviles muy pequeños */
+/* Contenedor de acciones para estado expandido */
+.bottom-sheet-actions-expanded {
+    padding: 20px;
+    background: #F6F5F0;
+    margin-top: auto;
+    /* Empujar hacia abajo */
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: sticky;
+    /* Hacer que se pegue al fondo */
+    bottom: 0;
+    z-index: 10;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    /* Línea sutil para separar */
+}
+
+/* Ajustar el estado expandido para scroll pero manteniendo botones fijos */
+.bottom-sheet.expanded {
+    min-height: calc(100vh - 70px);
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+    border-radius: 28px;
+    margin-top: 70px;
+    background: #F6F5F0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Botón Add to bag en estado expandido */
+.bottom-sheet-actions-expanded .bottom-sheet-add {
+    background: #5C7347;
+    color: #fff;
+    font-family: 'Raleway', 'Explore Magic', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 24px;
+    padding: 14px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.2s;
+    width: 100%;
+    height: 50px;
+    margin: 0;
+    /* Quitar márgenes para que use el gap del contenedor */
+}
+
+/* Botón Continue shopping en estado expandido */
+.bottom-sheet-actions-expanded .bottom-sheet-close {
+    width: 100%;
+    background: #f0f0f0;
+    color: #3a5a40;
+    font-family: 'Raleway', 'Explore Magic', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    border: 2px solid #e0e0e0;
+    border-radius: 25px;
+    padding: 12px 0;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    /* Quitar márgenes para que use el gap del contenedor */
+}
+
+.bottom-sheet-actions-expanded .bottom-sheet-close:hover {
+    background: #e8e8e8;
+    border-color: #d0d0d0;
+    color: #2c4532;
+}
+
+/* Remover los botones duplicados del estado expandido anterior */
+.bottom-sheet-expanded-content:not(.compact) .bottom-sheet-add-row.expanded {
+    display: none;
+    /* Ocultar el botón duplicado */
+}
+
+/* Asegurar que los botones del estado expandido no interfieran con el compacto */
+.bottom-sheet:not(.expanded) .bottom-sheet-actions-expanded {
+    display: none;
+}
+
+/* Media queries para pantallas pequeñas */
 @media (max-height: 667px) {
-
-    /* iPhone SE, 6, 7, 8 */
-    .bottom-sheet {
-        min-height: 500px;
-        max-height: 85vh;
+    .bottom-sheet-actions-expanded {
+        padding: 15px;
+        gap: 10px;
     }
 
-    .bottom-sheet-img-container.full:not(.expanded-img) {
-        height: 220px;
-        min-height: 220px;
-        max-height: 220px;
-    }
-
-    .bottom-sheet-img.full:not(.expanded-img) {
-        height: 260px;
-        min-height: 220px;
-        max-height: 300px;
+    .bottom-sheet-actions-expanded .bottom-sheet-add,
+    .bottom-sheet-actions-expanded .bottom-sheet-close {
+        min-height: 40px;
+        padding: 10px 0;
+        font-size: 13px;
     }
 }
 
 @media (max-height: 568px) {
-
-    /* iPhone 5/SE primera generación */
-    .bottom-sheet {
-        min-height: 480px;
-        max-height: 80vh;
+    .bottom-sheet-actions-expanded {
+        padding: 12px;
+        gap: 8px;
     }
 
-    .bottom-sheet-img-container.full:not(.expanded-img) {
-        height: 200px;
-        min-height: 200px;
-        max-height: 200px;
-    }
-
-    .bottom-sheet-img.full:not(.expanded-img) {
-        height: 240px;
-        min-height: 200px;
-        max-height: 280px;
-    }
-
-    .bottom-sheet-close {
-        margin-bottom: 15px;
-        padding: 10px 0;
-        min-height: 40px;
+    .bottom-sheet-actions-expanded .bottom-sheet-add,
+    .bottom-sheet-actions-expanded .bottom-sheet-close {
+        min-height: 36px;
+        padding: 8px 0;
+        font-size: 12px;
     }
 }

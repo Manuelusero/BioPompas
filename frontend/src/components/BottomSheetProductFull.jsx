@@ -160,18 +160,23 @@ const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, cou
                   </div>
                 )}
               </div>
-              <div className="bottom-sheet-add-row expanded">
-                <button className="bottom-sheet-add" onClick={() => onAdd(product, count)}>
-                  <span className="bottom-sheet-add-icon">
-                    <img src="/Cart.svg" alt="Carrito" />
-                  </span>
-                  <span className="bottom-sheet-add-text">Add to bag</span>
+              
+              {/* AGREGAR los botones aquí para el estado expandido */}
+              <div className="bottom-sheet-actions-expanded">
+                <div className="bottom-sheet-add-row expanded">
+                  <button className="bottom-sheet-add" onClick={() => onAdd(product, count)}>
+                    <span className="bottom-sheet-add-icon">
+                      <img src="/Cart.svg" alt="Carrito" />
+                    </span>
+                    <span className="bottom-sheet-add-text">Add to bag</span>
+                  </button>
+                </div>
+                
+                {/* Botón Continue shopping en estado expandido */}
+                <button className="bottom-sheet-close" onClick={onClose}>
+                  Continue shopping
                 </button>
               </div>
-              {/* Botón Continue shopping siempre visible */}
-              <button className="bottom-sheet-close" onClick={onClose}>
-                Continue shopping
-              </button>
             </div>
           </>
         ) : (
