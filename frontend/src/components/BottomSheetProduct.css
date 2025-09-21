@@ -184,9 +184,10 @@
     animation: slideUp 0.3s ease-out;
     position: relative;
     overflow: hidden;
-    min-height: 460px;
-    /* Reducir un poco más para compensar */
-    max-height: 85vh;
+    min-height: 520px;
+    /* Aumentar de 460px a 520px para más espacio */
+    max-height: 90vh;
+    /* Aumentar de 85vh a 90vh */
 }
 
 /* Ajustar la franja superior draggable con las propiedades específicas */
@@ -250,13 +251,16 @@
     margin-bottom: 0;
     border-radius: 32px 32px 0 0;
     overflow: visible;
-    height: 280px;
-    min-height: 280px;
-    max-height: 280px;
+    height: 240px;
+    /* Reducir de 280px a 240px */
+    min-height: 240px;
+    max-height: 240px;
     position: relative;
     width: 397px;
     left: 0;
     right: 0;
+    margin-top: 10px;
+    /* Agregar margen superior para separar de la barra */
 }
 
 .bottom-sheet-img:not(.full):not(.expanded-img) {
@@ -277,9 +281,12 @@
 
 .bottom-sheet-img.full:not(.expanded-img) {
     width: 430px !important;
-    height: 350px;
-    min-height: 280px;
-    max-height: 400px;
+    height: 280px;
+    /* Reducir de 350px a 280px */
+    min-height: 240px;
+    /* Reducir de 280px a 240px */
+    max-height: 320px;
+    /* Reducir de 400px a 320px */
     object-fit: cover;
     border-radius: 60 !important;
     background: transparent;
@@ -374,8 +381,8 @@
     background: #F6F5F0;
     margin-bottom: 0;
     margin-top: 0;
-    padding: 8px 0 5px 0;
-    /* Reducir padding superior */
+    padding: 5px 0 3px 0;
+    /* Reducir aún más el padding */
     z-index: 2;
 }
 
@@ -386,8 +393,8 @@
     flex-wrap: nowrap;
     margin-bottom: 0;
     position: relative;
-    top: 25px;
-    /* Reducir de 30px a 25px */
+    top: 15px;
+    /* Reducir de 25px a 15px */
     gap: 8px;
     min-width: 0;
     width: 100%;
@@ -419,8 +426,8 @@
     font-weight: 600;
     line-height: 16px;
     color: #3a5a40;
-    margin-top: 35px;
-    /* Reducir de 40px a 35px */
+    margin-top: 25px;
+    /* Reducir de 35px a 25px */
     margin-left: 16px;
 }
 
@@ -478,8 +485,8 @@
 .bottom-sheet-add-row.compact {
     background: #F6F5F0;
     margin-top: 0;
-    margin-bottom: 10px;
-    /* Reducir de 20px a 10px */
+    margin-bottom: 5px;
+    /* Reducir de 10px a 5px */
     padding: 0 20px;
     display: flex;
     align-items: center;
@@ -548,10 +555,10 @@
     /* Más redondeado */
     padding: 12px 0;
     /* Más padding */
-    margin-bottom: 16px;
-    /* Más margen inferior */
-    margin-top: 8px;
-    /* Reducir margen superior */
+    margin-bottom: 20px;
+    /* Aumentar de 16px a 20px */
+    margin-top: 5px;
+    /* Reducir de 8px a 5px */
     cursor: pointer;
     text-decoration: none;
     /* Quitar underline */
@@ -562,7 +569,6 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    /* Asegurar que esté en el flujo normal */
 }
 
 .bottom-sheet-close:hover {
@@ -700,4 +706,74 @@
 .bottom-sheet-add,
 .bottom-sheet-close {
     font-family: 'Raleway', 'Explore Magic', sans-serif;
+}
+
+/* Ajustar contenido expandido compacto para mejor distribución */
+.bottom-sheet-expanded-content.compact {
+    background: #F6F5F0;
+    min-height: unset !important;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    position: relative;
+    z-index: 100;
+    width: 100vw;
+    max-width: 100vw;
+    right: 0;
+    border-radius: 0 !important;
+    margin-top: 0 !important;
+    padding-bottom: 25px;
+    /* Aumentar espacio inferior */
+    overflow: visible;
+    justify-content: space-between;
+    /* Distribuir espacio entre elementos */
+}
+
+/* Media queries específicas para móviles muy pequeños */
+@media (max-height: 667px) {
+
+    /* iPhone SE, 6, 7, 8 */
+    .bottom-sheet {
+        min-height: 500px;
+        max-height: 85vh;
+    }
+
+    .bottom-sheet-img-container.full:not(.expanded-img) {
+        height: 220px;
+        min-height: 220px;
+        max-height: 220px;
+    }
+
+    .bottom-sheet-img.full:not(.expanded-img) {
+        height: 260px;
+        min-height: 220px;
+        max-height: 300px;
+    }
+}
+
+@media (max-height: 568px) {
+
+    /* iPhone 5/SE primera generación */
+    .bottom-sheet {
+        min-height: 480px;
+        max-height: 80vh;
+    }
+
+    .bottom-sheet-img-container.full:not(.expanded-img) {
+        height: 200px;
+        min-height: 200px;
+        max-height: 200px;
+    }
+
+    .bottom-sheet-img.full:not(.expanded-img) {
+        height: 240px;
+        min-height: 200px;
+        max-height: 280px;
+    }
+
+    .bottom-sheet-close {
+        margin-bottom: 15px;
+        padding: 10px 0;
+        min-height: 40px;
+    }
 }
