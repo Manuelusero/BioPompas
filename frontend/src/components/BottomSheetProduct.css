@@ -188,32 +188,30 @@
     animation: slideUp 0.3s ease-out;
     position: relative;
     overflow: hidden;
-    min-height: 520px;
-    /* Aumentar de 460px a 520px para más espacio */
-    max-height: 90vh;
-    /* Aumentar de 85vh a 90vh */
+    min-height: 440px;
+    /* Reducir de 520px a 440px */
+    max-height: 80vh;
+    /* Reducir de 90vh a 80vh */
 }
 
 /* Ajustar la franja superior draggable con las propiedades específicas */
 .bottom-sheet-draggable-bar {
     display: flex;
     width: 360px;
-    /* Ancho específico como en la imagen */
-    padding: 16px;
-    /* Padding específico */
+    padding: 8px 16px 12px 16px;
+    /* Reducir padding superior de 16px a 8px */
     flex-direction: column;
     align-items: center;
-    gap: 12px;
-    /* Gap específico */
-    min-height: 28px;
-    /* Reducir altura mínima */
+    gap: 8px;
+    /* Reducir gap de 12px a 8px */
+    min-height: 24px;
+    /* Reducir altura mínima de 28px a 24px */
     background: transparent;
     border-radius: 12px 12px 0 0;
     cursor: grab;
     position: relative;
     touch-action: pan-y;
     margin: 0 auto;
-    /* Centrar el contenedor */
 }
 
 .bottom-sheet-draggable-bar:active {
@@ -255,16 +253,16 @@
     margin-bottom: 0;
     border-radius: 32px 32px 0 0;
     overflow: visible;
-    height: 240px;
-    /* Reducir de 280px a 240px */
-    min-height: 240px;
-    max-height: 240px;
+    height: 200px;
+    /* Reducir altura de 240px a 200px */
+    min-height: 200px;
+    max-height: 200px;
     position: relative;
     width: 397px;
     left: 0;
     right: 0;
-    margin-top: 10px;
-    /* Agregar margen superior para separar de la barra */
+    margin-top: 5px;
+    /* Reducir margen superior de 10px a 5px */
 }
 
 .bottom-sheet-img:not(.full):not(.expanded-img) {
@@ -285,12 +283,12 @@
 
 .bottom-sheet-img.full:not(.expanded-img) {
     width: 430px !important;
-    height: 280px;
-    /* Reducir de 350px a 280px */
-    min-height: 240px;
-    /* Reducir de 280px a 240px */
-    max-height: 320px;
-    /* Reducir de 400px a 320px */
+    height: 240px;
+    /* Reducir altura de 280px a 240px */
+    min-height: 200px;
+    /* Reducir de 240px a 200px */
+    max-height: 280px;
+    /* Reducir de 320px a 280px */
     object-fit: cover;
     border-radius: 60 !important;
     background: transparent;
@@ -385,8 +383,8 @@
     background: #F6F5F0;
     margin-bottom: 0;
     margin-top: 0;
-    padding: 5px 0 3px 0;
-    /* Reducir aún más el padding */
+    padding: 2px 0 0 0;
+    /* Reducir padding aún más */
     z-index: 2;
 }
 
@@ -397,8 +395,8 @@
     flex-wrap: nowrap;
     margin-bottom: 0;
     position: relative;
-    top: 15px;
-    /* Reducir de 25px a 15px */
+    top: 8px;
+    /* Reducir de 15px a 8px */
     gap: 8px;
     min-width: 0;
     width: 100%;
@@ -430,8 +428,8 @@
     font-weight: 600;
     line-height: 16px;
     color: #3a5a40;
-    margin-top: 25px;
-    /* Reducir de 35px a 25px */
+    margin-top: 18px;
+    /* Reducir de 25px a 18px */
     margin-left: 16px;
 }
 
@@ -489,8 +487,8 @@
 .bottom-sheet-add-row.compact {
     background: #F6F5F0;
     margin-top: 0;
-    margin-bottom: 5px;
-    /* Reducir de 10px a 5px */
+    margin-bottom: 8px;
+    /* Reducir de 5px a 8px para dar más espacio al continue shopping */
     padding: 0 20px;
     display: flex;
     align-items: center;
@@ -503,23 +501,30 @@
     background: #5C7347;
     color: #fff;
     font-family: 'Raleway', 'Explore Magic', sans-serif;
-    font-size: 1.1rem;
+    font-size: 14px;
+    /* Reducir tamaño de fuente de 1.1rem a 14px */
     font-weight: 600;
     border: none;
-    border-radius: 24px;
-    padding: 14px 0;
-    margin-top: 18px;
-    margin-bottom: 8px;
+    border-radius: 20px;
+    /* Más redondeado y compacto */
+    padding: 10px 0;
+    /* Reducir padding de 14px a 10px */
+    margin-top: 8px;
+    /* Reducir de 18px a 8px */
+    margin-bottom: 4px;
+    /* Reducir de 8px a 4px */
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
+    /* Reducir gap de 8px a 6px */
     transition: background 0.2s;
-    width: 200px;
-    height: 50px;
+    width: 180px;
+    /* Reducir ancho de 200px a 180px */
+    height: 40px;
+    /* Reducir altura de 50px a 40px */
     flex-shrink: 0;
-    /* margin-right: 45px; */
 }
 
 .bottom-sheet-add-icon img {
@@ -550,25 +555,25 @@
     /* Fondo más visible */
     color: #3a5a40;
     font-family: 'Raleway', 'Explore Magic', sans-serif;
-    font-size: 14px;
-    /* Texto más grande */
+    font-size: 12px;
+    /* Reducir de 14px a 12px */
     font-weight: 600;
     border: 2px solid #e0e0e0;
     /* Borde para más visibilidad */
-    border-radius: 25px;
-    /* Más redondeado */
-    padding: 12px 0;
-    /* Más padding */
-    margin-bottom: 20px;
-    /* Aumentar de 16px a 20px */
-    margin-top: 5px;
-    /* Reducir de 8px a 5px */
+    border-radius: 20px;
+    /* Más compacto */
+    padding: 8px 0;
+    /* Reducir padding de 12px a 8px */
+    margin-bottom: 12px;
+    /* Reducir de 20px a 12px */
+    margin-top: 2px;
+    /* Reducir de 5px a 2px */
     cursor: pointer;
     text-decoration: none;
     /* Quitar underline */
     transition: all 0.2s;
-    min-height: 44px;
-    /* Altura mínima para fácil toque */
+    min-height: 36px;
+    /* Reducir de 44px a 36px */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -726,11 +731,13 @@
     right: 0;
     border-radius: 0 !important;
     margin-top: 0 !important;
-    padding-bottom: 25px;
-    /* Aumentar espacio inferior */
+    padding-bottom: 15px;
+    /* Reducir de 25px a 15px */
     overflow: visible;
-    justify-content: space-between;
-    /* Distribuir espacio entre elementos */
+    justify-content: flex-start;
+    /* Cambiar de space-between a flex-start */
+    min-height: 280px;
+    /* Agregar altura mínima para asegurar espacio para botones */
 }
 
 /* Contenedor de acciones para estado expandido */
@@ -790,15 +797,23 @@
     background: #f0f0f0;
     color: #3a5a40;
     font-family: 'Raleway', 'Explore Magic', sans-serif;
-    font-size: 14px;
+    font-size: 12px;
+    /* Reducir de 14px a 12px */
     font-weight: 600;
     border: 2px solid #e0e0e0;
-    border-radius: 25px;
-    padding: 12px 0;
+    border-radius: 20px;
+    /* Más compacto */
+    padding: 8px 0;
+    /* Reducir padding de 12px a 8px */
+    margin-bottom: 12px;
+    /* Reducir de 20px a 12px */
+    margin-top: 2px;
+    /* Reducir de 5px a 2px */
     cursor: pointer;
     text-decoration: none;
     transition: all 0.2s;
-    min-height: 44px;
+    min-height: 36px;
+    /* Reducir de 44px a 36px */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -849,5 +864,13 @@
         min-height: 36px;
         padding: 8px 0;
         font-size: 12px;
+    }
+}
+
+/* Media query para pantallas muy altas (evitar que el BottomSheet sea demasiado alto) */
+@media (min-height: 900px) {
+    .bottom-sheet {
+        max-height: 70vh;
+        /* Limitar altura en pantallas muy altas */
     }
 }
