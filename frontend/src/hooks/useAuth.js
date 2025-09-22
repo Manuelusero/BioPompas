@@ -1,12 +1,11 @@
 import { useState, useEffect, createContext, useContext } from 'react';
-import PropTypes from 'prop-types'; // Agregar import de PropTypes
+import PropTypes from 'prop-types';
 
 const AuthContext = createContext();
 
 export const useAuth = () => {
     const context = useContext(AuthContext);
     if (!context) {
-        // Si no hay contexto, lanzar error en lugar de usar hooks condicionalmente
         throw new Error('useAuth must be used within an AuthProvider');
     }
     return context;
@@ -14,7 +13,6 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(() => {
-        // Inicializar con el estado actual del localStorage
         return !!localStorage.getItem('token');
     });
     const [loading, setLoading] = useState(true);
@@ -28,7 +26,6 @@ export const AuthProvider = ({ children }) => {
             setLoading(false);
         };
 
-        // Verificar inmediatamente
         checkAuth();
 
         const handleStorageChange = (e) => {
@@ -48,7 +45,7 @@ export const AuthProvider = ({ children }) => {
             window.removeEventListener('storage', handleStorageChange);
             window.removeEventListener('authChange', handleAuthChange);
         };
-    }, []); // Dependencias vacías para evitar loops
+    }, []);
 
     const login = (token) => {
         localStorage.setItem('token', token);
@@ -78,7 +75,6 @@ export const AuthProvider = ({ children }) => {
     );
 };
 
-// Agregar PropTypes para AuthProvider
 AuthProvider.propTypes = {
     children: PropTypes.node.isRequired,
 };
