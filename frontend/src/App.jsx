@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import { CartProvider } from "./api/CartContext"
-// import { AuthProvider } from "./hooks/useAuth" // Comentar temporalmente
+// import { AuthProvider } from "./hooks/useAuth.jsx" // Actualizar import
 import Home from "./pages/Home"
 import Bag from "./pages/Bag";
 import Payment from './pages/Payment';
