@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import { CartProvider } from "./api/CartContext"
-import { AuthProvider } from "./hooks/useAuth" // Agregar AuthProvider
+// import { AuthProvider } from "./hooks/useAuth" // Comentar temporalmente
 import Home from "./pages/Home"
 import Bag from "./pages/Bag";
 import Payment from './pages/Payment';
@@ -27,7 +27,7 @@ import { useNavigate } from "react-router-dom";
 
 function App() {
   return (
-    <AuthProvider> {/* Envolver todo con AuthProvider */}
+    // <AuthProvider> {/* Comentar temporalmente */}
       <CartProvider>
         <Router>
           <Routes>
@@ -55,7 +55,7 @@ function App() {
           </Routes>
         </Router>
       </CartProvider>
-    </AuthProvider>
+    // </AuthProvider>
   )
 }
 
