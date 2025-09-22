@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import './CategoryPage.css';
 import BottomSheetProductFull from '../components/BottomSheetProductFull';
 import { useCart } from '../api/CartContext';
+import { useAuth } from '../hooks/useAuth'; // Agregar import
 
 const CategoryPage = () => {
   const { category } = useParams();
@@ -11,7 +12,8 @@ const CategoryPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const { addToCart, cartCount } = useCart(); // Agregar cartCount aquí
-  
+  const { isLoggedIn } = useAuth(); // Usar hook
+
   // Estados para BottomSheet
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
@@ -62,12 +64,11 @@ const CategoryPage = () => {
 
   // Agregar función para manejar clic en avatar
   const handleAvatarClick = () => {
-    const isLoggedIn = !!localStorage.getItem('token');
     if (isLoggedIn) {
       navigate('/profile');
     } else {
       alert('Debes iniciar sesión para acceder a tu perfil.');
-      navigate('/login', { state: { from: 'profile' } }); // Especificar que viene de profile
+      navigate('/login', { state: { from: 'profile' } });
     }
   };
 

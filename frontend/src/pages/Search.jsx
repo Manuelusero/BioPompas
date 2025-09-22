@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import BottomSheetProductFull from '../components/BottomSheetProductFull';
+import { useAuth } from '../hooks/useAuth'; // Solo agregar este import
 import "./Search.css";
 
 const Search = () => {
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuth(); // Solo agregar esta línea
   const [query, setQuery] = useState("");
   const [suggested, setSuggested] = useState([]);
   const [results, setResults] = useState([]);
@@ -191,6 +193,15 @@ const Search = () => {
     navigate('/bag');
   };
 
+  const handleAvatarClick = () => {
+    if (isLoggedIn) {
+      navigate('/profile');
+    } else {
+      alert('Debes iniciar sesión para acceder a tu perfil.');
+      navigate('/login', { state: { from: 'profile' } });
+    }
+  };
+
   return (
     <div className="searchPage">
       <div className="searchHeaderRow">
@@ -281,7 +292,7 @@ const Search = () => {
         <a href="/search" className="nav-icon" aria-label="Search">
           <img src="/Searchseccion.png" alt="Search" />
         </a>
-        <a href="/login" className="nav-icon" aria-label="Avatar">
+        <a href="/login" className="nav-icon" aria-label="Avatar" onClick={handleAvatarClick}>
           <img src="/AvatarIcon.png"  alt="Avatar" />
         </a>
       </nav>

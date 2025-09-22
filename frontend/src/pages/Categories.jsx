@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import BottomSheetProductFull from '../components/BottomSheetProductFull';
 import { useCart } from '../api/CartContext';
+import { useAuth } from '../hooks/useAuth'; // Agregar import
 
 
 // Cart badge header component
@@ -28,6 +29,7 @@ function CategoriesHeaderWithCartBadge() {
 
 const Categories = () => {
   const navigate = useNavigate(); // Agregar useNavigate aquí en el componente principal
+  const { isLoggedIn } = useAuth(); // Usar hook
   const [categories, setCategories] = useState([]);
   const [categoryProducts, setCategoryProducts] = useState([]);
   const { addToCart } = useCart();
@@ -40,7 +42,6 @@ const Categories = () => {
 
   // Agregar función handleAvatarClick en el componente principal
   const handleAvatarClick = () => {
-    const isLoggedIn = !!localStorage.getItem('token');
     if (isLoggedIn) {
       navigate('/profile');
     } else {

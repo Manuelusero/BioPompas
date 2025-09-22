@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import { CartProvider } from "./api/CartContext"
+import { AuthProvider } from "./hooks/useAuth" // Agregar AuthProvider
 import Home from "./pages/Home"
 import Bag from "./pages/Bag";
 import Payment from './pages/Payment';
@@ -26,33 +27,35 @@ import { useNavigate } from "react-router-dom";
 
 function App() {
   return (
-    <CartProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<SplashScreenRedirect />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/verify-email/:token" element={<VerifyEmail />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/gift-bundles" element={<GiftBundles />} />
-          <Route path="/eco-blog" element={<EcoBlog />} />
-          <Route path="/eco-blog/:slug" element={<EcoBlogDetail />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/top-picks" element={<TopPicks />} />
-          <Route path="/categories" element={<Categories />} />
-          <Route path="/our-store" element={<OurStore />} />
-          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-          <Route path="/category/:category" element={<CategoryPage />} />
-          <Route path="/bag" element={<Bag />} />
-          <Route path="/payment" element={<ProtectedRoute><Payment /></ProtectedRoute>} />
-          <Route path="/order-complete" element={<ProtectedRoute><OrderComplete /></ProtectedRoute>} />
-        </Routes>
-      </Router>
-    </CartProvider>
+    <AuthProvider> {/* Envolver todo con AuthProvider */}
+      <CartProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<SplashScreenRedirect />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/verify-email/:token" element={<VerifyEmail />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/gift-bundles" element={<GiftBundles />} />
+            <Route path="/eco-blog" element={<EcoBlog />} />
+            <Route path="/eco-blog/:slug" element={<EcoBlogDetail />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/top-picks" element={<TopPicks />} />
+            <Route path="/categories" element={<Categories />} />
+            <Route path="/our-store" element={<OurStore />} />
+            <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+            <Route path="/category/:category" element={<CategoryPage />} />
+            <Route path="/bag" element={<Bag />} />
+            <Route path="/payment" element={<ProtectedRoute><Payment /></ProtectedRoute>} />
+            <Route path="/order-complete" element={<ProtectedRoute><OrderComplete /></ProtectedRoute>} />
+          </Routes>
+        </Router>
+      </CartProvider>
+    </AuthProvider>
   )
 }
 

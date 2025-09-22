@@ -7,6 +7,7 @@ import { useCart } from "../api/CartContext";
 import BottomSheetProductFull from "../components/BottomSheetProductFull";
 import { getImageUrl, getApiUrl } from '../utils/api.js';
 import './Home.css';
+import { useAuth } from '../hooks/useAuth';
 
 const Home = () => {
     const navigate = useNavigate();
@@ -25,6 +26,7 @@ const Home = () => {
     const [selectedProductId, setSelectedProductId] = useState(null);
     const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
     const [bottomSheetCount, setBottomSheetCount] = useState(1);
+    const { isLoggedIn } = useAuth(); // Agregar esta línea
 
     useEffect(() => {
         // Obtener productos reales
@@ -71,12 +73,11 @@ const Home = () => {
     };
 
     const handleAvatarClick = () => {
-        const isLoggedIn = !!localStorage.getItem('token');
         if (isLoggedIn) {
             navigate('/profile');
         } else {
             alert('Debes iniciar sesión para acceder a tu perfil.');
-            navigate('/login', { state: { from: 'profile' } }); // Especificar que viene de profile
+            navigate('/login', { state: { from: 'profile' } });
         }
     };
 
