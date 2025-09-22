@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import './CategoryPage.css';
 import BottomSheetProductFull from '../components/BottomSheetProductFull';
 import { useCart } from '../api/CartContext';
-import { useAuth } from '../hooks/useAuth'; // Agregar import
 
 const CategoryPage = () => {
   const { category } = useParams();
@@ -11,8 +10,9 @@ const CategoryPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const { addToCart, cartCount } = useCart(); // Agregar cartCount aquí
-  const { isLoggedIn } = useAuth(); // Usar hook
+  const { addToCart, cartCount } = useCart();
+  // Usar verificación directa de localStorage temporalmente
+  const isLoggedIn = !!localStorage.getItem('token');
 
   // Estados para BottomSheet
   const [selectedProductId, setSelectedProductId] = useState(null);

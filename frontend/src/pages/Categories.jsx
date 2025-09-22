@@ -4,32 +4,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import BottomSheetProductFull from '../components/BottomSheetProductFull';
 import { useCart } from '../api/CartContext';
-import { useAuth } from '../hooks/useAuth'; // Agregar import
-
-
-// Cart badge header component
-function CategoriesHeaderWithCartBadge() {
-  const { cartCount } = useCart();
-  
-  return (
-    <div className="categoriesHeader">
-      <Link to="/home" className="categoriesBack">
-        <img src="/ArrowLeftIcon.png" alt="Back" className="arrowIcon" />
-      </Link>
-      <h2 className="categoriesTitle">Categories</h2>
-      <Link to="/bag" className="categoriesCartIcon">
-        <img src="/Cart.svg" alt="Carrito" className="categoriesCartIconImg" />
-        {cartCount > 0 && (
-          <span className="categoriesCartBadge">{cartCount}</span>
-        )}
-      </Link>
-    </div>
-  );
-}
 
 const Categories = () => {
-  const navigate = useNavigate(); // Agregar useNavigate aquí en el componente principal
-  const { isLoggedIn } = useAuth(); // Usar hook
+  const navigate = useNavigate();
+  // Usar verificación directa de localStorage temporalmente
+  const isLoggedIn = !!localStorage.getItem('token');
   const [categories, setCategories] = useState([]);
   const [categoryProducts, setCategoryProducts] = useState([]);
   const { addToCart } = useCart();
@@ -128,7 +107,18 @@ const Categories = () => {
 
   return (
     <div className="categories-container">
-      <CategoriesHeaderWithCartBadge />
+      <div className="categoriesHeader">
+        <Link to="/home" className="categoriesBack">
+          <img src="/ArrowLeftIcon.png" alt="Back" className="arrowIcon" />
+        </Link>
+        <h2 className="categoriesTitle">Categories</h2>
+        <Link to="/bag" className="categoriesCartIcon">
+          <img src="/Cart.svg" alt="Carrito" className="categoriesCartIconImg" />
+          {/* {cartCount > 0 && (
+            <span className="categoriesCartBadge">{cartCount}</span>
+          )} */}
+        </Link>
+      </div>
       <div className="categoriesGrid">
         {categories.map(cat => (
           <Link to={`/category/${encodeURIComponent(cat.name.split(',')[0].trim())}`} className="categoryCard" key={cat._id} style={{ position: 'relative' }}>

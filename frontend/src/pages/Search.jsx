@@ -1,55 +1,24 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import BottomSheetProductFull from '../components/BottomSheetProductFull';
-import { useAuth } from '../hooks/useAuth'; // Solo agregar este import
+import { useCart } from '../api/CartContext';
 import "./Search.css";
 
 const Search = () => {
   const navigate = useNavigate();
-  const { isLoggedIn } = useAuth(); // Solo agregar esta línea
+  const { addToCart, cartCount } = useCart();
+  // Usar verificación directa de localStorage en lugar de useAuth temporalmente
+  const isLoggedIn = !!localStorage.getItem('token');
+  
   const [query, setQuery] = useState("");
   const [suggested, setSuggested] = useState([]);
   const [results, setResults] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [cartCount, setCartCount] = useState(() => {
-    const storedCart = localStorage.getItem('cart');
-    if (!storedCart) return 0;
-    try {
-      return JSON.parse(storedCart).reduce((sum, item) => sum + (item.count || 1), 0);
-    } catch {
-      return 0;
-    }
-  });
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const [bottomSheetCount, setBottomSheetCount] = useState(1);
-
-  useEffect(() => {
-    const updateCartCount = () => {
-      const storedCart = localStorage.getItem('cart');
-      if (!storedCart) return setCartCount(0);
-      try {
-        const newCount = JSON.parse(storedCart).reduce((sum, item) => sum + (item.count || 1), 0);
-        setCartCount(newCount);
-      } catch {
-        setCartCount(0);
-      }
-    };
-    
-    // Update on mount
-    updateCartCount();
-    
-    // Listen for cart updates
-    window.addEventListener('cartUpdated', updateCartCount);
-    window.addEventListener('storage', updateCartCount);
-    
-    return () => {
-      window.removeEventListener('cartUpdated', updateCartCount);
-      window.removeEventListener('storage', updateCartCount);
-    };
-  }, []);
 
   // Get product suggestions on mount
   useEffect(() => {
@@ -130,7 +99,6 @@ const Search = () => {
 
   const handleCardClick = (product) => {
     console.log('Product clicked:', product);
-    // Use id or _id depending on what the product has
     const productId = product._id || product.id;
     setSelectedProductId(productId);
     setBottomSheetOpen(true);
@@ -141,48 +109,13 @@ const Search = () => {
     setBottomSheetOpen(false);
   };
 
-  const handleAddToCart = (product, count) => {
-    // Use id or _id depending on what the product has
-    const productId = product._id || product.id;
-    console.log('PRODUCTO A AGREGAR:', product);
-    console.log('productId enviado:', productId);
-    
-    const storedCart = localStorage.getItem('cart');
-    let cart = storedCart ? JSON.parse(storedCart) : [];
-    
-    // Normalize the product to have _id for consistency
-    const normalizedProduct = {
-      ...product,
-      _id: productId,
-      id: productId // Keep both for compatibility
-    };
-    
-    const existingIndex = cart.findIndex(item => {
-      const itemId = item._id || item.id;
-      return itemId === productId;
-    });
-    
-    let newCart;
-    if (existingIndex !== -1) {
-      newCart = cart.map((item, idx) =>
-        idx === existingIndex ? { ...item, count: item.count + count } : item
-      );
-    } else {
-      newCart = [...cart, { ...normalizedProduct, count }];
+  const handleAddToCart = async (product, count) => {
+    try {
+      await addToCart(product, count); // Usar CartContext
+      setBottomSheetOpen(false);
+    } catch (error) {
+      console.error('Error adding to cart:', error);
     }
-    
-    localStorage.setItem('cart', JSON.stringify(newCart));
-    console.log('Cart updated:', newCart);
-    
-    // Dispatch multiple events and wait a bit
-    window.dispatchEvent(new Event('cartUpdated'));
-    window.dispatchEvent(new Event('storage'));
-    
-    // Force update local state
-    const newCount = newCart.reduce((sum, item) => sum + (item.count || 1), 0);
-    setCartCount(newCount);
-    
-    setBottomSheetOpen(false);
   };
 
   const clearSearch = () => {
@@ -285,16 +218,17 @@ const Search = () => {
         count={bottomSheetCount}
         setCount={setBottomSheetCount}
       />
+      
       <nav className="bottom-navbar">
         <a href="/home" className="nav-icon" aria-label="Home">
-          <img src="/Home.png" alt="Home" />
+          <img src="/HomeIcon.png" alt="Home" />
         </a>
         <a href="/search" className="nav-icon" aria-label="Search">
-          <img src="/Searchseccion.png" alt="Search" />
+          <img src="/SearchIcon.png" alt="Search" />
         </a>
-        <a href="/login" className="nav-icon" aria-label="Avatar" onClick={handleAvatarClick}>
-          <img src="/AvatarIcon.png"  alt="Avatar" />
-        </a>
+        <button onClick={handleAvatarClick} className="nav-icon" aria-label="Avatar">
+          <img src="/AvatarIcon.png" alt="Avatar" />
+        </button>
       </nav>
     </div>
   );

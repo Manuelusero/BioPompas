@@ -7,11 +7,12 @@ import { useCart } from "../api/CartContext";
 import BottomSheetProductFull from "../components/BottomSheetProductFull";
 import { getImageUrl, getApiUrl } from '../utils/api.js';
 import './Home.css';
-import { useAuth } from '../hooks/useAuth';
 
 const Home = () => {
     const navigate = useNavigate();
     const { cartCount, addToCart } = useCart();
+    // Usar verificación directa de localStorage temporalmente
+    const isLoggedIn = !!localStorage.getItem('token');
     const [products, setProducts] = useState([]);
     const [promotions, setPromotions] = useState([]);
     const [topPicks, setTopPicks] = useState([]);
@@ -26,7 +27,6 @@ const Home = () => {
     const [selectedProductId, setSelectedProductId] = useState(null);
     const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
     const [bottomSheetCount, setBottomSheetCount] = useState(1);
-    const { isLoggedIn } = useAuth(); // Agregar esta línea
 
     useEffect(() => {
         // Obtener productos reales

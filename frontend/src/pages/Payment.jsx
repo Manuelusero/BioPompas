@@ -2,12 +2,12 @@ import './Payment.css';
 import { useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import { useCart } from '../api/CartContext';
-import { useAuth } from '../hooks/useAuth'; // Agregar import
 
 const Payment = () => {
   const navigate = useNavigate();
   const { cartItems, clearCart, forceCartReset } = useCart();
-  const { isLoggedIn } = useAuth(); // Usar hook en lugar de localStorage
+  // Usar verificación directa de localStorage temporalmente
+  const isLoggedIn = !!localStorage.getItem('token');
   const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
   
   // Cargar dirección guardada desde localStorage
@@ -185,7 +185,7 @@ const Payment = () => {
     }
 
     // Verificar login antes de pagar
-    if (!isLoggedIn) { // Usar hook en lugar de localStorage
+    if (!isLoggedIn) {
       alert('Debes iniciar sesión para poder completar el pedido.');
       navigate('/login', { state: { from: 'payment' } });
       return;
