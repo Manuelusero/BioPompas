@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import GoogleAuthProviderWrapper from '../GoogleAuthProviderWrapper';
-import { useAuth } from '../hooks/useAuth';
 import { useCart } from '../api/CartContext';
 import './Login.css';
 
@@ -14,8 +13,13 @@ const Login = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
-    const { login } = useAuth();
-    const { syncCartWithBackend } = useCart(); // Remover cartItems ya que no se usa
+    const { syncCartWithBackend } = useCart();
+
+    // Función de login manual (sin useAuth temporalmente)
+    const loginUser = (token) => {
+        localStorage.setItem('token', token);
+        window.dispatchEvent(new Event('authChange'));
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -26,7 +30,7 @@ const Login = () => {
                 password,
             });
 
-            login(response.data.token);
+            loginUser(response.data.token);
             
             // Sincronizar carrito después del login exitoso
             try {
@@ -42,7 +46,7 @@ const Login = () => {
             if (from === 'profile') {
                 navigate('/profile');
             } else if (from === 'payment') {
-                navigate('/payment'); // Cambiar de '/bag' a '/payment'
+                navigate('/payment');
             } else {
                 navigate('/profile');
             }
@@ -56,7 +60,7 @@ const Login = () => {
             const response = await axios.post(`${import.meta.env.VITE_APP_API_URL}/auth/google`, {
                 credential: credentialResponse.credential,
             });
-            login(response.data.token);
+            loginUser(response.data.token);
             
             // Sincronizar carrito después del login con Google
             try {
@@ -72,7 +76,7 @@ const Login = () => {
             if (from === 'profile') {
                 navigate('/profile');
             } else if (from === 'payment') {
-                navigate('/payment'); // Cambiar de '/bag' a '/payment'
+                navigate('/payment');
             } else {
                 navigate('/profile');
             }

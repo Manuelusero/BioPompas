@@ -7,7 +7,7 @@ import "./Search.css";
 const Search = () => {
   const navigate = useNavigate();
   const { addToCart, cartCount } = useCart();
-  // Usar verificación directa de localStorage en lugar de useAuth temporalmente
+  // Usar verificación directa de localStorage temporalmente
   const isLoggedIn = !!localStorage.getItem('token');
   
   const [query, setQuery] = useState("");
