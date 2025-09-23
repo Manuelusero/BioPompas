@@ -55,24 +55,36 @@ const Profile = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          timeout: 10000, // Agregar timeout de 10 segundos
         });
         setUser(response.data.user);
         setError(''); // Limpiar errores si la carga es exitosa
       } catch (err) {
         console.error('Error obteniendo perfil:', err);
         
-        // Si el token es inválido, limpiar y redirigir
+        // Si el token es inválido (401), limpiar y redirigir
         if (err.response?.status === 401) {
+          console.log('Token inválido, limpiando y redirigiendo...');
           localStorage.removeItem('token');
           window.dispatchEvent(new Event('authChange'));
           navigate('/login', { state: { from: 'profile' } });
+        } else if (err.code === 'ECONNABORTED') {
+          // Error de timeout
+          setError('Conexión lenta. Intenta de nuevo.');
+        } else if (err.response?.status >= 500) {
+          // Error del servidor
+          setError('Error del servidor. Intenta más tarde.');
         } else {
-          setError('Error cargando perfil');
+          // Otros errores
+          setError('Error cargando perfil. Verifica tu conexión.');
         }
       }
     };
 
-    fetchProfile();
+    // Pequeño delay para evitar llamadas inmediatas
+    const timer = setTimeout(() => {
+      fetchProfile();
+    }, 100);
 
     // Escuchar cambios en el token para reaccionar automáticamente
     const handleStorageChange = (e) => {
@@ -100,10 +112,11 @@ const Profile = () => {
     window.addEventListener('authChange', handleAuthChange);
 
     return () => {
+      clearTimeout(timer);
       window.removeEventListener('storage', handleStorageChange);
       window.removeEventListener('authChange', handleAuthChange);
     };
-  }, [navigate]); // Solo navigate como dependencia
+  }, [navigate]);
 
   const handleLogout = () => {
     // Limpiar token

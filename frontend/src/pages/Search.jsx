@@ -224,7 +224,7 @@ const Search = () => {
           <img src="/HomeIcon.png" alt="Home" />
         </a>
         <a href="/search" className="nav-icon" aria-label="Search">
-          <img src="/SearchIcon.png" alt="Search" />
+          <img src="/SearchSeccion.png" alt="Search" /> {/* Icono seleccionado */}
         </a>
         <button onClick={handleAvatarClick} className="nav-icon" aria-label="Avatar">
           <img src="/AvatarIcon.png" alt="Avatar" />
