@@ -54,11 +54,17 @@ const Profile = () => {
         const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/auth/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json', // Agregar Content-Type para Firefox
           },
-          timeout: 10000, // Agregar timeout de 10 segundos
+          timeout: 15000, // Aumentar timeout para Firefox
         });
-        setUser(response.data.user);
-        setError(''); // Limpiar errores si la carga es exitosa
+        
+        if (response.data && response.data.user) {
+          setUser(response.data.user);
+          setError(''); // Limpiar errores si la carga es exitosa
+        } else {
+          throw new Error('Invalid response structure');
+        }
       } catch (err) {
         console.error('Error obteniendo perfil:', err);
         
@@ -68,23 +74,29 @@ const Profile = () => {
           localStorage.removeItem('token');
           window.dispatchEvent(new Event('authChange'));
           navigate('/login', { state: { from: 'profile' } });
-        } else if (err.code === 'ECONNABORTED') {
+        } else if (err.code === 'ECONNABORTED' || err.message.includes('timeout')) {
           // Error de timeout
-          setError('Conexión lenta. Intenta de nuevo.');
+          setError('Conexión lenta. Intenta recargar la página.');
         } else if (err.response?.status >= 500) {
           // Error del servidor
           setError('Error del servidor. Intenta más tarde.');
+        } else if (!navigator.onLine) {
+          // Sin conexión
+          setError('Sin conexión a internet. Verifica tu conexión.');
         } else {
           // Otros errores
-          setError('Error cargando perfil. Verifica tu conexión.');
+          setError('Error cargando perfil. Intenta recargar la página.');
         }
       }
     };
 
-    // Pequeño delay para evitar llamadas inmediatas
+    // Verificar si estamos en Firefox y agregar pequeño delay adicional
+    const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+    const delay = isFirefox ? 200 : 100;
+
     const timer = setTimeout(() => {
       fetchProfile();
-    }, 100);
+    }, delay);
 
     // Escuchar cambios en el token para reaccionar automáticamente
     const handleStorageChange = (e) => {
