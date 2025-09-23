@@ -1,0 +1,74 @@
+/* NUEVO: Contenedor para lazy loading */
+.lazy-image-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+/* NUEVO: Imagen con transición suave */
+.lazy-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.lazy-image.loading {
+    opacity: 0;
+}
+
+.lazy-image.loaded {
+    opacity: 1;
+}
+
+/* NUEVO: Skeleton placeholder */
+.skeleton-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    border-radius: 8px;
+}
+
+/* NUEVO: Animación shimmer del skeleton */
+.skeleton-shimmer {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent 25%,
+            rgba(255, 255, 255, 0.5) 50%,
+            transparent 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* NUEVO: Variantes de skeleton para diferentes tamaños */
+.skeleton-card {
+    height: 200px;
+}
+
+.skeleton-category {
+    height: 120px;
+}
+
+.skeleton-banner {
+    height: 150px;
+}
+
+.skeleton-blog {
+    height: 180px;
+}

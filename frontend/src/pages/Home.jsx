@@ -5,6 +5,8 @@ import "swiper/css";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../api/CartContext";
 import BottomSheetProductFull from "../components/BottomSheetProductFull";
+// NUEVO: Importar componente LazyImage
+import LazyImage from "../components/LazyImage";
 import { getImageUrl, getApiUrl } from '../utils/api.js';
 import './Home.css';
 
@@ -133,7 +135,7 @@ const Home = () => {
                 </Link>
             </div>
 
-            {/* Deals Of The Week - Agregar section wrapper */}
+            {/* Deals Of The Week - MODIFICADO: Usar LazyImage */}
             <section className="deals-section">
               <div className="deals-header">
                 <h2 className="deals-title">Deals Of The Week</h2>
@@ -143,7 +145,12 @@ const Home = () => {
                       <SwiperSlide key={promo._id}>
                           <Link to={"/categories"} style={{ textDecoration: 'none' }}>
                               <div className="card">
-                                  <img src={getImageUrl(promo.image)} alt={promo.name} />
+                                  {/* MODIFICADO: Reemplazar img con LazyImage */}
+                                  <LazyImage 
+                                    src={getImageUrl(promo.image)} 
+                                    alt={promo.name}
+                                    skeletonClassName="skeleton-banner"
+                                  />
                               </div>
                           </Link>
                       </SwiperSlide>
@@ -151,7 +158,7 @@ const Home = () => {
               </Swiper>
             </section>
 
-            {/* Top Picks */}
+            {/* Top Picks - MODIFICADO: Usar LazyImage */}
             <section className="top-picks-section">
                 <div className="top-picks-header">
                     <h2 className="top-picks-title">Top Picks</h2>
@@ -162,7 +169,12 @@ const Home = () => {
                 <div className="top-picks-scroll">
                     {topPicksToShow.filter(product => product.name !== 'Bamboo Toothbrush').map((product) => (
                         <div className="top-pick-card" key={product._id} onClick={() => handleCardClick(product)}>
-                            <img src={getImageUrl(product.image)} alt={product.name} />
+                            {/* MODIFICADO: Reemplazar img con LazyImage */}
+                            <LazyImage 
+                              src={getImageUrl(product.image)} 
+                              alt={product.name}
+                              skeletonClassName="skeleton-card"
+                            />
                             <div className="top-pick-info">
                                 <div className="top-pick-name">{product.name}</div>
                                 <div className="top-pick-price">
@@ -174,7 +186,8 @@ const Home = () => {
                     ))}
                 </div>
             </section>
-            {/* Categories */}
+
+            {/* Categories - MODIFICADO: Usar LazyImage */}
             <section className="categories-section">
                 <div className="categories-header">
                     <h3 className="categories-title">Categories</h3>
@@ -185,12 +198,18 @@ const Home = () => {
                 <div className="categories-scroll">
                     {categories.slice(0, 4).map((cat) => (
                         <a href={cat.url} className="category-card" key={cat._id}>
-                            <img src={getImageUrl(cat.image)} alt={cat.name} />
+                            {/* MODIFICADO: Reemplazar img con LazyImage */}
+                            <LazyImage 
+                              src={getImageUrl(cat.image)} 
+                              alt={cat.name}
+                              skeletonClassName="skeleton-category"
+                            />
                         </a>
                     ))}
                 </div>
             </section>
-            {/* Gift Bundles */}
+
+            {/* Gift Bundles - MODIFICADO: Usar LazyImage */}
             <section className="gift-bundles-section">
                 <div className="gift-bundles-header">
                     <h2 className="gift-bundles-title">Gift Bundles</h2>
@@ -199,7 +218,12 @@ const Home = () => {
                 <div className="gift-bundles-scroll">
                     {giftBundles.map((bundle) => (
                         <div className="gift-bundle-card" key={bundle._id} onClick={() => handleCardClick(bundle)}>
-                            <img src={getImageUrl(bundle.image)} alt={bundle.name} />
+                            {/* MODIFICADO: Reemplazar img con LazyImage */}
+                            <LazyImage 
+                              src={getImageUrl(bundle.image)} 
+                              alt={bundle.name}
+                              skeletonClassName="skeleton-card"
+                            />
                             <div className="gift-bundle-info">
                                 <div className="gift-bundle-name">{bundle.name}</div>
                                 <div className="gift-bundle-price">
@@ -211,7 +235,8 @@ const Home = () => {
                     ))}
                 </div>
             </section>
-            {/* Eco Blog */}
+
+            {/* Eco Blog - MODIFICADO: Usar LazyImage */}
             <section className="eco-blog-section">
                 <div className="eco-blog-header">
                     <h2 className="eco-blog-title">Eco Blog <span className="eco-blog-sub">(Tips for a sustainable life)</span></h2>
@@ -219,12 +244,18 @@ const Home = () => {
                 <div className="eco-blog-scroll">
                     {blogs.map((blog) => (
                         <Link to={`/eco-blog/${blog.slug}`} className="eco-blog-card" key={blog._id}>
-                            <img src={getImageUrl(blog.image)} alt={blog.title} />
+                            {/* MODIFICADO: Reemplazar img con LazyImage */}
+                            <LazyImage 
+                              src={getImageUrl(blog.image)} 
+                              alt={blog.title}
+                              skeletonClassName="skeleton-blog"
+                            />
                         </Link>
                     ))}
                 </div>
             </section>
-            {/* Eco Bottles */}
+
+            {/* Eco Bottles - MODIFICADO: Usar LazyImage */}
             <section className="eco-bottles-section">
                 <div className="eco-bottles-header">
                     <h2 className="eco-bottles-title">Eco Bottles</h2>
@@ -232,7 +263,12 @@ const Home = () => {
                 <div className="eco-bottles-scroll">
                     {ecoBottles.map((bottle) => (
                         <div className="eco-bottle-card" key={bottle._id} onClick={() => handleCardClick(bottle)}>
-                            <img src={getImageUrl(bottle.image)} alt={bottle.name} />
+                            {/* MODIFICADO: Reemplazar img con LazyImage */}
+                            <LazyImage 
+                              src={getImageUrl(bottle.image)} 
+                              alt={bottle.name}
+                              skeletonClassName="skeleton-card"
+                            />
                             <div className="eco-bottle-info">
                                 <div className="eco-bottle-name">{bottle.name}</div>
                                 <div className="eco-bottle-price">
@@ -244,28 +280,41 @@ const Home = () => {
                     ))}
                 </div>
             </section>
-            {/* Eco Souvenirs */}
+
+            {/* Eco Souvenirs - MODIFICADO: Usar LazyImage */}
             <section className="eco-souvenirs-section">
                 <div className="eco-souvenirs-header">
                     <h2 className="eco-souvenirs-title">Eco Souvenirs</h2>
                 </div>
                 {ecoSouvenirs[0] && (
                   <Link to="/contact" className="eco-souvenir-image-container">
-                      <img src={getImageUrl(ecoSouvenirs[0].image)} alt={ecoSouvenirs[0].name} />
+                      {/* MODIFICADO: Reemplazar img con LazyImage */}
+                      <LazyImage 
+                        src={getImageUrl(ecoSouvenirs[0].image)} 
+                        alt={ecoSouvenirs[0].name}
+                        skeletonClassName="skeleton-banner"
+                      />
                   </Link>
                 )}
             </section>
-            {/* Our Store */}
+
+            {/* Our Store - MODIFICADO: Usar LazyImage */}
             <section className="our-store-section">
                 <div className="our-store-header">
                     <h2 className="our-store-title">Our Store</h2>
                 </div>
                 {ourStore[0] && (
                   <Link to="/our-store" className="our-store-image-container">
-                      <img src={getImageUrl(ourStore[0].image)} alt={ourStore[0].title} />
+                      {/* MODIFICADO: Reemplazar img con LazyImage */}
+                      <LazyImage 
+                        src={getImageUrl(ourStore[0].image)} 
+                        alt={ourStore[0].title}
+                        skeletonClassName="skeleton-banner"
+                      />
                   </Link>
                 )}
             </section>
+
             {/* NavBar inferior */}
             <nav className="bottom-navbar">
                 <a href="#top" className="nav-icon" aria-label="Home">
