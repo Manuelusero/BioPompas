@@ -221,7 +221,7 @@ const Search = () => {
       
       <nav className="bottom-navbar">
         <a href="/home" className="nav-icon" aria-label="Home">
-          <img src="/HomeIcon.png" alt="Home" />
+          <img src="/Home.png" alt="Home" />
         </a>
         <a href="/search" className="nav-icon" aria-label="Search">
           <img src="/Searchseccion.png" alt="Search"/>
