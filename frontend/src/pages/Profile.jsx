@@ -51,12 +51,21 @@ const Profile = () => {
       }
 
       try {
+        // MODIFICADO: Configuración específica para Safari móvil
         const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/auth/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json', // Agregar Content-Type para Firefox
+            'Content-Type': 'application/json',
+            // NUEVO: Headers adicionales para Safari
+            'Accept': 'application/json',
+            'Cache-Control': 'no-cache',
           },
-          timeout: 15000, // Aumentar timeout para Firefox
+          timeout: 20000, // MODIFICADO: Aumentar timeout para Safari móvil
+          // NUEVO: Configuraciones adicionales para Safari
+          withCredentials: false,
+          validateStatus: function (status) {
+            return status >= 200 && status < 300; // Solo aceptar códigos de éxito
+          }
         });
         
         if (response.data && response.data.user) {
@@ -68,31 +77,33 @@ const Profile = () => {
       } catch (err) {
         console.error('Error obteniendo perfil:', err);
         
-        // Si el token es inválido (401), limpiar y redirigir
+        // MODIFICADO: Mejor manejo de errores para Safari móvil
         if (err.response?.status === 401) {
           console.log('Token inválido, limpiando y redirigiendo...');
           localStorage.removeItem('token');
           window.dispatchEvent(new Event('authChange'));
           navigate('/login', { state: { from: 'profile' } });
         } else if (err.code === 'ECONNABORTED' || err.message.includes('timeout')) {
-          // Error de timeout
-          setError('Conexión lenta. Intenta recargar la página.');
+          // MODIFICADO: Mensaje más específico para Safari móvil
+          setError('Conexión lenta en Safari. Intenta recargar o usar otro navegador.');
         } else if (err.response?.status >= 500) {
-          // Error del servidor
           setError('Error del servidor. Intenta más tarde.');
         } else if (!navigator.onLine) {
-          // Sin conexión
           setError('Sin conexión a internet. Verifica tu conexión.');
+        } else if (err.name === 'NetworkError' || err.message.includes('Network')) {
+          // NUEVO: Error específico de red en Safari
+          setError('Error de red en Safari. Intenta recargar la página.');
         } else {
-          // Otros errores
-          setError('Error cargando perfil. Intenta recargar la página.');
+          // MODIFICADO: Mensaje más específico para Safari
+          setError(`Error cargando perfil en Safari. Código: ${err.response?.status || 'Unknown'}`);
         }
       }
     };
 
-    // Verificar si estamos en Firefox y agregar pequeño delay adicional
-    const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-    const delay = isFirefox ? 200 : 100;
+    // MODIFICADO: Delay más largo para Safari móvil
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const delay = (isSafari && isMobile) ? 500 : 200; // Más delay para Safari móvil
 
     const timer = setTimeout(() => {
       fetchProfile();
