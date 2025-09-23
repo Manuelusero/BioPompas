@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import './Profile.css';
@@ -8,6 +8,9 @@ const Profile = () => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('saved');
+  
+  // Verificación directa de localStorage que siempre funciona
+  const isLoggedIn = !!localStorage.getItem('token');
   
   // Estados para dirección
   const [savedAddress, setSavedAddress] = useState(
@@ -38,43 +41,83 @@ const Profile = () => {
     window.scrollTo(0, 0);
     
     const fetchProfile = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        if (!token) {
-          navigate('/login');
-          return;
-        }
+      // Verificar token directamente cada vez que se carga el componente
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
+        console.log('No token found, redirecting to login');
+        navigate('/login', { state: { from: 'profile' } });
+        return;
+      }
 
+      try {
         const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/auth/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         setUser(response.data.user);
+        setError(''); // Limpiar errores si la carga es exitosa
       } catch (err) {
         console.error('Error obteniendo perfil:', err);
-        setError('No autorizado o token inválido');
-        setTimeout(() => navigate('/login'), 2000);
+        
+        // Si el token es inválido, limpiar y redirigir
+        if (err.response?.status === 401) {
+          localStorage.removeItem('token');
+          window.dispatchEvent(new Event('authChange'));
+          navigate('/login', { state: { from: 'profile' } });
+        } else {
+          setError('Error cargando perfil');
+        }
       }
     };
+
     fetchProfile();
-  }, [navigate]);
+
+    // Escuchar cambios en el token para reaccionar automáticamente
+    const handleStorageChange = (e) => {
+      if (e.key === 'token') {
+        if (!e.newValue) {
+          // Token eliminado, redirigir a login
+          navigate('/login', { state: { from: 'profile' } });
+        } else {
+          // Token agregado/cambiado, recargar perfil
+          fetchProfile();
+        }
+      }
+    };
+
+    const handleAuthChange = () => {
+      const currentToken = localStorage.getItem('token');
+      if (!currentToken) {
+        navigate('/login', { state: { from: 'profile' } });
+      } else {
+        fetchProfile();
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('authChange', handleAuthChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('authChange', handleAuthChange);
+    };
+  }, [navigate]); // Solo navigate como dependencia
 
   const handleLogout = () => {
+    // Limpiar token
     localStorage.removeItem('token');
+    
+    // Limpiar carrito si es necesario
     localStorage.removeItem('cart');
     localStorage.removeItem('cartId');
-    navigate('/login');
-  };
-
-  const handleAvatarClick = () => {
-    const isLoggedIn = !!localStorage.getItem('token');
-    if (isLoggedIn) {
-      navigate('/profile');
-    } else {
-      alert('Debes iniciar sesión para acceder a tu perfil.');
-      navigate('/login', { state: { from: 'profile' } });
-    }
+    
+    // Disparar evento de cambio
+    window.dispatchEvent(new Event('authChange'));
+    
+    // Navegar a home
+    navigate('/home');
   };
 
   // Guardar dirección
@@ -93,6 +136,7 @@ const Profile = () => {
   // Manejar edición de tarjeta
   const handleEditCard = (index) => {
     const currentCard = savedPaymentMethods[index];
+    setShowCardModal(true);
     setEditingCardIndex(index);
     
     if (currentCard.type === 'paypal') {
@@ -100,44 +144,33 @@ const Profile = () => {
     } else {
       setNewCardNumber(currentCard.label.slice(-4));
     }
-    
-    setShowCardModal(true);
   };
 
   // Guardar cambios de tarjeta
   const handleSaveCard = () => {
     const currentCard = savedPaymentMethods[editingCardIndex];
+    const updatedMethods = [...savedPaymentMethods];
     
     if (currentCard.type === 'paypal') {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (newCardNumber && emailRegex.test(newCardNumber)) {
-        const updatedMethods = savedPaymentMethods.map((pm, i) => 
-          i === editingCardIndex 
-            ? { ...pm, label: newCardNumber }
-            : pm
-        );
+        updatedMethods[editingCardIndex] = { ...currentCard, label: newCardNumber };
         setSavedPaymentMethods(updatedMethods);
         localStorage.setItem('savedPaymentMethods', JSON.stringify(updatedMethods));
         setShowCardModal(false);
         setEditingPayment(false);
         setNewCardNumber('');
-        setEditingCardIndex(null);
       } else {
         alert('Por favor ingresa un email válido');
       }
     } else {
       if (newCardNumber && newCardNumber.length === 4 && /^\d+$/.test(newCardNumber)) {
-        const updatedMethods = savedPaymentMethods.map((pm, i) => 
-          i === editingCardIndex 
-            ? { ...pm, label: `**** **** **** ${newCardNumber}` }
-            : pm
-        );
+        updatedMethods[editingCardIndex] = { ...currentCard, label: `**** **** **** ${newCardNumber}` };
         setSavedPaymentMethods(updatedMethods);
         localStorage.setItem('savedPaymentMethods', JSON.stringify(updatedMethods));
         setShowCardModal(false);
         setEditingPayment(false);
         setNewCardNumber('');
-        setEditingCardIndex(null);
       } else {
         alert('Por favor ingresa exactamente 4 dígitos numéricos');
       }
@@ -161,10 +194,19 @@ const Profile = () => {
     localStorage.setItem('savedPaymentMethods', JSON.stringify(updatedMethods));
   };
 
+  // Verificar login al renderizar - doble check
+  if (!isLoggedIn) {
+    return (
+      <div className="profile-container">
+        <div className="profile-loading">Redirecting to login...</div>
+      </div>
+    );
+  }
+
   if (error) return (
     <div className="profile-container">
       <div className="profile-error">{error}</div>
-    </div>
+    </div>  
   );
   
   if (!user) return (
@@ -186,7 +228,7 @@ const Profile = () => {
         </button>
       </div>
 
-      {/* Pestañas */}
+      {/* Tabs para guardar y cuenta */}
       <div className="profile-tabs">
         <button 
           className={`profile-tab ${activeTab === 'saved' ? 'active' : ''}`}
@@ -207,9 +249,7 @@ const Profile = () => {
         {activeTab === 'saved' && (
           <div className="saved-section">
             <div className="empty-state">
-              <div className="empty-state-icon">
-                <img src="/Handplant.png" alt="Nothing here" className="leaf-icon" />
-              </div>
+              <img src="/Handplant.png" alt="Nothing here" className="leaf-icon" />
               <h3 className="empty-state-title">Nothing here yet!</h3>
               <p className="empty-state-text">
                 Looks like there are not any favourite products in this section of your Profile.
@@ -219,121 +259,115 @@ const Profile = () => {
         )}
 
         {activeTab === 'account' && (
-          <>
-            <div className="account-section">
-              {/* Información personal */}
-              <div className="profile-info">
-                <h3 className="account-section-title">Personal Information</h3>
-                <div className="profile-field">
-                  <strong>Name:</strong>
-                  <span>{user.name}</span>
-                </div>
-                
-                <div className="profile-field">
-                  <strong>Email:</strong>
-                  <span>{user.email}</span>
-                </div>
+          <div className="account-section">
+            {/* Información personal */}
+            <div className="profile-info">
+              <h3 className="account-section-title">Personal Information</h3>
+              <div className="profile-field">
+                <strong>Name:</strong>
+                <span>{user.name}</span>                
               </div>
+              <div className="profile-field">
+                <strong>Email:</strong>
+                <span>{user.email}</span>
+              </div>
+            </div>
 
-              {/* Dirección de entrega */}
-              <div className="profile-info">
-                <div className="account-section-header">
-                  <h3 className="account-section-title">Delivery Address</h3>
-                  <button 
-                    className="edit-btn" 
-                    onClick={() => setEditingAddress(true)}
-                  >
-                    Edit
-                  </button>
-                </div>
-                
-                {editingAddress ? (
-                  <div className="edit-form">
-                    <input
-                      type="text"
-                      placeholder="Full Name"
-                      value={tempAddress.name}
-                      onChange={(e) => setTempAddress({...tempAddress, name: e.target.value})}
-                      className="form-input"
-                    />
-                    <input
-                      type="text"
-                      placeholder="Street Address"
-                      value={tempAddress.street}
-                      onChange={(e) => setTempAddress({...tempAddress, street: e.target.value})}
-                      className="form-input"
-                    />
-                    <input
-                      type="text"
-                      placeholder="Postal Code"
-                      value={tempAddress.zip}
-                      onChange={(e) => setTempAddress({...tempAddress, zip: e.target.value})}
-                      className="form-input"
-                    />
-                    <div className="form-buttons">
-                      <button onClick={handleSaveAddress} className="save-btn">Save</button>
-                      <button onClick={handleCancelAddress} className="cancel-btn">Cancel</button>
-                    </div>
+            {/* Dirección de entrega */}
+            <div className="profile-info">
+              <div className="account-section-header">
+                <h3 className="account-section-title">Delivery Address</h3>
+                <button 
+                  onClick={() => setEditingAddress(true)}
+                  className="edit-btn" 
+                >
+                  Edit
+                </button>
+              </div>
+              {editingAddress ? (
+                <div className="edit-form">
+                  <input
+                    type="text"
+                    placeholder="Full Name"
+                    value={tempAddress.name}
+                    onChange={(e) => setTempAddress({...tempAddress, name: e.target.value})}
+                    className="form-input"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Street Address"
+                    value={tempAddress.street}
+                    onChange={(e) => setTempAddress({...tempAddress, street: e.target.value})}
+                    className="form-input"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Postal Code"
+                    value={tempAddress.zip}
+                    onChange={(e) => setTempAddress({...tempAddress, zip: e.target.value})}
+                    className="form-input"
+                  />
+                  <div className="form-buttons">
+                    <button onClick={handleCancelAddress} className="cancel-btn">Cancel</button>
+                    <button onClick={handleSaveAddress} className="save-btn">Save</button>
                   </div>
-                ) : (
-                  <div className="address-display">
-                    {savedAddress.name || savedAddress.street ? (
-                      <>
-                        <div className="address-line">{savedAddress.name}</div>
-                        <div className="address-line">{savedAddress.street}</div>
-                        <div className="address-line">{savedAddress.zip}</div>
-                      </>
-                    ) : (
-                      <div className="no-data">No address saved</div>
+                </div>
+              ) : (
+                <div className="address-display">
+                  {savedAddress.name || savedAddress.street ? (
+                    <>
+                      <div className="address-line">{savedAddress.name}</div>
+                      <div className="address-line">{savedAddress.street}</div>
+                      <div className="address-line">{savedAddress.zip}</div>
+                    </>
+                  ) : (
+                    <div className="no-data">No address saved</div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Métodos de pago */}
+            <div className="profile-info">
+              <div className="account-section-header">
+                <h3 className="account-section-title">Payment Methods</h3>
+                <button 
+                  onClick={() => setEditingPayment(!editingPayment)}
+                  className="edit-btn" 
+                >
+                  {editingPayment ? 'Done' : 'Edit'}
+                </button>
+              </div>
+              <div className="payment-methods-list">
+                {savedPaymentMethods.map((pm, index) => (
+                  <div 
+                    key={`${pm.type}-${index}`} 
+                    className={`payment-method-item ${pm.selected ? 'selected' : ''}`}
+                    onClick={() => !editingPayment && handleSelectPaymentMethod(pm.type)}
+                  >
+                    <img src={pm.icon} alt={pm.type} className="payment-icon" />
+                    <span className="payment-label">{pm.label}</span>
+                    {editingPayment && (
+                      <button 
+                        className="edit-payment-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleEditCard(index);
+                        }}
+                      >
+                        Edit
+                      </button>
                     )}
                   </div>
-                )}
-              </div>
-
-              {/* Métodos de pago */}
-              <div className="profile-info">
-                <div className="account-section-header">
-                  <h3 className="account-section-title">Payment Methods</h3>
-                  <button 
-                    className="edit-btn" 
-                    onClick={() => setEditingPayment(!editingPayment)}
-                  >
-                    {editingPayment ? 'Done' : 'Edit'}
-                  </button>
-                </div>
-                
-                <div className="payment-methods-list">
-                  {savedPaymentMethods.map((pm, index) => (
-                    <div 
-                      key={`${pm.type}-${index}`} 
-                      className={`payment-method-item ${pm.selected ? 'selected' : ''}`}
-                      onClick={() => !editingPayment && handleSelectPaymentMethod(pm.type)}
-                    >
-                      <img src={pm.icon} alt={pm.type} className="payment-icon" />
-                      <span className="payment-label">{pm.label}</span>
-                      {pm.selected && !editingPayment && <span className="check-mark">✓</span>}
-                      {editingPayment && (
-                        <button 
-                          className="edit-payment-btn"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleEditCard(index);
-                          }}
-                        >
-                          Edit
-                        </button>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
+                ))}
+              </div>  
             </div>
             
             {/* Botón de cerrar sesión fuera del contenedor blanco */}
-            <button onClick={handleLogout} className="profile-logout-btn">
+            <button className="profile-logout-btn" onClick={handleLogout}>
               Cerrar Sesión
             </button>
-          </>
+          </div>
         )}
       </div>
 
@@ -345,9 +379,9 @@ const Profile = () => {
         <Link to="/search" className="nav-icon" aria-label="Search">
           <img src="/SearchIcon.png" alt="Search" />
         </Link>
-        <button onClick={handleAvatarClick} className="nav-icon avatar-button" aria-label="Avatar">
+        <Link to="/profile" className="nav-icon avatar-button" aria-label="Avatar">
           <img src="/AvatarSeccion.png" alt="Avatar" />
-        </button>
+        </Link>
       </nav>
 
       {/* Modal para editar tarjeta */}
@@ -366,8 +400,7 @@ const Profile = () => {
               onChange={(e) => setNewCardNumber(e.target.value)}
               placeholder={savedPaymentMethods[editingCardIndex]?.type === 'paypal' 
                 ? 'example@email.com' 
-                : 'Last 4 digits'
-              }
+                : 'Last 4 digits'}
               maxLength={savedPaymentMethods[editingCardIndex]?.type === 'paypal' ? '50' : '4'}
               className="card-modal-input"
             />
@@ -383,4 +416,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
