@@ -143,5 +143,6 @@ const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en puerto ${PORT}`);
     console.log(`Health check disponible en: http://localhost:${PORT}/api/health`);
+    console.log(`Version: 1.0.2 - Auth improvements and SearchSeccion icon - Dec 17 2024`);
 });
-// Force deploy Tue Dec 17 15:30:00 CET 2024 - Auth fix update
+// Force redeploy after Vercel infrastructure recovery - SearchSeccion icon and auth fixes
