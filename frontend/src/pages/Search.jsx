@@ -224,7 +224,7 @@ const Search = () => {
           <img src="/HomeIcon.png" alt="Home" />
         </a>
         <a href="/search" className="nav-icon" aria-label="Search">
-          <img src="/SearchSeccion.png?v=1" alt="Search" onError={(e) => {
+          <img src="/SearchSeccion.png" alt="Search" onError={(e) => {
             console.log('Error cargando SearchSeccion.png:', e.target.src);
             e.target.src = '/SearchIcon.png'; // Fallback al icono normal
           }} />
