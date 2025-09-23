@@ -234,12 +234,6 @@ const Profile = () => {
     </div>  
   );
   
-  if (!user) return (
-    <div className="profile-container">
-      <div className="profile-loading">Cargando...</div>
-    </div>
-  );
-
   return (
     <div className="profile-container">
       {/* Header con flecha de regreso y título centrado */}
@@ -290,11 +284,11 @@ const Profile = () => {
               <h3 className="account-section-title">Personal Information</h3>
               <div className="profile-field">
                 <strong>Name:</strong>
-                <span>{user.name}</span>                
+                <span>{user?.name || 'Loading...'}</span>                
               </div>
               <div className="profile-field">
                 <strong>Email:</strong>
-                <span>{user.email}</span>
+                <span>{user?.email || 'Loading...'}</span>
               </div>
             </div>
 
