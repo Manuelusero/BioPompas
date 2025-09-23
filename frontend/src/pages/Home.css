@@ -130,8 +130,10 @@ h2 {
     color: #666;
 }
 
+/* MODIFICADO: Agregar espacio entre Deals y Top Picks */
 .top-picks-section {
     margin: 32px 5px 16px 9px;
+    margin-top: 50px;
 }
 
 .top-picks-header {
@@ -193,18 +195,8 @@ h2 {
     -webkit-overflow-scrolling: touch;
 }
 
-.top-pick-card {
-    flex: 0 0 auto;
-    min-width: 180px;
-    max-width: 80vw;
-    margin-right: 12px;
-    scroll-snap-align: start;
-    align-self: flex-start;
-}
-
 .top-picks-scroll::-webkit-scrollbar {
     display: none;
-    /* Oculta la barra en Chrome, Safari y Opera */
 }
 
 .top-pick-card {
@@ -223,22 +215,21 @@ h2 {
     overflow: visible;
     flex-shrink: 0;
     min-height: 180px;
-    /* Agregar altura mínima para Safari */
     height: auto;
-    /* Permitir que crezca automáticamente */
+    margin-right: 12px;
+    scroll-snap-align: start;
+    align-self: flex-start;
 }
 
 .top-pick-card img {
     width: 135px;
     height: 130px;
-    /* Altura fija para la imagen */
     object-fit: cover;
     border-radius: 10px;
     background: #F6F5F0;
     display: block;
     margin-left: 0;
     flex-shrink: 0;
-    /* Evitar que la imagen se contraiga */
 }
 
 .top-pick-info {
@@ -247,15 +238,10 @@ h2 {
     flex-direction: column;
     align-items: flex-start;
     margin-top: 8px;
-    /* Aumentar margen superior */
     margin-bottom: 12px;
-    /* Aumentar margen inferior */
     padding: 0 4px;
-    /* Agregar padding horizontal */
     flex-grow: 1;
-    /* Permitir que crezca */
     min-height: 40px;
-    /* Altura mínima para el contenido de texto */
 }
 
 .top-pick-name {
@@ -270,7 +256,6 @@ h2 {
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 1.3;
-
 }
 
 .top-pick-price {
@@ -285,11 +270,12 @@ h2 {
     gap: 2px;
     line-height: 1.3;
     min-height: 16px;
-
 }
 
+/* MODIFICADO: Agregar espacio entre Top Picks y Categories */
 .categories-section {
     margin: 50px 5px 16px 9px;
+    margin-top: 49px;
 }
 
 .categories-header {
@@ -365,8 +351,10 @@ h2 {
     flex-shrink: 0;
 }
 
+/* MODIFICADO: Agregar espacio entre Categories y Gift Bundles */
 .gift-bundles-section {
-    margin: 50px 5px 16px 9px;
+    margin: 32px 5px 16px 9px;
+    margin-top: 50px;
 }
 
 .gift-bundles-header {
@@ -374,7 +362,6 @@ h2 {
     align-items: center;
     justify-content: space-between;
     margin: 0 6px 10px 6px;
-    /* Reducir margen de 12px a 6px para mover más a la izquierda */
 }
 
 .gift-bundles-title {
@@ -399,15 +386,6 @@ h2 {
     -webkit-overflow-scrolling: touch;
 }
 
-.gift-bundle-card {
-    flex: 0 0 auto;
-    min-width: 180px;
-    max-width: 80vw;
-    margin-right: 24px;
-    scroll-snap-align: start;
-    align-self: flex-start;
-}
-
 .gift-bundles-scroll::-webkit-scrollbar {
     display: none;
 }
@@ -427,21 +405,20 @@ h2 {
     overflow: visible;
     flex-shrink: 0;
     min-height: 180px;
-    /* Agregar altura mínima */
     height: auto;
-    /* Permitir que crezca automáticamente */
+    margin-right: 24px;
+    scroll-snap-align: start;
+    align-self: flex-start;
 }
 
 .gift-bundle-card img {
     width: 135px;
     height: 130px;
-    /* Altura fija para la imagen */
     object-fit: cover;
     border-radius: 10px;
     background: #F6F5F0;
     display: block;
     flex-shrink: 0;
-    /* Evitar que la imagen se contraiga */
 }
 
 .gift-bundle-info {
@@ -450,15 +427,10 @@ h2 {
     flex-direction: column;
     align-items: flex-start;
     margin-top: 8px;
-    /* Aumentar margen superior */
     margin-bottom: 12px;
-    /* Aumentar margen inferior */
     padding: 0 4px;
-    /* Agregar padding horizontal */
     flex-grow: 1;
-    /* Permitir que crezca */
     min-height: 40px;
-    /* Altura mínima para el contenido de texto */
 }
 
 .gift-bundle-name {
@@ -469,12 +441,10 @@ h2 {
     text-align: start;
     margin-left: 3px;
     margin-bottom: 4px;
-    /* Agregar margen inferior */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 1.3;
-    /* Mejorar line-height */
 }
 
 .gift-bundle-price {
@@ -488,120 +458,13 @@ h2 {
     align-items: center;
     gap: 2px;
     line-height: 1.3;
-    /* Mejorar line-height */
     min-height: 16px;
-    /* Altura mínima para el precio */
 }
 
-/* .gift-bundle-card:hover {
-    box-shadow: 0 8px 20px 0 rgba(60, 60, 60, 0.16), 8px 8px 20px 0 rgba(60, 60, 60, 0.12);
-} */
-
-.gift-bundles-page {
-    padding: 0 16px 32px 16px;
-}
-
-.gift-bundles-page .gift-bundles-title {
-    font-family: 'Explore Magic', 'Raleway', sans-serif;
-    font-size: 2rem;
-    color: #3a5a40;
-    margin-bottom: 24px;
-    text-align: left;
-}
-
-.gift-bundles-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: flex-start;
-}
-
-.gift-bundles-list .gift-bundle-card {
-    min-width: 140px;
-    max-width: 180px;
-    flex: 1 1 160px;
-    background: none;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0;
-    margin-bottom: 12px;
-    box-shadow: none;
-    cursor: pointer;
-    aspect-ratio: 1/1.2;
-}
-
-.gift-bundles-list .gift-bundle-card img {
-    width: 100%;
-    height: 140px;
-    object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px 0 rgba(60, 60, 60, 0.10), 4px 4px 12px 0 rgba(60, 60, 60, 0.08);
-    background: #fff;
-    display: block;
-}
-
-.gift-bundles-list .gift-bundle-info {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 6px;
-    margin-bottom: 8px;
-}
-
-.gift-bundles-list .gift-bundle-name {
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    font-weight: 600;
-    color: #222;
-    font-size: 1rem;
-    text-align: center;
-    margin: 0;
-}
-
-.gift-bundles-list .gift-bundle-price {
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    font-weight: 400;
-    color: #3a5a40;
-    font-size: 1rem;
-    text-align: center;
-    margin: 0;
-}
-
-.gift-bundles-header .see-all-link,
-.categories-header .see-all-link,
-.top-picks-header .see-all-link {
-    font-family: 'Explore Magic', 'Raleway', sans-serif;
-    font-size: 14px;
-    color: #3a5a40;
-    text-decoration: underline;
-    cursor: pointer;
-    transition: color 0.2s;
-}
-
-.gift-bundles-header .see-all-link:hover,
-.categories-header .see-all-link:hover,
-.top-picks-header .see-all-link:hover {
-    color: #588157;
-}
-
-.gift-bundles-header .see-all-link a,
-.categories-header .see-all-link a,
-.top-picks-header .see-all-link a {
-    color: inherit;
-    text-decoration: underline;
-}
-
-.gift-bundles-header .see-all-link a:hover,
-.categories-header .see-all-link a:hover,
-.top-picks-header .see-all-link a:hover {
-    color: #588157;
-}
-
+/* MODIFICADO: Agregar espacio entre Gift Bundles y Eco Blog */
 .eco-blog-section {
     margin: 32px 5px 16px 9px;
-    /* Mismo margen que las otras */
+    margin-top: 52px;
 }
 
 .eco-blog-header {
@@ -609,8 +472,6 @@ h2 {
     align-items: center;
     justify-content: space-between;
     margin: 0 6px 10px 6px;
-    /* Reducir margen de 12px a 6px para mover más a la izquierda */
-    /* Mismo margen */
 }
 
 .eco-blog-title {
@@ -648,8 +509,6 @@ h2 {
 .eco-blog-card {
     min-width: 314.24px;
     max-width: 314.24px;
-    min-width: 314.24px;
-    max-width: 314.24px;
     width: 314.24px;
     background: #fff;
     border-radius: 14px;
@@ -671,24 +530,10 @@ h2 {
     display: block;
 }
 
-.eco-blog-title-card {
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    font-weight: 700;
-    color: #222;
-    font-size: 1.05rem;
-    margin-bottom: 6px;
-}
-
-.eco-blog-summary {
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    font-weight: 400;
-    color: #666;
-    font-size: 0.97rem;
-    text-align: left;
-}
-
+/* MODIFICADO: Agregar espacio entre Eco Blog y Eco Bottles */
 .eco-bottles-section {
     margin: 50px 5px 16px 9px;
+    margin-top: 50px;
 }
 
 .eco-bottles-header {
@@ -696,8 +541,6 @@ h2 {
     align-items: center;
     justify-content: space-between;
     margin: 0 6px 10px 6px;
-    /* Reducir margen de 12px a 6px para mover más a la izquierda */
-    /* Mismo margen */
 }
 
 .eco-bottles-title {
@@ -722,15 +565,6 @@ h2 {
     -webkit-overflow-scrolling: touch;
 }
 
-.eco-bottle-card {
-    flex: 0 0 auto;
-    min-width: 180px;
-    max-width: 80vw;
-    margin-right: 12px;
-    scroll-snap-align: start;
-    align-self: flex-start;
-}
-
 .eco-bottles-scroll::-webkit-scrollbar {
     display: none;
 }
@@ -751,21 +585,20 @@ h2 {
     overflow: visible;
     flex-shrink: 0;
     min-height: 180px;
-    /* Agregar altura mínima */
     height: auto;
-    /* Permitir que crezca automáticamente */
+    margin-right: 12px;
+    scroll-snap-align: start;
+    align-self: flex-start;
 }
 
 .eco-bottle-card img {
     width: 135px;
     height: 130px;
-    /* Altura fija para la imagen */
     object-fit: cover;
     border-radius: 10px;
     background: #F6F5F0;
     display: block;
     flex-shrink: 0;
-    /* Evitar que la imagen se contraiga */
 }
 
 .eco-bottle-info {
@@ -774,15 +607,10 @@ h2 {
     flex-direction: column;
     align-items: flex-start;
     margin-top: 8px;
-    /* Aumentar margen superior */
     margin-bottom: 12px;
-    /* Aumentar margen inferior */
     padding: 0 4px;
-    /* Agregar padding horizontal */
     flex-grow: 1;
-    /* Permitir que crezca */
     min-height: 40px;
-    /* Altura mínima para el contenido de texto */
 }
 
 .eco-bottle-name {
@@ -793,12 +621,10 @@ h2 {
     text-align: start;
     margin-left: 3px;
     margin-bottom: 4px;
-    /* Agregar margen inferior */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 1.3;
-    /* Mejorar line-height */
 }
 
 .eco-bottle-price {
@@ -812,18 +638,13 @@ h2 {
     align-items: center;
     gap: 2px;
     line-height: 1.3;
-    /* Mejorar line-height */
     min-height: 16px;
-    /* Altura mínima para el precio */
 }
 
-.eco-bottle-card:hover {
-    box-shadow: none;
-}
-
+/* MODIFICADO: Agregar espacio entre Eco Bottles y Eco Souvenirs */
 .eco-souvenirs-section {
     margin: 32px 5px 16px 9px;
-    /* Mismo margen que las otras */
+    margin-top: 50px;
 }
 
 .eco-souvenirs-header {
@@ -831,8 +652,6 @@ h2 {
     align-items: center;
     justify-content: space-between;
     margin: 0 6px 10px 6px;
-    /* Reducir margen de 12px a 6px para mover más a la izquierda */
-    /* Mismo margen que las otras */
 }
 
 .eco-souvenirs-title {
@@ -845,8 +664,7 @@ h2 {
     text-align: left;
 }
 
-.eco-souvenir-image-container,
-.our-store-image-container {
+.eco-souvenir-image-container {
     position: relative;
     width: 100%;
     max-width: 340px;
@@ -865,30 +683,11 @@ h2 {
 
 }
 
-.eco-souvenir-btn {
-    position: absolute;
-    bottom: 18px;
-    right: 18px;
-    background: #3a5a40;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 22px;
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 2px 8px #0002;
-    transition: background 0.2s;
-}
-
-.eco-souvenir-btn:hover {
-    background: #588157;
-}
-
+/* MODIFICADO: Agregar espacio entre Eco Souvenirs y Our Store */
 .our-store-section {
     margin: 32px 5px 16px 9px;
-    /* Mismo margen */
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 .our-store-header {
@@ -896,8 +695,6 @@ h2 {
     align-items: center;
     justify-content: space-between;
     margin: 0 6px 10px 6px;
-    /* Reducir margen de 12px a 6px para mover más a la izquierda */
-    /* Mismo margen */
 }
 
 .our-store-title {
@@ -932,27 +729,6 @@ h2 {
     margin-bottom: 16px;
 }
 
-.our-store-btn {
-    position: absolute;
-    bottom: 18px;
-    right: 18px;
-    background: #3a5a40;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 22px;
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 2px 8px #0002;
-    transition: background 0.2s;
-}
-
-.our-store-btn:hover {
-    background: #588157;
-}
-
 .bottom-navbar {
     position: fixed;
     left: 0;
@@ -964,9 +740,7 @@ h2 {
     justify-content: space-around;
     align-items: center;
     height: 62px;
-    /* border-radius: 18px 18px 0 0; */
     padding: 0 12px;
-    /* Asegura que esté siempre visible encima del contenido */
 }
 
 .bottom-navbar .nav-icon img {
@@ -979,10 +753,8 @@ h2 {
 body,
 #root {
     background: #F6F5F0;
-    /* Fondo blanco para toda la pantalla */
     padding-top: 0;
     padding-bottom: 50px;
-    /* Deja espacio para la navbar fija */
 }
 
 .homePage {
@@ -990,10 +762,10 @@ body,
     padding-bottom: 20px;
 }
 
-/* Agregar margen superior específico para la primera sección (Deals of the Week) */
+/* Deals section */
 .deals-section {
     margin: 40px 5px 16px 9px;
-    /* Aumentar margen superior de 60px a 110px para lograr 40px adicionales */
+    margin-bottom: 50px;
 }
 
 .deals-header {
