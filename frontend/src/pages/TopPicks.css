@@ -102,8 +102,11 @@
     grid-template-columns: 1fr 1fr;
     gap: 25px 16px;
     justify-content: center;
+    /* MODIFICADO: Centrar perfectamente el grid */
     margin: 0 auto;
     max-width: 360px;
+    justify-items: center;
+    /* NUEVO: Centrar items del grid */
 }
 
 .toppick-card {
@@ -111,6 +114,8 @@
     border-radius: 12px;
     display: flex;
     flex-direction: column;
+    /* MODIFICADO: Centrar la card */
+    align-items: center;
     width: 100%;
     min-width: 0;
     max-width: 170px;
@@ -120,14 +125,42 @@
     transition: box-shadow 0.2s;
 }
 
+/* NUEVO: Contenedor específico para LazyImage */
+.toppick-card .lazy-image-container {
+    width: 156px !important;
+    height: 165px !important;
+    margin: 0 auto 8px auto;
+    flex-shrink: 0;
+}
+
+/* NUEVO: Forzar tamaño exacto de imagen */
+.toppick-card .lazy-image-container .lazy-image {
+    width: 156px !important;
+    height: 165px !important;
+    border-radius: 10px;
+    background: #F6F5F0;
+    display: block;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+/* NUEVO: Skeleton placeholder del tamaño correcto */
+.toppick-card .lazy-image-container .skeleton-placeholder {
+    width: 156px !important;
+    height: 165px !important;
+    border-radius: 10px;
+}
+
+/* MODIFICADO: Asegurar que img tradicional también tenga el tamaño correcto */
 .toppick-card img {
-    width: 156px;
-    height: 165px;
+    width: 156px !important;
+    height: 165px !important;
     border-radius: 10px;
     background: #F6F5F0;
     display: block;
     margin: 0 auto 8px auto;
     flex-shrink: 0;
+    object-fit: cover;
 }
 
 .toppick-name {
@@ -136,8 +169,13 @@
     color: #222;
     font-size: 12px;
     text-align: start;
-    margin: 0 0 4px 4px;
+    /* MODIFICADO: Centrar texto horizontalmente */
+    margin: 0 0 4px 0;
     line-height: 1.3;
+    width: 100%;
+    padding: 0 4px;
+    text-align: center;
+    /* NUEVO: Centrar texto */
 }
 
 .toppick-price {
@@ -145,6 +183,33 @@
     font-weight: 400;
     color: #3a5a40;
     font-size: 12px;
-    text-align: start;
-    margin: 0 0 0 4px;
+    /* MODIFICADO: Centrar precio */
+    margin: 0;
+    width: 100%;
+    padding: 0 4px;
+    text-align: center;
+    /* NUEVO: Centrar precio */
+}
+
+/* NUEVO: Media queries para asegurar consistencia en todos los dispositivos */
+@media (max-width: 768px) {
+
+    .toppick-card .lazy-image-container,
+    .toppick-card .lazy-image-container .lazy-image,
+    .toppick-card .lazy-image-container .skeleton-placeholder,
+    .toppick-card img {
+        width: 156px !important;
+        height: 165px !important;
+    }
+}
+
+@media (min-width: 769px) {
+
+    .toppick-card .lazy-image-container,
+    .toppick-card .lazy-image-container .lazy-image,
+    .toppick-card .lazy-image-container .skeleton-placeholder,
+    .toppick-card img {
+        width: 156px !important;
+        height: 165px !important;
+    }
 }
