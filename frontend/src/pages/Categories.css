@@ -39,229 +39,206 @@
     font-family: 'Raleway', 'Explore Magic', sans-serif;
 }
 
-.categoriesPage {
+/* NUEVO: Estilos para la página de categorías */
+.categories-page {
     max-width: 420px;
     margin: 0 auto;
     background: #F6F5F0;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    padding: 0 0 32px 0;
     min-height: 100vh;
+    padding: 0 20px 80px 20px;
     position: relative;
 }
 
-.categoriesHeader {
+/* NUEVO: Header de categorías */
+.categories-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 0 20px 0;
+    background: #F6F5F0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+/* NUEVO: Botón de regreso */
+.categories-back {
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 0 20px 0;
-    background: none;
-    border-radius: 18px 18px 0 0;
-    box-shadow: none;
-    padding: 24px 18px 12px 18px;
-    position: relative;
+    text-decoration: none;
 }
 
-.categoriesTitle {
+.categories-back img {
+    width: 24px;
+    height: 24px;
+}
+
+/* NUEVO: Título de categoría */
+.categories-title {
     font-family: 'Explore Magic', 'Raleway', sans-serif;
-    font-size: 30px;
+    font-size: 28px;
     font-weight: 400;
     color: #3a5a40;
-    margin: 0 auto;
+    margin: 0;
     letter-spacing: 1px;
-    flex: none;
     text-align: center;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding-right: 40px;
+    flex: 1;
 }
 
-.categoriesGrid {
+/* NUEVO: Contenedor del carrito */
+.categories-cart-container {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.categories-cart {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+/* NUEVO: Badge del carrito */
+.cart-badge-categories {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #5C7347;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: bold;
+    min-width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Raleway', sans-serif;
+}
+
+/* NUEVO: Grid de productos 2x2 */
+.categories-products-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 18px 12px;
-    justify-content: center;
-    padding: 24px 12px 0 12px;
+    gap: 20px 16px;
+    margin: 0 auto;
+    justify-items: center;
 }
 
-.categoryCard {
-    background: #fff;
-    /* Si quieres que las cards también tengan fondo clarito, cámbialo aquí */
-    border-radius: 14px;
-    box-shadow: 0 4px 16px 0 rgba(60, 60, 60, 0.10);
+/* NUEVO: Card de producto */
+.category-product-card {
+    background: #F6F5F0;
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    min-width: 0;
-    max-width: 180px;
-    height: 180px;
-    margin-bottom: 8px;
-    padding: 0;
+    max-width: 170px;
+    padding: 12px;
     cursor: pointer;
-    transition: box-shadow 0.2s, transform 0.2s;
-    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.categoryCard img {
-    width: 100%;
-    height: 100%;
+.category-product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* NUEVO: Imagen del producto */
+.category-product-image {
+    width: 140px;
+    height: 140px;
     object-fit: cover;
-    display: block;
-    border-radius: 14px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    background: #fff;
 }
 
-.categoryCard:hover {
-    box-shadow: 0 8px 24px 0 rgba(60, 60, 60, 0.16), 8px 8px 24px 0 rgba(60, 60, 60, 0.12);
-    transform: translateY(-2px) scale(1.03);
+/* NUEVO: Información del producto */
+.category-product-info {
+    width: 100%;
+    text-align: center;
 }
 
-.categoriesBack {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
+.category-product-name {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    color: #2C3E29;
+    font-size: 12px;
+    margin-bottom: 4px;
+    line-height: 1.3;
+    text-align: center;
+}
+
+.category-product-price {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
     color: #3a5a40;
-    text-decoration: none;
-    margin-right: 12px;
-    transition: background 0.2s;
+    font-size: 12px;
+    text-align: center;
 }
 
-.arrowIcon {
-    width: 22px;
-    height: 22px;
+/* NUEVO: Mensaje de carga */
+.loading-message {
+    text-align: center;
+    color: #3a5a40;
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    margin-top: 40px;
+}
+
+/* NUEVO: Mensaje sin productos */
+.no-products-message {
+    text-align: center;
+    color: #666;
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    margin-top: 40px;
+}
+
+/* NUEVO: Navbar inferior */
+.bottom-navbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    background: #F6F5F0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 62px;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 0 12px;
+}
+
+.bottom-navbar .nav-icon img {
+    width: 28px;
+    height: 28px;
     object-fit: contain;
     display: block;
 }
 
-.categoriesCart {
-    width: 28px;
-    height: 28px;
-    margin-left: auto;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.featured-products-title {
-    font-family: 'Raleway', 'Explore Magic', Arial, sans-serif;
-    font-size: 18px;
-    font-weight: 600;
-    color: #2C3E29;
-    margin: 30px 20px 15px 20px;
-    text-align: left;
-}
-
-.categories-products {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    padding: 0 20px 20px 20px;
-    margin-bottom: 80px;
-    /* Espacio para navbar */
-}
-
-.categories-product-card {
-    background: white;
-    border-radius: 12px;
-    padding: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.categories-product-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.categories-product-card:active {
-    transform: translateY(0);
-}
-
-.categories-product-image {
-    width: 100%;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 8px;
-}
-
-.categories-product-info {
-    text-align: left;
-}
-
-.categories-product-name {
-    font-family: 'Raleway', 'Explore Magic', Arial, sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    color: #333;
-    margin: 0 0 4px 0;
-    line-height: 1.2;
-}
-
-.categories-product-price {
-    font-family: 'Raleway', 'Explore Magic', Arial, sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    color: #3a5a40;
-    margin: 0;
-}
-
-/* Estilos para el botón de avatar en navbar */
-.nav-icon {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.nav-icon img {
-    width: 24px;
-    height: 24px;
-}
-
-/* Estilos para el botón de avatar en navbar */
-.bottom-navbar .nav-icon {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    color: inherit;
-}
-
-.bottom-navbar .nav-icon img {
-    width: 24px;
-    height: 24px;
-}
-
-.bottom-navbar .nav-icon:hover {
-    opacity: 0.7;
-}
-
-/* Responsive */
-@media (max-width: 480px) {
-    .categories-products {
-        gap: 12px;
-        padding: 0 15px 20px 15px;
+/* NUEVO: Media queries para responsividad */
+@media (max-width: 380px) {
+    .categories-products-grid {
+        gap: 16px 12px;
     }
 
-    .categories-product-image {
-        height: 100px;
+    .category-product-card {
+        max-width: 150px;
+        padding: 10px;
     }
 
-    .categories-product-name,
-    .categories-product-price {
-        font-size: 13px;
+    .category-product-image {
+        width: 120px;
+        height: 120px;
     }
 }

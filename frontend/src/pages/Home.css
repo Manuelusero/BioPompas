@@ -173,14 +173,16 @@ h2 {
 .see-all-link a {
     font-family: 'Explore Magic', 'Raleway', sans-serif;
     font-size: 14px;
-    color: #3a5a40;
+    color: #3a5a40 !important;
+    /* MODIFICADO: Forzar color verde */
     text-decoration: underline;
     cursor: pointer;
     transition: color 0.2s;
 }
 
 .see-all-link a:hover {
-    color: #588157;
+    color: #588157 !important;
+    /* MODIFICADO: Forzar color hover */
 }
 
 .top-picks-scroll {
@@ -784,3 +786,51 @@ body,
     margin: 0;
     text-align: left;
 }
+
+/* MODIFICADO: Corregir estilos de enlaces - quitar duplicaciones y errores */
+.see-all-link a {
+    font-family: 'Explore Magic', 'Raleway', sans-serif;
+    font-size: 14px;
+    color: #3a5a40 !important;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.see-all-link a:hover {
+    color: #588157 !important;
+}
+
+/* MODIFICADO: Estilos específicos para cada sección - corregir sintaxis */
+.gift-bundles-header .see-all-link,
+.categories-header .see-all-link,
+.top-picks-header .see-all-link {
+    font-family: 'Explore Magic', 'Raleway', sans-serif;
+    font-size: 14px;
+    color: #3a5a40 !important;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.gift-bundles-header .see-all-link:hover,
+.categories-header .see-all-link:hover,
+.top-picks-header .see-all-link:hover {
+    color: #588157 !important;
+}
+
+.gift-bundles-header .see-all-link a,
+.categories-header .see-all-link a,
+.top-picks-header .see-all-link a {
+    color: #3a5a40 !important;
+    text-decoration: underline;
+}
+
+.gift-bundles-header .see-all-link a:hover,
+.categories-header .see-all-link a:hover,
+.top-picks-header .see-all-link a:hover {
+    color: #588157 !important;
+}
+
+/* MODIFICADO: Quitar la regla general de enlaces que causa problemas */
+/* Reemplazar con regla más específica si es necesario */
