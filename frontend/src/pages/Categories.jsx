@@ -1,30 +1,46 @@
 import './Categories.css';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import BottomSheetProductFull from '../components/BottomSheetProductFull';
 import { useCart } from '../api/CartContext';
-import { getImageUrl, getApiUrl } from '../utils/api.js';
+
+
+// Cart badge header component
+function CategoriesHeaderWithCartBadge() {
+  const { cartCount } = useCart();
+  
+  return (
+    <div className="categoriesHeader">
+      <Link to="/home" className="categoriesBack">
+        <img src="/ArrowLeftIcon.png" alt="Back" className="arrowIcon" />
+      </Link>
+      <h2 className="categoriesTitle">Categories</h2>
+      <Link to="/bag" className="categoriesCartIcon">
+        <img src="/Cart.svg" alt="Carrito" className="categoriesCartIconImg" />
+        {cartCount > 0 && (
+          <span className="categoriesCartBadge">{cartCount}</span>
+        )}
+      </Link>
+    </div>
+  );
+}
 
 const Categories = () => {
-  const { category } = useParams();
-  const navigate = useNavigate();
-  const { cartCount, addToCart } = useCart();
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate(); // Agregar useNavigate aquí en el componente principal
+  const [categories, setCategories] = useState([]);
+  const [categoryProducts, setCategoryProducts] = useState([]);
+  const { addToCart } = useCart();
+  
+  // Estados para BottomSheet
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const [bottomSheetCount, setBottomSheetCount] = useState(1);
+  const [allProducts, setAllProducts] = useState([]);
 
-  // NUEVO: Agregar verificación de login
-  const isLoggedIn = !!localStorage.getItem('token');
-
-  // NUEVO: Función para capitalizar primera letra
-  const capitalizeFirstLetter = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  };
-
-  // MODIFICADO: Función handleAvatarClick ahora funciona correctamente
+  // Agregar función handleAvatarClick en el componente principal
   const handleAvatarClick = () => {
+    const isLoggedIn = !!localStorage.getItem('token');
     if (isLoggedIn) {
       navigate('/profile');
     } else {
@@ -33,35 +49,50 @@ const Categories = () => {
     }
   };
 
-  // MODIFICADO: Solo un useEffect para obtener productos de categoría
   useEffect(() => {
-    const fetchCategoryProducts = async () => {
-      if (!category) {
-        setLoading(false);
-        return;
-      }
-
+    const fetchCategories = async () => {
       try {
-        setLoading(true);
-        const response = await fetch(`${getApiUrl()}/products/category/${category.toUpperCase()}`);
+        const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/categories`);
+        console.log('Categories response status:', response.status);
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          throw new Error('Response is not JSON');
+        }
+        
         const data = await response.json();
-        console.log('Category products received:', data);
-        setProducts(Array.isArray(data) ? data : []);
+        console.log('Categories data received:', data);
+        setCategories(Array.isArray(data) ? data : []);
       } catch (error) {
-        console.error('Error fetching category products:', error);
-        setProducts([]);
-      } finally {
-        setLoading(false);
+        console.error("Error al obtener categories:", error);
+        setCategories([]);
       }
     };
 
-    fetchCategoryProducts();
-  }, [category]); // MODIFICADO: Solo depende de category
+    fetchCategories();
+  }, []);
+
+  // Obtener todos los productos para el BottomSheet y para mostrar
+  useEffect(() => {
+    const getAllProducts = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/products`);
+        setAllProducts(response.data);
+        // Mostrar algunos productos destacados en la página principal de categorías
+        setCategoryProducts(response.data.slice(0, 6)); // Mostrar solo 6 productos
+      } catch (error) {
+        console.error('Error fetching all products:', error);
+        setAllProducts([]);
+        setCategoryProducts([]);
+      }
+    };
+
+    getAllProducts();
+  }, []);
 
   // Scroll automático al top cuando se carga la página
   useEffect(() => {
@@ -94,102 +125,68 @@ const Categories = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="categories-page">
-        <div className="categories-header">
-          <Link to="/home" className="categories-back">
-            <img src="/ArrowLeftIcon.png" alt="Back" />
-          </Link>
-          <h1 className="categories-title">Loading...</h1>
-          <div className="categories-cart-container">
-            <Link to="/bag">
-              <img src="/Cart.svg" alt="Cart" className="categories-cart" />
-              {cartCount > 0 && (
-                <span className="cart-badge-categories">{cartCount}</span>
-              )}
-            </Link>
-          </div>
-        </div>
-        <div className="loading-message">Loading products...</div>
-      </div>
-    );
-  }
-
   return (
-    <div className="categories-page">
-      {/* Header con título capitalizado */}
-      <div className="categories-header">
-        <Link to="/home" className="categories-back">
-          <img src="/ArrowLeftIcon.png" alt="Back" />
-        </Link>
-        <h1 className="categories-title">
-          {capitalizeFirstLetter(category || 'Categories')}
-        </h1>
-        <div className="categories-cart-container">
-          <Link to="/bag">
-            <img src="/Cart.svg" alt="Cart" className="categories-cart" />
-            {cartCount > 0 && (
-              <span className="cart-badge-categories">{cartCount}</span>
-            )}
+    <div className="categories-container">
+      <CategoriesHeaderWithCartBadge />
+      <div className="categoriesGrid">
+        {categories.map(cat => (
+          <Link to={`/category/${encodeURIComponent(cat.name.split(',')[0].trim())}`} className="categoryCard" key={cat._id} style={{ position: 'relative' }}>
+            <img src={`${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${cat.image}`} alt={cat.name} />
           </Link>
-        </div>
-      </div>
-
-      {/* Grid de productos 2x2 */}
-      <div className="categories-products-grid">
-        {products.map((product) => (
-          <div 
-            className="category-product-card" 
-            key={product._id || product.id} 
-            onClick={() => handleProductClick(product)}
-          >
-            <img 
-              src={getImageUrl(product.image)} 
-              alt={product.name}
-              className="category-product-image"
-              loading="eager"
-            />
-            <div className="category-product-info">
-              <div className="category-product-name">{product.name}</div>
-              <div className="category-product-price">
-                €{Number(product.price).toFixed(2)}
-              </div>
-            </div>
-          </div>
         ))}
       </div>
 
-      {/* Mensaje si no hay productos */}
-      {products.length === 0 && !loading && (
-        <div className="no-products-message">
-          No products found in this category.
-        </div>
+      {/* Mostrar productos destacados solo si hay productos */}
+      {categoryProducts.length > 0 && (
+        <>
+          <h3 className="featured-products-title">Featured Products</h3>
+          <div className="categories-products">
+            {categoryProducts.map((product) => (
+              <div 
+                key={product._id || product.id} 
+                className="categories-product-card"
+                onClick={() => handleProductClick(product)} // Agregar onClick
+              >
+                <img 
+                  src={product.image?.startsWith('http') 
+                    ? product.image 
+                    : `${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${product.image}`
+                  }
+                  alt={product.name}
+                  className="categories-product-image"
+                />
+                <div className="categories-product-info">
+                  <h3 className="categories-product-name">{product.name}</h3>
+                  <p className="categories-product-price">€{product.price}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
       )}
 
-      {/* Bottom Sheet para detalles del producto */}
+      <nav className="bottom-navbar">
+        <a href="/home" className="nav-icon" aria-label="Home">
+          <img src="/HomeIcon.png" alt="Home" />
+        </a>
+        <a href="/search" className="nav-icon" aria-label="Search">
+          <img src="/SearchIcon.png" alt="Search" />
+        </a>
+        <button onClick={handleAvatarClick} className="nav-icon" aria-label="Avatar"> {/* Cambiar a button con onClick */}
+          <img src="/AvatarIcon.png" alt="Avatar" />
+        </button>
+      </nav>
+
+      {/* BottomSheet para productos */}
       <BottomSheetProductFull
         productId={selectedProductId}
-        products={products}
+        products={allProducts}
         open={bottomSheetOpen}
         onClose={handleCloseBottomSheet}
         onAdd={handleAddFromBottomSheet}
         count={bottomSheetCount}
         setCount={setBottomSheetCount}
       />
-
-      {/* Navbar inferior */}
-      <nav className="bottom-navbar">
-        <Link to="/home" className="nav-icon" aria-label="Home">
-          <img src="/HomeIcon.png" alt="Home" />
-        </Link>
-        <Link to="/search" className="nav-icon" aria-label="Search">
-          <img src="/SearchIcon.png" alt="Search" />
-        </Link>
-        <button onClick={handleAvatarClick} className="nav-icon" aria-label="Profile">
-          <img src="/AvatarIcon.png" alt="Profile" />
-        </button>
-      </nav>
     </div>
   );
 };
