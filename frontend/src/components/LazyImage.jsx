@@ -1,37 +1,10 @@
-import { useState, useRef, useEffect } from 'react';
-import PropTypes from 'prop-types'; // NUEVO: Importar PropTypes
+import { useState, useRef } from 'react';
+import PropTypes from 'prop-types';
 import './LazyImage.css';
 
-// MODIFICADO: Cambiar la sintaxis para evitar el error de desestructuración
-function LazyImage(props) {
-  const src = props.src;
-  const alt = props.alt;
-  const className = props.className || '';
-  const skeletonClassName = props.skeletonClassName || '';
-  
+function LazyImage({ src, alt, className = '', skeletonClassName = '' }) {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isInView, setIsInView] = useState(false);
   const imgRef = useRef();
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-          observer.disconnect();
-        }
-      },
-      {
-        rootMargin: '50px'
-      }
-    );
-
-    if (imgRef.current) {
-      observer.observe(imgRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
 
   const handleLoad = () => {
     setIsLoaded(true);
@@ -39,26 +12,27 @@ function LazyImage(props) {
 
   return (
     <div ref={imgRef} className={`lazy-image-container ${className}`}>
+      {/* MODIFICADO: Skeleton más simple */}
       {!isLoaded && (
         <div className={`skeleton-placeholder ${skeletonClassName}`}>
           <div className="skeleton-shimmer"></div>
         </div>
       )}
       
-      {isInView && (
-        <img
-          src={src}
-          alt={alt}
-          className={`lazy-image ${isLoaded ? 'loaded' : 'loading'}`}
-          onLoad={handleLoad}
-          style={{ display: isLoaded ? 'block' : 'none' }}
-        />
-      )}
+      {/* MODIFICADO: Cargar imagen inmediatamente sin observer */}
+      <img
+        src={src}
+        alt={alt}
+        className={`lazy-image ${isLoaded ? 'loaded' : 'loading'}`}
+        onLoad={handleLoad}
+        style={{ opacity: isLoaded ? 1 : 0 }}
+        loading="eager"
+        decoding="async"
+      />
     </div>
   );
 }
 
-// NUEVO: Agregar PropTypes para evitar errores de ESLint
 LazyImage.propTypes = {
   src: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
@@ -67,3 +41,4 @@ LazyImage.propTypes = {
 };
 
 export default LazyImage;
+        

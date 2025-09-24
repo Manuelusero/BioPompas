@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useCart } from "../api/CartContext";
 import BottomSheetProductFull from "../components/BottomSheetProductFull";
-import LazyImage from "../components/LazyImage";
 import { getImageUrl } from '../utils/api.js';
 
 const TopPicks = () => {
@@ -72,10 +71,11 @@ const TopPicks = () => {
       <div className="toppicks-list">
         {topPicks.map((product) => (
           <div className="toppick-card" key={product._id} onClick={() => handleCardClick(product)}>
-            <LazyImage 
+            {/* MODIFICADO: Volver a img normal para máxima velocidad */}
+            <img 
               src={getImageUrl(product.image)} 
               alt={product.name}
-              skeletonClassName="skeleton-card"
+              loading="eager"
             />
             <div className="toppick-name">{product.name}</div>
             <div className="toppick-price">€{Number(product.price).toFixed(2)}</div>
