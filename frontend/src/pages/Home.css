@@ -472,9 +472,10 @@ h2 {
 .eco-blog-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin: 24px 6px 10px 6px;
-    /* MODIFICADO: Agregar margen superior */
+    justify-content: flex-start;
+    /* MODIFICADO: Alinear a la izquierda como otras secciones */
+    margin: 0 6px 10px 6px;
+    /* MODIFICADO: Mismo margen que otras secciones */
 }
 
 .eco-blog-title {
@@ -842,9 +843,10 @@ body,
 .eco-blog-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin: 24px 6px 10px 6px;
-    /* MODIFICADO: Agregar margen superior */
+    justify-content: flex-start;
+    /* MODIFICADO: Alinear a la izquierda como otras secciones */
+    margin: 0 6px 10px 6px;
+    /* MODIFICADO: Mismo margen que otras secciones */
 }
 
 /* NUEVO: Contenedor del carrito en Eco Blog */
