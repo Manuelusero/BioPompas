@@ -11,7 +11,8 @@
 .ecoBlogDetailHeader {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    /* MODIFICADO: Distribuir equitativamente */
     margin: 0 0 20px 0;
     background: #f6f5f0;
     padding: 24px 18px 12px 18px;
@@ -28,10 +29,13 @@
     justify-content: center;
     box-shadow: none;
     text-decoration: none;
-    margin-right: 16px;
+    margin-right: 0;
+    /* MODIFICADO: Sin margen */
     border: none;
     transition: background 0.2s, box-shadow 0.2s;
     cursor: pointer;
+    flex-shrink: 0;
+    /* NUEVO: No contraer */
 }
 
 .ecoBlogDetailArrowIcon {
@@ -45,28 +49,33 @@
     font-family: 'Explore Magic', 'Raleway', sans-serif;
     font-size: 2rem;
     color: #3a5a40;
-    margin: 0 auto;
+    margin: 0;
+    /* MODIFICADO: Sin márgenes */
     letter-spacing: 1px;
-    flex: none;
+    flex: 1;
+    /* MODIFICADO: Ocupar espacio central */
     text-align: center;
+    /* MODIFICADO: Centrar texto */
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
 }
 
 .ecoBlogDetailCart {
-    position: absolute;
-    right: 18px;
-    top: 50%;
-    transform: translateY(-50%);
+    position: relative;
+    /* MODIFICADO: Cambiar de absolute a relative */
     display: flex;
     align-items: center;
     justify-content: center;
     background: none;
     border: none;
     z-index: 2;
-    width: 28px;
-    height: 28px;
+    width: 38px;
+    /* MODIFICADO: Mismo tamaño que back */
+    height: 38px;
+    /* MODIFICADO: Mismo tamaño que back */
+    flex-shrink: 0;
+    /* NUEVO: No contraer */
 }
 
 .ecoBlogDetailCart img {
@@ -79,8 +88,10 @@
 
 .ecoBlogDetailCartBadge {
     position: absolute;
-    top: 23px;
-    right: 18px;
+    top: 7px;
+    /* MODIFICADO: Ajustar posición */
+    right: 7px;
+    /* MODIFICADO: Ajustar posición */
     background: #5C7347;
     color: white;
     border-radius: 50%;
@@ -90,13 +101,12 @@
     align-items: center;
     justify-content: center;
     font-size: 10px;
-    font-weight: bold;
+    font-weight: 400;
     font-family: 'Raleway', 'Explore Magic', sans-serif;
     z-index: 3;
-    font-weight: 400;
-
 }
 
+/* NUEVO: Agregar margen izquierdo a todo el contenido de texto */
 .eco-blog-content,
 .ecoBlogDetailPage p {
     font-family: 'Raleway', 'Explore Magic', sans-serif;
@@ -105,7 +115,10 @@
     line-height: 20px;
     letter-spacing: 0.3px;
     color: #444;
-    margin: 0 0 24px 0;
+    margin: 0 0 24px 20px;
+    /* MODIFICADO: Agregar margen izquierdo */
+    padding-right: 20px;
+    /* NUEVO: Padding derecho para balancear */
 }
 
 .eco-blog-content h3 {
@@ -113,19 +126,23 @@
     font-size: 15px;
     font-weight: 700;
     color: #3a5a40;
-    margin-bottom: 20px;
-    margin-top: 18px;
+    margin: 18px 0 20px 20px;
+    /* MODIFICADO: Agregar margen izquierdo */
     letter-spacing: 0.3px;
+    padding-right: 20px;
+    /* NUEVO: Padding derecho para balancear */
 }
 
 .eco-blog-title {
-    margin-top: 24px;
+    margin: 24px 0 0 20px;
+    /* MODIFICADO: Agregar margen izquierdo */
     font-family: 'Explore Magic', 'Raleway', sans-serif;
     color: #3a5a40;
     font-size: 20px;
     font-weight: 700;
     letter-spacing: 1px;
-
+    padding-right: 20px;
+    /* NUEVO: Padding derecho para balancear */
 }
 
 .eco-blog-readalso-section {
