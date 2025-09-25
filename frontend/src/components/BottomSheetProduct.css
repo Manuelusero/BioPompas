@@ -37,8 +37,6 @@
 }
 
 /* ========== MODO COMPACTO ========== */
-
-/* Expanded content white card for bottom sheet - COMPACTO */
 .bottom-sheet-expanded-content.compact {
     background: #F6F5F0;
     min-height: unset !important;
@@ -55,8 +53,6 @@
 }
 
 /* ========== MODO EXPANDIDO ========== */
-
-/* Expanded content white card for bottom sheet - EXPANDIDO */
 .bottom-sheet-expanded-content:not(.compact) {
     background: #F6F5F0;
     min-height: calc(100vh - 70px);
@@ -72,14 +68,12 @@
     margin-top: 0;
     padding-top: 0;
     justify-content: space-between;
-    /* Distribuir espacio para que los botones estén abajo */
 }
 
 .bottom-sheet-expanded-content .bottom-sheet-info {
     padding: 0 24px;
     margin-bottom: 18px;
     flex-grow: 1;
-    /* Permitir que crezca y ocupe espacio disponible */
 }
 
 /* SOLO para modo expandido */
@@ -88,7 +82,6 @@
     border-radius: 0;
     margin-top: 0;
     margin-bottom: 0;
-    border-radius: 0 !important;
     box-shadow: none;
     display: flex;
     align-items: center;
@@ -106,60 +99,6 @@
     border: none !important;
 }
 
-.bottom-sheet-handle,
-.bottom-sheet-handle-expanded {
-    height: 3px;
-    /* Reducir aún más de 4px a 3px */
-    width: 36px;
-    /* Reducir ancho para que sea más fina */
-    min-width: 36px;
-    max-width: 36px;
-    background: #5C7347;
-    border-radius: 2px;
-    margin: 8px auto 12px auto;
-    display: block;
-    cursor: grab;
-    opacity: 0.8;
-    padding: 6px 0;
-    /* Reducir padding */
-    /* Área más grande para tocar */
-    touch-action: pan-y;
-    /* Permitir drag vertical */
-}
-
-.bottom-sheet-handle:active,
-.bottom-sheet-handle-expanded:active {
-    cursor: grabbing;
-}
-
-/* Opcional: haz que toda la franja superior sea draggable */
-.bottom-sheet-expanded-content>.bottom-sheet-handle-expanded,
-.bottom-sheet-expanded-content.compact>.bottom-sheet-handle {
-    width: 100%;
-    background: #5C7347;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-/* Barra deslizable específica para el estado expandido */
-.bottom-sheet.expanded .bottom-sheet-handle-expanded {
-    width: 72px;
-    height: 3px;
-    background: #2C3E29;
-    border-radius: 3px;
-    margin: 12px auto 10px auto;
-    cursor: grab;
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-}
-
-/* Asegurar que la barra expandida solo aparezca en estado expandido */
-.bottom-sheet:not(.expanded) .bottom-sheet-handle-expanded {
-    display: none;
-}
-
 /* Overlay for bottom sheet */
 .bottom-sheet-overlay {
     position: fixed;
@@ -175,326 +114,6 @@
     align-items: flex-end;
     justify-content: center;
     touch-action: none;
-    /* Prevenir scroll del fondo */
-}
-
-.bottom-sheet {
-    width: 100vw;
-    max-width: 100vw;
-    background: #F6F5F0;
-    border-radius: 32px 32px 0 0;
-    transform: translateY(0);
-    transition: all 0.3s cubic-bezier(.42, 1.2, .58, 1);
-    animation: slideUp 0.3s ease-out;
-    position: relative;
-    overflow: hidden;
-    min-height: 440px;
-    /* Reducir de 520px a 440px */
-    max-height: 80vh;
-    /* Reducir de 90vh a 80vh */
-}
-
-/* Ajustar la franja superior draggable con las propiedades específicas */
-.bottom-sheet-draggable-bar {
-    display: flex;
-    width: 360px;
-    padding: 8px 16px 12px 16px;
-    /* Reducir padding superior de 16px a 8px */
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    /* Reducir gap de 12px a 8px */
-    min-height: 24px;
-    /* Reducir altura mínima de 28px a 24px */
-    background: transparent;
-    border-radius: 12px 12px 0 0;
-    cursor: grab;
-    position: relative;
-    touch-action: pan-y;
-    margin: 0 auto;
-}
-
-.bottom-sheet-draggable-bar:active {
-    cursor: grabbing;
-}
-
-/* Ajustar el handle dentro de la barra draggable */
-.bottom-sheet-draggable-bar .bottom-sheet-handle,
-.bottom-sheet-draggable-bar .bottom-sheet-handle-expanded {
-    margin: 0;
-    /* Quitar márgenes para que use el gap del contenedor */
-    padding: 0;
-    /* Quitar padding extra */
-}
-
-/* ========== IMÁGENES MODO COMPACTO ========== */
-
-.bottom-sheet-img-container:not(.full):not(.expanded-img) {
-    width: 100vw;
-    display: flex;
-    justify-content: flex-start;
-    margin-bottom: 0;
-    border-radius: 60px 60px 0 0;
-    overflow: hidden;
-    height: 220px;
-    min-height: 220px;
-    max-height: 220px;
-    position: relative;
-    transition: all 0.3s;
-    padding: 0;
-    margin-left: 0;
-    left: 0;
-    right: 0;
-    background: transparent;
-}
-
-.bottom-sheet-img-container.full:not(.expanded-img) {
-    justify-content: stretch;
-    margin-bottom: 0;
-    border-radius: 32px 32px 0 0;
-    overflow: visible;
-    height: 200px;
-    /* Reducir altura de 240px a 200px */
-    min-height: 200px;
-    max-height: 200px;
-    position: relative;
-    width: 397px;
-    left: 0;
-    right: 0;
-    margin-top: 5px;
-    /* Reducir margen superior de 10px a 5px */
-}
-
-.bottom-sheet-img:not(.full):not(.expanded-img) {
-    width: 397px;
-    height: 220px;
-    min-height: 220px;
-    max-height: 220px;
-    object-fit: cover;
-    border-radius: 60px 60px 0 0;
-    background: transparent;
-    display: block;
-    transition: all 0.3s;
-    margin-left: 0 !important;
-    left: 0;
-    right: 0;
-    position: relative;
-}
-
-.bottom-sheet-img.full:not(.expanded-img) {
-    width: 430px !important;
-    height: 240px;
-    /* Reducir altura de 280px a 240px */
-    min-height: 200px;
-    /* Reducir de 240px a 200px */
-    max-height: 280px;
-    /* Reducir de 320px a 280px */
-    object-fit: cover;
-    border-radius: 60 !important;
-    background: #F6F5F0;
-    /* RESTAURADO: Fondo original */
-    display: block;
-    margin-left: -12px !important;
-}
-
-/* ========== IMÁGENES MODO EXPANDIDO ========== */
-
-.bottom-sheet-img-container.full.expanded-img {
-    border-radius: 0 !important;
-    margin: 0;
-    padding: 10px 20px 20px 20px;
-    overflow: visible !important;
-    height: auto;
-    min-height: auto;
-    max-height: auto;
-    width: 100%;
-    position: relative;
-    left: 0;
-    right: 0;
-    top: 0;
-    z-index: 2 !important;
-    background: transparent;
-    margin-top: 40px;
-    box-shadow: none !important;
-}
-
-/* Imagen expandida: dentro de la card blanca */
-.bottom-sheet-img.full.expanded-img {
-    width: 350px;
-    height: 320px;
-    min-height: 320px;
-    max-height: 320px;
-    border-radius: 50px !important;
-    background: transparent !important;
-    display: block;
-    margin: 0;
-    padding: 0;
-    position: relative;
-    left: -5px;
-    right: 5px;
-    top: 20px;
-    z-index: 3 !important;
-    box-shadow: none !important;
-    filter: none !important;
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
-}
-
-/* Eliminar TODAS las sombras de imágenes en modo expandido */
-.bottom-sheet.expanded img,
-.bottom-sheet-expanded-content img,
-.bottom-sheet-img-container.full.expanded-img img,
-.bottom-sheet-img.full.expanded-img,
-.card img {
-    box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
-    filter: none !important;
-    border: none !important;
-    outline: none !important;
-    text-shadow: none !important;
-}
-
-/* Sobrescribir la regla específica de .card img del Home.css */
-.bottom-sheet .card img,
-.bottom-sheet-expanded-content .card img,
-.bottom-sheet img {
-    box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
-}
-
-/* Eliminar sombras específicamente del container de imagen expandida */
-.bottom-sheet-expanded-content img {
-    box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
-}
-
-/* ========== INFO Y CONTENIDO ========== */
-
-/* Para modo expandido */
-.bottom-sheet-info:not(.compact) {
-    margin-bottom: 18px;
-    padding: 0 24px;
-}
-
-/* Para modo compacto */
-.bottom-sheet-info.compact {
-    background: #F6F5F0;
-    margin-bottom: 0;
-    margin-top: 0;
-    padding: 2px 0 0 0;
-    /* Reducir padding aún más */
-    z-index: 2;
-}
-
-.bottom-sheet-title-price {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-wrap: nowrap;
-    margin-bottom: 0;
-    position: relative;
-    top: 8px;
-    /* Reducir de 15px a 8px */
-    gap: 8px;
-    min-width: 0;
-    width: 100%;
-
-}
-
-.bottom-sheet-title {
-    font-family: 'Explore Magic', 'Raleway', sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 800;
-    line-height: 16px;
-    color: #3a5a40;
-    margin-right: 16px;
-    padding-left: 16px;
-    white-space: normal;
-    overflow: visible;
-    text-overflow: clip;
-    flex: 1 1 auto;
-    min-width: 0;
-    max-width: none;
-    margin-top: 10px;
-}
-
-.bottom-sheet-price {
-    font-family: 'Raleway', 'Explore Magic', sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 16px;
-    color: #3a5a40;
-    margin-top: 18px;
-    /* Reducir de 25px a 18px */
-    margin-left: 16px;
-}
-
-.bottom-sheet-counter {
-    display: flex;
-    align-items: center;
-    background: #5C7347;
-    border-radius: 18px;
-    box-shadow: 0 2px 8px #0001;
-    margin-left: auto;
-    justify-content: center;
-    width: 100px;
-    height: 35px;
-    flex-shrink: 0;
-    margin-right: 10px;
-}
-
-.bottom-sheet-counter button {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: none;
-    background: transparent;
-    color: #fff;
-    font-size: 1.3rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.bottom-sheet-counter button:hover {
-    background: #3a5a40;
-}
-
-.bottom-sheet-counter span {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #F6F5F0;
-    min-width: 24px;
-    text-align: center;
-}
-
-.bottom-sheet-add-row {
-    width: 100%;
-    margin-top: 18px;
-    margin-bottom: 15px;
-    /* Más espacio para el botón de continuar */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 20px;
-    /* Padding lateral */
-}
-
-.bottom-sheet-add-row.compact {
-    background: #F6F5F0;
-    margin-top: 0;
-    margin-bottom: 8px;
-    /* Reducir de 5px a 8px para dar más espacio al continue shopping */
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
 }
 
 /* MODIFICADO: Restaurar el comportamiento original del botón Add */
@@ -508,10 +127,8 @@
     border-radius: 20px;
     padding: 10px 0;
     margin: 8px auto 4px auto;
-    /* MANTENER: Centrar solo este botón */
     cursor: pointer;
     display: flex;
-    /* MODIFICADO: Volver a flex para centrar contenido interno */
     align-items: center;
     justify-content: center;
     gap: 6px;
@@ -519,237 +136,6 @@
     width: 180px;
     height: 40px;
     flex-shrink: 0;
-}
-
-/* MODIFICADO: Asegurar que el contenedor del botón no interfiera */
-.bottom-sheet-add-row {
-    width: 100%;
-    margin-top: 18px;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* MANTENER: Para centrar el botón add */
-    padding: 0 20px;
-}
-
-.bottom-sheet-add-row.compact {
-    background: #F6F5F0;
-    margin-top: 0;
-    margin-bottom: 8px;
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* MANTENER: Para centrar el botón add */
-    z-index: 2;
-}
-
-/* MODIFICADO: Restaurar el fondo original de las imágenes */
-.bottom-sheet-img-container.full:not(.expanded-img) {
-    justify-content: stretch;
-    margin-bottom: 0;
-    border-radius: 32px 32px 0 0;
-    overflow: visible;
-    height: 200px;
-    min-height: 200px;
-    max-height: 200px;
-    position: relative;
-    width: 397px;
-    left: 0;
-    right: 0;
-    margin-top: 5px;
-    background: #F6F5F0;
-    /* RESTAURADO: Fondo original */
-}
-
-.bottom-sheet-img.full:not(.expanded-img) {
-    width: 430px !important;
-    height: 240px;
-    min-height: 200px;
-    max-height: 280px;
-    object-fit: cover;
-    border-radius: 60 !important;
-    background: #F6F5F0;
-    /* RESTAURADO: Fondo original */
-    display: block;
-    margin-left: -12px !important;
-}
-
-/* ========== IMÁGENES MODO EXPANDIDO ========== */
-
-.bottom-sheet-img-container.full.expanded-img {
-    border-radius: 0 !important;
-    margin: 0;
-    padding: 10px 20px 20px 20px;
-    overflow: visible !important;
-    height: auto;
-    min-height: auto;
-    max-height: auto;
-    width: 100%;
-    position: relative;
-    left: 0;
-    right: 0;
-    top: 0;
-    z-index: 2 !important;
-    background: transparent;
-    margin-top: 40px;
-    box-shadow: none !important;
-}
-
-/* Imagen expandida: dentro de la card blanca */
-.bottom-sheet-img.full.expanded-img {
-    width: 350px;
-    height: 320px;
-    min-height: 320px;
-    max-height: 320px;
-    border-radius: 50px !important;
-    background: transparent !important;
-    display: block;
-    margin: 0;
-    padding: 0;
-    position: relative;
-    left: -5px;
-    right: 5px;
-    top: 20px;
-    z-index: 3 !important;
-    box-shadow: none !important;
-    filter: none !important;
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
-}
-
-/* Eliminar TODAS las sombras de imágenes en modo expandido */
-.bottom-sheet.expanded img,
-.bottom-sheet-expanded-content img,
-.bottom-sheet-img-container.full.expanded-img img,
-.bottom-sheet-img.full.expanded-img,
-.card img {
-    box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
-    filter: none !important;
-    border: none !important;
-    outline: none !important;
-    text-shadow: none !important;
-}
-
-/* Sobrescribir la regla específica de .card img del Home.css */
-.bottom-sheet .card img,
-.bottom-sheet-expanded-content .card img,
-.bottom-sheet img {
-    box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
-}
-
-/* Eliminar sombras específicamente del container de imagen expandida */
-.bottom-sheet-expanded-content img {
-    box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
-}
-
-/* ========== INFO Y CONTENIDO ========== */
-
-/* Para modo expandido */
-.bottom-sheet-info:not(.compact) {
-    margin-bottom: 18px;
-    padding: 0 24px;
-}
-
-/* Para modo compacto */
-.bottom-sheet-info.compact {
-    background: #F6F5F0;
-    margin-bottom: 0;
-    margin-top: 0;
-    padding: 2px 0 0 0;
-    /* Reducir padding aún más */
-    z-index: 2;
-}
-
-.bottom-sheet-title-price {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-wrap: nowrap;
-    margin-bottom: 0;
-    position: relative;
-    top: 8px;
-    /* Reducir de 15px a 8px */
-    gap: 8px;
-    min-width: 0;
-    width: 100%;
-
-}
-
-.bottom-sheet-title {
-    font-family: 'Explore Magic', 'Raleway', sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 800;
-    line-height: 16px;
-    color: #3a5a40;
-    margin-right: 16px;
-    padding-left: 16px;
-    white-space: normal;
-    overflow: visible;
-    text-overflow: clip;
-    flex: 1 1 auto;
-    min-width: 0;
-    max-width: none;
-    margin-top: 10px;
-}
-
-.bottom-sheet-price {
-    font-family: 'Raleway', 'Explore Magic', sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 16px;
-    color: #3a5a40;
-    margin-top: 18px;
-    /* Reducir de 25px a 18px */
-    margin-left: 16px;
-}
-
-.bottom-sheet-counter {
-    display: flex;
-    align-items: center;
-    background: #5C7347;
-    border-radius: 18px;
-    box-shadow: 0 2px 8px #0001;
-    margin-left: auto;
-    justify-content: center;
-    width: 100px;
-    height: 35px;
-    flex-shrink: 0;
-    margin-right: 10px;
-}
-
-.bottom-sheet-counter button {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: none;
-    background: transparent;
-    color: #fff;
-    font-size: 1.3rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.bottom-sheet-counter button:hover {
-    background: #3a5a40;
-}
-
-.bottom-sheet-counter span {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #F6F5F0;
-    min-width: 24px;
-    text-align: center;
 }
 
 .bottom-sheet-close {
@@ -774,4 +160,26 @@
     background: none;
     border-color: transparent;
     color: #3a5a40;
+}
+
+/* NUEVO: Estilos para el ícono del carrito en el botón Add to bag */
+.bottom-sheet-add-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bottom-sheet-add-icon img {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    vertical-align: middle;
+    filter: brightness(0) invert(1);
+}
+
+.bottom-sheet-add-text {
+    font-size: 14px;
+    font-weight: 600;
+    vertical-align: middle;
+    color: #fff;
 }
