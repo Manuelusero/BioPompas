@@ -81,15 +81,15 @@ const CategoryPage = () => {
   if (error) return <div className="category-error">{error}</div>;
 
   return (
-    <div className="categoriesPage"> {/* MODIFICADO: Usar clase de Categories.css */}
-      <div className="categoriesHeader"> {/* MODIFICADO: Usar clase existente */}
-        <a href="/categories" className="categoriesBack"> {/* MODIFICADO: Usar clase existente */}
+    <div className="categoriesPage">
+      <div className="categoriesHeader">
+        <a href="/categories" className="categoriesBack">
           <img src="/ArrowLeftIcon.png" alt="Back" className="arrowIcon" />
         </a>
-        <h2 className="categoriesTitle"> {/* MODIFICADO: Usar clase existente */}
+        <h2 className="categoriesTitle">
           {capitalizeFirstLetter(category || '')}
         </h2>
-        <a href="/bag" className="categoriesCartIcon"> {/* MODIFICADO: Usar clase existente */}
+        <a href="/bag" className="categoriesCartIcon">
           <img src="/Cart.svg" alt="Carrito" className="categoriesCartIconImg" />
           {cartCount > 0 && (
             <span className="categoriesCartBadge">{cartCount}</span>
@@ -97,15 +97,14 @@ const CategoryPage = () => {
         </a>
       </div>
       
-      {/* MODIFICADO: Usar las clases del grid existente en Categories.css */}
-      <div className="categories-products"> {/* MODIFICADO: Usar clase existente para grid 2x2 */}
+      <div className="categories-products">
         {products.length === 0 ? (
           <div className="category-no-products">No products found.</div>
         ) : (
           products.map(product => (
             <div 
               key={product._id || product.id} 
-              className="categories-product-card" /* MODIFICADO: Usar clase existente */
+              className="categories-product-card"
               onClick={() => handleProductClick(product)}
             >
               <img 
@@ -114,12 +113,12 @@ const CategoryPage = () => {
                   : `${import.meta.env.VITE_APP_API_URL.replace('/api', '')}${product.image}`
                 }
                 alt={product.name}
-                className="categories-product-image" /* MODIFICADO: Usar clase existente */
+                className="categories-product-image"
                 loading="eager"
               />
-              <div className="categories-product-info"> {/* MODIFICADO: Usar clase existente */}
-                <h3 className="categories-product-name">{product.name}</h3> {/* MODIFICADO: Usar clase existente */}
-                <p className="categories-product-price">€{product.price}</p> {/* MODIFICADO: Usar clase existente */}
+              <div className="categories-product-info">
+                <h3 className="categories-product-name">{product.name}</h3>
+                <p className="categories-product-price">€{Number(product.price).toFixed(2)}</p>
               </div>
             </div>
           ))
@@ -151,5 +150,6 @@ const CategoryPage = () => {
     </div>
   );
 };
+
 
 export default CategoryPage;
