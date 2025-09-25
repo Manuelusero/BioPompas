@@ -1,61 +1,61 @@
 [
     {
-        "name": "COSMETICS",
+        "name": "Cosmetics",
         "image": "/uploads/Cosmetics.png",
         "url": "/category/cosmetics"
     },
     {
-        "name": "CLEANING",
+        "name": "Cleaning",
         "image": "/uploads/Cleaning.png",
         "url": "/category/cleaning"
     },
     {
-        "name": "BATH",
+        "name": "Bath",
         "image": "/uploads/Bath.png",
         "url": "/category/bath"
     },
     {
-        "name": "CANDLES",
+        "name": "Candles",
         "image": "/uploads/Candles.png",
         "url": "/category/candles"
     },
     {
-        "name": "KITCHEN",
+        "name": "Kitchen",
         "image": "/uploads/Kitchen.png",
         "url": "/category/kitchen"
     },
     {
-        "name": "REFILLABLES",
+        "name": "Refillables",
         "image": "/uploads/Refillable.png",
         "url": "/category/refillables"
     },
     {
-        "name": "GIFTBUNDLES",
+        "name": "Gift Bundles",
         "image": "/uploads/GiftBundles.png",
         "url": "/category/gift-bundles"
     },
     {
-        "name": "ACCESSORIES",
+        "name": "Accessories",
         "image": "/uploads/GiftBundles.png",
         "url": "/category/accessories"
     },
     {
-        "name": "SOAPS",
+        "name": "Soaps",
         "image": "/uploads/GiftBundles.png",
         "url": "/category/soaps"
     },
     {
-        "name": "ECOBOTTLES",
+        "name": "Eco Bottles",
         "image": "/uploads/EcoBottles.png",
         "url": "/category/ecobottles"
     },
     {
-        "name": "TOPPICKS",
+        "name": "Top Picks",
         "image": "/uploads/TopPicks.png",
         "url": "/category/toppicks"
     },
     {
-        "name": "ECOSOUVENIRS",
+        "name": "Eco Souvenirs",
         "image": "/uploads/EcoSouvenirs.png",
         "url": "/category/ecosouvenirs"
     }

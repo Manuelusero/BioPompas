@@ -157,56 +157,64 @@
 
 .categories-products {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    grid-template-columns: 1fr 1fr;
+    /* MODIFICADO: Forzar 2 columnas */
+    gap: 20px 16px;
+    /* MODIFICADO: Espacio entre cards */
     padding: 0 20px 20px 20px;
     margin-bottom: 80px;
-    /* Espacio para navbar */
+    justify-items: center;
+    /* NUEVO: Centrar items */
 }
 
 .categories-product-card {
     background: white;
     border-radius: 12px;
-    padding: 10px;
+    padding: 12px;
+    /* MODIFICADO: Más padding */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.categories-product-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.categories-product-card:active {
-    transform: translateY(0);
+    width: 100%;
+    max-width: 170px;
+    /* NUEVO: Ancho máximo consistente */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* NUEVO: Centrar contenido */
 }
 
 .categories-product-image {
-    width: 100%;
-    height: 120px;
+    width: 140px;
+    /* MODIFICADO: Tamaño fijo */
+    height: 140px;
+    /* MODIFICADO: Tamaño fijo */
     object-fit: cover;
     border-radius: 8px;
     margin-bottom: 8px;
 }
 
 .categories-product-info {
-    text-align: left;
+    text-align: center;
+    /* MODIFICADO: Centrar texto */
+    width: 100%;
 }
 
 .categories-product-name {
-    font-family: 'Raleway', 'Explore Magic', Arial, sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    color: #333;
+    font-family: 'Raleway', sans-serif;
+    font-size: 12px;
+    /* MODIFICADO: Consistente con TopPicks */
+    font-weight: 600;
+    color: #2C3E29;
     margin: 0 0 4px 0;
-    line-height: 1.2;
+    line-height: 1.3;
 }
 
 .categories-product-price {
-    font-family: 'Raleway', 'Explore Magic', Arial, sans-serif;
-    font-size: 14px;
-    font-weight: 600;
+    font-family: 'Raleway', sans-serif;
+    font-size: 12px;
+    /* MODIFICADO: Consistente con TopPicks */
+    font-weight: 400;
     color: #3a5a40;
     margin: 0;
 }
