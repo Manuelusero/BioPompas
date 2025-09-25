@@ -115,8 +115,8 @@
     line-height: 20px;
     letter-spacing: 0.3px;
     color: #444;
-    margin: 0 0 24px 20px;
-    /* MODIFICADO: Agregar margen izquierdo */
+    margin: 0 20px 24px 42px;
+    /* MODIFICADO: 42px izquierdo para alinear con flecha */
     padding-right: 20px;
     /* NUEVO: Padding derecho para balancear */
 }
@@ -126,23 +126,19 @@
     font-size: 15px;
     font-weight: 700;
     color: #3a5a40;
-    margin: 18px 0 20px 20px;
-    /* MODIFICADO: Agregar margen izquierdo */
+    margin: 18px 20px 20px 42px;
+    /* MODIFICADO: 42px izquierdo para alinear con flecha */
     letter-spacing: 0.3px;
-    padding-right: 20px;
-    /* NUEVO: Padding derecho para balancear */
 }
 
 .eco-blog-title {
-    margin: 24px 0 0 20px;
-    /* MODIFICADO: Agregar margen izquierdo */
+    margin: 24px 20px 0 42px;
+    /* MODIFICADO: 42px izquierdo para alinear con flecha */
     font-family: 'Explore Magic', 'Raleway', sans-serif;
     color: #3a5a40;
     font-size: 20px;
     font-weight: 700;
     letter-spacing: 1px;
-    padding-right: 20px;
-    /* NUEVO: Padding derecho para balancear */
 }
 
 .eco-blog-readalso-section {
@@ -157,7 +153,8 @@
     font-size: 22px;
     margin-bottom: 18px;
     letter-spacing: 1px;
-    margin-left: 12px;
+    margin-left: 42px;
+    /* MODIFICADO: Alinear con el resto del contenido */
 }
 
 .eco-blog-readalso-list {

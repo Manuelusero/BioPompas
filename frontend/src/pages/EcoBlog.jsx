@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Home.css";
+
 function EcoBlogHeaderWithCartBadge() {
   const [cartCount, setCartCount] = useState(0);
   useEffect(() => {
@@ -23,14 +24,14 @@ function EcoBlogHeaderWithCartBadge() {
     return () => window.removeEventListener('storage', syncCart);
   }, []);
   return (
-    <div style={{ display: 'flex', alignItems: 'center', marginTop: 24 }}>
+    <div className="eco-blog-header">
       <h1 className="eco-blog-title">
         Eco Blog <span className="eco-blog-sub">(Tips for a sustainable life)</span>
       </h1>
-      <div style={{ position: 'relative', display: 'inline-block', marginLeft: '10px' }}>
+      <div className="eco-blog-cart-container">
         <img src="/Cart.svg" alt="Cart" />
         {cartCount > 0 && (
-          <span style={{ position: 'absolute', top: '-10px', right: '-8px', background: '#5C7347', color: '#fff', borderRadius: '50%', padding: '2px 6px', fontSize: '10px', fontWeight: 'bold', zIndex: 10, boxShadow: '0 2px 8px #0002' }}>{cartCount}</span>
+          <span className="eco-blog-cart-badge">{cartCount}</span>
         )}
       </div>
     </div>

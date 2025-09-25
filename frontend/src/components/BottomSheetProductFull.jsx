@@ -115,11 +115,8 @@ const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, cou
   if (!open || !product) return null;
 
   return (
-    <div className="bottom-sheet-overlay" onClick={handleOverlayClick}>
-      <div
-        className={`bottom-sheet${expanded ? ' expanded' : ''}`}
-        ref={sheetRef}
-      >
+    <div className={`bottom-sheet-overlay ${open ? 'open' : ''}`} onClick={handleOverlayClick}>
+      <div className="bottom-sheet-content" onClick={(e) => e.stopPropagation()}>
         {expanded ? (
           <>
             <div className="bottom-sheet-expanded-content">
@@ -244,3 +241,4 @@ BottomSheetProductFull.propTypes = {
 };
 
 export default BottomSheetProductFull;
+

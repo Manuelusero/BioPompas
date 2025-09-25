@@ -502,28 +502,21 @@
     color: #fff;
     font-family: 'Raleway', 'Explore Magic', sans-serif;
     font-size: 14px;
-    /* Reducir tamaño de fuente de 1.1rem a 14px */
     font-weight: 600;
     border: none;
     border-radius: 20px;
-    /* Más redondeado y compacto */
     padding: 10px 0;
-    /* Reducir padding de 14px a 10px */
-    margin-top: 8px;
-    /* Reducir de 18px a 8px */
-    margin-bottom: 4px;
-    /* Reducir de 8px a 4px */
+    margin: 8px auto 4px auto;
+    /* MODIFICADO: Centrar con margin auto */
     cursor: pointer;
-    display: flex;
+    display: block;
+    /* MODIFICADO: Para que margin auto funcione */
     align-items: center;
     justify-content: center;
     gap: 6px;
-    /* Reducir gap de 8px a 6px */
     transition: background 0.2s;
     width: 180px;
-    /* Reducir ancho de 200px a 180px */
     height: 40px;
-    /* Reducir altura de 50px a 40px */
     flex-shrink: 0;
 }
 
@@ -549,41 +542,39 @@
     background: #588157;
 }
 
+/* MODIFICADO: Simplificar botón Continue shopping */
 .bottom-sheet-close {
-    width: 100%;
-    background: #f0f0f0;
-    /* Fondo más visible */
-    color: #3a5a40;
+    width: auto;
+    /* MODIFICADO: Ancho automático */
+    background: none;
+    /* MODIFICADO: Sin fondo */
+    color: #666;
+    /* MODIFICADO: Color gris */
     font-family: 'Raleway', 'Explore Magic', sans-serif;
     font-size: 12px;
-    /* Reducir de 14px a 12px */
-    font-weight: 600;
-    border: 2px solid #e0e0e0;
-    /* Borde para más visibilidad */
-    border-radius: 20px;
-    /* Más compacto */
+    font-weight: 400;
+    /* MODIFICADO: Menos bold */
+    border: none;
+    /* MODIFICADO: Sin borde */
+    border-radius: 0;
     padding: 8px 0;
-    /* Reducir padding de 12px a 8px */
-    margin-bottom: 12px;
-    /* Reducir de 20px a 12px */
-    margin-top: 2px;
-    /* Reducir de 5px a 2px */
+    margin: 0 auto;
+    /* MODIFICADO: Centrar */
     cursor: pointer;
-    text-decoration: none;
-    /* Quitar underline */
-    transition: all 0.2s;
-    min-height: 36px;
-    /* Reducir de 44px a 36px */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+    text-decoration: underline;
+    /* MODIFICADO: Subrayado como enlace */
+    transition: color 0.2s;
+    min-height: auto;
+    display: block;
+    /* MODIFICADO: Para centrar */
 }
 
 .bottom-sheet-close:hover {
-    background: #e8e8e8;
-    border-color: #d0d0d0;
-    color: #2c4532;
+    background: none;
+    /* MODIFICADO: Sin fondo en hover */
+    border-color: transparent;
+    color: #3a5a40;
+    /* MODIFICADO: Verde al hover */
 }
 
 /* Header del estado expandido con flecha atrás y carrito - superpuesto EN la imagen */
