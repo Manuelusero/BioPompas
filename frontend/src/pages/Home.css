@@ -19,8 +19,7 @@
 
 .cart-badge {
     position: absolute;
-    top: -5px;
-    right: -5px;
+    top: 2px;
     /* REVERTIDO: Volver al valor original */
     background: #5C7347;
     color: #fff;
@@ -40,7 +39,7 @@
 
 /* NUEVO: Clase específica para el carrito en la página Home */
 .homePage .cart-badge {
-    right: -10px;
+    right: 21px;
     /* MODIFICADO: Aplicar el ajuste solo en Home */
 }
 
