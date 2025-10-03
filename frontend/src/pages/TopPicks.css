@@ -13,17 +13,25 @@
 /* Badge del carrito para TopPicks */
 .cart-badge-topPick {
     position: absolute;
-    right: 10px;
+    top: -5px;
+    /* MODIFICADO: Mover más arriba */
+    right: -5px;
+    /* MODIFICADO: Mover más a la derecha */
     background: #5C7347;
     color: #fff;
     border-radius: 50%;
+    width: 18px;
+    /* MODIFICADO: Tamaño consistente */
+    height: 18px;
+    /* MODIFICADO: Tamaño consistente */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 10px;
-    font-weight: bold;
+    font-weight: 600;
+    font-family: 'Raleway', sans-serif;
     z-index: 10;
-    box-shadow: 0 2px 8px #0002;
-    min-width: 15px;
-    text-align: center;
-    line-height: 1.2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .toppicks-page {

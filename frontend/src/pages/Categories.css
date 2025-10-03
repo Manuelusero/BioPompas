@@ -23,21 +23,27 @@
     display: block;
 }
 
+/* MODIFICADO: Arreglar posición del badge del carrito */
 .categoriesCartBadge {
     position: absolute;
-    top: 7px;
-    right: 7px;
+    top: -5px;
+    /* MODIFICADO: Mover más arriba */
+    right: -5px;
+    /* MODIFICADO: Mover más a la derecha */
     background: #5C7347;
     color: white;
     border-radius: 50%;
-    width: 11.25px;
-    height: 11.25px;
+    width: 18px;
+    /* MODIFICADO: Tamaño consistente */
+    height: 18px;
+    /* MODIFICADO: Tamaño consistente */
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 10px;
-    font-weight: 400;
-    font-family: 'Raleway', 'Explore Magic', sans-serif;
+    font-weight: 600;
+    font-family: 'Raleway', sans-serif;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .categoriesPage {
