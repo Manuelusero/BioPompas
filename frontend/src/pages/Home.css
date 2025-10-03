@@ -20,8 +20,8 @@
 .cart-badge {
     position: absolute;
     top: -5px;
-    right: -10px;
-    /* MODIFICADO: Mover más a la izquierda */
+    right: -5px;
+    /* REVERTIDO: Volver al valor original */
     background: #5C7347;
     color: #fff;
     border-radius: 50%;
@@ -36,6 +36,12 @@
     z-index: 10;
     min-width: 18px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* NUEVO: Clase específica para el carrito en la página Home */
+.homePage .cart-badge {
+    right: -10px;
+    /* MODIFICADO: Aplicar el ajuste solo en Home */
 }
 
 .logo-container {
