@@ -26,24 +26,20 @@
 /* MODIFICADO: Arreglar posición del badge del carrito */
 .categoriesCartBadge {
     position: absolute;
-    top: -5px;
-    /* MODIFICADO: Mover más arriba */
-    right: -5px;
-    /* MODIFICADO: Mover más a la derecha */
+    top: 5px;
+    right: 7px;
     background: #5C7347;
     color: white;
     border-radius: 50%;
-    width: 18px;
-    /* MODIFICADO: Tamaño consistente */
-    height: 18px;
-    /* MODIFICADO: Tamaño consistente */
+    width: 11.85px;
+    height: 11.85px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 10px;
-    font-weight: 600;
+    font-weight: 400;
     font-family: 'Raleway', sans-serif;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
 }
 
 .categoriesPage {
@@ -61,7 +57,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* MODIFICADO: Distribuir espacio equitativamente */
     margin: 0 0 20px 0;
     background: none;
     border-radius: 18px 18px 0 0;
@@ -78,13 +73,12 @@
     margin: 0;
     letter-spacing: 1px;
     flex: 1;
-    /* MODIFICADO: Ocupar espacio central */
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0;
-    /* MODIFICADO: Quitar padding que descentraba */
+    margin-top: 7px;
 }
 
 .categoriesGrid {

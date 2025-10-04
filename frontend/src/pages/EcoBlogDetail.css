@@ -50,32 +50,27 @@
     font-size: 2rem;
     color: #3a5a40;
     margin: 0;
-    /* MODIFICADO: Sin márgenes */
     letter-spacing: 1px;
     flex: 1;
-    /* MODIFICADO: Ocupar espacio central */
     text-align: center;
-    /* MODIFICADO: Centrar texto */
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 7px;
 }
 
 .ecoBlogDetailCart {
     position: relative;
-    /* MODIFICADO: Cambiar de absolute a relative */
     display: flex;
     align-items: center;
     justify-content: center;
     background: none;
     border: none;
     z-index: 2;
-    width: 38px;
-    /* MODIFICADO: Mismo tamaño que back */
-    height: 38px;
-    /* MODIFICADO: Mismo tamaño que back */
+    width: 25px;
+    height: 25px;
     flex-shrink: 0;
-    /* NUEVO: No contraer */
+
 }
 
 .ecoBlogDetailCart img {
@@ -88,10 +83,8 @@
 
 .ecoBlogDetailCartBadge {
     position: absolute;
-    top: 7px;
-    /* MODIFICADO: Ajustar posición */
-    right: 7px;
-    /* MODIFICADO: Ajustar posición */
+    top: 28px;
+    right: 17px;
     background: #5C7347;
     color: white;
     border-radius: 50%;
@@ -106,7 +99,6 @@
     z-index: 3;
 }
 
-/* NUEVO: Agregar margen izquierdo a todo el contenido de texto */
 .eco-blog-content,
 .ecoBlogDetailPage p {
     font-family: 'Raleway', 'Explore Magic', sans-serif;
@@ -115,10 +107,8 @@
     line-height: 20px;
     letter-spacing: 0.3px;
     color: #444;
-    margin: 0 20px 24px 42px;
-    /* MODIFICADO: 42px izquierdo para alinear con flecha */
+    margin: 0 20px 24px 14px;
     padding-right: 20px;
-    /* NUEVO: Padding derecho para balancear */
 }
 
 .eco-blog-content h3 {
@@ -126,14 +116,12 @@
     font-size: 15px;
     font-weight: 700;
     color: #3a5a40;
-    margin: 18px 20px 20px 42px;
-    /* MODIFICADO: 42px izquierdo para alinear con flecha */
+    margin: 18px 20px 20px 14px;
     letter-spacing: 0.3px;
 }
 
-.eco-blog-title {
-    margin: 24px 20px 0 42px;
-    /* MODIFICADO: 42px izquierdo para alinear con flecha */
+.ecoBlog-title {
+    margin: 24px 20px 0 29px;
     font-family: 'Explore Magic', 'Raleway', sans-serif;
     color: #3a5a40;
     font-size: 20px;
@@ -153,8 +141,7 @@
     font-size: 22px;
     margin-bottom: 18px;
     letter-spacing: 1px;
-    margin-left: 42px;
-    /* MODIFICADO: Alinear con el resto del contenido */
+    margin-left: 29px;
 }
 
 .eco-blog-readalso-list {

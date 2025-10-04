@@ -7,31 +7,25 @@
     width: 40px;
     height: 40px;
     flex-shrink: 0;
-    /* NUEVO: No contraer */
 }
 
 /* Badge del carrito para TopPicks */
 .cart-badge-topPick {
     position: absolute;
-    top: -5px;
-    /* MODIFICADO: Mover más arriba */
-    right: -5px;
-    /* MODIFICADO: Mover más a la derecha */
+    top: 2px;
+    right: -2px;
     background: #5C7347;
     color: #fff;
     border-radius: 50%;
-    width: 18px;
-    /* MODIFICADO: Tamaño consistente */
-    height: 18px;
-    /* MODIFICADO: Tamaño consistente */
+    width: 11.85px;
+    height: 11.85px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 10px;
     font-weight: 600;
     font-family: 'Raleway', sans-serif;
-    z-index: 10;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 3
 }
 
 .toppicks-page {
@@ -48,11 +42,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* MODIFICADO: Distribuir espacio equitativamente */
     margin: 0 -6px 20px -6px;
     background: none;
-    border-radius: 18px 18px 0 0;
-    box-shadow: none;
     padding: 24px 18px 12px 18px;
     position: relative;
 }
@@ -65,7 +56,6 @@
     margin: 0;
     letter-spacing: 1px;
     flex: 1;
-    /* MODIFICADO: Ocupar espacio central */
     text-align: center;
     display: flex;
     align-items: center;
@@ -96,7 +86,6 @@
     justify-content: center;
     text-decoration: none;
     flex-shrink: 0;
-    /* NUEVO: No contraer */
 }
 
 .toppicks-back .arrow-icon {
@@ -107,11 +96,11 @@
 }
 
 .toppicks-cart {
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     cursor: pointer;
-    margin-top: 0;
-    /* MODIFICADO: Quitar margen que descentraba */
+    margin-top: -5px;
+    margin-left: 15px;
 }
 
 .toppicks-list {
@@ -119,11 +108,9 @@
     grid-template-columns: 1fr 1fr;
     gap: 25px 16px;
     justify-content: center;
-    /* MODIFICADO: Centrar perfectamente el grid */
     margin: 0 auto;
     max-width: 360px;
     justify-items: center;
-    /* NUEVO: Centrar items del grid */
 }
 
 .toppick-card {
