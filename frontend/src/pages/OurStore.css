@@ -15,15 +15,16 @@
 }
 
 .ourStoreCartIcon img {
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     object-fit: contain;
     display: block;
+    margin-top: 7px;
 }
 
 .ourStoreCartBadge {
     position: absolute;
-    top: 3px;
+    top: 5px;
     right: 2px;
     background: #5C7347;
     color: white;
@@ -118,13 +119,6 @@
     background: none;
     border: none;
     z-index: 2;
-}
-
-.ourStoreCartIcon img {
-    width: 28px;
-    height: 28px;
-    object-fit: contain;
-    display: block;
 }
 
 .ourStoreImageContainer {

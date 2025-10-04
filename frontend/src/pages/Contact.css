@@ -28,6 +28,7 @@
     height: 22px;
     object-fit: contain;
     display: block;
+    margin-bottom: 7px;
 }
 
 .contact-title {
@@ -65,12 +66,13 @@
     height: 28px;
     object-fit: contain;
     display: block;
+    margin-right: 10px;
 }
 
 .contact-cart-badge {
     position: absolute;
     top: -2px;
-    right: 0px;
+    right: 8px;
     background: #588157;
     color: #fff;
     border-radius: 50%;

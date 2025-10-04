@@ -6,7 +6,6 @@
     position: relative;
     overflow-x: hidden;
     padding-top: 0;
-    /* Asegurar que no hay padding superior */
 }
 
 .profile-header {
@@ -16,12 +15,10 @@
     padding: 20px 24px 10px;
     background: #f5f5f5;
     position: relative;
-    margin-top: 20px;
-    /* Reducir margen superior para que aparezca más arriba */
+    margin-top: 30px;
     position: sticky;
     top: 0;
     z-index: 10;
-    /* Asegurar que esté encima */
 }
 
 .profile-back-btn {
@@ -42,7 +39,6 @@
 
 .profile-title {
     font-family: 'Raleway', 'Explore Magic', Arial, sans-serif;
-    /* Raleway como principal, Explore Magic como fallback */
     font-size: 20px;
     font-weight: 600;
     margin: 0;
@@ -77,7 +73,6 @@
     padding: 0 24px;
     margin-bottom: 40px;
     margin-top: 40px;
-    /* Reducir de 57px a 40px para que esté más cerca del header */
 }
 
 .profile-tab {
@@ -101,7 +96,6 @@
 
 .profile-content {
     padding: 0 24px 20px 24px;
-    /* Agregar padding bottom */
     flex: 1;
 }
 
@@ -131,7 +125,6 @@
 
 .empty-state-title {
     font-family: 'Raleway', 'Explore Magic', Arial, sans-serif;
-    /* Cambiar aquí también */
     font-size: 20px;
     font-weight: 600;
     color: #2C3E29;
@@ -140,7 +133,6 @@
 
 .empty-state-text {
     font-family: 'Raleway', 'Explore Magic', Arial, sans-serif;
-    /* Cambiar aquí también */
     font-size: 14px;
     color: #2C3E29;
     line-height: 1.5;
@@ -158,7 +150,6 @@
 
 .account-section-title {
     font-family: 'Raleway', 'Explore Magic', Arial, sans-serif;
-    /* Cambiar aquí también */
     font-size: 16px;
     font-weight: 600;
     color: #3a5a40;
@@ -168,7 +159,6 @@
 
 .profile-info {
     margin-bottom: 35px;
-    /* Aumentar espacio entre secciones */
 }
 
 .profile-info:last-child {
@@ -202,7 +192,6 @@
     border-radius: 6px;
     margin-bottom: 10px;
     font-family: 'Raleway', 'Explore Magic', Arial, sans-serif;
-    /* Cambiar aquí también */
     font-size: 14px;
 }
 
@@ -252,7 +241,6 @@
 
 .address-line {
     font-family: 'Raleway', 'Explore Magic', Arial, sans-serif;
-    /* Cambiar aquí también */
     font-size: 14px;
     color: #666;
     margin-bottom: 5px;
@@ -260,7 +248,6 @@
 
 .no-data {
     font-family: 'Raleway', 'Explore Magic', Arial, sans-serif;
-    /* Cambiar aquí también */
     font-size: 14px;
     color: #999;
     font-style: italic;
@@ -301,7 +288,6 @@
 .payment-label {
     flex: 1;
     font-family: 'Raleway', 'Explore Magic', Arial, sans-serif;
-    /* Cambiar aquí también */
     font-size: 14px;
     color: #666;
 }
@@ -411,13 +397,11 @@
     cursor: pointer;
     transition: background 0.2s ease;
     font-family: 'Raleway', 'Explore Magic', Arial, sans-serif;
-    /* Cambiar aquí también */
     display: block;
 }
 
 .profile-logout-btn:hover {
     background: #2c4532;
-    /* Verde más oscuro en hover */
 }
 
 /* Responsive para mantener el contenido visible desde arriba */
