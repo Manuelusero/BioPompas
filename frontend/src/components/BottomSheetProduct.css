@@ -50,6 +50,13 @@
     right: 0;
     border-radius: 0 !important;
     margin-top: 0 !important;
+    margin-left: 10px;
+}
+
+.bottom-sheet-cart-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
 }
 
 /* ========== MODO EXPANDIDO ========== */
@@ -192,6 +199,7 @@
     position: relative;
     touch-action: pan-y;
     margin: 0;
+    margin-bottom: -9px;
 }
 
 .bottom-sheet-draggable-bar:active {

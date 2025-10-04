@@ -163,7 +163,7 @@ const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, cou
                 <div className="bottom-sheet-add-row expanded">
                   <button className="bottom-sheet-add" onClick={() => onAdd(product, count)}>
                     <span className="bottom-sheet-add-icon">
-                      <img src="/Cart.svg" alt="Carrito" />
+                      <img className="bottom-sheet-cart-icon" src="/Cart.svg" alt="Carrito" />
                     </span>
                     <span className="bottom-sheet-add-text">Add to bag</span>
                   </button>
