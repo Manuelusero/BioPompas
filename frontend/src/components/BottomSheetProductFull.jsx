@@ -158,7 +158,7 @@ const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, cou
                 )}
               </div>
               
-              {/* AGREGAR los botones aquí para el estado expandido */}
+              {/* MODIFICADO: Botones en estado expandido dentro del contenedor */}
               <div className="bottom-sheet-actions-expanded">
                 <div className="bottom-sheet-add-row expanded">
                   <button className="bottom-sheet-add" onClick={() => onAdd(product, count)}>
@@ -169,7 +169,7 @@ const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, cou
                   </button>
                 </div>
                 
-                {/* Botón Continue shopping en estado expandido */}
+                {/* Continue shopping solo en expandido */}
                 <button className="bottom-sheet-close" onClick={onClose}>
                   Continue shopping
                 </button>
@@ -218,10 +218,7 @@ const BottomSheetProductFull = ({ productId, products, open, onClose, onAdd, cou
                   <span className="bottom-sheet-add-text">Add to bag</span>
                 </button>
               </div>
-              {/* Botón Continue shopping siempre visible en modo compacto también */}
-              <button className="bottom-sheet-close" onClick={onClose}>
-                Continue shopping
-              </button>
+              {/* ELIMINADO: No hay Continue shopping en modo compacto */}
             </div>
           </>
         )}
