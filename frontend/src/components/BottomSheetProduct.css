@@ -50,7 +50,10 @@
     right: 0;
     border-radius: 0 !important;
     margin-top: 0 !important;
-    margin-left: 10px;
+    margin-left: 0;
+    /* MODIFICADO: Quitar margen izquierdo que desplaza */
+    padding-left: 0;
+    /* NUEVO: Asegurar que no haya padding izquierdo */
 }
 
 .bottom-sheet-cart-icon {
@@ -180,12 +183,10 @@
     position: relative;
     overflow: hidden;
     min-height: 500px;
-    /* MODIFICADO: Aumentar de 440px a 500px para Safari iOS */
     max-height: 80vh;
     margin: 0;
     padding: 0;
     padding-bottom: env(safe-area-inset-bottom, 20px);
-    /* NUEVO: Agregar padding para Safari iOS */
     left: 0;
     right: 0;
 }
@@ -193,7 +194,8 @@
 .bottom-sheet-draggable-bar {
     display: flex;
     width: 100%;
-    padding: 12px 1px 10px 1px;
+    padding: 12px 0 10px 0;
+    /* MODIFICADO: Quitar padding lateral que causa desplazamiento */
     flex-direction: column;
     align-items: center;
     gap: 0;
