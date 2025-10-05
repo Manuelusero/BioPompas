@@ -193,7 +193,6 @@
     align-items: center;
     gap: 0;
     min-height: 32px;
-    background: #E8E6DD;
     border-radius: 32px 32px 0 0;
     cursor: grab;
     position: relative;
@@ -279,7 +278,8 @@
 .bottom-sheet-img-container.full.expanded-img {
     border-radius: 0 !important;
     margin: 0;
-    padding: 10px 20px 20px 20px;
+    padding: 10px 20px 10px 20px;
+    /* MODIFICADO: Menos padding superior */
     overflow: visible !important;
     height: auto;
     min-height: auto;
@@ -291,15 +291,15 @@
     top: 0;
     z-index: 2 !important;
     background: transparent;
-    margin-top: 40px;
+    margin-top: 20px;
     box-shadow: none !important;
 }
 
 .bottom-sheet-img.full.expanded-img {
     width: 350px;
-    height: 320px;
-    min-height: 320px;
-    max-height: 320px;
+    height: 280px;
+    min-height: 280px;
+    max-height: 280px;
     border-radius: 50px !important;
     background: transparent !important;
     display: block;
@@ -308,7 +308,7 @@
     position: relative;
     left: -5px;
     right: 5px;
-    top: 20px;
+    top: 10px;
     z-index: 3 !important;
     box-shadow: none !important;
     filter: none !important;
@@ -502,4 +502,34 @@
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.3px;
+}
+
+/* NUEVO: Contenedor de acciones en modo expandido */
+.bottom-sheet-actions-expanded {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 20px;
+    margin-top: auto;
+    background: transparent;
+    /* Sin fondo */
+}
+
+/* NUEVO: Botón Continue shopping */
+.bottom-sheet-close {
+    background: transparent;
+    border: none;
+    color: #3a5a40;
+    font-family: 'Raleway', 'Explore Magic', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 8px;
+    transition: color 0.2s;
+}
+
+.bottom-sheet-close:hover {
+    color: #588157;
 }
