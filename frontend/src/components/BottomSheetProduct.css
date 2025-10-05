@@ -75,6 +75,8 @@
     border-radius: 60px 60px 0 0;
     margin-top: 0;
     padding-top: 0;
+    padding-bottom: env(safe-area-inset-bottom, 20px);
+    /* NUEVO: Padding para Safari iOS */
     justify-content: space-between;
 }
 
@@ -177,10 +179,13 @@
     animation: slideUp 0.3s ease-out;
     position: relative;
     overflow: hidden;
-    min-height: 440px;
+    min-height: 500px;
+    /* MODIFICADO: Aumentar de 440px a 500px para Safari iOS */
     max-height: 80vh;
     margin: 0;
     padding: 0;
+    padding-bottom: env(safe-area-inset-bottom, 20px);
+    /* NUEVO: Agregar padding para Safari iOS */
     left: 0;
     right: 0;
 }
@@ -433,8 +438,10 @@
 .bottom-sheet-add-row.compact {
     background: #F6F5F0;
     margin-top: 0;
-    margin-bottom: 8px;
-    padding: 0 20px;
+    margin-bottom: 20px;
+    /* MODIFICADO: Aumentar de 8px a 20px para evitar el footer de Safari */
+    padding: 0 20px 20px 20px;
+    /* NUEVO: Agregar padding inferior */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -496,7 +503,10 @@
     flex-direction: column;
     align-items: center;
     gap: 12px;
-    padding: 20px;
+    padding: 20px 20px 30px 20px;
+    /* MODIFICADO: Aumentar padding inferior de 20px a 30px */
+    padding-bottom: calc(30px + env(safe-area-inset-bottom, 0px));
+    /* NUEVO: Agregar espacio extra para Safari iOS */
     margin-top: auto;
     background: transparent;
     /* Sin fondo */
