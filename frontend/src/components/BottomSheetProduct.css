@@ -80,7 +80,7 @@
 
 .bottom-sheet-expanded-content .bottom-sheet-info {
     padding: 0 24px;
-    margin-bottom: 18px;
+    margin-bottom: -30px;
     flex-grow: 1;
 }
 
@@ -199,6 +199,7 @@
     touch-action: pan-y;
     margin: 0;
     margin-bottom: -9px;
+    background: #f6f5f0;
 }
 
 .bottom-sheet-draggable-bar:active {
@@ -329,10 +330,6 @@
 }
 
 /* ========== INFO Y CONTENIDO ========== */
-.bottom-sheet-info:not(.compact) {
-    margin-bottom: 18px;
-    padding: 0 24px;
-}
 
 .bottom-sheet-info.compact {
     background: #F6F5F0;
