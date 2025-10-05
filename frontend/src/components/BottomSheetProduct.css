@@ -205,12 +205,6 @@
     cursor: grabbing;
 }
 
-.bottom-sheet-draggable-bar .bottom-sheet-handle,
-.bottom-sheet-draggable-bar .bottom-sheet-handle-expanded {
-    margin: 0;
-    padding: 0;
-}
-
 /* ========== IMÁGENES MODO COMPACTO ========== */
 .bottom-sheet-img-container:not(.full):not(.expanded-img) {
     width: 100vw;
@@ -297,9 +291,9 @@
 
 .bottom-sheet-img.full.expanded-img {
     width: 350px;
-    height: 280px;
-    min-height: 280px;
-    max-height: 280px;
+    height: 315px;
+    min-height: 200px;
+    max-height: 350px;
     border-radius: 50px !important;
     background: transparent !important;
     display: block;
@@ -309,11 +303,6 @@
     left: -5px;
     right: 5px;
     top: 10px;
-    z-index: 3 !important;
-    box-shadow: none !important;
-    filter: none !important;
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
 }
 
 /* Eliminar TODAS las sombras de imágenes en modo expandido */
